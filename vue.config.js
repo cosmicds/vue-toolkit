@@ -1,5 +1,6 @@
 const { defineConfig } = require("@vue/cli-service");
 const webpack = require("webpack");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = defineConfig({
   publicPath: "./",
@@ -42,6 +43,11 @@ module.exports = defineConfig({
     plugins: [
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1
+      }),
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: 'src/assets', to: 'assets' }
+        ]
       })
     ]
   },
