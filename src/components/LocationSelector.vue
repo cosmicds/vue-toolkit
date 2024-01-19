@@ -180,7 +180,7 @@ export default defineComponent({
       );
     },
 
-    circleForLocation(location: LocationDeg, circleOptions: Record<string,any>): L.CircleMarker {
+    circleForLocation(location: LocationDeg, circleOptions: Record<string,any>): L.CircleMarker {  // eslint-disable-line @typescript-eslint/no-explicit-any
       return this.circleMaker([location.latitudeDeg, location.longitudeDeg], circleOptions);
     },
 
