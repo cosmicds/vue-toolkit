@@ -258,6 +258,38 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cosmicds/vue-toolkit@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@cosmicds/vue-toolkit@workspace:."
+  dependencies:
+    "@fortawesome/fontawesome-svg-core": ^6.5.1
+    "@fortawesome/free-solid-svg-icons": ^6.5.1
+    "@fortawesome/vue-fontawesome": ^3.0.3
+    "@kyvg/vue3-notification": ^2.9.1
+    "@mdi/font": ^7.4.47
+    "@types/leaflet": ^1.9.3
+    "@typescript-eslint/eslint-plugin": ^6.19.0
+    "@typescript-eslint/parser": ^6.19.0
+    "@vue/cli-plugin-eslint": ^5.0.8
+    "@vue/cli-plugin-typescript": ^5.0.8
+    "@vue/cli-service": ^5.0.8
+    "@vue/eslint-config-typescript": ^12.0.0
+    "@wwtelescope/engine-pinia": ^0.2.0
+    copy-webpack-plugin: ^12.0.2
+    eslint: ^8.31.0
+    eslint-plugin-vue: ^9.8.0
+    leaflet: ^1.9.4
+    less: ^4.2.0
+    less-loader: ^12.1.0
+    screenfull: ^6.0.2
+    typescript: ^4.9.4
+    vue: ^3
+    vue-template-compiler: ^2.7.14
+    vuetify: ^3.3.3
+    webpack: ^5.75.0
+  languageName: unknown
+  linkType: soft
+
 "@discoveryjs/json-ext@npm:0.5.7":
   version: 0.5.7
   resolution: "@discoveryjs/json-ext@npm:0.5.7"
@@ -471,38 +503,6 @@ __metadata:
   checksum: b45a2ef27c1cc5f80b8458a48591799d42dc01189b136f65f14eb3f9e81799a7c4a64bd008c8e735eb8852f0036bcbe43f97ddc7dbd9c2163709429a71109061
   languageName: node
   linkType: hard
-
-"@minids/common@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@minids/common@workspace:."
-  dependencies:
-    "@fortawesome/fontawesome-svg-core": ^6.5.1
-    "@fortawesome/free-solid-svg-icons": ^6.5.1
-    "@fortawesome/vue-fontawesome": ^3.0.3
-    "@kyvg/vue3-notification": ^2.9.1
-    "@mdi/font": ^7.4.47
-    "@types/leaflet": ^1.9.3
-    "@typescript-eslint/eslint-plugin": ^6.19.0
-    "@typescript-eslint/parser": ^6.19.0
-    "@vue/cli-plugin-eslint": ^5.0.8
-    "@vue/cli-plugin-typescript": ^5.0.8
-    "@vue/cli-service": ^5.0.8
-    "@vue/eslint-config-typescript": ^12.0.0
-    "@wwtelescope/engine-pinia": ^0.2.0
-    copy-webpack-plugin: ^12.0.2
-    eslint: ^8.31.0
-    eslint-plugin-vue: ^9.8.0
-    leaflet: ^1.9.4
-    less: ^4.2.0
-    less-loader: ^12.1.0
-    screenfull: ^6.0.2
-    typescript: ^4.9.4
-    vue: ^3
-    vue-template-compiler: ^2.7.14
-    vuetify: ^3.3.3
-    webpack: ^5.75.0
-  languageName: unknown
-  linkType: soft
 
 "@node-ipc/js-queue@npm:2.0.3":
   version: 2.0.3
