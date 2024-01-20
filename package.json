@@ -8,7 +8,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@kyvg/vue3-notification": "^2.9.1",
     "@mdi/font": "^7.4.47",
-    "@wwtelescope/engine-pinia": "^0.2.0",
+    "@wwtelescope/engine-pinia": "^0.9.0",
     "leaflet": "^1.9.4",
     "screenfull": "^6.0.2",
     "vue": "^3",
@@ -31,6 +31,10 @@
     "vue-template-compiler": "^2.7.14",
     "webpack": "^5.75.0"
   },
+  "files": [
+      "dist/*",
+      "src/*"
+  ],
   "main": "./dist/index.common.js",
   "module": "dist/",
   "packageManager": "yarn@3.3.0",
