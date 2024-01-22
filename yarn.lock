@@ -274,7 +274,7 @@ __metadata:
     "@vue/cli-plugin-typescript": ^5.0.8
     "@vue/cli-service": ^5.0.8
     "@vue/eslint-config-typescript": ^12.0.0
-    "@wwtelescope/engine-pinia": ^0.2.0
+    "@wwtelescope/engine-pinia": ^0.9.0
     copy-webpack-plugin: ^12.0.2
     eslint: ^8.31.0
     eslint-plugin-vue: ^9.8.0
@@ -1543,7 +1543,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wwtelescope/engine-helpers@npm:>=0.9.0":
+"@wwtelescope/engine-helpers@npm:>=0.15.0":
   version: 0.16.0
   resolution: "@wwtelescope/engine-helpers@npm:0.16.0"
   dependencies:
@@ -1554,17 +1554,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wwtelescope/engine-pinia@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "@wwtelescope/engine-pinia@npm:0.2.0"
+"@wwtelescope/engine-pinia@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "@wwtelescope/engine-pinia@npm:0.9.0"
   dependencies:
     "@wwtelescope/astro": ">=0.2.2"
-    "@wwtelescope/engine": ^7.18.0
-    "@wwtelescope/engine-helpers": ">=0.9.0"
+    "@wwtelescope/engine": ^7.29.1
+    "@wwtelescope/engine-helpers": ">=0.15.0"
     "@wwtelescope/engine-types": ">=0.6.3"
     pinia: ^2.0.22
     vue: ^3
-  checksum: f08e770189d6cc806bb8b56d961fa91c952324b47c52eecec9173a12741767664751c9ed6deec3ef29e97eb1f40a0eece3534574f92bb32a9a918cfeab31fe0c
+  checksum: f5fd7ebf326cc182f046fa76ead901a983267ebf365f0ccd5289ab2eb613062b1dc9659f6ed15c7c9ac75b72f0c6515b0ac1eee2eb371fb3e95a1115e53a9611
   languageName: node
   linkType: hard
 
@@ -1575,7 +1575,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wwtelescope/engine@npm:^7.18.0, @wwtelescope/engine@npm:^7.29.1":
+"@wwtelescope/engine@npm:^7.29.1":
   version: 7.29.3
   resolution: "@wwtelescope/engine@npm:7.29.3"
   dependencies:
