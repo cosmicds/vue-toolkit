@@ -19,5 +19,5 @@ jobs:
       - run: 'echo "npmAuthToken: ${NPM_PUBLISH_TOKEN}" >> .yarnrc.yml'
         env:
           NPM_PUBLISH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-      - run: yarn npm publish --access public
+      - run: yarn npm publish
 
