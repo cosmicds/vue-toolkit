@@ -12,3 +12,13 @@ npm i @cosmicds/vue-toolkit
 # or if you're using Yarn
 yarn add @cosmicds/vue-toolkit
 ```
+
+## Development
+
+If you're doing development work on these components, it will likely be useful to have an external sample project that imports a development version of this one. The easiest way to do this is probably to use [`npm-link`](https://docs.npmjs.com/cli/v10/commands/npm-link). For example:
+```
+cd <path-where-you-keep-this-repo>
+npm link
+cd <path-to-your-sample-repo>
+npm link @cosmicds/vue-toolkit
+```
