@@ -44,7 +44,7 @@ const defaultMapOptions: MapOptions = {
 
 export default defineComponent({
 
-  emits: ["place", "update:modelValue", "error"],
+  emits: ["place", "update:modelValue", "error", "mapReady"],
 
   props: {
     activatorColor: {
@@ -121,6 +121,11 @@ export default defineComponent({
     
     geoJsonFiles: {
       type: Array as PropType<GeoJSONProp[]>,
+      default: () => []
+    },
+    
+    layers: {
+      type: Array as PropType<(L.Layer[])>,
       default: () => []
     }
   },
@@ -264,6 +269,7 @@ export default defineComponent({
 
       map.attributionControl.setPrefix('<a href="https://leafletjs.com" title="A JavaScript library for interactive maps" target="_blank" rel="noopener noreferrer" >Leaflet</a>');
       
+      this.layers.forEach((layer) => layer.addTo(map));
       // show the geojson files
       this.geoJsonFiles.forEach((geojsonrecord) => {
         const url = geojsonrecord.url;
@@ -300,10 +306,24 @@ export default defineComponent({
       });
       
       this.map = map;
+      
+      this.$emit('mapReady');
     },
 
     updateValue(value: LocationDeg) {
       this.$emit('update:modelValue', value);
+    },
+
+    addLayerToMap<T extends L.Layer>(leafletObject: T) {
+      if (this.map) {
+        leafletObject.addTo(this.map as Map);
+      }
+    },
+    
+    removeLayerFromMap<T extends L.Layer>(leafletObject: T) {
+      if (this.map) {
+        leafletObject.removeFrom(this.map as Map);
+      }
     },
 
     updateCircle() {
