@@ -125,7 +125,7 @@ export default defineComponent({
     },
     
     layers: {
-      type: Array as PropType<(L.Layer[])>,
+      type: Array as PropType<L.Layer[]>,
       default: () => []
     }
   },
@@ -314,13 +314,13 @@ export default defineComponent({
       this.$emit('update:modelValue', value);
     },
 
-    addLayerToMap<T extends L.Layer>(leafletObject: T) {
+    addLayerToMap(leafletObject: L.Layer) {
       if (this.map) {
         leafletObject.addTo(this.map as Map);
       }
     },
     
-    removeLayerFromMap<T extends L.Layer>(leafletObject: T) {
+    removeLayerFromMap(leafletObject: L.Layer) {
       if (this.map) {
         leafletObject.removeFrom(this.map as Map);
       }
