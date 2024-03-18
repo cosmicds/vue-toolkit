@@ -1,5 +1,5 @@
 <template>
-  <div id="logo-credits">
+  <div id="logo-credits" :style="cssVars">
     <div id="icons-container">
       <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer"
         ><img alt="CosmicDS Logo" src="https://raw.githubusercontent.com/cosmicds/minids/main/assets/cosmicds_logo_for_dark_backgrounds.png"
@@ -17,40 +17,38 @@
   </div>
 </template>
 
-
 <script lang="ts">
-import { defineComponent, } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-
 
   props: {
     visible: {
       type: Boolean,
       default: true
     },
-  },
-
-  data() {
-    return {    };
-  },
-
-  created() {
-    return;
-  },
-
-  methods: {
-    
+    logoSize: {
+      type: String,
+      default: "5vmin"
+    }
   },
 
   computed: { 
-
     isMobile() {
       return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
     },
+    cssVars() {
+      return {
+        "--logo-size": this.logoSize,
+      };
+    }
   },
 
-  watch: {
-  }
 });
 </script>
+
+<style>
+#logo-credits img {
+  height: var(--logo-size);
+}
+</style>
