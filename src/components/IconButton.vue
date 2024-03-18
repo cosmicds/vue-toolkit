@@ -45,7 +45,9 @@ import { defineComponent } from "vue";
 import { VTooltip } from "vuetify/components/VTooltip";
 import { VIcon } from "vuetify/components/VIcon";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import type { FontAwesomeIconProps } from "@fortawesome/vue-fontawesome/";
+
+// We need to do this because FontAwesome doesn't export the prop types
+type FontAwesomeIconProps = InstanceType<typeof FontAwesomeIcon>["$props"];
 
 type SizeType = Extract<FontAwesomeIconProps, 'size'>;
 
