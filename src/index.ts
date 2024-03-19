@@ -2,7 +2,7 @@ import { KeyboardControlSettings } from "./keyboard";
 import MiniDSBase from "./components/MiniDSBase";
 import IconButton from "./components/IconButton.vue";
 import LocationSelector from "./components/LocationSelector.vue";
-import DefaultCredits from "./components/DefaultMiniCredits.vue";
+import DefaultCredits from "./components/DefaultCredits.vue";
 import FundingAcknowledgment from "./components/FundingAcknowledgment.vue";
 import CreditLogos from "./components/CreditLogos.vue";
 import WwtHUD from "./components/WwtHUD.vue";

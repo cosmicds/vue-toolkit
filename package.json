@@ -45,7 +45,7 @@
     "build": "vue-cli-service build --target lib --name index src/index.ts",
     "clean": "rimraf dist",
     "lint": "vue-cli-service lint src --no-fix",
-    "serve-test": "cd tests && vue-cli-service serve dist/main.js"
+    "serve-test": "vue-cli-service serve test-app.js"
   },
   "types": "./dist/src/index.d.ts"
 }

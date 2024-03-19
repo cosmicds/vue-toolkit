@@ -18,7 +18,6 @@
     "paths": {
       "@/*": [
         "src/*",
-        "tests/*"
       ],
       "tslib": ["../node_modules/tslib/tslib.d.ts"]
     },
