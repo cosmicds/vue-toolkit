@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "esnext",
+    "module": "commonjs",
     "composite": true,
     "strict": true,
-    "declaration": true,
     "jsx": "preserve",
     "importHelpers": true,
     "downlevelIteration": true,
@@ -15,12 +14,6 @@
     "sourceMap": true,
     "baseUrl": ".",
     "outDir": "dist",
-    "paths": {
-      "@/*": [
-        "src/*",
-      ],
-      "tslib": ["../node_modules/tslib/tslib.d.ts"]
-    },
     "lib": [
       "dom",
       "dom.iterable",
@@ -28,7 +21,6 @@
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.vue"
+    "**/*.ts"
   ]
 }
