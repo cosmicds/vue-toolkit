@@ -17,7 +17,8 @@
     "outDir": "dist",
     "paths": {
       "@/*": [
-        "src/*"
+        "src/*",
+        "tests/*"
       ],
       "tslib": ["../node_modules/tslib/tslib.d.ts"]
     },

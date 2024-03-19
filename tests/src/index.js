@@ -9,21 +9,5 @@ import WwtHUD from "./components/WwtHUD.vue";
 import { BackgroundImageset, skyBackgroundImagesets } from "./background";
 import Gallery from "./components/Gallery.vue";
 import { API_BASE_URL, MINIDS_BASE_URL, R2D, D2R } from "./utils";
-
-export {
-  BackgroundImageset,
-  KeyboardControlSettings,
-  MiniDSBase,
-  Gallery,
-  IconButton,
-  LocationSelector,
-  skyBackgroundImagesets,
-  DefaultCredits,
-  FundingAcknowledgment,
-  CreditLogos,
-  WwtHUD,
-  API_BASE_URL,
-  MINIDS_BASE_URL,
-  R2D,
-  D2R
-};
+export { BackgroundImageset, KeyboardControlSettings, MiniDSBase, Gallery, IconButton, LocationSelector, skyBackgroundImagesets, DefaultCredits, FundingAcknowledgment, CreditLogos, WwtHUD, API_BASE_URL, MINIDS_BASE_URL, R2D, D2R };
+//# sourceMappingURL=index.js.map
