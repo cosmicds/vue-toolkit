@@ -20,3 +20,19 @@ export function blurActiveElement() {
     active.blur();
   }
 }
+
+// Modified from https://stackoverflow.com/a/37319954
+export function filterInPlace<T>(array: T[], condition: (t: T) => boolean) {
+  let i = 0;
+  let j = 0;
+  while (i < array.length) {
+    const value = array[i];
+    if (condition(value)) {
+      array[j++] = value;
+      i++;
+    }
+  }
+
+  array.length = j;
+  return array;
+}
