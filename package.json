@@ -3,6 +3,8 @@
   "version": "0.2.0",
   "browser": "dist/index.umd.js",
   "dependencies": {
+    "@capacitor/core": "^5.7.4",
+    "@capacitor/geolocation": "^5.0.7",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.6",
