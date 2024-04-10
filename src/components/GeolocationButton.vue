@@ -3,7 +3,6 @@
     <span v-if="showPermissions">Geolocation {{ permissions }} </span>
     <span v-if="showPermissions">location {{ geolocation }} </span>
     <span v-if="showPermissions">counter {{ counter }} </span>
-    <p v-if="showPermissions" v-html=msg> </p>
     <v-btn 
       v-if="!hideButton"
       class="geolocation-button"
@@ -14,7 +13,7 @@
       :loading="loading"
       :icon="useTextButton ? undefined : icon"
       :prepend-icon="useTextButton ? icon : undefined"
-      :color="geolocationError ? 'red' : color"
+      :color="error ? 'red' : color"
       @click="getLocation" 
       :text="useTextButton ? label : undefined"
     />
@@ -47,318 +46,112 @@
     </span>
     
   </span>
-  
-
 </template>
 
+<script setup lang="ts">
+import { useGeolocation, type PositionCoords } from "../geolocation";
+import { ref, computed, watch } from "vue";
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { VBtn } from 'vuetify/components/VBtn';
-import { VProgressCircular } from 'vuetify/lib/components/index.mjs';
+type Density = null | "default" | "comfortable" | "compact";
 
-import { Capacitor } from '@capacitor/core';
-import { Geolocation, PermissionStatus as CapacitorPermissionStatus, Position, PositionOptions } from "@capacitor/geolocation";
+export interface GeolocationButtonProps {
+  color?: string;
+  disabled?: boolean;
+  size?: string;
+  density?: Density;
+  elevation?: string;
+  hideButton?: boolean;
+  showTextLabel?: boolean;
+  showCoords?: boolean;
+  showTextProgress?: boolean;
+  showProgressCircle?: boolean;
+  useTextButton?: boolean;
+  progressCircleSize?: number;
+  label?: string;
+  id?: string;
+  trueIcon?: string;
+  falseIcon?: string;
+  backgroundColor?: string;
+  showPermissions?: boolean;
+}
 
-type PositionCoords = Position['coords'];
-
-type Density = null | 'default' | 'comfortable' | 'compact';
-
-export default defineComponent({
-  
-  name: 'GeolocationButton',
-
-  components: {
-    'v-btn': VBtn,
-    'v-progress-circular': VProgressCircular,
-  },
-
-  props: {
-    color: {
-      type: String,
-      default: 'white',
-    },
-    debug: {
-      type: Boolean,
-      default: false,
-    },
-
-
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-
-    size: {
-      type: String,
-      default: 'small',
-    },
-
-    density: {
-      type: String as () => Density,
-      default: 'comfortable',
-    },
-
-
-    elevation: {
-      type: String,
-      default: "2",
-    },
-
-    hideButton: {
-      type: Boolean,
-      default: false,
-    },
-
-    showTextLabel: {
-      type: Boolean,
-      default: false,
-    },
-
-    showCoords: {
-      type: Boolean,
-      default: false,
-    },
-
-    showTextProgress: {
-      type: Boolean,
-      default: false,
-    },
-    
-    showProgressCircle: {
-      type: Boolean,
-      default: true,
-    },
-
-    useTextButton: {
-      type: Boolean,
-      default: false,
-    },
-
-    progressCircleSize: {
-      type: Number,
-      default: 12,
-    },
-      
-
-    label: {
-      type: String,
-      default: 'My Location',
-    },
-
-    id: {
-      type: String,
-      default: null,
-    },
-
-    trueIcon: {
-      type: String,
-      default: 'mdi-crosshairs-gps',
-    },
-
-    falseIcon: {
-      type: String,
-      default: 'mdi-crosshairs',
-    },
-    
-    backgroundColor: {
-      type: String,
-      default: 'black',
-    },
-    
-    showPermissions: {
-      type: Boolean,
-      default: false,
-    },
-    
-  },
-
-  emits: {
-    // declare emits but w/o any verification. -_- 
-    geolocation: (_payload: PositionCoords) => true,
-    error: (_payload: GeolocationPositionError) => true,
-    permission: (_payload: boolean | string) => true,
-    permissionDenied: (_payload: boolean) => true,
-  },
-  
-  data() {
-    return {
-      geolocation: null as PositionCoords | null,
-      geolocationError: null as GeolocationPositionError | null,
-      permissions: '',
-      permissionGranted: false,
-      loading: false,
-      loaded: false,
-      emitLocation: false,
-      noPermissionsApi: false,
-      counter: 0,
-      msg: ''
-    };
-  },
-  
-  mounted() {
-    
-    // Check the Permissions API to see if the user has
-    // granted the browser permission to access their location
-
-    // Geolocation.requestPermissions is unimplemented on web and just throws, hence this
-    const web = Capacitor.getPlatform() === 'web';
-    if (web) {
-      if (!navigator.permissions) {
-        this.handleNotSupported();
-        return;
-      }
-      navigator.permissions.query({ name: "geolocation" })
-        .then((result) => {
-          this.handleNavigatorPermission(result);
-          result.onchange = () => {
-            this.handleNavigatorPermission(result);
-          };
-        });
-    } else {
-      Geolocation.requestPermissions({ permissions: ['location', 'coarseLocation'] })
-        .then(permissions => this.handleCapacitorPermission(permissions))
-        .catch(error => this.handleGeolocationError(error));
-    }
-  },
-
-  computed: {
-    icon() {
-      return this.geolocation ? this.trueIcon : this.falseIcon;
-    },
-  },
-
-  methods: {
-
-    handleNotSupported() {
-      console.error('Permissions API not supported');
-      this.noPermissionsApi = true;
-      this.$emit('permission', 'denied');
-    },
-    
-    handleCapacitorPermission(result: CapacitorPermissionStatus) { 
-      if (result.location === 'granted' || result.coarseLocation === 'granted') {
-        this.permissionGranted = true;
-        this.debugmsg('Permission granted');
-      } else if (result.location === 'denied' && result.coarseLocation === 'denied') {
-        this.debugmsg('Permission denied');
-      } else if (result.location === 'prompt' || result.coarseLocation === 'prompt') {
-        this.debugmsg('Permission prompt');
-      }
-      // TODO: this isn't correct yet
-      this.permissions = result.location;
-    },
-
-    handleNavigatorPermission(result: PermissionStatus) { 
-      if (result.state === 'granted') {
-        this.permissionGranted = true;
-        this.debugmsg('Permission granted');
-      } else if (result.state === 'prompt') {
-        this.debugmsg('Permission prompt');
-      } else if (result.state === 'denied') {
-        this.debugmsg('Permission denied');
-      }
-      this.permissions = result.state;
-    },
-    
-    handlePosition(position: Position) {
-      this.geolocation = position.coords;
-      this.geolocationError = null;
-    },
-    
-    handleGeolocationError(error: GeolocationPositionError) {
-      console.error('Geolocation error:', error);
-      
-      if (this.permissions === 'prompt') {
-        const url = "https://www.lifewire.com/turn-on-mobile-location-services-4156232";
-        this.geolocationError = {
-          code: 1,
-          message: `Location access was denied. Try enabling location services for your browser in system settings. (This feature might not work on Safari on some iPhones). <a href="${url}" target="_blank" rel="noopener noreferrer">Help</a>`,
-        } as GeolocationPositionError;
-      } else {
-        this.geolocationError = error;
-      }
-      
-    },
-    
-    geolocate(showLoading=true) {
-      
-      if (this.geolocation) {
-        this.$emit('geolocation', this.geolocation);
-        return;
-      }
-      
-      const options: PositionOptions = {
-        enableHighAccuracy: true,
-        timeout: 60 * 1000, // 1 minute
-        maximumAge: 0,
-      };
-      
-      
-      this.loading = showLoading;  
-      this.debugmsg('Getting location');
-      Geolocation.getCurrentPosition(options)
-        .then((position) => {
-          this.handlePosition(position);
-          this.loading = false;
-          this.debugmsg('Got location');
-          this.loaded = true;
-          setTimeout(() => {
-            this.loaded = false; 
-          }, 5000); // 5 seconds
-        })
-        .catch((error) => {
-          this.handleGeolocationError(error);
-          this.loading = false;
-          this.debugmsg(`Error: ${error.message}`);
-        });
-        
-    },
-    
-    getLocation() {
-      // Get the users location, and emit and event with
-      // the coordinates or the error
-      console.log(this.showTextProgress, this.showTextLabel, this.useTextButton, this.showCoords, this.hideButton);
-      this.emitLocation = true;
-      this.geolocate();
-      
-    },
-    
-    debugmsg(msg: string) {
-      console.log(msg);
-      // append msg to the debug message
-      if (this.showPermissions) {
-        this.msg = this.msg + '<br>' + msg;
-      }
-    },
-  },
-
-  watch: {
-    
-    permissions(val: string) {
-      this.debugmsg(`Permission: ${val}`);
-      this.$emit('permission', val);
-    },
-    
-    geolocation(val: GeolocationCoordinates) {
-      if (this.emitLocation) {
-        // on Safari, the Permissions API is not supported, but still works
-        // make sure the frontend knows the permissions were "granted"
-        if (this.permissions != 'granted') {
-          this.permissions = 'granted';
-        }
-        this.$emit('geolocation', val);
-      }
-    },
-    
-    geolocationError(val: GeolocationPositionError) {
-      if (val) {
-        this.$emit('error', val);
-      }
-    },
-    
-  }
-  
+const props = withDefaults(defineProps<GeolocationButtonProps>(), {
+  color: "white",
+  disabled: false,
+  size: "small",
+  density: "comfortable",
+  elevation: "2",
+  hideButton: false,
+  showTextLabel: false,
+  showCoords: false,
+  showTextProgress: false,
+  showProgressCircle: true,
+  useTextButton: false,
+  progressCircleSize: 12,
+  label: "My Location",
+  trueIcon: "mdi-crosshairs-gps",
+  falseIcon: "mdi-crosshairs",
+  backgroundColor: "black",
+  showPermissions: false,
 });
 
+const emit = defineEmits<{
+  "permission": [permission: string],
+  "geolocation": [position: PositionCoords],
+  "error": [error: GeolocationPositionError]
+}>();
+
+const { geolocation, error, permissions, permissionGranted, geolocate } = useGeolocation();
+
+const counter = ref(0);
+const emitLocation = ref(true);
+const icon = computed(() => geolocation.value ? props.trueIcon : props.falseIcon);
+const loading = ref(false);
+const loaded = ref(false);
+
+function doGeolocation(showLoading=true) {
+  if (geolocation.value) {
+    emit("geolocation", geolocation.value);
+    return;
+  }
+
+  loading.value = showLoading;
+  geolocate()
+    .then((_position) => {
+      loading.value = false;
+      loaded.value = true;
+      setTimeout(() => {
+        loaded.value = false;
+      }, 5000);
+    })
+    .catch((_error) => {
+      loading.value = false;
+    });
+}
+
+function getLocation() {
+  emitLocation.value = true;
+  doGeolocation();
+}
+
+watch(permissions, (value) => {
+  emit("permission", value);
+});
+
+watch(error, (value) => {
+  if (!value) { return; }
+  emit("error", value);
+});
+
+watch(geolocation, (location) => {
+  if (!location) { return; }
+  if (emitLocation.value) {
+    // on Safari, the Permissions API is not supported, but still works
+    // make sure the frontend knows the permissions were "granted"
+    if (permissions.value != "granted") {
+      permissions.value = "granted";
+    }
+    emit("geolocation", location);
+  }
+});
 </script>

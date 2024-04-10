@@ -65,137 +65,137 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { Folder, Imageset, Place } from "@wwtelescope/engine";
+<script setup lang="ts">
+import { ref, reactive, computed, watch, onBeforeMount, toRaw } from "vue";
 import { engineStore } from "@wwtelescope/engine-pinia";
-import { mapActions } from "pinia";
-
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { Folder, Imageset, Place } from "@wwtelescope/engine";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-
 library.add(faTimes);
 
-export default defineComponent({
+import { filterInPlace } from "@/utils";
 
-  components: {
-    'font-awesome-icon': FontAwesomeIcon
-  },
-  
-  props: {
-    wtmlUrl: { type: String, required: true },
-    columns: { type: [Number, String], default: "auto-fit" },
-    width: { type: String, default: "300px" },
-    maxHeight: { type: String, default: "500px" },
-    title: { type: String, default: "Gallery" },
-    selectedColor: { type: String, default: "dodgerblue" },
-    singleSelect: { type: Boolean, default: true },
-    highlightLastOnly: { type: Boolean, default: false },
-    previewIndex: { type: Number, default: 0 },
-    closedText: { type: String, default: "Image Gallery" }
-  },
+export interface GalleryProps {
+  wtmlUrl: string;
+  columns?: number | string;
+  width?: string;
+  maxHeight?: string;
+  title?: string;
+  selectedColor?: string;
+  singleSelect?: boolean;
+  highlightLastOnly?: boolean;
+  previewIndex?: number;
+  closedText?: string;
+}
 
-  async created() {
-    this.waitForReady().then(async () => {
-      this.places = await this.placesFromWtml(this.wtmlUrl);
-    });
-  },
-
-  data() {
-    return {
-      open: false,
-      places: [] as Place[],
-      selectedPlace: null as Place | null,
-      selectedPlaces: [] as Place[],
-    };
-  },
-
-  methods: {
-    ...mapActions(engineStore, ["loadImageCollection", "waitForReady"]),
-
-    getImageset(place: Place): Imageset | null {
-      return place.get_backgroundImageset() ?? place.get_studyImageset();
-    },
-
-    extractPlaces(folder: Folder): Place[] {
-      let places: Place[] = [];
-      for (const child of folder.get_children() ?? []) {
-        if (child instanceof Place) {
-          const iset = this.getImageset(child);
-          if (iset !== null) {
-            places.push(child);
-          }
-        } else if (child instanceof Folder) {
-          places = places.concat(this.extractPlaces(child));
-        }
-      }
-      return places;
-    },
-
-    async placesFromWtml(wtmlUrl: string): Promise<Place[]> {
-      return this.loadImageCollection({
-        url: wtmlUrl,
-        loadChildFolders: true
-      }).then((folder) => this.extractPlaces(folder));  
-    },
-
-    selectPlace(place: Place) {
-      if (this.singleSelect) {
-        // if we're already selected, deselect
-        if (this.selectedPlace === place) {
-          this.$emit("deselect", place);
-          this.selectedPlaces = [];
-          this.selectedPlace = null;
-          return;
-        } else {
-          // else deselect whatever was there before, and select this
-          this.selectedPlaces.forEach((p) => this.$emit("deselect", p));
-          this.selectedPlaces = [place];
-          this.selectedPlace = place;
-          return;
-        }
-      }
-
-      // for multi-select
-      // if we're already selected, deselect
-      if (this.selectedPlaces.includes(place)) {
-        this.$emit("deselect", place);
-        this.selectedPlace = null;
-        this.selectedPlaces.splice(this.selectedPlaces.indexOf(place), 1);
-      } else {
-        this.selectedPlace = place;
-        this.selectedPlaces = this.singleSelect ? [place] : [...this.selectedPlaces, place];
-      }
-      
-    }
-  },
-
-  computed: {
-    cssVars() {
-      return {
-        "--column-count": this.columns,
-        "--selected-color": this.selectedColor,
-        "--gallery-width": this.width,
-        "--gallery-max-height": this.maxHeight
-      };
-    }
-  },
-
-  watch: {
-    selectedPlace(place) {
-      if (place == null) { return; }
-      this.$emit("select", place);
-      if (!this.singleSelect) {
-        this.$emit("listAllSelected", this.selectedPlaces);
-      }
-    }
-  }
+const props = withDefaults(defineProps<GalleryProps>(), {
+  columns: "auto-fit",
+  width: "300px",
+  maxHeight: "500px",
+  title: "Gallery",
+  selectedColor: "dodgerblue",
+  singleSelect: true,
+  highlightLastOnly: false,
+  previewIndex: 0,
+  closedText: "Image Gallery",
 });
 
+const emit = defineEmits<{
+  "select": [place: Place],
+  "deselect": [place: Place],
+  "listAllSelected": [places: Place[]],
+}>();
+
+const store = engineStore();
+const open = ref(false);
+let places = reactive<Place[]>([]);
+const selectedPlace = ref<Place | null>(null);
+let selectedPlaces = reactive<Place[]>([]);
+
+const cssVars = computed(() => {
+  return {
+    "--column-count": props.columns,
+    "--selected-color": props.selectedColor,
+    "--gallery-width": props.width,
+    "--gallery-max-height": props.maxHeight,
+  };
+});
+
+onBeforeMount(() => {
+  store.waitForReady().then(async () => {
+    places = await placesFromWtml(props.wtmlUrl);
+  });
+});
+
+function getImageset(place: Place): Imageset | null {
+  return place.get_backgroundImageset() ?? place.get_studyImageset();
+}
+
+function extractPlaces(folder: Folder): Place[] {
+  let places: Place[] = [];
+  for (const child of folder.get_children() ?? []) {
+    if (child instanceof Place) {
+      const iset = getImageset(child);
+      if (iset !== null) {
+        places.push(child);
+      }
+    } else if (child instanceof Folder) {
+      places = places.concat(extractPlaces(child));
+    }
+  }
+  return places;
+}
+
+async function placesFromWtml(wtmlUrl: string): Promise<Place[]> {
+  return store.loadImageCollection({
+    url: wtmlUrl,
+    loadChildFolders: true
+  }).then((folder) => extractPlaces(folder));
+}
+
+function selectPlace(place: Place) {
+  if (props.singleSelect) {
+    // if we're already selected, deselect
+    if (selectedPlace.value === place) {
+      emit("deselect", place);
+      selectedPlaces.splice(0);
+      selectedPlace.value = null;
+      return;
+    } else {
+      selectedPlaces.forEach(p => emit("deselect", p));
+      selectedPlaces = [place];
+      selectedPlace.value = place;
+      return;
+    }
+  }
+
+  // for multi-select
+  // if we're already selected, deselect
+  if (selectedPlaces.includes(place)) {
+    emit("deselect", place);
+    selectedPlace.value = null;
+    selectedPlaces.splice(selectedPlaces.indexOf(place), 1);
+  } else {
+    selectedPlace.value = place;
+    if (props.singleSelect) {
+      filterInPlace(selectedPlaces, (p) => p === place); 
+    } else {
+      selectedPlaces.push(place);
+    }
+  }
+
+}
+
+watch(selectedPlace, (place) => {
+  if (place === null) { return; }
+  emit("select", toRaw(place));
+  if (props.singleSelect) {
+    emit("listAllSelected", toRaw(selectedPlaces));
+  }
+});
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 .gallery-root {
   transition-property: height, width;
   transition: 0.5s ease-out;
@@ -309,4 +309,3 @@ export default defineComponent({
 
 }
 </style>
-

@@ -2,20 +2,20 @@
   <div :style="cssVars">
     <div 
       id="wwt-hud"
-      >
-      <h3> Camera settings </h3>
-      <p> RA: {{ wwtRARad }} ({{ wwtRADeg }}) </p>
-      <p> Dec: {{ wwtDecRad }} ({{ wwtDecDeg }}) </p>
-      <p> Roll: {{ wwtRollRad }} </p>
-      <p> Zoom: {{ wwtZoomDeg }} </p>
-      <p> Mode: {{ mode }} </p>
-      <h3> Imagesets </h3>
-      <p> Bkg: {{ bkgImage }} </p>
-      <p> Fg: {{ fgImg }} (op: {{ wwtForegroundOpacity }} ) </p>
-      <h3> Clock </h3>
-      <p> Time: {{ wwtCurrentTime }} </p>
-      <p> Rate: {{ wwtClockRate }} </p>
-      <p> Location: {{ wwtLocation }} </p>
+    >
+      <h3>Camera settings</h3>
+      <p>RA: {{ raRad }} ({{ raDeg }})</p>
+      <p>Dec: {{ decRad }} ({{ decDeg }})</p>
+      <p>Roll: {{ rollRad }}</p>
+      <p>Zoom: {{ zoomDeg }}</p>
+      <p>Mode: {{ mode }}</p>
+      <h3>Imagesets</h3>
+      <p>Bkg: {{ bkgImage }}</p>
+      <p>Fg: {{ fgImg }} (op: {{ foregroundOpacity }})</p>
+      <h3>Clock</h3>
+      <p>Time: {{ currentTime }}</p>
+      <p>Rate: {{ clockRate }}</p>
+      <p>Location: {{ wwtLocation }}</p>
       
       <h3 v-if="Object.keys(otherVariables).length > 0"> 
         User defined vars 
@@ -33,144 +33,96 @@
   
 </template>
 
+<script setup lang="ts">
+import { computed } from "vue";
+import { Settings } from "@wwtelescope/engine";
+import { engineStore } from "@wwtelescope/engine-pinia";
+import { storeToRefs } from "pinia";
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { WWTAwareComponent } from "@wwtelescope/engine-pinia";
-import { Settings, WWTControl, ScriptInterface } from "@wwtelescope/engine";
+const store = engineStore();
+const {
+  raRad,
+  decRad,
+  rollRad,
+  zoomDeg,
+  currentTime,
+  clockRate,
+  foregroundOpacity,
+  backgroundImageset,
+  foregroundImageset,
+} = storeToRefs(store);
 
 const R2D = 180 / Math.PI;
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const wwtSettings = computed(() => Settings.get_active());
 
-type LocationType = {
+export interface LocationType {
   top?: string | number,
   left?: string | number,
   bottom?: string | number,
   right?: string | number,
-};
+}
 
-export default defineComponent({
-  name: 'wwtHUD',
-  extends: WWTAwareComponent,
-  
-  props: {
-    // location: center {x, y} in percent
-    location: {
-      type: Object as PropType<LocationType>,
-      default: () => ({top: '50%', left: '50%'})
-    },
-    
-    offsetCenter: {
-      // example: {x: 0.5, y: 0.5} for transform: translate(-50%, -50%)
-      type: Object,
-      default: () => ({x: .5, y: .5})
-    },
-    
-    otherVariables: {
-      type: Object,
-      default: () => ({})
-    },
-    
-    // styling props
-    fontSize: {
-      type: String,
-      default: '1em'
-    },
-    
-    backgroundColor: {
-      type: String || null,
-      default: 'rgba(0, 0, 0, 0.5)'
-    },
-    
-    textShadow: {
-      type: String || null,
-      default: '0 0 5px black'
-    },
-    
-  },
-    
-  computed: {
-    
-    wwtSettings(): Settings {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      return Settings.get_active();
-    },
-    
-    wwtControl(): WWTControl {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      return WWTControl.singleton;
-    },
-    
-    wwtScriptInterface(): ScriptInterface {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      return ScriptInterface.singleton;
-    },
-    
-    cssVars() {
-      return {
-        '--hud-top': this.location.top ?? 'auto',
-        '--hud-left': this.location.left ?? 'auto',
-        '--hud-bottom': this.location.bottom ?? 'auto',
-        '--hud-right': this.location.right ?? 'auto',
-        '--font-size': this.fontSize,
-        '--background-color': this.backgroundColor || 'transparent',
-        '--text-shadow': this.textShadow || 'none',
-        '--offset-center-x': `-${this.offsetCenter.x * 100}%`,
-        '--offset-center-y': `-${this.offsetCenter.y * 100}%`,
-      };
-    },
-    
-    wwtRADeg() {
-      return this.wwtRARad * R2D;
-    },
-    
-    wwtDecDeg() {
-      return this.wwtDecRad * R2D;
-    },
-    
-    bkgImage() {
-      return this.wwtBackgroundImageset?.get_name();
-    },
-    
-    fgImg() {
-      return this.wwtForegroundImageset?.get_name();
-    },
-    
-    mode() {
-      if (this.bkgImage == "3D Solar System View") {
-        return '3D';
-      } 
-      
-      if (this.wwtSettings.get_galacticMode()) {
-        return 'Sky (galactic)';
-      }
-      
-      if (this.wwtSettings.get_localHorizonMode()) {
-        return 'Sky (local horizon)';
-      } 
-      
-      return 'Sky (equatorial)';
-    },
+export interface WwtHUDProps {
+  location?: LocationType;
+  offsetCenter?: { x: number; y: number };
+  otherVariables?: Object;  // eslint-disable-line @typescript-eslint/ban-types
+  fontSize?: string;
+  backgroundColor?: string | null;
+  textShadow?: string | null;
+}
 
-    wwtLocation() {
-      return {
-        lat: this.wwtSettings.get_locationLat(),
-        lon: this.wwtSettings.get_locationLng(),
-        alt: this.wwtSettings.get_locationAltitude(),
-      } ;
-    },
-      
-  },
-    
-    
+const props = withDefaults(defineProps<WwtHUDProps>(), {
+  location: () => { return { top: "50%", left: "50%" }; },
+  offsetCenter: () => { return { x: 0.5, y: 0.5 }; },
+  otherVariables: () => { return {}; },
+  fontSize: "1em",
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  textShadow: "0 0 5px black",
 });
 
+const cssVars = computed(() => {
+  return {
+    "--hud-top": props.location.top ?? "auto",
+    "--hud-left": props.location.left ?? "auto",
+    "--hud-bottom": props.location.bottom ?? "auto",
+    "--hud-right": props.location.right ?? "auto",
+    "--font-size": props.fontSize,
+    "--background-color": props.backgroundColor || "transparent",
+    "--text-shadow": props.textShadow || "none",
+    "--offset-center-x": `-${props.offsetCenter.x * 100}%`,
+    "--offset-center-y": `-${props.offsetCenter.y * 100}%`,
+  };
+});
+
+const raDeg = computed(() => raRad.value * R2D);
+const decDeg = computed(() => decRad.value * R2D);
+const bkgImage = computed(() => backgroundImageset.value?.get_name());
+const fgImg = computed(() => foregroundImageset.value?.get_name());
+const mode = computed(() => {
+  if (bkgImage.value === "3D Solar System View") {
+    return "3D";
+  }
+  if (wwtSettings.value.get_galacticMode()) {
+    return "Sky (galactic)";
+  }
+  if (wwtSettings.value.get_localHorizonMode()) {
+    return "Sky (local horizon)";
+  }
+  return "Sky (equatorial)";
+});
+
+const wwtLocation = computed(() => {
+  return {
+    lat: wwtSettings.value.get_locationLat(),
+    lon: wwtSettings.value.get_locationLng(),
+    alt: wwtSettings.value.get_locationAltitude(),
+  };
+});
 </script>
 
-<style lang="less">
-
+<style scoped lang="less">
 #wwt-hud {
   position: absolute;
   top: var(--hud-top);
@@ -188,8 +140,4 @@ export default defineComponent({
   text-align: left;
   background-color: var(--background-color);
 }
-
-
 </style>
-```
-  
