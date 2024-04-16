@@ -3,10 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import L, { LeafletMouseEvent, Map, TileLayerOptions } from "leaflet";
-import "leaflet/dist/leaflet.css";
-import { notify } from "@kyvg/vue3-notification";
+/* eslint-disable */
 import { ref, onMounted } from "vue";
+import { Map, TileLayerOptions } from 'leaflet';
+import "leaflet/dist/leaflet.css";
 
 export interface LocationDeg {
   longitudeDeg: number;
@@ -63,7 +63,16 @@ const props = withDefaults(defineProps<LocationSelectorProps>(), {
   activatorColor: "#ffffff",
   detectLocation: true,
   modelValue: () => { return { latitudeDeg: 42.3814, longitudeDeg: -71.1281 }; }, // Harvard College Observatory
-  mapOptions: () => defaultMapOptions,
+  mapOptions: () => {
+    return {
+      templateUrl: 'https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
+      minZoom: 1,
+      maxZoom: 20,
+      subdomains:['mt0','mt1','mt2','mt3'],
+      attribution: `&copy <a href="https://www.google.com/maps">Google Maps</a>`,
+      className: 'map-tiles'
+    };
+  },
   places: () => [],
   placeCircleOptions: () => {
     return {
@@ -89,6 +98,15 @@ const props = withDefaults(defineProps<LocationSelectorProps>(), {
   layers: () => [],
 });
 
+const emit = defineEmits<{
+  mapReady: [ready?: null],
+  error: [msg: string],
+  place: [place: Place],
+}>();
+
+const model = defineModel<LocationDeg>({
+  default: () => { return { latitudeDeg: 42.3814, longitudeDeg: -71.1281 }; }
+});
 const placeCircles = ref<L.CircleMarker[]>([]);
 const hoveredPlace = ref<Place | null>(null);
 const selectedCircle = ref<L.CircleMarker | null>(null);
@@ -96,14 +114,4 @@ const selectedPlace = ref<Place | null>(null);
 const selectedPlaceCircle = ref<L.CircleMarker | null>(null);
 const map = ref<Map | null>(null);
 
-
-onMounted(() => {
-  if (props.initialPlace) {
-    selectedPlace.value = props.initialPlace;
-  }
-  if (props.detectLocation) {
-    getLocation(true); 
-  }
-  setup(true);
-});
 </script>
