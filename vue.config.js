@@ -49,7 +49,8 @@ module.exports = defineConfig({
           { from: 'src/assets', to: 'assets' }
         ]
       })
-    ]
+    ],
+    devtool: "inline-source-map"
   },
 
   // Also needed for the TypeScript declaration stuff (see link above)

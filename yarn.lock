@@ -288,7 +288,7 @@ __metadata:
     "@fortawesome/vue-fontawesome": ^3.0.6
     "@kyvg/vue3-notification": ^2.9.1
     "@mdi/font": ^7.4.47
-    "@types/leaflet": ^1.9.3
+    "@types/leaflet": ^1.9.11
     "@typescript-eslint/eslint-plugin": ^6.19.0
     "@typescript-eslint/parser": ^6.19.0
     "@vue/cli-plugin-eslint": ^5.0.8
@@ -781,12 +781,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/leaflet@npm:^1.9.3":
-  version: 1.9.8
-  resolution: "@types/leaflet@npm:1.9.8"
+"@types/leaflet@npm:^1.9.11":
+  version: 1.9.11
+  resolution: "@types/leaflet@npm:1.9.11"
   dependencies:
     "@types/geojson": "*"
-  checksum: d6a33d5db0bdf608957cd52701b17ee89e936034a8f0ab619b8e7ef70312a0da177837dd125756e83af036276a8b299cc724c9ffb3caa7d22893fea2791e1e13
+  checksum: 09969f4907bcead85a4239910ad3355586c734832b44708ce3ef19132416e0f47bcec47421af8b60bee331542a75664fbee333183cabb3f9365fb2a1af0d1160
   languageName: node
   linkType: hard
 

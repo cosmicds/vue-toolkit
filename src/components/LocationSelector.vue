@@ -3,9 +3,9 @@
 </template>
 
 <script setup lang="ts">
-/* eslint-disable */
 import { ref, computed, watch, onMounted } from "vue";
-import L, { LeafletMouseEvent, Map, TileLayerOptions } from 'leaflet';
+import L, { CircleMarkerOptions, LeafletMouseEvent, Map,  TileLayerOptions } from 'leaflet';
+import { notify } from "@kyvg/vue3-notification";
 import "leaflet/dist/leaflet.css";
 
 import { useGeolocation } from "@/geolocation";
@@ -15,7 +15,7 @@ export interface LocationDeg {
   latitudeDeg: number;
 }
 
-interface MapOptions extends TileLayerOptions {
+interface LeafletMapOptions extends TileLayerOptions {
   templateUrl: string;
   initialLocation?: LocationDeg;
   initialZoom?: number;
@@ -24,7 +24,7 @@ interface MapOptions extends TileLayerOptions {
 interface GeoJSONProp {
   url?: string;
   geojson?: GeoJSON.FeatureCollection | GeoJSON.Feature | GeoJSON.GeometryCollection;
-  style: Record<string,any>;  // eslint-disable-line @typescript-eslint/no-explicit-any
+  style: CircleMarkerOptions;
 }
 
 interface Place extends LocationDeg { 
@@ -35,7 +35,7 @@ interface Place extends LocationDeg {
   name?: string;
 }
 
-const defaultMapOptions: MapOptions = {
+const defaultMapOptions: LeafletMapOptions = {
   templateUrl: 'https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
   minZoom: 1,
   maxZoom: 20,
@@ -48,13 +48,13 @@ export interface LocationSelectorProps {
   activatorColor?: string;
   detectLocation?: boolean;
   modelValue?: LocationDeg;
-  mapOptions?: MapOptions;
+  mapOptions?: LeafletMapOptions;
   initialPlace?: Place;
   places?: Place[];
-  placeCircleOptions?: Record<string, any>;  // eslint-disable-line @typescript-eslint/no-explicit-any
+  placeCircleOptions?: CircleMarkerOptions;
   placeSelectable?: boolean;
   selectable?: boolean;
-  selectedCircleOptions?: Record<string, any>;  // eslint-disable-line @typescript-eslint/no-explicit-any
+  selectedCircleOptions?: CircleMarkerOptions;
   selectionEvent?: "click" | "dblclick";
   worldRadii?: boolean;
   geoJsonFiles?: GeoJSONProp[];
@@ -73,7 +73,7 @@ const props = withDefaults(defineProps<LocationSelectorProps>(), {
       subdomains:['mt0','mt1','mt2','mt3'],
       attribution: `&copy <a href="https://www.google.com/maps">Google Maps</a>`,
       className: 'map-tiles'
-    };
+    } as LeafletMapOptions;
   },
   places: () => [],
   placeCircleOptions: () => {
@@ -82,7 +82,7 @@ const props = withDefaults(defineProps<LocationSelectorProps>(), {
       fillColor: "#3333FF",
       fillOpacity: 0.5,
       radius: 150,
-    };
+    } as CircleMarkerOptions;
   },
   placeSelectable: true,
   selectable: true,
@@ -104,11 +104,9 @@ const emit = defineEmits<{
   mapReady: [ready?: null],
   error: [msg: string],
   place: [place: Place],
+  "update:modelValue": [location: LocationDeg],
 }>();
 
-const model = defineModel<LocationDeg>({
-  default: () => { return { latitudeDeg: 42.3814, longitudeDeg: -71.1281 }; }
-});
 const placeCircles = ref<L.CircleMarker[]>([]);
 const hoveredPlace = ref<Place | null>(null);
 const selectedCircle = ref<L.CircleMarker | null>(null);
@@ -120,11 +118,15 @@ const { geolocate } = useGeolocation();
 
 type CircleMaker = (latlng: L.LatLngExpression, options: L.CircleMarkerOptions) => L.CircleMarker;
 const circleMaker = computed<CircleMaker>(() => props.worldRadii ? L.circle : L.circleMarker);
-const latLng = computed<L.LatLngExpression>(() => locationToLatLng(model.value));
+const latLng = ref<L.LatLngExpression>(locationToLatLng(props.modelValue));
 
 watch(props.places, () => {
   map.value?.remove();
   setup();
+});
+
+watch(props.modelValue, (location) => {
+  latLng.value = locationToLatLng(location);
 });
 
 watch(latLng, (coords) => {
@@ -154,13 +156,17 @@ onMounted(() => {
   setup(true);
 });
 
+function updateLocation(location: LocationDeg) {
+  emit("update:modelValue", location);
+}
+
 function getLocation(startup=false) {
   geolocate()
     .then((position) => {
-      model.value = {
+      updateLocation({
         longitudeDeg: position.coords.longitude,
         latitudeDeg: position.coords.latitude,
-      };
+      });
       map.value?.setView([position.coords.latitude, position.coords.longitude], map.value?.getZoom());
     })
     .catch((_error) => {
@@ -186,7 +192,7 @@ function circleForSelection(): L.CircleMarker | null {
   if (selectedPlace.value) {
     return null;
   }
-  return circleForLocation(model.value, { ...props.selectedCircleOptions, interactive: false });
+  return circleForLocation(props.modelValue, { ...props.selectedCircleOptions, interactive: false });
 }
 
 function circleForPlace(place: Place): L.CircleMarker {
@@ -199,10 +205,10 @@ function circleForPlace(place: Place): L.CircleMarker {
 }
 
 function onPlaceSelect(place: Place) {
-  model.value = { 
+  updateLocation({ 
     longitudeDeg: place.longitudeDeg,
     latitudeDeg: place.latitudeDeg,
-  };
+  });
   emit("place", place);
   selectedPlace.value = place;
 }
@@ -212,36 +218,37 @@ function onMapSelect(event: LeafletMouseEvent) {
   longitudeDeg = ((longitudeDeg % 360) + 360) % 360;  // We want modulo, but JS % operator is remainder
   longitudeDeg -= 180;
   selectedPlace.value = null;
-  model.value = {
+  updateLocation({
     latitudeDeg: event.latlng.lat,
     longitudeDeg,
-  };
+  });
 }
 
 function setup(initial=false) {
   const mapContainer = document.querySelector(".map-container") as HTMLDivElement;
-  const location: L.LatLngExpression = initial && props.mapOptions.initialLocation ?
-    locationToLatLng(props.mapOptions.initialLocation) :
+  const initialLocation = props.mapOptions.initialLocation;
+  const location: L.LatLngExpression = initial && initialLocation ?
+    locationToLatLng(initialLocation) :
     latLng.value;
 
   const initialZoom = props.mapOptions.initialZoom ?? 4;
   const zoom = initial ? initialZoom : (map.value?.getZoom() ?? initialZoom);
   const leafletMap = L.map(mapContainer).setView(location, zoom);
 
-  const options = { ...defaultMapOptions, ...props.mapOptions };
+  const options: LeafletMapOptions = { ...defaultMapOptions, ...props.mapOptions };
   L.tileLayer(options.templateUrl, options).addTo(leafletMap);
 
-  placeCircles.value = props.places.map(place => circleForPlace(place));
+  placeCircles.value = props.places.map((place: Place) => circleForPlace(place));
   placeCircles.value.forEach((circle, index) => {
+    const place: Place = props.places[index];
     circle.on("mouseover", () => {
-      const place = props.places[index];
       hoveredPlace.value = place;
       circle.openTooltip([place.latitudeDeg, place.longitudeDeg]);
     });
 
     if (props.placeSelectable) {
       circle.on("click", () => {
-        onPlaceSelect(props.places[index]);
+        onPlaceSelect(place);
       });
     }
 
@@ -261,8 +268,8 @@ function setup(initial=false) {
   }
   leafletMap.attributionControl.setPrefix('<a href="https://leafletjs.com" title="A JavaScript library for interactive maps" target="_blank" rel="noopener noreferrer" >Leaflet</a>');
 
-  props.layers.forEach(layer => layer.addTo(leafletMap));
-  props.geoJsonFiles.forEach((record) => {
+  props.layers.forEach((layer: L.Layer) => layer.addTo(leafletMap));
+  props.geoJsonFiles.forEach((record: GeoJSONProp) => {
     const { url, geojson, style } = record;
     if (url) {
       fetch(url)
