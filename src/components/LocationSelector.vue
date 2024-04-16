@@ -3,10 +3,10 @@
 </template>
 
 <script setup lang="ts">
+/* eslint-disable */
 import { ref, computed, watch, onMounted } from "vue";
-import L, { CircleMarkerOptions, LeafletMouseEvent, Map,  TileLayerOptions } from 'leaflet';
+import L, { CircleMarkerOptions, LeafletMouseEvent, Map, TileLayerOptions } from 'leaflet';
 import { notify } from "@kyvg/vue3-notification";
-import "leaflet/dist/leaflet.css";
 
 import { useGeolocation } from "@/geolocation";
 
@@ -35,15 +35,6 @@ interface Place extends LocationDeg {
   name?: string;
 }
 
-const defaultMapOptions: LeafletMapOptions = {
-  templateUrl: 'https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
-  minZoom: 1,
-  maxZoom: 20,
-  subdomains:['mt0','mt1','mt2','mt3'],
-  attribution: `&copy <a href="https://www.google.com/maps">Google Maps</a>`,
-  className: 'map-tiles'
-};
-
 export interface LocationSelectorProps {
   activatorColor?: string;
   detectLocation?: boolean;
@@ -60,6 +51,15 @@ export interface LocationSelectorProps {
   geoJsonFiles?: GeoJSONProp[];
   layers?: L.Layer[];
 }
+
+const defaultMapOptions: LeafletMapOptions = {
+  templateUrl: 'https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
+  minZoom: 1,
+  maxZoom: 20,
+  subdomains:['mt0','mt1','mt2','mt3'],
+  attribution: `&copy <a href="https://www.google.com/maps">Google Maps</a>`,
+  className: 'map-tiles'
+};
 
 const props = withDefaults(defineProps<LocationSelectorProps>(), {
   activatorColor: "#ffffff",
@@ -125,7 +125,7 @@ watch(props.places, () => {
   setup();
 });
 
-watch(props.modelValue, (location) => {
+watch(props.modelValue, (location: LocationDeg) => {
   latLng.value = locationToLatLng(location);
 });
 
@@ -240,7 +240,7 @@ function setup(initial=false) {
 
   placeCircles.value = props.places.map((place: Place) => circleForPlace(place));
   placeCircles.value.forEach((circle, index) => {
-    const place: Place = props.places[index];
+    const place = props.places[index];
     circle.on("mouseover", () => {
       hoveredPlace.value = place;
       circle.openTooltip([place.latitudeDeg, place.longitudeDeg]);
