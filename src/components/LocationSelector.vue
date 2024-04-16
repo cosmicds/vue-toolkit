@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="ts">
-/* eslint-disable */
 import { ref, computed, watch, onMounted } from "vue";
 import L, { CircleMarkerOptions, LeafletMouseEvent, Map, TileLayerOptions } from 'leaflet';
 import { notify } from "@kyvg/vue3-notification";
