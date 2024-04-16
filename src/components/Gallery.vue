@@ -195,7 +195,7 @@ watch(selectedPlace, (place) => {
 });
 </script>
 
-<style scoped lang="less">
+<style lang="less">
 .gallery-root {
   transition-property: height, width;
   transition: 0.5s ease-out;

@@ -37,7 +37,7 @@ const cssVars = computed(() => {
 });
 </script>
 
-<style scoped>
+<style>
 #logo-credits img {
   height: var(--logo-size);
 }
