@@ -16,35 +16,35 @@ export function useWWTKeyboardControls(store: WWTEngineStore, element?: Window |
   const kcs = new KeyboardControlSettings({});
   root.addEventListener(
     "keydown",
-    kcs.makeListener("zoomIn", () => doZoom(store, true))
+    kcs.makeListener("zoomIn", () => doZoom(store, true)) as EventListener
   );
   root.addEventListener(
     "keydown",
-    kcs.makeListener("zoomOut", () => doZoom(store, false))
+    kcs.makeListener("zoomOut", () => doZoom(store, false)) as EventListener
   );
   root.addEventListener(
     "keydown",
     kcs.makeListener("moveUp", () =>
       doMove(store, 0, kcs.moveAmount)
-    )
+    ) as EventListener
   );
   root.addEventListener(
     "keydown",
     kcs.makeListener("moveDown", () =>
       doMove(store, 0, -kcs.moveAmount)
-    )
+    ) as EventListener
   );
   root.addEventListener(
     "keydown",
     kcs.makeListener("moveLeft", () =>
       doMove(store, kcs.moveAmount, 0)
-    )
+    ) as EventListener
   );
   root.addEventListener(
     "keydown",
     kcs.makeListener("moveRight", () =>
       doMove(store, -kcs.moveAmount, 0)
-    )
+    ) as EventListener
   );
 
   return kcs;

@@ -72,8 +72,8 @@ export class KeyboardControlSettings {
   makeListener(
     actionName: KeyboardControlSettings["actionTypes"][number],
     action: () => void
-  ): (element: HTMLElement, event: KeyboardEvent) => void {
-    return (_element, event) => {
+  ): (event: KeyboardEvent) => void {
+    return (event) => {
       for (const keyPress of this[actionName]) {
         if (keyPress.matches(event)) {
           action();
