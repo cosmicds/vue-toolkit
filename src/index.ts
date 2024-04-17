@@ -4,8 +4,10 @@ import LocationSelector from "./components/LocationSelector.vue";
 import FundingAcknowledgement from "./components/FundingAcknowledgement.vue";
 import CreditLogos from "./components/CreditLogos.vue";
 import wwtHUD from "./components/wwtHUD.vue";
-import { BackgroundImageset, skyBackgroundImagesets } from "./background";
 import Gallery from "./components/Gallery.vue";
+import { BackgroundImageset, skyBackgroundImagesets } from "./background";
+import { PositionCoords, useGeolocation } from "./geolocation";
+import { useWWTKeyboardControls } from "./wwt-utils";
 import { API_BASE_URL, MINIDS_BASE_URL, R2D, D2R } from "./utils";
 
 export {
@@ -18,6 +20,9 @@ export {
   FundingAcknowledgement,
   CreditLogos,
   wwtHUD,
+  PositionCoords,
+  useGeolocation,
+  useWWTKeyboardControls,
   API_BASE_URL,
   MINIDS_BASE_URL,
   R2D,
