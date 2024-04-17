@@ -63,12 +63,13 @@ type MapBoxQueryOptions<T extends BaseMapBoxGeocodingOptions> = {
   [K in keyof Omit<T, "countries" | "types">]: T[K];
 } & MapBoxAdjustedGeocodingParams;
 
-const RELEVANT_FEATURE_TYPES = ["postcode", "place", "region", "country"];
+const DEFAULT_RELEVANT_FEATURE_TYPES = ["postcode", "place", "region", "country"];
 const NA_COUNTRIES = ["United States", "Canada", "Mexico"];
 const NA_ABBREVIATIONS = ["US-", "CA-", "MX-"];
 
-export function findBestFeature(collection: MapBoxFeatureCollection): MapBoxFeature | null {
-  const relevantFeatures = collection.features.filter(feature => RELEVANT_FEATURE_TYPES.some(type => feature.place_type.includes(type)));
+export function findBestFeature(collection: MapBoxFeatureCollection, relevantTypes?: MapBoxFeatureType[]): MapBoxFeature | null {
+  const types = relevantTypes ?? DEFAULT_RELEVANT_FEATURE_TYPES;
+  const relevantFeatures = collection.features.filter(feature => types.some(type => feature.place_type.includes(type)));
   const placeFeature = relevantFeatures.find(feature => feature.place_type.includes("place")) ?? (relevantFeatures.find(feature => feature.place_type.includes("postcode")) ?? undefined);
   if (placeFeature !== undefined) {
     return placeFeature;
@@ -84,14 +85,15 @@ export function findBestFeature(collection: MapBoxFeatureCollection): MapBoxFeat
   return null;
 }
 
-export function textForMapboxFeature(feature: MapBoxFeature): string {
+export function textForMapboxFeature(feature: MapBoxFeature, relevantTypes?: MapBoxFeatureType[]): string {
+  const types = relevantTypes ?? DEFAULT_RELEVANT_FEATURE_TYPES;
   const pieces: string[] = [];
   if (feature.text) {
     pieces.push(feature.text);
   }
   feature.context.forEach(item => {
     const itemType = item.id.split(".")[0];
-    if (!RELEVANT_FEATURE_TYPES.includes(itemType)) {
+    if (!types.includes(itemType)) {
       return;
     }
     let text = null as string | null;
@@ -113,8 +115,8 @@ export function textForMapboxFeature(feature: MapBoxFeature): string {
   return pieces.join(", ");
 }
 
-export function textForMapboxResults(results: MapBoxFeatureCollection): string {
-  const feature = findBestFeature(results);
+export function textForMapboxResults(results: MapBoxFeatureCollection, relevantTypes?: MapBoxFeatureType[]): string {
+  const feature = findBestFeature(results, relevantTypes);
   return feature !== null ? textForMapboxFeature(feature) : "";
 }
 
