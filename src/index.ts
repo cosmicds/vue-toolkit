@@ -8,7 +8,7 @@ import Gallery from "./components/Gallery.vue";
 import { BackgroundImageset, skyBackgroundImagesets } from "./background";
 import { PositionCoords, useGeolocation } from "./geolocation";
 import { useWWTKeyboardControls } from "./wwt-utils";
-import { API_BASE_URL, MINIDS_BASE_URL, R2D, D2R } from "./utils";
+import { API_BASE_URL, MINIDS_BASE_URL, R2D, D2R, supportsTouchscreen, isMobile, blurActiveElement, filterInPlace } from "./utils";
 
 export {
   BackgroundImageset,
@@ -23,6 +23,10 @@ export {
   PositionCoords,
   useGeolocation,
   useWWTKeyboardControls,
+  supportsTouchscreen,
+  isMobile,
+  blurActiveElement,
+  filterInPlace,
   API_BASE_URL,
   MINIDS_BASE_URL,
   R2D,
