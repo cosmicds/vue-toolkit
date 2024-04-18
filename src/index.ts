@@ -3,6 +3,7 @@ import IconButton from "./components/IconButton.vue";
 import LocationSelector from "./components/LocationSelector.vue";
 import FundingAcknowledgement from "./components/FundingAcknowledgement.vue";
 import CreditLogos from "./components/CreditLogos.vue";
+import GeolocationButton from "./components/GeolocationButton.vue";
 import wwtHUD from "./components/wwtHUD.vue";
 import Gallery from "./components/Gallery.vue";
 import { BackgroundImageset, skyBackgroundImagesets } from "./background";
@@ -19,6 +20,7 @@ export {
   skyBackgroundImagesets,
   FundingAcknowledgement,
   CreditLogos,
+  GeolocationButton,
   wwtHUD,
   PositionCoords,
   useGeolocation,
