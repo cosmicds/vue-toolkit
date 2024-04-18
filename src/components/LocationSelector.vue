@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
 import L, { CircleMarkerOptions, LeafletMouseEvent, Map, TileLayerOptions } from 'leaflet';
+import "leaflet/dist/leaflet.css";
 import { notify } from "@kyvg/vue3-notification";
 
 import { useGeolocation } from "@/geolocation";
@@ -113,18 +114,18 @@ const selectedPlace = ref<Place | null>(null);
 const selectedPlaceCircle = ref<L.CircleMarker | null>(null);
 const map = ref<Map | null>(null);
 
-const { geolocate } = useGeolocation();
+const { geolocate, permissionGranted: geolocationPermission } = useGeolocation();
 
 type CircleMaker = (latlng: L.LatLngExpression, options: L.CircleMarkerOptions) => L.CircleMarker;
 const circleMaker = computed<CircleMaker>(() => props.worldRadii ? L.circle : L.circleMarker);
 const latLng = ref<L.LatLngExpression>(locationToLatLng(props.modelValue));
 
-watch(props.places, () => {
+watch(() => props.places, () => {
   map.value?.remove();
   setup();
 });
 
-watch(props.modelValue, (location: LocationDeg) => {
+watch(() => props.modelValue, (location: LocationDeg) => {
   latLng.value = locationToLatLng(location);
 });
 
@@ -149,7 +150,7 @@ onMounted(() => {
   if (props.initialPlace) {
     selectedPlace.value = props.initialPlace;
   }
-  if (props.detectLocation) {
+  if (props.detectLocation && geolocationPermission.value) {
     getLocation(true); 
   }
   setup(true);
