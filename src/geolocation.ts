@@ -3,7 +3,7 @@ import { Capacitor } from '@capacitor/core';
 import { Geolocation, PermissionStatus as CapacitorPermissionStatus, Position, PositionOptions } from "@capacitor/geolocation";
 
 export type PositionCoords = Position['coords'];
-export function useGeolocation() {
+export function useGeolocation(onStartup=true) {
 
   const geolocation = ref<PositionCoords | null>(null);
   const error = ref<GeolocationPositionError | null>(null);
@@ -65,30 +65,32 @@ export function useGeolocation() {
       });
   }
 
-  onMounted(() => {
-    // Check the Permissions API to see if the user has
-    // granted the browser permission to access their location
+  if (onStartup) {
+    onMounted(() => {
+      // Check the Permissions API to see if the user has
+      // granted the browser permission to access their location
 
-    // Geolocation.requestPermissions is unimplemented on web and just throws, hence this
-    const web = Capacitor.getPlatform() === 'web';
-    if (web) {
-      if (!navigator.permissions) {
-        handleNotSupported();
-        return;
-      }
-      navigator.permissions.query({ name: "geolocation" })
-        .then((result) => {
-          handleNavigatorPermission(result);
-          result.onchange = () => {
+      // Geolocation.requestPermissions is unimplemented on web and just throws, hence this
+      const web = Capacitor.getPlatform() === 'web';
+      if (web) {
+        if (!navigator.permissions) {
+          handleNotSupported();
+          return;
+        }
+        navigator.permissions.query({ name: "geolocation" })
+          .then((result) => {
             handleNavigatorPermission(result);
-          };
-        });
-    } else {
-      Geolocation.requestPermissions({ permissions: ['location', 'coarseLocation'] })
-        .then(permissions => handleCapacitorPermission(permissions))
-        .catch(error => handleGeolocationError(error));
-    }
-  });
+            result.onchange = () => {
+              handleNavigatorPermission(result);
+            };
+          });
+      } else {
+        Geolocation.requestPermissions({ permissions: ['location', 'coarseLocation'] })
+          .then(permissions => handleCapacitorPermission(permissions))
+          .catch(error => handleGeolocationError(error));
+      }
+    });
+  }
 
   return {
     geolocation,
