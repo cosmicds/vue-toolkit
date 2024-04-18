@@ -1,7 +1,7 @@
 import { ref, onMounted, onUnmounted, Ref } from "vue";
 import screenfull from "screenfull";
 
-export function useScreenfull(): Ref<boolean> {
+export function useFullscreen(): Ref<boolean> {
   const fullscreenModeActive = ref(false);
   function update(_event: Event) {
     fullscreenModeActive.value = screenfull.isFullscreen;
