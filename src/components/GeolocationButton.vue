@@ -51,6 +51,9 @@
 <script setup lang="ts">
 import { useGeolocation, type PositionCoords } from "../geolocation";
 import { ref, computed, watch } from "vue";
+import { VBtn } from "vuetify/components/VBtn";
+import { VIcon } from "vuetify/components/VIcon";
+import { VProgressCircular } from "vuetify/components/VProgressCircular";
 
 import { GeolocationButtonProps } from "../types";
 
@@ -134,3 +137,9 @@ watch(geolocation, (location) => {
   }
 });
 </script>
+
+<style>
+.geolocation-button {
+  pointer-events: auto;
+}
+</style>

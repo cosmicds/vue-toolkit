@@ -289,3 +289,9 @@ function locationToLatLng(location: LocationDeg): L.LatLngExpression {
   return [location.latitudeDeg, location.longitudeDeg];
 }
 </script>
+
+<style>
+.map-container {
+  pointer-events: auto;
+}
+</style>

@@ -34,8 +34,12 @@ const cssVars = computed(() => {
 });
 </script>
 
-<style>
-#logo-credits img {
-  height: var(--logo-size);
+<style lang="less">
+#icons-container {
+  pointer-events: auto;
+
+  img {
+    height: var(--logo-size);
+  }
 }
 </style>
