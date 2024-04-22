@@ -1,6 +1,16 @@
 import { ref, onMounted } from "vue";
-import { Capacitor } from '@capacitor/core';
+import { Capacitor, PermissionState as CapacitorPermissionState } from '@capacitor/core';
 import { Geolocation, PermissionStatus as CapacitorPermissionStatus, Position, PositionOptions } from "@capacitor/geolocation";
+
+function betterPermissionState(firstState: CapacitorPermissionState, secondState: CapacitorPermissionState): CapacitorPermissionState {
+  const states: CapacitorPermissionState[] = ["granted", "prompt-with-rationale", "prompt", "denied"];
+  for (const state of states) {
+    if (firstState === state || secondState === state) {
+      return state;
+    }
+    return "denied";
+  }
+}
 
 export type PositionCoords = Position['coords'];
 export function useGeolocation(onStartup=true) {
@@ -16,17 +26,12 @@ export function useGeolocation(onStartup=true) {
   }
 
   function handleCapacitorPermission(result: CapacitorPermissionStatus) {
-    if (result.location === "granted" || result.coarseLocation === "granted") {
-      permissionGranted.value = true;
-    }
-    // TODO: This isn't correct yet
-    permissions.value = result.location;
+    permissionGranted.value = result.location === "granted" || result.coarseLocation === "granted";
+    permissions.value = betterPermissionState(result.location, result.coarseLocation);
   }
 
   function handleNavigatorPermission(result: PermissionStatus) {
-    if (result.state === "granted") {
-      permissionGranted.value = true;
-    }
+    permissionGranted.value = result.state === "granted";
     permissions.value = result.state;
   }
 
