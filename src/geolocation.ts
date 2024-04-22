@@ -8,8 +8,8 @@ function betterPermissionState(firstState: CapacitorPermissionState, secondState
     if (firstState === state || secondState === state) {
       return state;
     }
-    return "denied";
   }
+  return "denied";
 }
 
 export type PositionCoords = Position['coords'];
