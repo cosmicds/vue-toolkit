@@ -47,30 +47,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { VIcon } from "vuetify/components/VIcon";
 import { VTooltip } from "vuetify/components/VTooltip";
 
-// We need to do this because FontAwesome doesn't export the prop types
-type FontAwesomeIconProps = InstanceType<typeof FontAwesomeIcon>["$props"];
-type SizeType = Extract<FontAwesomeIconProps, 'size'>;
-
-interface IconButtonProps {
-  modelValue?: boolean;
-  faIcon?: string;
-  mdIcon?: string;
-  color?: string;
-  focusColor?: string;
-  backgroundColor?: string;
-  boxShadow?: boolean;
-  border?: boolean;
-  longPressTimeMs?: number;
-  tooltipText?: string;
-  tooltipLocation?: string;
-  tooltipOnClick?: boolean;
-  tooltipOnFocus?: boolean;
-  tooltipOnHover?: boolean;
-  tooltipOffset?: string | number;
-  showTooltip?: boolean;
-  faSize?: SizeType;
-  mdSize?: string;
-}
+import { IconButtonProps } from "../types";
 
 
 const props = withDefaults(defineProps<IconButtonProps>(), {

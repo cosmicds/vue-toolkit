@@ -52,28 +52,7 @@
 import { useGeolocation, type PositionCoords } from "../geolocation";
 import { ref, computed, watch } from "vue";
 
-type Density = null | "default" | "comfortable" | "compact";
-
-export interface GeolocationButtonProps {
-  color?: string;
-  disabled?: boolean;
-  size?: string;
-  density?: Density;
-  elevation?: string;
-  hideButton?: boolean;
-  showTextLabel?: boolean;
-  showCoords?: boolean;
-  showTextProgress?: boolean;
-  showProgressCircle?: boolean;
-  useTextButton?: boolean;
-  progressCircleSize?: number;
-  label?: string;
-  id?: string;
-  trueIcon?: string;
-  falseIcon?: string;
-  backgroundColor?: string;
-  showPermissions?: boolean;
-}
+import { GeolocationButtonProps } from "../types";
 
 const props = withDefaults(defineProps<GeolocationButtonProps>(), {
   color: "white",

@@ -9,10 +9,8 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-export interface FundingAcknowledgementProps {
-  color?: string;
-  backgroundColor?: string;
-}
+
+import { FundingAcknowledgementProps } from "../types";
 
 const props = withDefaults(defineProps<FundingAcknowledgementProps>(), {
   color: "#E0E0E0",

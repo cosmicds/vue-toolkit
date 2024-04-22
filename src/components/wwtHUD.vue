@@ -39,6 +39,8 @@ import { Settings } from "@wwtelescope/engine";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { storeToRefs } from "pinia";
 
+import { WwtHUDProps } from "../types";
+
 const store = engineStore();
 const {
   raRad,
@@ -56,22 +58,6 @@ const R2D = 180 / Math.PI;
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const wwtSettings = computed(() => Settings.get_active());
-
-export interface LocationType {
-  top?: string | number,
-  left?: string | number,
-  bottom?: string | number,
-  right?: string | number,
-}
-
-export interface WwtHUDProps {
-  location?: LocationType;
-  offsetCenter?: { x: number; y: number };
-  otherVariables?: Object;  // eslint-disable-line @typescript-eslint/ban-types
-  fontSize?: string;
-  backgroundColor?: string | null;
-  textShadow?: string | null;
-}
 
 const props = withDefaults(defineProps<WwtHUDProps>(), {
   location: () => { return { top: "50%", left: "50%" }; },

@@ -75,18 +75,7 @@ library.add(faTimes);
 
 import { filterInPlace } from "@/utils";
 
-export interface GalleryProps {
-  wtmlUrl: string;
-  columns?: number | string;
-  width?: string;
-  maxHeight?: string;
-  title?: string;
-  selectedColor?: string;
-  singleSelect?: boolean;
-  highlightLastOnly?: boolean;
-  previewIndex?: number;
-  closedText?: string;
-}
+import { GalleryProps } from "../types";
 
 const props = withDefaults(defineProps<GalleryProps>(), {
   columns: "auto-fit",

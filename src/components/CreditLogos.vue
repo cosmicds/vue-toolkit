@@ -20,10 +20,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-export interface CreditLogosProps {
-  visible?: boolean;
-  logoSize?: string;
-}
+import { CreditLogosProps } from "../types";
 
 const props = withDefaults(defineProps<CreditLogosProps>(), {
   visible: true,
