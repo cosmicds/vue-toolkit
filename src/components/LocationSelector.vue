@@ -55,7 +55,7 @@ const props = withDefaults(defineProps<LocationSelectorProps>(), {
     };
   },
   selectionEvent: "click",
-  worldRadii: false,
+  worldRadii: true,
   geoJsonFiles: () => [],
   layers: () => [],
 });
