@@ -9,7 +9,7 @@ import LocationSelector from "./components/LocationSelector.vue";
 import FundingAcknowledgement from "./components/FundingAcknowledgement.vue";
 import CreditLogos from "./components/CreditLogos.vue";
 import GeolocationButton from "./components/GeolocationButton.vue";
-import WwtHUD from "./components/WwtHUD.vue";
+import WwtHud from "./components/WwtHud.vue";
 import Gallery from "./components/Gallery.vue";
 
 
@@ -26,7 +26,7 @@ export {
   FundingAcknowledgement,
   CreditLogos,
   GeolocationButton,
-  WwtHUD,
+  WwtHud,
   PositionCoords,
   useGeolocation,
   useWWTKeyboardControls,
