@@ -1,50 +1,34 @@
 <template>
-  <div id="funding-acknowledgment">
+  <div
+    id="funding-acknowledgment"
+    :style="cssVars"
+  >
     The material contained in this product is based upon work supported by NASA under cooperative agreement award No. 80NSSC21M0002. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the National Aeronautics and Space Administration.
   </div>
 </template>
 
+<script setup lang="ts">
+import { computed } from "vue";
 
-<script lang="ts">
-import { defineComponent, } from "vue";
+import { FundingAcknowledgementProps } from "../types";
 
-export default defineComponent({
+const props = withDefaults(defineProps<FundingAcknowledgementProps>(), {
+  color: "#E0E0E0",
+  backgroundColor: "#0C3D91",
+});
 
-
-  props: {
-    visible: {
-      type: Boolean,
-      default: true
-    },
-  },
-
-  data() {
-    return {    };
-  },
-
-  created() {
-    return;
-  },
-
-  methods: {
-    
-  },
-
-  computed: { 
-
-  },
-
-  watch: {
-  }
+const cssVars = computed(() => {
+  return {
+    "--color": props.color,
+    "--background-color": props.backgroundColor,
+  };
 });
 </script>
 
-
 <style lang="less">
-
 #funding-acknowledgment {
-  color: #E0E0E0;
-  background-color: #0c3d91;
+  color: var(--color);
+  background-color: var(--background-color);
   font-size: calc(0.8em + 0.1vw + 0.1vh);
   line-height: calc(1em + 0.3vw + 0.3vh);
   padding-inline: 1em;
@@ -55,7 +39,5 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-
 }
-
 </style>

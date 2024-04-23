@@ -259,16 +259,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@capacitor/core@npm:^5.7.4":
+  version: 5.7.4
+  resolution: "@capacitor/core@npm:5.7.4"
+  dependencies:
+    tslib: ^2.1.0
+  checksum: 584b05b65312db96214d7c066a51c5d6847a473c6f547dc72c1110369edaff560d513990fd6489cdc28a28e7dbfb5807be36b8890bc3dbc016fa9c571d945c52
+  languageName: node
+  linkType: hard
+
+"@capacitor/geolocation@npm:^5.0.7":
+  version: 5.0.7
+  resolution: "@capacitor/geolocation@npm:5.0.7"
+  peerDependencies:
+    "@capacitor/core": ^5.0.0
+  checksum: 17c1f8100315570417769d6572f1651a077c3266cf38f7eb762f338c6a6e0b1a55edb327e436ae470f8bbdecc037c18672106266db3676c6b5d4bafb992c8708
+  languageName: node
+  linkType: hard
+
 "@cosmicds/vue-toolkit@workspace:.":
   version: 0.0.0-use.local
   resolution: "@cosmicds/vue-toolkit@workspace:."
   dependencies:
+    "@capacitor/core": ^5.7.4
+    "@capacitor/geolocation": ^5.0.7
     "@fortawesome/fontawesome-svg-core": ^6.5.1
     "@fortawesome/free-solid-svg-icons": ^6.5.1
     "@fortawesome/vue-fontawesome": ^3.0.6
     "@kyvg/vue3-notification": ^2.9.1
     "@mdi/font": ^7.4.47
-    "@types/leaflet": ^1.9.3
+    "@types/leaflet": ^1.9.11
     "@typescript-eslint/eslint-plugin": ^6.19.0
     "@typescript-eslint/parser": ^6.19.0
     "@vue/cli-plugin-eslint": ^5.0.8
@@ -761,12 +781,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/leaflet@npm:^1.9.3":
-  version: 1.9.8
-  resolution: "@types/leaflet@npm:1.9.8"
+"@types/leaflet@npm:^1.9.11":
+  version: 1.9.11
+  resolution: "@types/leaflet@npm:1.9.11"
   dependencies:
     "@types/geojson": "*"
-  checksum: d6a33d5db0bdf608957cd52701b17ee89e936034a8f0ab619b8e7ef70312a0da177837dd125756e83af036276a8b299cc724c9ffb3caa7d22893fea2791e1e13
+  checksum: 09969f4907bcead85a4239910ad3355586c734832b44708ce3ef19132416e0f47bcec47421af8b60bee331542a75664fbee333183cabb3f9365fb2a1af0d1160
   languageName: node
   linkType: hard
 
@@ -7491,7 +7511,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.3, tslib@npm:^2.3.0":
+"tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.0":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: 329ea56123005922f39642318e3d1f0f8265d1e7fcb92c633e0809521da75eeaca28d2cf96d7248229deb40e5c19adf408259f4b9640afd20d13aecc1430f3ad

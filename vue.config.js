@@ -32,7 +32,8 @@ module.exports = defineConfig({
         'commonjs2': '@wwtelescope/engine', // typeof exports === 'object' && typeof module === 'object'
         'commonjs': '@wwtelescope/engine', // typeof exports === 'object'
         'root': 'wwtlib' // none of the above: browser mode using global variables
-      }
+      },
+      pinia: 'pinia',
     });
 
   },
@@ -49,7 +50,8 @@ module.exports = defineConfig({
           { from: 'src/assets', to: 'assets' }
         ]
       })
-    ]
+    ],
+    devtool: "inline-source-map"
   },
 
   // Also needed for the TypeScript declaration stuff (see link above)

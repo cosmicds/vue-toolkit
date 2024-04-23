@@ -17,38 +17,29 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
 
-export default defineComponent({
+import { CreditLogosProps } from "../types";
 
-  props: {
-    visible: {
-      type: Boolean,
-      default: true
-    },
-    logoSize: {
-      type: String,
-      default: "5vmin"
-    }
-  },
+const props = withDefaults(defineProps<CreditLogosProps>(), {
+  visible: true,
+  logoSize: "5vmin"
+});
 
-  computed: { 
-    isMobile() {
-      return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
-    },
-    cssVars() {
-      return {
-        "--logo-size": this.logoSize,
-      };
-    }
-  },
-
+const cssVars = computed(() => {
+  return {
+    "--logo-size": props.logoSize,
+  };
 });
 </script>
 
-<style>
-#logo-credits img {
-  height: var(--logo-size);
+<style lang="less">
+#icons-container {
+  pointer-events: auto;
+
+  img {
+    height: var(--logo-size);
+  }
 }
 </style>

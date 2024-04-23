@@ -3,6 +3,8 @@
   "version": "0.2.0",
   "browser": "dist/index.umd.js",
   "dependencies": {
+    "@capacitor/core": "^5.7.4",
+    "@capacitor/geolocation": "^5.0.7",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.6",
@@ -15,7 +17,7 @@
     "vuetify": "^3.3.3"
   },
   "devDependencies": {
-    "@types/leaflet": "^1.9.3",
+    "@types/leaflet": "^1.9.11",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
     "@vue/cli-plugin-eslint": "^5.0.8",

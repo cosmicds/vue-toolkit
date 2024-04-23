@@ -72,10 +72,10 @@ export class KeyboardControlSettings {
   makeListener(
     actionName: KeyboardControlSettings["actionTypes"][number],
     action: () => void
-  ): (e: KeyboardEvent) => void {
-    return (e) => {
+  ): (event: KeyboardEvent) => void {
+    return (event) => {
       for (const keyPress of this[actionName]) {
-        if (keyPress.matches(e)) {
+        if (keyPress.matches(event)) {
           action();
         }
       }
