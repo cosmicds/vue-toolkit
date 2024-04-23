@@ -36,23 +36,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { Settings } from "@wwtelescope/engine";
-import { engineStore } from "@wwtelescope/engine-pinia";
 import { storeToRefs } from "pinia";
 
 import { WwtHUDProps } from "../types";
 
-const store = engineStore();
-const {
-  raRad,
-  decRad,
-  rollRad,
-  zoomDeg,
-  currentTime,
-  clockRate,
-  foregroundOpacity,
-  backgroundImageset,
-  foregroundImageset,
-} = storeToRefs(store);
 
 const R2D = 180 / Math.PI;
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -67,6 +54,26 @@ const props = withDefaults(defineProps<WwtHUDProps>(), {
   backgroundColor: "rgba(0, 0, 0, 0.5)",
   textShadow: "0 0 5px black",
 });
+
+/*
+* I really don't care for passing the store as a prop,
+* but without just calling `engineStore` (or even `engineStore(wwtPinia)`),
+* we were getting a different store instance than in the using downstream app.
+* Note that if this component is placed directly in the downstream app package,
+* everything worked exactly as expected, so this some sort of Pinia configuration issue.
+* This works, so until I figure out the "right" approach, we'll just do this.
+*/
+const {
+  raRad,
+  decRad,
+  rollRad,
+  zoomDeg,
+  currentTime,
+  clockRate,
+  foregroundOpacity,
+  backgroundImageset,
+  foregroundImageset,
+} = storeToRefs(props.store);
 
 const cssVars = computed(() => {
   return {

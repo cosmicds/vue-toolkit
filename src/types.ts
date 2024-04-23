@@ -1,5 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { CircleMarkerOptions, TileLayerOptions } from "leaflet";
+import { engineStore } from "@wwtelescope/engine-pinia";
+
+export type WWTEngineStore = ReturnType<typeof engineStore>;
 
 /* Funding acknowledgement */
 
@@ -142,4 +145,5 @@ export interface WwtHUDProps {
   fontSize?: string;
   backgroundColor?: string | null;
   textShadow?: string | null;
+  store: ReturnType<typeof engineStore>;
 }
