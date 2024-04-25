@@ -3,7 +3,7 @@ import screenfull from "screenfull";
 
 /**
   * A composable that encapsulates fullscreen behavior.
-  * @returns {Ref<boolean>} A reactive variable indicating whether or not fullscreen mode is active
+  * @returns A reactive variable indicating whether or not fullscreen mode is active
   */ 
 export function useFullscreen(): Ref<boolean> {
   const fullscreenModeActive = ref(false);
@@ -38,7 +38,7 @@ export const defaultWindowShape = { width: 1200, height: 900 };
 /**
   * A composable that encapsulates a changing window shape.
   *
-  * @returns {WindowShape} A reactive variable describing the current window shape.
+  * @returns A reactive variable describing the current window shape.
   */
 export function useWindowShape() {
   const windowShape = ref<WindowShape>(defaultWindowShape);

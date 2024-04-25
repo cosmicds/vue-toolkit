@@ -8,8 +8,8 @@ class KeyPressInfo {
 
   /**
     * Create an instance of key press information
-    * @param{string} code - The key code describing the keypress
-    * @param{{ ctrl: boolean?, alt: boolean?, shift: boolean?, meta: boolean? }} - An object of boolean values describing which modifier keys were pressed down
+    * @param code - The key code describing the keypress
+    * @param An object of boolean values describing which modifier keys were pressed down
     */
   constructor(
     code: string,
@@ -29,8 +29,8 @@ class KeyPressInfo {
 
   /**
     * Determine whether a keyboard event matches this key press information
-    * @param{KeyboardEvent} event - The keyboard event to test
-    * @returns{boolean} Whether or not the given event matches
+    * @param event - The keyboard event to test
+    * @returns Whether or not the given event matches
     */
   matches(event: KeyboardEvent): boolean {
     return (
@@ -94,9 +94,9 @@ export class KeyboardControlSettings {
   ] as const;
   
   /** Make a listener for a given WWT action
-    * @param{ActionType} actionName - The WWT action to make a listener for
-    * @param{() => void} action - Function to execute when the given WWT action occurs
-    * @returns{(event: KeyboardEvent) => void} The key event listener for the desired behavior 
+    * @param actionName - The WWT action to make a listener for
+    * @param action - Function to execute when the given WWT action occurs
+    * @returns The key event listener for the desired behavior 
     */
   makeListener(
     actionName: ActionType,
