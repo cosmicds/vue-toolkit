@@ -1,3 +1,4 @@
+/** Interface describing a MapBox content item */
 export interface MapBoxContextItem {
   id: string;
   // eslint-disable-next-line @typescript-eslint/naming-convention

@@ -47,6 +47,7 @@
   "scripts": {
     "build": "vue-cli-service build --target lib --name index src/index.ts",
     "clean": "rimraf dist",
+    "docs": "typedoc",
     "lint": "vue-cli-service lint src --no-fix"
   },
   "types": "./dist/src/index.d.ts"

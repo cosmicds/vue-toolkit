@@ -2,34 +2,54 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { CircleMarkerOptions, TileLayerOptions } from "leaflet";
 import { engineStore } from "@wwtelescope/engine-pinia";
 
+/** The type of the WWT engine Pinia store */
 export type WWTEngineStore = ReturnType<typeof engineStore>;
 
 /* Funding acknowledgement */
 
+/** Interface describing props for the funding acknowledgement component */
 export interface FundingAcknowledgementProps {
+  /** The color of the acknowledgement text */
   color?: string;
+
+  /** The background color of the acknowledgement */
   backgroundColor?: string;
 }
 
 /* Credit logos */
 
+/** Interface describing props for the credit logos component */
 export interface CreditLogosProps {
-  visible?: boolean;
+  /** What size to use for the logos. Should be a valid CSS size. */
   logoSize?: string;
 }
 
 /* Gallery */
 
+/** Interface describing props for the gallery component */
 export interface GalleryProps {
+  /** The URL of a WTML file describing the desired gallery contents. Required */
   wtmlUrl: string;
+  /** The number of columns of the gallery.
+    * Accepts a number or a valid CSS value to be used in `repeat` for `grid-template-columns`
+    * Defaults to 'auto-fit'
+    */
   columns?: number | string;
+  /** The width of the gallery. Should be a valid CSS value for `width`. Defaults to 300px */
   width?: string;
+  /** Maximum height of the gallery. Should be a valid CSS value for `max-height`. Defaults to 500px */
   maxHeight?: string;
+  /** The title of the gallery. Default is 'Gallery' */
   title?: string;
+  /** The accent color to use for selected images in the gallery. Should be a valid CSS color. Default is 'dodgerblue' */
   selectedColor?: string;
+  /** Whether a user can select only one image at a time. Default true */
   singleSelect?: boolean;
+  /** Whether only the last selected image is highlighted. Default false */ 
   highlightLastOnly?: boolean;
+  /** The index of the preview image in the WTML file. Defaults to 0. */
   previewIndex?: number;
+  /** The text to show when the gallery is closed. Default is 'Image Gallery' */
   closedText?: string;
 }
 
@@ -37,6 +57,7 @@ export interface GalleryProps {
 
 export type GeolocationButtonDensity = null | "default" | "comfortable" | "compact";
 
+/** Interface describing props for the geolocation button */
 export interface GeolocationButtonProps {
   color?: string;
   disabled?: boolean;

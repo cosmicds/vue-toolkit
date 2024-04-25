@@ -50,23 +50,21 @@ type ActionType = KeyboardControlSettings["actionTypes"][number];
   * Class describing keyboard control settings for WorldWide Telescope actions
   */
 export class KeyboardControlSettings {
+  /** A list of key presses that should result in zooming in */
   zoomIn: KeyPressInfo[];
+  /** A list of key presses that should result in zooming out */
   zoomOut: KeyPressInfo[];
+  /** A list of key presses that should result in moving the view up */
   moveUp: KeyPressInfo[];
+  /** A list of key presses that should result in moving the view down */
   moveDown: KeyPressInfo[];
+  /** A list of key presses that should result in moving the view left */
   moveLeft: KeyPressInfo[];
+  /** A list of key presses that should result in moving the view right */
   moveRight: KeyPressInfo[];
+  /** A value describing how much to move on a movement press. Larger means more movement. */
   moveAmount: number;
 
-  /**
-    * Create a new set of keyboard control settings
-    * @param{KeyPressInfo[]} zoomIn - a list describing which key press(es) should result in zooming in
-    * @param{KeyPressInfo[]} zoomOut - a list describing which key press(es) should result in zooming out 
-    * @param{KeyPressInfo[]} moveUp - a list describing which key press(es) should result in moving the view up
-    * @param{KeyPressInfo[]} moveLeft - a list describing which key press(es) should result in moving the view left 
-    * @param{KeyPressInfo[]} moveDown - a list describing which key press(es) should result in moving the view down 
-    * @param{KeyPressInfo[]} moveRight - a list describing which key press(es) should result in moving the view right 
-    */
   constructor({
     zoomIn = [new KeyPressInfo("KeyI")],
     zoomOut = [new KeyPressInfo("KeyO")],
