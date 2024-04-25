@@ -2,6 +2,11 @@ import { ref, onMounted } from "vue";
 import { Capacitor, PermissionState as CapacitorPermissionState } from '@capacitor/core';
 import { Geolocation, PermissionStatus as CapacitorPermissionStatus, Position, PositionOptions } from "@capacitor/geolocation";
 
+/**
+  * Determine which of two capacitor permission states is 'better'.
+  * This implementation takes "prompt-with-rationale" to be better than "prompt".
+  * @returns {CapacitorPermissionState} The 'better' of the two input permission states
+  */
 function betterPermissionState(firstState: CapacitorPermissionState, secondState: CapacitorPermissionState): CapacitorPermissionState {
   const states: CapacitorPermissionState[] = ["granted", "prompt-with-rationale", "prompt", "denied"];
   for (const state of states) {
@@ -13,6 +18,19 @@ function betterPermissionState(firstState: CapacitorPermissionState, secondState
 }
 
 export type PositionCoords = Position['coords'];
+
+/**
+  * A composable that encapsulates the current state of the browser
+  * geolocation position and permission status.
+  * @param {boolean} onStartup - Whether or not to query the user's geolocation on startup.
+  * @returns {{
+  *   geolocation: Ref<PositionCoords | null>,
+  *   error: Ref<GeolocationPositionError | null>,
+  *   permissions: Ref<string>,
+  *   permissionGranted: Ref<boolean>,
+  *   hasPermissionsAPI: Ref<boolean>
+  * }}
+  */
 export function useGeolocation(onStartup=true) {
 
   const geolocation = ref<PositionCoords | null>(null);

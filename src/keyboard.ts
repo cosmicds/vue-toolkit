@@ -1,3 +1,4 @@
+/** Class representing a key press */
 class KeyPressInfo {
   code: string;
   ctrl: boolean;
@@ -5,6 +6,11 @@ class KeyPressInfo {
   shift: boolean;
   meta: boolean;
 
+  /**
+    * Create an instance of key press information
+    * @param{string} code - The key code describing the keypress
+    * @param{{ ctrl: boolean?, alt: boolean?, shift: boolean?, meta: boolean? }} - An object of boolean values describing which modifier keys were pressed down
+    */
   constructor(
     code: string,
     modifiers?: {
@@ -21,6 +27,11 @@ class KeyPressInfo {
     this.meta = modifiers?.meta ?? false;
   }
 
+  /**
+    * Determine whether a keyboard event matches this key press information
+    * @param{KeyboardEvent} event - The keyboard event to test
+    * @returns{boolean} Whether or not the given event matches
+    */
   matches(event: KeyboardEvent): boolean {
     return (
       event.code === this.code &&
@@ -32,6 +43,12 @@ class KeyPressInfo {
   }
 }
 
+/** Type describing the possible WWT actions */
+type ActionType = KeyboardControlSettings["actionTypes"][number];
+
+/**
+  * Class describing keyboard control settings for WorldWide Telescope actions
+  */
 export class KeyboardControlSettings {
   zoomIn: KeyPressInfo[];
   zoomOut: KeyPressInfo[];
@@ -41,6 +58,15 @@ export class KeyboardControlSettings {
   moveRight: KeyPressInfo[];
   moveAmount: number;
 
+  /**
+    * Create a new set of keyboard control settings
+    * @param{KeyPressInfo[]} zoomIn - a list describing which key press(es) should result in zooming in
+    * @param{KeyPressInfo[]} zoomOut - a list describing which key press(es) should result in zooming out 
+    * @param{KeyPressInfo[]} moveUp - a list describing which key press(es) should result in moving the view up
+    * @param{KeyPressInfo[]} moveLeft - a list describing which key press(es) should result in moving the view left 
+    * @param{KeyPressInfo[]} moveDown - a list describing which key press(es) should result in moving the view down 
+    * @param{KeyPressInfo[]} moveRight - a list describing which key press(es) should result in moving the view right 
+    */
   constructor({
     zoomIn = [new KeyPressInfo("KeyI")],
     zoomOut = [new KeyPressInfo("KeyO")],
@@ -69,8 +95,13 @@ export class KeyboardControlSettings {
     "moveRight",
   ] as const;
   
+  /** Make a listener for a given WWT action
+    * @param{ActionType} actionName - The WWT action to make a listener for
+    * @param{() => void} action - Function to execute when the given WWT action occurs
+    * @returns{(event: KeyboardEvent) => void} The key event listener for the desired behavior 
+    */
   makeListener(
-    actionName: KeyboardControlSettings["actionTypes"][number],
+    actionName: ActionType,
     action: () => void
   ): (event: KeyboardEvent) => void {
     return (event) => {
