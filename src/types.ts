@@ -55,35 +55,56 @@ export interface GalleryProps {
 
 /* Geolocation button */
 
+/** A union type consisting of the density options for the geolocation button */
 export type GeolocationButtonDensity = null | "default" | "comfortable" | "compact";
 
 /** Interface describing props for the geolocation button */
 export interface GeolocationButtonProps {
+  /** The color of the geolocation button. Defaults to "white" */
   color?: string;
-  disabled?: boolean;
+  /** The size of the button */
   size?: string;
+  /** The density of the button. This adjusts the vertical height of the button. Defaults to "comfortable" */
   density?: GeolocationButtonDensity;
+  /** The elevation of the button. Defaults to "2" */
   elevation?: string;
+  /** Whether to hide the button. Defaults to false */
   hideButton?: boolean;
+  /** Whether to show the button's text label. Defaults to false */
   showTextLabel?: boolean;
+  /** Whether to show the button's geolocation coordinates. Defaults to false */ 
   showCoords?: boolean;
+  /** Whether to show text indicating when location fetching is in progress. Defaults to false */
   showTextProgress?: boolean;
+  /** Whether to show circle indicator when fetching is in progress. Defaults to true */
   showProgressCircle?: boolean;
+  /** Whether to include text on the button. Defaults to false */
   useTextButton?: boolean;
+  /** The size of the in-progress circle. Defaults to 12 */
   progressCircleSize?: number;
+  /** The button's label. Defaults to "My Location" */
   label?: string;
+  /** The ID to use to create the button ID */
   id?: string;
+  /** The icon to use when the geolocation has been obtained */
   trueIcon?: string;
+  /** The icon to use when there is no value for the geolocation */
   falseIcon?: string;
-  backgroundColor?: string;
+  /** Whether to show the location and permission status. Useful for debugging, defaults to false */
   showPermissions?: boolean;
 }
 
 /* Icon button */
-// We need to do this because FontAwesome doesn't export the prop types
+
+/**
+  * A type describing the props of a FontAwesome icon
+  * We need to do this because FontAwesome doesn't export the prop types
+  */ 
 export type FontAwesomeIconProps = InstanceType<typeof FontAwesomeIcon>["$props"];
+/** A type describing the size options for a FontAwesome icon */
 export type SizeType = Extract<FontAwesomeIconProps, 'size'>;
 
+/** An interface describing props for the icon button */
 export interface IconButtonProps {
   modelValue?: boolean;
   faIcon?: string;
@@ -108,17 +129,25 @@ export interface IconButtonProps {
 
 /* Location selector */
 
+/** An interface describing a latitude/longitude location */
 export interface LocationDeg {
+  /** The longitude of the location, in degrees */
   longitudeDeg: number;
+  /** The latitude of the location, in degrees */
   latitudeDeg: number;
 }
 
+/** An interface describing options for the Leaflet map in the location selector */
 export interface LeafletMapOptions extends TileLayerOptions {
+  /** The template URL to use for the base map layer */
   templateUrl: string;
+  /** The initial location to center the map on */
   initialLocation?: LocationDeg;
+  /** The initial zoom level of the map */
   initialZoom?: number;
 }
 
+/** An interface describing a GeoJSON item, to be used as a prop for the location selector */
 export interface GeoJSONProp {
   url?: string;
   geojson?: GeoJSON.FeatureCollection | GeoJSON.Feature | GeoJSON.GeometryCollection;

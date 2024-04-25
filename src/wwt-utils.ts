@@ -11,6 +11,12 @@ function doMove(store: WWTEngineStore, x: number, y: number) {
   store.move({ x, y });
 }
 
+/**
+  * A composable that sets up WWT keyboard controls.
+  * @param store The WWT engine's Pinia store
+  * @param element The element on which to attach the keyboard listeners. Uses the browser window if none is given
+  * @returns The `KeyboardControlSettings` instance that was used to create the listeners
+  */
 export function useWWTKeyboardControls(store: WWTEngineStore, element?: Window | HTMLElement): KeyboardControlSettings {
   const root = element || window;
   const kcs = new KeyboardControlSettings({});

@@ -17,7 +17,7 @@ export function supportsTouchscreen(): boolean {
 
 /**
   * Determine whether a given user agent string describes a mobile device.
-  * This is done via a regex match.
+  * This is done via a regex match against common user agent string pieces.
   * @returns Whether the user agent string describes a mobile device
   */
 export function isMobile(userAgent: string): boolean {
