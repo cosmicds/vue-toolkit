@@ -1,8 +1,10 @@
+/** Degrees -> radians conversion factor */
 export const D2R = Math.PI / 180;
+/** Radians -> degrees conversion factor */
 export const R2D = 180 / Math.PI;
 
+/** The base URL for the CosmicDS API server */
 export const API_BASE_URL = "https://api.cosmicds.cfa.harvard.edu";
-export const MINIDS_BASE_URL = `${API_BASE_URL}/minids`;
 
 /**
   * Determine whether the user's device supports touch events.
@@ -18,6 +20,7 @@ export function supportsTouchscreen(): boolean {
 /**
   * Determine whether a given user agent string describes a mobile device.
   * This is done via a regex match against common user agent string pieces.
+  *
   * @returns Whether the user agent string describes a mobile device
   */
 export function isMobile(userAgent: string): boolean {
@@ -33,10 +36,11 @@ export function blurActiveElement() {
 }
 
 /**
-  * Filter an array in place (as opposed to .filter, which creates a new array)
+  * Filter an array in place (as opposed to .filter, which creates a new array).
   * Modified from https://stackoverflow.com/a/37319954
-  * @param{T[]} array - The array to filter
-  * @param{(t: T) => boolean} condition - The filtering condition. Elements for which this returns true are retained
+  *
+  * @param array - The array to filter
+  * @param condition - The filtering condition. Elements for which this returns true are retained
   * @template T
   */
 export function filterInPlace<T>(array: T[], condition: (t: T) => boolean) {
