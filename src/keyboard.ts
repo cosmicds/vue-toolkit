@@ -1,15 +1,20 @@
 /** Class representing a key press */
-class KeyPressInfo {
+export class KeyPressInfo {
+  /** The code of the key that was pressed */
   code: string;
+  /** Whether the control modifier was pressed */
   ctrl: boolean;
+  /** Whether the alt modifier was pressed */
   alt: boolean;
+  /** Whether the shift modifier was pressed */
   shift: boolean;
+  /** Whether the meta modifier was pressed */
   meta: boolean;
 
   /**
     * Create an instance of key press information
-    * @param code - The key code describing the keypress
-    * @param An object of boolean values describing which modifier keys were pressed down
+    * @param code The key code describing the keypress
+    * @param modifiers An object of boolean values describing which modifier keys were pressed down
     */
   constructor(
     code: string,
