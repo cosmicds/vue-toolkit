@@ -106,23 +106,41 @@ export type SizeType = Extract<FontAwesomeIconProps, 'size'>;
 
 /** An interface describing props for the icon button */
 export interface IconButtonProps {
+  /** Whether or not the icon button is active. Only makes sense in cases where one wants the button to have an on/off state */
   modelValue?: boolean;
+  /** The name of the FontAwesome icon to use. It's assumed that only one of this and `mdIcon` will be used */
   faIcon?: string;
+  /** The name of the MID icon to use. It's assumed that only one of this and `faIcon` will be used */
   mdIcon?: string;
+  /** The primary color of the button. Sets the icon and border colors. Default is white */
   color?: string;
+  /** The color of the button when focused. Default is white */
   focusColor?: string;
+  /** The background color of the button. Default is #040404 */
   backgroundColor?: string;
+  /** Whether to use a box shadow when the button is active. Default is true */
   boxShadow?: boolean;
+  /** Whether the button has a border. Default is true */
   border?: boolean;
+  /** The time duration, in ms, to recognize a press event as a long press. Default is 500 */
   longPressTimeMs?: number;
+  /** The tooltip text for the button. If not specified, tooltip will not be shown */
   tooltipText?: string;
+  /** The location of the tooltip. Default is start */
   tooltipLocation?: string;
+  /** Whether to show the tooltip when the button is clicked. Default is false */
   tooltipOnClick?: boolean;
+  /** Whether to show the tooltip when the button is focused. Default is false */
   tooltipOnFocus?: boolean;
+  /** Whether to show the tooltip when the button is hovered. Default is true */
   tooltipOnHover?: boolean;
+  /** The distance away from the button that the tooltip appears. Default is 0 */
   tooltipOffset?: string | number;
+  /** Whether to show the tooltip when appropriate. Default is true */
   showTooltip?: boolean;
+  /** The size of the FontAwesome icon */
   faSize?: SizeType;
+  /** The size of the MDI icon. Should be a valid CSS size */
   mdSize?: string;
 }
 
@@ -149,51 +167,88 @@ export interface LeafletMapOptions extends TileLayerOptions {
 
 /** An interface describing a GeoJSON item, to be used as a prop for the location selector */
 export interface GeoJSONProp {
+  /** The URL of a remote GeoJSON resource. This and `geojson` and not intended to be used together */
   url?: string;
+  /** A GeoJSON object to add to the location selector */
   geojson?: GeoJSON.FeatureCollection | GeoJSON.Feature | GeoJSON.GeometryCollection;
+  /** The style options for any circle markers related to this item. Required */
   style: CircleMarkerOptions;
 }
 
+/** Interface describing a place on the location selector */
 export interface PlaceDeg extends LocationDeg { 
+  /** The color to use for the circle showing the place */
   color?: string;
+  /** The fill color to use for the circle showing the place */
   fillColor?: string;
+  /** The fill opacity to use for the circle showing the place */
   fillOpacity?: number;
+  /** The radius to use for the circle showing the place */
   radius?: number;
+  /** The name of the place */
   name?: string;
 }
 
+/** Interface describing props for the location selector */
 export interface LocationSelectorProps {
+  /** The color to use for the activator button */
   activatorColor?: string;
+  /** Whether to attempt to detect the user's location when the component is mounted. Default is true */
   detectLocation?: boolean;
+  /** The currently selected location. Default is the coordinates for Harvard College Observatory */
   modelValue?: LocationDeg;
+  /** Map options for the Leaflet map. If not specified, sensible defaults are used */
   mapOptions?: LeafletMapOptions;
+  /** The initial place to be selected on the map */
   initialPlace?: PlaceDeg;
+  /** The list of places to show on the map */
   places?: PlaceDeg[];
+  /** Options for place circles */
   placeCircleOptions?: CircleMarkerOptions;
+  /** Whether places can be selected on the map. Default is true */
   placeSelectable?: boolean;
+  /** Whether a location can be selected on the map. Default is true */
   selectable?: boolean;
+  /** Options for the circle showing the selected place */
   selectedCircleOptions?: CircleMarkerOptions;
+  /** Which event to use to select a location. Default is "click" */
   selectionEvent?: "click" | "dblclick";
+  /** Whether to use world radii for circle sizes (as opposed to screen radii). Default is true */
   worldRadii?: boolean;
+  /** GeoJSON items to display on the map. The list is empty by default */
   geoJsonFiles?: GeoJSONProp[];
+  /** Layers to show on the map. The list is empty by default */
   layers?: L.Layer[];
 }
 
 /* WWT HUD */
 
+/** Interface describing the location of the WWT HUD */
 export interface HUDLocation {
+  /** Distance from the top. Should be a valid CSS value */
   top?: string | number,
+  /** Distance from the left. Should be a valid CSS value */
   left?: string | number,
+  /** Distance from the bottom. Should be a valid CSS value */
   bottom?: string | number,
+  /** Distance from the right. Should be a valid CSS value */
   right?: string | number,
 }
 
+/** Interface describing props for the WWT HUD */
 export interface WwtHUDProps {
+  /** Location of the HUD in the browser window. Default is `{ top: "50%", left: "50%" }` */
   location?: HUDLocation;
+  /** Define an offset for the HUD. Default is `{ x: 0.5, y: 0.5 }` */
   offsetCenter?: { x: number; y: number };
+  /** Other variables to include in the HUD display. Default is `{}` */
   otherVariables?: Object;  // eslint-disable-line @typescript-eslint/ban-types
+  /** The font size of the HUD text. Should be a valid CSS value for `font-size` */
   fontSize?: string;
+  /** Background color for the HUD. Should be a valid CSS color. Default is `rgba(0, 0, 0, 0.5)` */
   backgroundColor?: string | null;
+  /** Text shadow for the HUD text. Should be a valid CSS value for `text-shadow`. Default is `"0 0 5px black"` */
   textShadow?: string | null;
+  /** The WWT engine store to use for the HUD. Required */
   store: ReturnType<typeof engineStore>;
 }
