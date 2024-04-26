@@ -304,6 +304,7 @@ __metadata:
     less-loader: ^12.1.0
     screenfull: ^6.0.2
     typedoc: ^0.25.13
+    typedoc-plugin-vue: ^1.1.0
     typescript: ^4.9.4
     vue: ^3
     vue-template-compiler: ^2.7.14
@@ -7607,6 +7608,15 @@ __metadata:
     media-typer: 0.3.0
     mime-types: ~2.1.24
   checksum: 2c8e47675d55f8b4e404bcf529abdf5036c537a04c2b20177bcf78c9e3c1da69da3942b1346e6edb09e823228c0ee656ef0e033765ec39a70d496ef601a0c657
+  languageName: node
+  linkType: hard
+
+"typedoc-plugin-vue@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "typedoc-plugin-vue@npm:1.1.0"
+  peerDependencies:
+    typedoc: 0.25.x
+  checksum: b689dab5716a38c76e9c0848932cb0118e2af3c482b0b0ea80c67680a006c6ee35a024db819b0dc972af52e572a04b0d008862c6874bca7d7547872cc2e6caac
   languageName: node
   linkType: hard
 
