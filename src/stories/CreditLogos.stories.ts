@@ -18,9 +18,9 @@ export const Primary: Story = {
     template: `<CreditLogos v-bind="args" />`,
     setup() {
       return { args };
-    },
-    args: {
-      "--logo-size": "5vmin" 
     }
-  })
+  }),
+  args: {
+    logoSize: "1vmin" 
+  }
 };
