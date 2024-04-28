@@ -39,8 +39,7 @@ jobs:
 
       - name: Deploy docs to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
-        if: ${{ steps.draft.outputs.value }} == 'true'
         with:
           branch: gh-pages
-          folder: docs 
-
+          folder: docs
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
