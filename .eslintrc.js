@@ -9,11 +9,12 @@ module.exports = {
     '@typescript-eslint',
   ],
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:vue/essential',
-    '@vue/typescript/recommended'
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:vue/essential",
+    "@vue/typescript/recommended",
+    "plugin:storybook/recommended"
   ],
   rules: {
     "indent": ["error", 2],
