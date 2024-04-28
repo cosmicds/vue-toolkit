@@ -20,7 +20,7 @@ const config: StorybookConfig = {
     config.module?.rules?.push({
       test: /\.less/,
       sideEffects: true,
-      use: ["css-loader", "less-loader"],
+      use: ["style-loader", "css-loader", "less-loader"],
     });
     return config;
   },
