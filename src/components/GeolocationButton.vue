@@ -59,7 +59,6 @@ import { GeolocationButtonProps } from "../types";
 
 const props = withDefaults(defineProps<GeolocationButtonProps>(), {
   color: "white",
-  disabled: false,
   size: "small",
   density: "comfortable",
   elevation: "2",
@@ -73,7 +72,6 @@ const props = withDefaults(defineProps<GeolocationButtonProps>(), {
   label: "My Location",
   trueIcon: "mdi-crosshairs-gps",
   falseIcon: "mdi-crosshairs",
-  backgroundColor: "black",
   showPermissions: false,
 });
 

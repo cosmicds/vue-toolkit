@@ -1,5 +1,8 @@
+/** Class representing a background imageset for WorldWide Telescope */
 export class BackgroundImageset {
+  /** The outward-facing name to use for the imageset in a story */
   public imagesetName: string;
+  /** The name of the imageset object inside WorldWide Telescope */
   public displayName: string;
 
   constructor(displayName: string, imagesetName: string) {
@@ -8,6 +11,7 @@ export class BackgroundImageset {
   }
 }
 
+/** A default list of `BackgroundImagset` objects to use within data stories */
 export const skyBackgroundImagesets: BackgroundImageset[] = [
   new BackgroundImageset(
     "Optical (Terapixel DSS)",

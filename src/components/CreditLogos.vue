@@ -23,7 +23,6 @@ import { computed } from "vue";
 import { CreditLogosProps } from "../types";
 
 const props = withDefaults(defineProps<CreditLogosProps>(), {
-  visible: true,
   logoSize: "5vmin"
 });
 

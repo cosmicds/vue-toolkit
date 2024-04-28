@@ -1,6 +1,10 @@
 import { ref, onMounted, onUnmounted, Ref } from "vue";
 import screenfull from "screenfull";
 
+/**
+  * A composable that encapsulates fullscreen behavior.
+  * @returns A reactive variable indicating whether or not fullscreen mode is active
+  */ 
 export function useFullscreen(): Ref<boolean> {
   const fullscreenModeActive = ref(false);
   function update(_event: Event) {
@@ -22,11 +26,20 @@ export function useFullscreen(): Ref<boolean> {
   return fullscreenModeActive;
 }
 
+/** Interface describing the shape of a browser window */
 export interface WindowShape {
   width: number;
   height: number;
 }
+
+/** A default `WindowShape` to use */
 export const defaultWindowShape = { width: 1200, height: 900 };
+
+/**
+  * A composable that encapsulates a changing window shape.
+  *
+  * @returns A reactive variable describing the current window shape.
+  */
 export function useWindowShape() {
   const windowShape = ref<WindowShape>(defaultWindowShape);
   const resizeObserver = new ResizeObserver(_entries => update());
@@ -51,6 +64,6 @@ export function useWindowShape() {
     resizeObserver.unobserve(document.body);
   });
 
-  return { windowShape, resizeObserver };
+  return windowShape;
 }
 
