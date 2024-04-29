@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { Meta, StoryObj } from "@storybook/vue3";
-import { CreditLogosProps } from "..";
-
+import { CreditLogosProps } from "../types";
 import CreditLogos from "../components/CreditLogos.vue";
 
 const meta: Meta<typeof CreditLogos> = {
@@ -21,6 +20,6 @@ export const Primary: Story = {
     }
   }),
   args: {
-    logoSize: "1vmin" 
+    logoSize: "20vmin"
   }
 };
