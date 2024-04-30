@@ -20,6 +20,6 @@ export const Primary: Story = {
     }
   }),
   args: {
-    logoSize: "20vmin"
+    logoSize: "5vmin"
   }
 };
