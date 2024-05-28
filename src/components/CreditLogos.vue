@@ -48,7 +48,7 @@ const DEFAULT_LOGOS: Map<DefaultCreditLogo, CreditLogo> = new Map([
 const props = withDefaults(defineProps<CreditLogosProps>(), {
   logoSize: "5vmin",
   extraLogos: () => [],
-  defaultLogos: () => [...DEFAULT_LOGOS.keys()],
+  defaultLogos: () => ["cosmicds", "wwt", "sciact", "nasa"],
 });
 
 const logos = computed<CreditLogo[]>(() => {
