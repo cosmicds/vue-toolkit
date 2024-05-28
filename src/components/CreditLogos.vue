@@ -52,7 +52,7 @@ const props = withDefaults(defineProps<CreditLogosProps>(), {
 });
 
 const logos = computed<CreditLogo[]>(() => {
-  const defaultLogos = props.defaultLogos.map(logo => DEFAULT_LOGOS.get(logo)).filter(x => x != undefined) as CreditLogo[];
+  const defaultLogos = props.defaultLogos.map((logo: DefaultCreditLogo) => DEFAULT_LOGOS.get(logo)).filter((logo: CreditLogo | undefined) => logo != undefined) as CreditLogo[];
   return defaultLogos.concat(props.extraLogos);
 });
 
