@@ -18,10 +18,27 @@ export interface FundingAcknowledgementProps {
 
 /* Credit logos */
 
+/** Interface describing a logo */
+export interface CreditLogo {
+  /** The URL for the logo image */
+  src: string;
+  /** The URL to open when the logo is clicked */
+  href: string;
+  /** Alt text to use for the logo. If none is given, the logo will have no alt text */
+  alt?: string;
+}
+
+/** A union type enumerating the default credit logos */
+export type DefaultCreditLogo = "cosmicds" | "wwt" | "sciact" | "nasa";
+
 /** Interface describing props for the credit logos component */
 export interface CreditLogosProps {
   /** What size to use for the logos. Should be a valid CSS size. */
   logoSize?: string;
+  /** Any extra logos that we want to use */
+  extraLogos?: CreditLogo[];
+  /** Which default logos to use. If not specified, use them all */
+  defaultLogos: DefaultCreditLogo[];
 }
 
 /* Gallery */
