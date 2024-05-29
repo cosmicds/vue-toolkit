@@ -32,10 +32,10 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Build docs
-        run: yarn docs
+      - name: Build Storybook
+        run: yarn build-storybook 
 
-      - name: Deploy docs to GitHub Pages
+      - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
