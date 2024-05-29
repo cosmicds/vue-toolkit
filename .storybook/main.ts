@@ -8,6 +8,8 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials",
     "@chromatic-com/storybook",
     "@storybook/addon-interactions",
+    "@storybook/addon-docs",
+    "storybook-dark-mode",
   ],
   framework: {
     name: "@storybook/vue3-webpack5",

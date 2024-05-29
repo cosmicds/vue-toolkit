@@ -6,6 +6,7 @@ import CreditLogos from "../components/CreditLogos.vue";
 
 const meta: Meta<typeof CreditLogos> = {
   component: CreditLogos,
+  tags: ["autodocs"],
 };
 
 export default meta;

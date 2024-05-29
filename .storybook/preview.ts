@@ -14,6 +14,12 @@ setup((app) => {
 });
 
 const preview: Preview = {
+  // TODO: This is what storybook tells us to do:
+  // https://storybook.js.org/docs/writing-docs/autodocs
+  // but doesn't seem to work. Why not?
+  // For now, we can work around this by marking each story
+  // with this tag
+  // tags: ["autodocs"],
   parameters: {
     controls: {
       matchers: {

@@ -11,6 +11,7 @@ library.add(faBookOpen);
 
 const meta: Meta<typeof IconButton> = {
   component: IconButton,
+  tags: ["autodocs"],
 };
 
 export default meta;
