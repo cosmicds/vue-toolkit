@@ -28,6 +28,7 @@ export interface CreditLogo {
   alt?: string;
 }
 
+/** A union type enumerating the default credit logos */
 export type DefaultCreditLogo = "cosmicds" | "wwt" | "sciact" | "nasa";
 
 /** Interface describing props for the credit logos component */
