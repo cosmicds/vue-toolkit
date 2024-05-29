@@ -70,7 +70,7 @@
     "docs": "typedoc --plugin typedoc-plugin-markdown",
     "lint": "vue-cli-service lint src --no-fix",
     "storybook": "storybook dev -p 6006 --debug",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build -o docs"
   },
   "types": "./dist/src/index.d.ts"
 }
