@@ -15,7 +15,15 @@ type Story = StoryObj<typeof Gallery>;
 export const Primary: Story = {
   render: (args: GalleryProps) => ({
     components: { Gallery, WWTComponent },
-    template: `<div><WWTComponent :wwtNamespace="storybook" style="display: none"/><Gallery v-bind="args" /></div>`,
+    template: `
+      <div>
+        <WWTComponent
+          :wwtNamespace="storybook"
+          style="display: none"
+        />
+        <Gallery v-bind="args" />
+      </div>
+    `,
     setup() {
       return { args };
     },
