@@ -1,4 +1,5 @@
 import { setup, type Preview } from "@storybook/vue3";
+import { wwtPinia } from "@wwtelescope/engine-pinia";
 
 import { createVuetify } from 'vuetify';
 import * as components from 'vuetify/components';
@@ -10,6 +11,7 @@ const vuetify = createVuetify({
 });
 
 setup((app) => {
+  app.use(wwtPinia);
   app.use(vuetify);
 });
 

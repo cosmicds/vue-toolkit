@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { Meta, StoryObj } from "@storybook/vue3";
-import { CreditLogosProps } from "../types";
-import CreditLogos from "../components/CreditLogos.vue";
+import { CreditLogos, CreditLogosProps } from "..";
 
 const meta: Meta<typeof CreditLogos> = {
   component: CreditLogos,

@@ -2,7 +2,7 @@
 
 import { Meta, StoryObj } from "@storybook/vue3";
 import { IconButtonProps } from "../types";
-import IconButton from "../components/IconButton.vue";
+import { IconButton } from "..";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faBookOpen } from "@fortawesome/free-solid-svg-icons";

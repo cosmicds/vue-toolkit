@@ -8,7 +8,7 @@ import L, { CircleMarkerOptions, LeafletMouseEvent, Map } from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import { notify } from "@kyvg/vue3-notification";
 
-import { useGeolocation } from "@/geolocation";
+import { useGeolocation } from "../geolocation";
 import { GeoJSONProp, LeafletMapOptions, LocationDeg, LocationSelectorProps, PlaceDeg } from "../types";
 
 
@@ -16,7 +16,7 @@ const defaultMapOptions: LeafletMapOptions = {
   templateUrl: 'https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
   minZoom: 1,
   maxZoom: 20,
-  subdomains:['mt0','mt1','mt2','mt3'],
+  subdomains: ['mt0','mt1','mt2','mt3'],
   attribution: `&copy <a href="https://www.google.com/maps">Google Maps</a>`,
   className: 'map-tiles'
 };
