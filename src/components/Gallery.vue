@@ -23,7 +23,7 @@
         <img
           class="noselect"
           :src="places[previewIndex] ? (getImageset(places[previewIndex])?.get_thumbnailUrl() ?? '') : ''"
-        />
+          />
       </div>
     </slot>
   </div>
@@ -69,6 +69,7 @@
 import { ref, reactive, computed, watch, onBeforeMount, toRaw } from "vue";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { Folder, Imageset, Place } from "@wwtelescope/engine";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 library.add(faTimes);
