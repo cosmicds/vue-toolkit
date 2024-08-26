@@ -2,6 +2,7 @@
 
 import { Meta, StoryObj } from "@storybook/vue3";
 import { LocationSelector, LocationSelectorProps } from "..";
+import { ref } from "vue";
 
 const meta: Meta<typeof LocationSelector> = {
   component: LocationSelector,
@@ -11,21 +12,33 @@ const meta: Meta<typeof LocationSelector> = {
 export default meta;
 type Story = StoryObj<typeof LocationSelector>;
 
+// Default location is Harvard College Observatory
+const location = ref({
+  latitudeDeg: 42.3814,
+  longitudeDeg: -71.1281,
+});
+console.log(location);
 export const Primary: Story = {
   render: (args: LocationSelectorProps) => ({
     components: { LocationSelector },
-    template: `<LocationSelector v-bind="args" />`,
+    template: `
+      <LocationSelector
+        style="width: 300px; height: 400px;"
+        v-bind="args"
+      />`,
     setup() {
       return { args };
     }
   }),
+  decorators: [
+    () => {
+      return { template: `<div style="display: flex; justify-content: center"><story /></div>` };
+    }
+  ],
   args: {
     activatorColor: "#ffffff",
     detectLocation: true,
-    modelValue: {
-      latitudeDeg: 42.3814,  // Harvard College Observatory
-      longitudeDeg: -71.1281,
-    },
+    modelValue: location,
     mapOptions: {
       templateUrl: 'https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
       minZoom: 1,
