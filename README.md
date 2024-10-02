@@ -28,9 +28,13 @@ npm link
 cd <path-to-your-sample-repo>
 npm link @cosmicds/vue-toolkit
 
-# to unlink when you are done
+# To make local changes to the toolkit active, you have to rebuild the package after every change.
+# Tip from @johnarban:
+cd - # will take you to the previous directory you were in, which makes it easier to toggle between folders
 
-cd <path-to-your-sample-repo>
+# to unlink when you are done (Note - order is important here)
+
+cd <path-to-your-sample-repo> # if you're not already there
 npm unlink --no-save @cosmicds/vue-toolkit
 
 cd <path-where-you-keep-the-toolkit-repo>
