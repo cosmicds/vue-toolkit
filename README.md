@@ -17,8 +17,23 @@ yarn add @cosmicds/vue-toolkit
 
 If you're doing development work on these components, it will likely be useful to have an external sample project that imports a development version of this one. The easiest way to do this is probably to use [`npm-link`](https://docs.npmjs.com/cli/v10/commands/npm-link). For example:
 ```
-cd <path-where-you-keep-this-repo>
+cd <path-where-you-keep-the-toolkit-repo>
+
+# build the package
+yarn
+yarn build
+
+# set up link to local development version
 npm link
 cd <path-to-your-sample-repo>
 npm link @cosmicds/vue-toolkit
+
+# to unlink when you are done
+
+cd <path-to-your-sample-repo>
+npm unlink --no-save @cosmicds/vue-toolkit
+
+cd <path-where-you-keep-the-toolkit-repo>
+npm unlink
+
 ```
