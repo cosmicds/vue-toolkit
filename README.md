@@ -29,8 +29,8 @@ cd <path-to-your-sample-repo>
 npm link @cosmicds/vue-toolkit
 
 # To make local changes to the toolkit active, you have to rebuild the package after every change.
-# Tip from @johnarban:
-cd - # will take you to the previous directory you were in, which makes it easier to toggle between folders
+# Tip from @johnarban: This will take you to the previous directory you were in, which makes it easier to toggle between folders
+cd - 
 
 # to unlink when you are done (Note - order is important here)
 
