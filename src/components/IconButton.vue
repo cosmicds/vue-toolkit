@@ -142,11 +142,8 @@ function handleTouchEnd() {
   }
 
   &.active {
-    box-shadow: 0px 0px 10px 3px var(--active-shadow);
-
-    &:focus {
-      box-shadow: 0px 0px 10px 3px var(--focus-shadow);
-    }
+    color: var(--focus-color);
+    border-color: var(--focus-color);
   }
 }
 </style>
