@@ -53,8 +53,8 @@ import { IconButtonProps } from "../types";
 const props = withDefaults(defineProps<IconButtonProps>(), {
   color: "#ffffff",
   focusColor: "#ffffff",
+  activeColor: "#ffffff",
   backgroundColor: "#040404",
-  boxShadow: true,
   border: true,
   longPressTimeMs: 500,
   tooltipLocation: "start",
@@ -84,8 +84,7 @@ const cssVars = computed(() => {
     "--color": props.color,
     "--background-color": props.backgroundColor,
     "--focus-color": props.focusColor,
-    "--active-shadow": props.boxShadow ? props.color : "transparent",
-    "--focus-shadow": props.boxShadow ? props.focusColor : "transparent",
+    "--active-color": props.activeColor,
   };
 });
 
@@ -142,8 +141,8 @@ function handleTouchEnd() {
   }
 
   &.active {
-    color: var(--focus-color);
-    border-color: var(--focus-color);
+    color: var(--active-color);
+    border-color: var(--active-color);
   }
 }
 </style>
