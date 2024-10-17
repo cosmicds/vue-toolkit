@@ -133,10 +133,10 @@ export interface IconButtonProps {
   color?: string;
   /** The color of the button when focused. Default is white */
   focusColor?: string;
+  /** The color of the button when active. Default is white */
+  activeColor?: string;
   /** The background color of the button. Default is #040404 */
   backgroundColor?: string;
-  /** Whether to use a box shadow when the button is active. Default is true */
-  boxShadow?: boolean;
   /** Whether the button has a border. Default is true */
   border?: boolean;
   /** The time duration, in ms, to recognize a press event as a long press. Default is 500 */

@@ -7,6 +7,7 @@
         :href="logo.href"
         target="_blank"
         rel="noopener noreferrer"
+        class="logo-link"
       >
         <img
           :alt="logo.alt"
@@ -69,6 +70,10 @@ const cssVars = computed(() => {
 
   img {
     height: var(--logo-size);
+    margin-inline: 0.1em;
   }
+}
+.logo-link {
+  display: inline-flex;
 }
 </style>
