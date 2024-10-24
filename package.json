@@ -1,6 +1,5 @@
 {
   "name": "@cosmicds/vue-toolkit",
-  "version": "0.4.0",
   "browser": "dist/index.umd.js",
   "dependencies": {
     "@capacitor/core": "^5.7.4",
@@ -74,5 +73,6 @@
     "storybook": "storybook dev -p 6006 --debug",
     "build-storybook": "storybook build -o docs"
   },
-  "types": "./dist/src/index.d.ts"
+  "types": "./dist/src/index.d.ts",
+  "version": "0.0.0-dev.0"
 }
