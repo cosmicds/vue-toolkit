@@ -3,22 +3,46 @@ on:
   release:
     types: [published]
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: corepack enable
+
+      - name: Get package version from release tag
+        uses: sergeysova/jq-action@v2
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
+        with:
+          cmd: cat package.json | jq ".version = \"$VERSION\"" > package.json
+
+      - name: Enable corepack
+        run: corepack enable
+
       # This should match the version set in package.json
-      - run: yarn set version 3.3.0
-      - run: yarn
-      - run: yarn build
-      - run: 'echo "npmAuthToken: ${NPM_PUBLISH_TOKEN}" >> .yarnrc.yml'
+      - name: Set yarn version
+        run: yarn set version 3.3.0
+
+      - name: yarn install
+        run: yarn
+
+      - name: Lint package
+        run: yarn lint
+
+      - name: Build package
+        run: yarn build
+
+      - name: Set up yarn for publishing
+        run: 'echo "npmAuthToken: ${NPM_PUBLISH_TOKEN}" >> .yarnrc.yml'
         env:
           NPM_PUBLISH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-      - run: yarn npm publish
+
+      - name: Publish package
+        run: yarn npm publish
 
