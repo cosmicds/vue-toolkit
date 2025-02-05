@@ -1,5 +1,5 @@
 <template>
-  <span :id="`geolocation-wrapper+${id}`" class="geolocation">
+  <span :id="`geolocation-wrapper-${id}`" class="geolocation">
     <span v-if="showPermissions">Geolocation {{ permissions }} </span>
     <span v-if="showPermissions">location {{ geolocation }} </span>
     <span v-if="showPermissions">counter {{ counter }} </span>
