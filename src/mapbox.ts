@@ -55,7 +55,7 @@ interface BaseMapBoxGeocodingOptions {
 }
 
 /** Interface describing options for forward geocoding */
-interface MapBoxForwardGeocodingOptions extends BaseMapBoxGeocodingOptions {
+export interface MapBoxForwardGeocodingOptions extends BaseMapBoxGeocodingOptions {
   /** Whether to return autocomplete results. MapBox default is true */
   autocomplete?: boolean;
   /** A bounding box for results. Should be a string of the form "minLon,minLat,maxLon,maxLat" */
@@ -67,7 +67,7 @@ interface MapBoxForwardGeocodingOptions extends BaseMapBoxGeocodingOptions {
 }
 
 /** Interface describing options for reverse geocoding */
-interface MapBoxReverseGeocodingOptions extends BaseMapBoxGeocodingOptions {
+export interface MapBoxReverseGeocodingOptions extends BaseMapBoxGeocodingOptions {
   /** The worldview to use for search results. MapBox default is "us" */
   worldview?: MapBoxWorldviewType[];
 }

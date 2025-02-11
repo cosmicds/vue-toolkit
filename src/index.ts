@@ -33,5 +33,6 @@ export {
   useWWTKeyboardControls,
 };
 
+export * from "./mapbox";
 export * from "./types";
 export * from "./utils";
