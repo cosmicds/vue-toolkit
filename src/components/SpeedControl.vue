@@ -123,7 +123,7 @@
             v-bind="props"
           ></icon-button>
         </template>
-        <PlaybackControl
+        <playback-control
           class="desktop-playback-control"
           v-if="playbackVisible"
           :model-value="playbackRate"
@@ -210,7 +210,8 @@ import { usePlaybackControl } from "../composables/playbackControl";
 import { supportsTouchscreen } from "../utils";
 import { SpeedControlProps } from "../types";
 
-import PlaybackControl from "./PlaybackControl.vue";
+import { VDialog } from 'vuetify/lib/components/index.mjs';
+import { IconButton, PlaybackControl } from '..';
 
 const { 
   color, 
