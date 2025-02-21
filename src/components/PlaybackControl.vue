@@ -69,6 +69,8 @@ import { computed, onMounted, ref } from "vue";
 import { SymmetricalLogTransform } from "../symmetrical_log";
 import { PlaybackControlProps } from "../types";
 
+import { VSlider } from "vuetify/lib/components/index.mjs";
+
 const props = withDefaults(defineProps<PlaybackControlProps>(), {
   modelValue: 1,
   maxPower: 3,

@@ -270,22 +270,30 @@ export interface WwtHUDProps {
   store: WWTEngineStore;
 }
 
-/** Interface describing props for the speed control component */
+/** Interface describing props for the playback control component */
 export interface PlaybackControlProps {
-  /** The WWT engine store to use for the HUD. Required */
-  store: WWTEngineStore;
-  /** The primary color used for the component. Should be a valid CSS color */
+  /** The WWT playback rate */
+  modelValue?: number;
+  /** The maximum power used for the symmetrical log */
+  maxPower?: number;
+  /** Whether to have the playback paused */
+  paused?: boolean;
+  /** The maximum speed */
+  max?: number | null;
+  /** The minimum speed */
+  min?: number | null;
+  /** The component color. Should be a valid CSS color */
   color?: string;
-  /** The maximum allowed WWT speed */
-  maxSpeed?: number;
-  /** The default WWT playback rate */
-  defaultRate?: number;
-  /** Whether or not the speed control should be displayed inline */
-  useInline?: boolean; 
-  /** Whether or not to show the current playback status */
-  showStatus?: boolean;
-  /** The factor by which to adjust the WWT speed when speeding up or down */ 
-  rateDelta?: number;
+  /** Whether to use a more compact layout (intended for smaller screens) */
+  small?: boolean;
+  /** Whether to display the component inline */
+  inline?: boolean;
+  /** Whether to display buttons when component is inline */
+  inlineButton?: boolean;
+  /** Whether to show the close button */
+  showCloseButton?: boolean;
+  /** Whether to hide the play button */
+  hidePlayButton?: boolean;
 }
 
 /** Interface describing props for the speed control component */
