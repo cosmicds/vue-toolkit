@@ -23,7 +23,7 @@
         @activate="
           () => {
             timePlaying = !timePlaying;
-            emit('update:playing', timePlaying);
+            emit('update:time-playing', timePlaying);
           }
         "
         :color="color"
@@ -137,7 +137,7 @@
           :paused="!timePlaying"
           @paused="(paused: boolean) => {
             timePlaying = !paused;
-            emit('update:playing', !paused);
+            emit('update:time-playing', !paused);
           }"
           :max-power="Math.log10(maxSpeed)"
           :max="Math.log10(maxSpeed) + 1"
@@ -238,7 +238,7 @@ const minSpeed = 1;
 const emit = defineEmits<{
   (event: "reset"): void
   (event: "update:reverse", reverse: boolean): void
-  (event: "update:playing", playing: boolean): void
+  (event: "update:time-playing", playing: boolean): void
   (event: "slow-down", rate: number): void
   (event: "speed-up", rate: number): void
   (event: "set-rate", rate: number): void
