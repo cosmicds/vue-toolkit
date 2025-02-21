@@ -3,16 +3,19 @@ import { KeyPressInfo, KeyboardControlSettings } from "./keyboard";
 
 import { useFullscreen } from "./composables/fullscreen";
 import { useGeolocation, PositionCoords } from "./composables/geolocation";
+import { usePlaybackControl } from "./composables/playbackControl";
 import { useWindowShape, WindowShape } from "./composables/windowShape";
 import { useWWTKeyboardControls } from "./composables/wwtKeyboard";
 
+import CreditLogos from "./components/CreditLogos.vue";
+import FundingAcknowledgement from "./components/FundingAcknowledgement.vue";
+import Gallery from "./components/Gallery.vue";
+import GeolocationButton from "./components/GeolocationButton.vue";
 import IconButton from "./components/IconButton.vue";
 import LocationSelector from "./components/LocationSelector.vue";
-import FundingAcknowledgement from "./components/FundingAcknowledgement.vue";
-import CreditLogos from "./components/CreditLogos.vue";
-import GeolocationButton from "./components/GeolocationButton.vue";
+// import PlaybackControl from "./components/PlaybackControl.vue";
+// import SpeedControl from "./components/SpeedControl.vue";
 import WwtHud from "./components/WwtHud.vue";
-import Gallery from "./components/Gallery.vue";
 
 export {
   BackgroundImageset,
@@ -25,6 +28,7 @@ export {
 
   useGeolocation,
   useFullscreen,
+  usePlaybackControl,
   useWindowShape,
   useWWTKeyboardControls,
 
@@ -34,6 +38,8 @@ export {
   GeolocationButton,
   IconButton,
   LocationSelector,
+  // PlaybackControl,
+  // SpeedControl,
   WwtHud,
 };
 
