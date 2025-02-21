@@ -267,5 +267,23 @@ export interface WwtHUDProps {
   /** Text shadow for the HUD text. Should be a valid CSS value for `text-shadow`. Default is `"0 0 5px black"` */
   textShadow?: string | null;
   /** The WWT engine store to use for the HUD. Required */
-  store: ReturnType<typeof engineStore>;
+  store: WWTEngineStore;
+}
+
+/** Interface describing props for the speed control component */
+export interface SpeedControlProps {
+  /** The WWT engine store to use for the HUD. Required */
+  store: WWTEngineStore;
+  /** The primary color used for the component. Should be a valid CSS color */
+  color?: string;
+  /** The maximum allowed WWT speed */
+  maxSpeed?: number;
+  /** The default WWT playback rate */
+  defaultRate?: number;
+  /** Whether or not the speed control should be displayed inline */
+  useInline?: boolean; 
+  /** Whether or not to show the current playback status */
+  showStatus?: boolean;
+  /** The factor by which to adjust the WWT speed when speeding up or down */ 
+  rateDelta?: number;
 }

@@ -1,8 +1,10 @@
 import { BackgroundImageset, skyBackgroundImagesets } from "./background";
-import { useFullscreen, useWindowShape, WindowShape } from "./composables";
-import { PositionCoords, useGeolocation } from "./geolocation";
 import { KeyPressInfo, KeyboardControlSettings } from "./keyboard";
-import { useWWTKeyboardControls } from "./wwt-utils";
+
+import { useFullscreen } from "./composables/fullscreen";
+import { useGeolocation, PositionCoords } from "./composables/geolocation";
+import { useWindowShape, WindowShape } from "./composables/windowShape";
+import { useWWTKeyboardControls } from "./composables/wwtKeyboard";
 
 import IconButton from "./components/IconButton.vue";
 import LocationSelector from "./components/LocationSelector.vue";
@@ -12,25 +14,27 @@ import GeolocationButton from "./components/GeolocationButton.vue";
 import WwtHud from "./components/WwtHud.vue";
 import Gallery from "./components/Gallery.vue";
 
-
 export {
   BackgroundImageset,
   KeyPressInfo,
   KeyboardControlSettings,
-  Gallery,
-  IconButton,
-  LocationSelector,
+  PositionCoords,
+  WindowShape,
+
   skyBackgroundImagesets,
+
+  useGeolocation,
   useFullscreen,
   useWindowShape,
-  WindowShape,
-  FundingAcknowledgement,
-  CreditLogos,
-  GeolocationButton,
-  WwtHud,
-  PositionCoords,
-  useGeolocation,
   useWWTKeyboardControls,
+
+  CreditLogos,
+  FundingAcknowledgement,
+  Gallery,
+  GeolocationButton,
+  IconButton,
+  LocationSelector,
+  WwtHud,
 };
 
 export * from "./mapbox";
