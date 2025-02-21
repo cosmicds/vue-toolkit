@@ -8,7 +8,7 @@ import L, { CircleMarkerOptions, LeafletMouseEvent, Map } from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import { notify } from "@kyvg/vue3-notification";
 
-import { useGeolocation } from "../geolocation";
+import { useGeolocation } from "../composables/geolocation";
 import { GeoJSONProp, LeafletMapOptions, LocationDeg, LocationSelectorProps, PlaceDeg } from "../types";
 
 

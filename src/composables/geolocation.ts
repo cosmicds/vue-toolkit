@@ -2,6 +2,8 @@ import { ref, onMounted } from "vue";
 import { Capacitor, PermissionState as CapacitorPermissionState } from '@capacitor/core';
 import { Geolocation, PermissionStatus as CapacitorPermissionStatus, Position, PositionOptions } from "@capacitor/geolocation";
 
+export type PositionCoords = Position['coords'];
+
 /**
   * Determine which of two capacitor permission states is 'better'.
   * This implementation takes "prompt-with-rationale" to be better than "prompt".
@@ -16,8 +18,6 @@ function betterPermissionState(firstState: CapacitorPermissionState, secondState
   }
   return "denied";
 }
-
-export type PositionCoords = Position['coords'];
 
 /**
   * A composable that encapsulates the current state of the browser

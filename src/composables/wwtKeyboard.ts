@@ -1,6 +1,5 @@
-import { engineStore } from "@wwtelescope/engine-pinia";
-import { KeyboardControlSettings } from "./keyboard";
-type WWTEngineStore = ReturnType<typeof engineStore>;
+import { KeyboardControlSettings } from "../keyboard";
+import { WWTEngineStore } from "../types";
 
 function doZoom(store: WWTEngineStore, zoomIn: boolean) {
   const factor = zoomIn ? 1 / 1.3 : 1.3;

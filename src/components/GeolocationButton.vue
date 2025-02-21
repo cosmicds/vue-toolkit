@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { useGeolocation, type PositionCoords } from "../geolocation";
+import { useGeolocation, type PositionCoords } from "../composables/geolocation";
 import { ref, computed, watch } from "vue";
 import { VBtn } from "vuetify/components/VBtn";
 import { VIcon } from "vuetify/components/VIcon";
