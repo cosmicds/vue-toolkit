@@ -13,8 +13,8 @@ import Gallery from "./components/Gallery.vue";
 import GeolocationButton from "./components/GeolocationButton.vue";
 import IconButton from "./components/IconButton.vue";
 import LocationSelector from "./components/LocationSelector.vue";
-// import PlaybackControl from "./components/PlaybackControl.vue";
-// import SpeedControl from "./components/SpeedControl.vue";
+import PlaybackControl from "./components/PlaybackControl.vue";
+import SpeedControl from "./components/SpeedControl.vue";
 import WwtHud from "./components/WwtHud.vue";
 
 export {
@@ -38,8 +38,8 @@ export {
   GeolocationButton,
   IconButton,
   LocationSelector,
-  // PlaybackControl,
-  // SpeedControl,
+  PlaybackControl,
+  SpeedControl,
   WwtHud,
 };
 

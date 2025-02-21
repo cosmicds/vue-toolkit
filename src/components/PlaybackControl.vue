@@ -143,17 +143,17 @@ const reverseTime = computed({
     return props.modelValue < 0;
   },
   set(reverse: boolean) {
-    const val = symLog.fromSymLogIndex(value.value);
+    const val = symLog.fromSymLogIndex<number>(value.value);
     emit("update:modelValue", reverse ? -val : val);
   }
 });
 
 const value = computed({
   get() {
-    return Math.abs(symLog.toSymlogIndex(props.modelValue));
+    return Math.abs(symLog.toSymlogIndex<number>(props.modelValue));
   },
   set(value: number) {
-    const abs = symLog.fromSymLogIndex(value);
+    const abs = symLog.fromSymLogIndex<number>(value);
     const sign = reverseTime.value ? -1 : 1;
     emit("update:modelValue", sign * abs);
   }
@@ -174,7 +174,7 @@ const marks = computed<Record<number, string>>(() => {
   const mks: Record<number, string> = {};
   index.value.forEach((value) => {
     const pre = reverseTime.value ? -1 : 1;
-    mks[value] = value === 0 ? '' : (pre * symLog.fromSymLogIndex(value)).toString();
+    mks[value] = value === 0 ? '' : (pre * symLog.fromSymLogIndex<number>(value)).toString();
   });
   return mks;
 });
@@ -184,7 +184,7 @@ function valueToMark(value: number): string {
     return "Pause";
   }
   const pre = reverseTime.value ? -1 : 1;
-  return `${(pre * symLog.fromSymLogIndex(value)).toString()}x`;
+  return `${(pre * symLog.fromSymLogIndex<number>(value)).toString()}x`;
 }
 
 function options(value: number): { style: { left: string } } {

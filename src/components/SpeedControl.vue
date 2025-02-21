@@ -253,8 +253,8 @@ const mobile = computed(() => smAndDown && supportsTouchscreen());
 setSpeed(defaultRate);
 timePlaying.value = playing.value;
 
-watch(playing, (v) => {timePlaying.value = v;});
-watch(timePlaying, (v) => {playing.value = v;});
+watch(playing, (v: boolean) => {timePlaying.value = v;});
+watch(timePlaying, (v: boolean) => {playing.value = v;});
 
 function clamp(val: number) {
   return Math.min(Math.max(val, minSpeed), maxSpeed);
