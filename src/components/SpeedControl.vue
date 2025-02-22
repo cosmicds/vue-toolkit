@@ -104,7 +104,7 @@
         no-click-animation
         :retain-focus="false"
       >
-        <template v-slot:activator="{ props }">
+        <template v-slot:activator>
           <icon-button
             id="speed-control-icon"
             @activate="
@@ -120,7 +120,6 @@
             tooltip-offset="5px"
             faSize="1x"
             :show-tooltip="!mobile"
-            v-bind="props"
           ></icon-button>
         </template>
         <playback-control
@@ -128,17 +127,15 @@
           v-if="playbackVisible"
           :model-value="playbackRate"
           @update:modelValue="
-            (value: number) => {
-              forceRate = false;
-              playbackRate = value;
-              emit('set-rate', value);
-            }
+            forceRate = false;
+            playbackRate = $event;
+            emit('set-rate', $event);
           "
           :paused="!timePlaying"
-          @paused="(paused: boolean) => {
-            timePlaying = !paused;
-            emit('update:playing', !paused);
-          }"
+          @paused="
+            timePlaying = !$event;
+            emit('update:playing', !$event);
+          "
           :max-power="Math.log10(maxSpeed)"
           :max="Math.log10(maxSpeed) + 1"
           :color="color"
@@ -175,11 +172,9 @@
           v-show="playbackVisible"
           :model-value="playbackRate"
           @update:modelValue="
-            (value: number) => {
-              forceRate = false;
-              playbackRate = value;
-              emit('set-rate', value);
-            }
+            forceRate = false;
+            playbackRate = $event;
+            emit('set-rate', $event);
           "
           :paused="!timePlaying"
           @paused="timePlaying = !$event"
@@ -214,25 +209,15 @@ import { VDialog } from 'vuetify/lib/components/index.mjs';
 import { IconButton, PlaybackControl } from '..';
 
 const { 
-  color, 
-  maxSpeed, 
-  defaultRate, 
-  store, 
-  showStatus, 
-  rateDelta, 
-  useInline,
-  startPlaying,
-} = withDefaults(defineProps<SpeedControlProps>(),
-  {
-    color: 'white',
-    maxSpeed: 10000,
-    defaultRate: 1,
-    useInline: false,
-    showStatus: false,
-    rateDelta: 10,
-    startPlaying: false,
-  }
-);
+  color = "white",
+  maxSpeed = 10000,
+  defaultRate = 1,
+  store,
+  showStatus = false,
+  rateDelta = 10,
+  useInline = false,
+  startPlaying = false,
+} = defineProps<SpeedControlProps>();
 
 const minSpeed = 1;
 
