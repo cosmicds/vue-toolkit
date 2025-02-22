@@ -23,7 +23,7 @@
         @activate="
           () => {
             timePlaying = !timePlaying;
-            emit('update:time-playing', timePlaying);
+            emit('update:playing', timePlaying);
           }
         "
         :color="color"
@@ -137,7 +137,7 @@
           :paused="!timePlaying"
           @paused="(paused: boolean) => {
             timePlaying = !paused;
-            emit('update:time-playing', !paused);
+            emit('update:playing', !paused);
           }"
           :max-power="Math.log10(maxSpeed)"
           :max="Math.log10(maxSpeed) + 1"
@@ -203,7 +203,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 import { useDisplay } from 'vuetify';
 
 import { usePlaybackControl } from "../composables/playbackControl";
@@ -221,6 +221,7 @@ const {
   showStatus, 
   rateDelta, 
   useInline,
+  startPlaying,
 } = withDefaults(defineProps<SpeedControlProps>(),
   {
     color: 'white',
@@ -229,16 +230,16 @@ const {
     useInline: false,
     showStatus: false,
     rateDelta: 10,
+    startPlaying: false,
   }
 );
 
-const playing = defineModel<boolean>('playing', {default: false, required: true});
 const minSpeed = 1;
 
 const emit = defineEmits<{
   (event: "reset"): void
   (event: "update:reverse", reverse: boolean): void
-  (event: "update:time-playing", playing: boolean): void
+  (event: "update:playing", playing: boolean): void
   (event: "slow-down", rate: number): void
   (event: "speed-up", rate: number): void
   (event: "set-rate", rate: number): void
@@ -250,12 +251,9 @@ const forceRate = ref(false);
 const { timePlaying, clockRate, setSpeed } = usePlaybackControl(store, false);
 const { smAndDown } = useDisplay();
 const mobile = computed(() => smAndDown && supportsTouchscreen());
+timePlaying.value = startPlaying;
 
 setSpeed(defaultRate);
-timePlaying.value = playing.value;
-
-watch(playing, (v: boolean) => {timePlaying.value = v;});
-watch(timePlaying, (v: boolean) => {playing.value = v;});
 
 function clamp(val: number) {
   return Math.min(Math.max(val, minSpeed), maxSpeed);
