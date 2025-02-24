@@ -199,3 +199,227 @@ function options(value: number): { style: { left: string } } {
   };
 }
 </script>
+
+<style lang="less">
+#enclosing-playback-container {
+  // modify the Vuetify slider properties
+  contain: layout;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  width: 100%;
+  padding-left: 0.5rem;
+  padding-right: 0.25rem;
+  padding-block-start: 0.25rem;
+  padding-block-end: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid white;
+  // min-width: 200px;
+  max-width: 510px;
+  background-color: #272727;
+  font-size: 0.7rem;
+  --track-width: 0px; // get set by the resize observer to the actual track width
+  --min-tick-gap: 0.2rem;
+  --tick-color: #ddd;
+  --track-color: white;
+  --tick-font-size: 1em;
+  pointer-events: auto;
+  z-index: 9999;
+  
+  // no close button normally
+  #playback-close-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(125%, 0);
+    
+    border-radius: 50%;
+    padding: 2px;
+
+    pointer-events: auto;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color);
+    background-color: black;
+    color: var(--color);
+  }
+    
+  // #playback-close-button {
+  //   display: none;
+  // }
+  
+  &.inset {
+    padding: 0;
+    padding-inline: 0.25rem;
+    padding-block-end: 1em;
+    background-color: black;
+    
+    border: 2px solid var(--color);
+    // transform: translateY(25%);
+    
+    --tick-font-size: clamp(10px, 1.5vw, 1em);
+    
+    i.v-icon {
+      font-size: clamp(1vw, 1.5em, 18px) !important;
+      width: 1em !important;
+      height: 1em !important;
+    }
+    
+    #playback-play-pause-button {
+      i.v-icon {
+        font-size: clamp(1vw, 1.5em, 24px) !important;
+        width: 1.5em !important;
+        height: 1em !important;
+      }
+    }
+    
+    #playback-slider-container {
+      padding-inline-start: 0.5rem;
+    }
+    
+  }
+  
+  #playback-play-pause-button {
+    display: flex;
+    margin-inline-end: 0.5rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75em;
+    pointer-events: auto!important;
+    
+    #playback-reverse-time {
+      position: relative;
+      #reverse-button-text {
+        position: absolute;
+        font-size: var(--tick-font-size);
+        left: 0%;
+      }
+      .icon-wrapper {
+        border-radius: 2em;
+      }
+    }
+
+  }
+  
+    > #playback-play-pause-button.hide {
+      display: none; 
+    }
+    
+  #playback-slider-container {
+    flex-grow: 1;
+  }
+
+  #playback-slider-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 0.5rem;
+    --v-slider-height: 32px;
+    --psc-offset: calc(-1*var(--tick-font-size)/2);
+
+    height: calc(var(--v-slider-height) + var(--tick-font-size));
+        
+    .v-slider-track__ticks {
+      border-radius: calc(var(--v-slider-height) / 2);
+    }
+    
+    .v-slider-track__tick-label {
+      display: none;
+    }
+    
+    
+    .track-tick-size {
+      font-size: var(--v-slider-track-size);
+      --avail-space: calc((var(--track-width) - 18 * var(--min-tick-gap)) / 9);
+      --v-slider-tick-size: clamp(1em, var(--avail-space), 3em); // scale with track size
+      border-radius: 50%;
+    }
+    
+    .pause-color {
+      --pause-color: rebeccaPurple !important;
+      background-color: var(--pause-color);
+      &.v-slider-track__tick--filled {
+        background-color: var(--pause-color);
+      }
+    }
+    
+    // the zero tick mark
+    
+    
+    // push the track to the back
+    .v-slider-track * {
+        opacity: 1;
+        background-color: var(--track-color);
+      }
+
+    // show no progress fill
+    .v-slider-track__fill {
+      opacity: 0;
+    }
+    
+    .v-slider-track__tick {
+      .track-tick-size();
+      
+      background-color: var(--tick-color);
+      
+      &.v-slider-track__tick--filled {
+        // margin-inline-start: calc(100% - var(--v-slider-tick-size) - 1px); // default
+        background-color: var(--tick-color);
+      }
+      
+      &.v-slider-track__tick--first {
+        // margin-inline-start: calc(var(--v-slider-tick-size) + 1px); // default
+        margin-inline-start: 0px;
+      }
+      
+      &.v-slider-track__tick--last {
+        // margin-inline-start: calc(100% - var(--v-slider-tick-size) - 1px); // default
+        margin-inline-start: 100%;
+      }
+    
+    }
+      
+    @media (max-width: 500px){
+      
+      .v-slider-track__tick {
+        --v-slider-tick-size: 2em;
+      }
+      
+    }
+
+  }
+  
+  .icon-wrapper {
+    pointer-events: auto;
+  }
+
+  #tick-container {
+    --height: 0px;
+    --position: calc(var(--v-slider-height) + var(--height));
+    margin-inline: 8px;
+    position: relative;
+    height: var(--height);
+    transform: translateY(var(--position));
+    
+    @media (max-width: 500px) {
+      --position: calc(var(--v-slider-height) - 0.5em);
+      transform: translateY(--position);
+    }
+
+    .tick {
+      position: absolute;
+      transform: translateX(-50%);
+    }
+    
+
+    .tick-label {
+      font-size: var(--tick-font-size);
+      color: white;
+    }
+
+  }
+
+}
+</style>

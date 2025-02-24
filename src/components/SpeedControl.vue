@@ -20,6 +20,7 @@
       <icon-button 
         id="play-pause-icon"
         :fa-icon="!timePlaying ? 'play' : 'pause'"
+        fa-size="1x"
         @activate="
           () => {
             timePlaying = !timePlaying;
@@ -31,13 +32,13 @@
         tooltip-text="Play/Pause"
         tooltip-location="top"
         tooltip-offset="5px"
-        faSize="1x"
         :show-tooltip="!mobile"
       ></icon-button>
       
       <icon-button 
         id="slow-down"
         :fa-icon="'angles-down'"
+        fa-size="1x"
         @activate="
           () => {
             decreaseRate();
@@ -50,7 +51,6 @@
         :tooltip-text="`Slow down ${rateDelta}x`"
         tooltip-location="top"
         tooltip-offset="5px"
-        faSize="1x"
         :show-tooltip="!mobile"
       ></icon-button>
       

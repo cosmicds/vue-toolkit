@@ -17,6 +17,10 @@ type Story = StoryObj<typeof SpeedControl>;
 export const Primary: Story = {
   render: (args: SpeedControlProps) => {
     const store = engineStore();
+    store.waitForReady().then(() => {
+      store.applySetting(["localHorizonMode", true]);
+    });
+
     return {
       components: { SpeedControl, WWTComponent },
       template: `
@@ -36,7 +40,7 @@ export const Primary: Story = {
     color: "white",
     maxSpeed: 10000,
     defaultRate: 10,
-    useInline: true,
+    useInline: false,
     showStatus: false,
     rateDelta: 10,
     startPlaying: true,
