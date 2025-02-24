@@ -201,12 +201,26 @@
 import { ref, computed } from 'vue';
 import { useDisplay } from 'vuetify';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faPlay, faPause, faAnglesDown, faAnglesUp, faRotate, faTimes, faGaugeHigh } from "@fortawesome/free-solid-svg-icons";
+
 import { usePlaybackControl } from "../composables/playbackControl";
 import { supportsTouchscreen } from "../utils";
 import { SpeedControlProps } from "../types";
 
 import { VDialog } from 'vuetify/lib/components/index.mjs';
 import { IconButton, PlaybackControl } from '..';
+
+import 'vuetify/styles';
+import '@mdi/font/css/materialdesignicons.css';
+
+library.add(faAnglesDown);
+library.add(faAnglesUp);
+library.add(faGaugeHigh);
+library.add(faPause);
+library.add(faPlay);
+library.add(faRotate);
+library.add(faTimes);
 
 const { 
   color = "white",
@@ -286,6 +300,11 @@ function onClickOutside() {
 </script>
 
 <style lang="less">
+
+:root {
+  --default-font-size: clamp(0.7rem, min(1.7vh, 1.7vw), 1.1rem);
+  --default-line-height: clamp(1rem, min(2.2vh, 2.2vw), 1.6rem);
+}
 
 #speed-control {
   display: flex;
