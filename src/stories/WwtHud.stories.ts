@@ -4,6 +4,8 @@ import { Meta, StoryObj } from "@storybook/vue3";
 import { engineStore, WWTComponent } from "@wwtelescope/engine-pinia";
 import { WwtHud, WwtHUDProps } from "..";
 
+import "./stories.css";
+
 const meta: Meta<typeof WwtHud> = {
   component: WwtHud,
   tags: ["autodocs"],
@@ -18,10 +20,9 @@ export const Primary: Story = {
     return {
       components: { WwtHud, WWTComponent },
       template: `
-        <div style="width: 300px; height: 600px">
+        <div style="width: 1000px; height: 500px">
           <WWTComponent
             :wwtNamespace="storybook"
-            style="display: none"
           />
           <WwtHud v-bind="args" :store="store" />
         </div>
