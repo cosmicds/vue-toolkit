@@ -119,7 +119,7 @@ export interface GeolocationButtonProps {
   */ 
 export type FontAwesomeIconProps = InstanceType<typeof FontAwesomeIcon>["$props"];
 /** A type describing the size options for a FontAwesome icon */
-export type SizeType = Extract<FontAwesomeIconProps, 'size'>;
+export type SizeType = FontAwesomeIconProps["size"];
 
 /** An interface describing props for the icon button */
 export interface IconButtonProps {

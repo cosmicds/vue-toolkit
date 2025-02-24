@@ -57,6 +57,7 @@
       <icon-button 
         id="speed-up"
         :fa-icon="'angles-up'"
+        fa-size="1x"
         @activate="
           () => {
             increaseRate();
@@ -69,13 +70,13 @@
         :tooltip-text="`Speed up ${rateDelta}x`"
         tooltip-location="top"
         tooltip-offset="5px"
-        faSize="1x"
         :show-tooltip="!mobile"
       ></icon-button>
 
       <icon-button 
         id="reset"
         :fa-icon="'rotate'"
+        fa-size="1x"
         @activate="
           () => {
             playbackRate = defaultRate;
@@ -89,7 +90,6 @@
         tooltip-text="Reset"
         tooltip-location="top"
         tooltip-offset="5px"
-        faSize="1x"
         :show-tooltip="!mobile"
       ></icon-button>
 
@@ -113,12 +113,12 @@
               }
             "
             :fa-icon="playbackVisible ? 'times' : 'gauge-high'"
+            fa-size="1x"
             :color="color"
             :focus-color="color"
             tooltip-text="More Speed Controls"
             tooltip-location="top"
             tooltip-offset="5px"
-            faSize="1x"
             :show-tooltip="!mobile"
           ></icon-button>
         </template>
