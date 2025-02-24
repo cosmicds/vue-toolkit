@@ -20,11 +20,11 @@ export const Primary: Story = {
     return {
       components: { WwtHud, WWTComponent },
       template: `
-        <div style="width: 1000px; height: 500px">
+        <div style="width: 1000px; height: 500px; position: relative;">
+          <WwtHud v-bind="args" :store="store" />
           <WWTComponent
             :wwtNamespace="storybook"
           />
-          <WwtHud v-bind="args" :store="store" />
         </div>
       `,
       setup() {
@@ -34,15 +34,11 @@ export const Primary: Story = {
   },
   args: {
     location: {
-      top: "50%",
-      left: "50%",
-    },
-    offsetCenter: {
-      x: 0.5,
-      y: 0.5,
+      top: "25%",
+      left: "25%",
     },
     otherVariables: {},
-    fontSize: "14pt",
+    fontSize: "10pt",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     textShadow: null,
   }
