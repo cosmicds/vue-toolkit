@@ -119,7 +119,7 @@ export interface GeolocationButtonProps {
   */ 
 export type FontAwesomeIconProps = InstanceType<typeof FontAwesomeIcon>["$props"];
 /** A type describing the size options for a FontAwesome icon */
-export type SizeType = Extract<FontAwesomeIconProps, 'size'>;
+export type SizeType = FontAwesomeIconProps["size"];
 
 /** An interface describing props for the icon button */
 export interface IconButtonProps {
@@ -270,10 +270,38 @@ export interface WwtHUDProps {
   store: WWTEngineStore;
 }
 
+/** Interface describing props for the playback control component */
+export interface PlaybackControlProps {
+  /** The WWT playback rate */
+  modelValue?: number;
+  /** The maximum power used for the symmetrical log */
+  maxPower?: number;
+  /** Whether to have the playback paused */
+  paused?: boolean;
+  /** The maximum speed */
+  max?: number | null;
+  /** The minimum speed */
+  min?: number | null;
+  /** The component color. Should be a valid CSS color */
+  color?: string;
+  /** Whether to use a more compact layout (intended for smaller screens) */
+  small?: boolean;
+  /** Whether to display the component inline */
+  inline?: boolean;
+  /** Whether to display buttons when component is inline */
+  inlineButton?: boolean;
+  /** Whether to show the close button */
+  showCloseButton?: boolean;
+  /** Whether to hide the play button */
+  hidePlayButton?: boolean;
+}
+
 /** Interface describing props for the speed control component */
 export interface SpeedControlProps {
   /** The WWT engine store to use for the HUD. Required */
   store: WWTEngineStore;
+  /** Whether or not time is playing */
+  modelValue: boolean;
   /** The primary color used for the component. Should be a valid CSS color */
   color?: string;
   /** The maximum allowed WWT speed */
