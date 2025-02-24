@@ -314,6 +314,4 @@ export interface SpeedControlProps {
   showStatus?: boolean;
   /** The factor by which to adjust the WWT speed when speeding up or down */ 
   rateDelta?: number;
-  /** Whether WWT should initially have time playing */
-  startPlaying?: boolean;
 }

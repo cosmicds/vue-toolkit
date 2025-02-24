@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { Meta, StoryObj } from "@storybook/vue3";
-import { ref } from "vue";
 import { engineStore, WWTComponent } from "@wwtelescope/engine-pinia";
 import { SpeedControlProps, SpeedControl } from "..";
 
@@ -17,7 +16,6 @@ type Story = StoryObj<typeof SpeedControl>;
 
 export const Primary: Story = {
   render: (args: SpeedControlProps) => {
-    const playing = ref(true);
     const store = engineStore();
     store.waitForReady().then(() => {
       store.applySetting(["localHorizonMode", true]);
@@ -26,25 +24,25 @@ export const Primary: Story = {
     return {
       components: { SpeedControl, WWTComponent },
       template: `
-        <div style="width: 700px; height: 400px">
+        <div style="width: 900px; height: 400px">
           <WWTComponent
             :wwtNamespace="storybook"
           />
-          <SpeedControl v-bind="args" :store="store" :model-value="playing" />
+          <SpeedControl v-bind="args" :store="store" />
         </div>
       `,
       setup() {
-        return { args, store, playing };
+        return { args, store };
       }
     };
   },
   args: {
     color: "white",
     maxSpeed: 10000,
-    defaultRate: 10,
+    defaultRate: 1,
     useInline: false,
     showStatus: false,
     rateDelta: 10,
-    startPlaying: true,
+    modelValue: false,
   }
 };

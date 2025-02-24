@@ -198,7 +198,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useDisplay } from 'vuetify';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -222,16 +222,15 @@ library.add(faPlay);
 library.add(faRotate);
 library.add(faTimes);
 
-const { 
-  color = "white",
-  maxSpeed = 10000,
-  defaultRate = 1,
-  store,
-  showStatus = false,
-  rateDelta = 10,
-  useInline = false,
-  modelValue = false,
-} = defineProps<SpeedControlProps>();
+const props = withDefaults(defineProps<SpeedControlProps>(), {
+  color: "white",
+  maxSpeed: 10000,
+  defaultRate: 1,
+  showStatus: false,
+  rateDelta: 10,
+  useInline: false,
+  modelValue: false,
+});
 
 const minSpeed = 1;
 
@@ -247,18 +246,18 @@ const emit = defineEmits<{
 const playbackVisible = ref(false);
 const forceRate = ref(false);
 
-const { timePlaying, clockRate, setSpeed } = usePlaybackControl(store, false);
+const { timePlaying, clockRate, setSpeed } = usePlaybackControl(props.store, false);
 const { smAndDown } = useDisplay();
 const mobile = computed(() => smAndDown && supportsTouchscreen());
-timePlaying.value = modelValue;
 
-watch(() => modelValue, (v) => {timePlaying.value = v;});
+timePlaying.value = props.modelValue;
+setSpeed(props.defaultRate);
+
+watch(() => props.modelValue, (v) => { timePlaying.value = v; });
 watch(timePlaying, (v) => { emit("update:modelValue", v); });
 
-setSpeed(defaultRate);
-
 function clamp(val: number) {
-  return Math.min(Math.max(val, minSpeed), maxSpeed);
+  return Math.min(Math.max(val, minSpeed), props.maxSpeed);
 }
 
 const playbackRate = computed({
@@ -281,13 +280,13 @@ function reverseRate() {
 function increaseRate() {
   const sign = Math.sign(playbackRate.value);
   const abs = Math.abs(playbackRate.value);
-  const newRate = abs * rateDelta;
+  const newRate = abs * props.rateDelta;
   playbackRate.value = sign * clamp(newRate);
 }
 function decreaseRate() {
   const sign = Math.sign(playbackRate.value);
   const abs = Math.abs(playbackRate.value);
-  const newRate = abs / rateDelta;
+  const newRate = abs / props.rateDelta;
   playbackRate.value = sign * clamp(newRate);
 }
 
