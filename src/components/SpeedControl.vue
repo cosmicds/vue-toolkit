@@ -24,7 +24,7 @@
         @activate="
           () => {
             timePlaying = !timePlaying;
-            emit('update:playing', timePlaying);
+            emit('update:modelValue', timePlaying);
           }
         "
         :color="color"
@@ -134,7 +134,7 @@
           :paused="!timePlaying"
           @paused="
             timePlaying = !$event;
-            emit('update:playing', !$event);
+            emit('update:modelValue', !$event);
           "
           :max-power="Math.log10(maxSpeed)"
           :max="Math.log10(maxSpeed) + 1"
@@ -198,7 +198,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useDisplay } from 'vuetify';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -230,7 +230,7 @@ const {
   showStatus = false,
   rateDelta = 10,
   useInline = false,
-  startPlaying = false,
+  modelValue = false,
 } = defineProps<SpeedControlProps>();
 
 const minSpeed = 1;
@@ -238,7 +238,7 @@ const minSpeed = 1;
 const emit = defineEmits<{
   (event: "reset"): void
   (event: "update:reverse", reverse: boolean): void
-  (event: "update:playing", playing: boolean): void
+  (event: "update:modelValue", playing: boolean): void
   (event: "slow-down", rate: number): void
   (event: "speed-up", rate: number): void
   (event: "set-rate", rate: number): void
@@ -250,7 +250,10 @@ const forceRate = ref(false);
 const { timePlaying, clockRate, setSpeed } = usePlaybackControl(store, false);
 const { smAndDown } = useDisplay();
 const mobile = computed(() => smAndDown && supportsTouchscreen());
-timePlaying.value = startPlaying;
+timePlaying.value = modelValue;
+
+watch(() => modelValue, (v) => {timePlaying.value = v;});
+watch(timePlaying, (v) => { emit("update:modelValue", v); });
 
 setSpeed(defaultRate);
 

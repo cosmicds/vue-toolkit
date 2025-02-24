@@ -300,6 +300,8 @@ export interface PlaybackControlProps {
 export interface SpeedControlProps {
   /** The WWT engine store to use for the HUD. Required */
   store: WWTEngineStore;
+  /** Whether or not time is playing */
+  modelValue: boolean;
   /** The primary color used for the component. Should be a valid CSS color */
   color?: string;
   /** The maximum allowed WWT speed */
