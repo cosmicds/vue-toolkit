@@ -12,6 +12,7 @@ import FundingAcknowledgement from "./components/FundingAcknowledgement.vue";
 import Gallery from "./components/Gallery.vue";
 import GeolocationButton from "./components/GeolocationButton.vue";
 import IconButton from "./components/IconButton.vue";
+import LocationSearch from "./components/LocationSearch.vue";
 import LocationSelector from "./components/LocationSelector.vue";
 import PlaybackControl from "./components/PlaybackControl.vue";
 import SpeedControl from "./components/SpeedControl.vue";
@@ -37,6 +38,7 @@ export {
   Gallery,
   GeolocationButton,
   IconButton,
+  LocationSearch,
   LocationSelector,
   PlaybackControl,
   SpeedControl,

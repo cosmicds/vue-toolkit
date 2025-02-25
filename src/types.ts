@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { CircleMarkerOptions, TileLayerOptions } from "leaflet";
 import { engineStore } from "@wwtelescope/engine-pinia";
+import { MapBoxFeatureCollection } from "./mapbox";
 
 /** The type of the WWT engine Pinia store */
 export type WWTEngineStore = ReturnType<typeof engineStore>;
@@ -314,4 +315,25 @@ export interface SpeedControlProps {
   showStatus?: boolean;
   /** The factor by which to adjust the WWT speed when speeding up or down */ 
   rateDelta?: number;
+}
+
+/** An async function taking an input string and returning a collection of MapBox Features */
+export type SearchProvider = (searchText: string) => Promise<MapBoxFeatureCollection | null>;
+
+/** Interface describing props for the location search component */
+export interface LocationSearchProps {
+  /** The search provider function to use for finding MapBox features */
+  searchProvider?: SearchProvider;
+  /** Whether or not the location search is open */
+  modelValue?: boolean;
+  /** Whether the search box should stay open after a search is completed */
+  stayOpen?: boolean;
+  /** The accent color used for the search box. Should be a valid CSS color */
+  accentColor?: string;
+  /** Whether to use the "small-screen" layout */
+  small?: boolean;
+  /** The size of the activator button's icon. Should be a valid FontAwesome icon size */
+  buttonSize?: string;
+  /** The background color of the search box. Should be a valid CSS color */
+  bgColor?: string;
 }
