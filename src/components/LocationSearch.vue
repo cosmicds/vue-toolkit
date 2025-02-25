@@ -106,7 +106,7 @@ function performForwardGeocodingSearch() {
     return;
   }
 
-  props.searchProvider(search).then(info => {
+  props.searchProvider(search).then((info: MapBoxFeatureCollection | null) => {
     if (info !== null && info.features.length === 1) {
       setLocationFromSearchFeature(info.features[0]);
     } else if (info !== null && info.features.length === 0) {
