@@ -17,10 +17,10 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
-  env: (config) => {
-    console.log(config);
-    return { ...config };
-  },
+  env: (config) => ({
+    ...config,
+    VUE_APP_MAPBOX_ACCESS_TOKEN: process.env.VUE_APP_MAPBOX_ACCESS_TOKEN,
+  }),
   webpackFinal: async (config) => {
     config.module?.rules?.push({
       test: /\.less/,
