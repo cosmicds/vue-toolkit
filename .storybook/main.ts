@@ -17,7 +17,10 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
-  env: (config) => config,
+  env: (config) => {
+    console.log(config);
+    return { ...config };
+  },
   webpackFinal: async (config) => {
     config.module?.rules?.push({
       test: /\.less/,
