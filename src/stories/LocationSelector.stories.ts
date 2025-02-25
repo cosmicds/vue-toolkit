@@ -17,7 +17,6 @@ const location = ref({
   latitudeDeg: 42.3814,
   longitudeDeg: -71.1281,
 });
-console.log(location);
 export const Primary: Story = {
   render: (args: LocationSelectorProps) => ({
     components: { LocationSelector },

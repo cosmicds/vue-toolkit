@@ -23,9 +23,10 @@ export const Primary: Story = {
           <LocationSearch
             v-bind="args"
             @set-location="(loc) => {
-              document.querySelector('#selected-location').innerHTML = textForMapboxFeature(loc);
+              $el.querySelector('#selected-location').innerHTML = textForMapboxFeature(loc);
             }"
           />
+          <hr style="margin: 30px">
           <div>The last selected location is <span id="selected-location">none</span></div>
         </div>
       `,
@@ -35,7 +36,7 @@ export const Primary: Story = {
     };
   },
   args: {
-    searchProvider: (searchText: string) => geocodingInfoForSearch(searchText, { access_token: process.env.VUE_APP_MAPBOX_TOKEN ?? "" }),
+    searchProvider: (searchText: string) => geocodingInfoForSearch(searchText, { access_token: process.env.VUE_APP_MAPBOX_ACCESS_TOKEN ?? "" }),
     modelValue: true,
     stayOpen: true,
     accentColor: "orange",

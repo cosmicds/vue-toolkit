@@ -49,9 +49,15 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { VCombobox } from "vuetify/lib/components/index.mjs";
 
 import { MapBoxFeature, MapBoxFeatureCollection, textForMapboxFeature } from "../mapbox";
 import { SearchProvider, LocationSearchProps } from "../types";
+
+library.add(faMagnifyingGlass);
 
 const props = withDefaults(defineProps<LocationSearchProps>(), {
   searchProvider: (async (_searchText: string) => null) as SearchProvider,
