@@ -13,6 +13,8 @@ npm i @cosmicds/vue-toolkit
 yarn add @cosmicds/vue-toolkit
 ```
 
+You can find this package on the npm registry [here](https://www.npmjs.com/package/@cosmicds/vue-toolkit).
+
 ## Development
 
 If you're doing development work on these components, it will likely be useful to have an external sample project that imports a development version of this one. The easiest way to do this is probably to use [`npm-link`](https://docs.npmjs.com/cli/v10/commands/npm-link). For example:
