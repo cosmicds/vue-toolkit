@@ -41,5 +41,5 @@ jobs:
       - name: Build Storybook 
         run: yarn build-storybook
         env:
-          VUE_APP_MAPBOX_ACCESS_TOKEN: "test"
+          VUE_APP_MAPBOX_ACCESS_TOKEN: test
 
