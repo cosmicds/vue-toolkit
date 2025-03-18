@@ -17,6 +17,7 @@ import LocationSearch from "./components/LocationSearch.vue";
 import LocationSelector from "./components/LocationSelector.vue";
 import PlaybackControl from "./components/PlaybackControl.vue";
 import SpeedControl from "./components/SpeedControl.vue";
+import TapToInput from "./components/TapToInput.vue";
 import WwtHud from "./components/WwtHud.vue";
 
 export {
@@ -44,6 +45,7 @@ export {
   LocationSelector,
   PlaybackControl,
   SpeedControl,
+  TapToInput,
   WwtHud,
 };
 
