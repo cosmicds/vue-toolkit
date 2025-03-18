@@ -354,3 +354,14 @@ export interface TapToInputProps {
   /** What the (minimum) padded length of the value string should be after front-padding with zeros */
   zeroPadLength?: number;
 }
+
+export interface DateTimePickerProps {
+  /** The current datetime value */
+  modelValue: Date;
+  /** Whether to show debugging information */
+  debug?: boolean;
+  /** Whether to use AM/PM (as opposed ot 24-hour time) */
+  useAmPm?: boolean;
+  /** Whether or not the time is editable */
+  editableTime?: boolean;
+}
