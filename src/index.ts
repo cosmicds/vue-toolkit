@@ -8,6 +8,7 @@ import { useWindowShape, WindowShape } from "./composables/windowShape";
 import { useWWTKeyboardControls } from "./composables/wwtKeyboard";
 
 import CreditLogos from "./components/CreditLogos.vue";
+import DateTimePicker from "./components/DateTimePicker.vue";
 import FundingAcknowledgement from "./components/FundingAcknowledgement.vue";
 import Gallery from "./components/Gallery.vue";
 import GeolocationButton from "./components/GeolocationButton.vue";
@@ -34,6 +35,7 @@ export {
   useWWTKeyboardControls,
 
   CreditLogos,
+  DateTimePicker,
   FundingAcknowledgement,
   Gallery,
   GeolocationButton,
