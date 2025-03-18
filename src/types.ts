@@ -362,6 +362,6 @@ export interface DateTimePickerProps {
   debug?: boolean;
   /** Whether to use AM/PM (as opposed ot 24-hour time) */
   useAmPm?: boolean;
-  /** Whether or not the time is editable */
+  /** Whether or not the time is editable via text boxes */
   editableTime?: boolean;
 }

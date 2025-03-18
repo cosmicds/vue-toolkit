@@ -35,7 +35,6 @@ export const Primary: Story = {
     };
   },
   args: {
-    modelValue: new Date(),
     debug: false,
     useAmPm: true,
     editableTime: true,
