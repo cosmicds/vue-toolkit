@@ -34,6 +34,12 @@ jobs:
       - name: Build
         run: yarn build
 
+        # We're only building here, not actually testing
+        # so it doesn't matter that we don't actually have the MapBox token.
+        # We just need to have something, or the build will fail as Storybook
+        # won't be able to find the environment variable.
       - name: Build Storybook 
         run: yarn build-storybook
+        env:
+          VUE_APP_MAPBOX_ACCESS_TOKEN: ""
 
