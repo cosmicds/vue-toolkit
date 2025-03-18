@@ -1,6 +1,6 @@
 <!-- Design Inspired by Date/Time Picker at Stellarium Web https://stellarium-web.org/ -->
 <template>
-  <div class="dtp__container">
+  <div class="dtp__container" :style="cssStyles">
     <div class="dtp__row">
       <div class="dtp__grid-container">
 
@@ -164,6 +164,7 @@ const props = withDefaults(defineProps<DateTimePickerProps>(), {
   debug: false,
   useAmPm: true,
   editableTime: true,
+  accentColor: "#f4ba3e",
 });
 
 const emit = defineEmits<{
@@ -176,6 +177,12 @@ const day = ref(props.modelValue.getDate());
 const hour = ref(props.modelValue.getHours());
 const minute = ref(props.modelValue.getMinutes());
 const second = ref(props.modelValue.getSeconds());
+
+const cssStyles = computed(() => {
+  return {
+    "--accent-color": props.accentColor,
+  };
+});
 
 const isAm = computed({
   get: () => hour.value < 12,

@@ -358,6 +358,8 @@ export interface TapToInputProps {
 export interface DateTimePickerProps {
   /** The current datetime value */
   modelValue: Date;
+  /** The accent color for the component. Should be a valid CSS color */
+  accentColor?: string;
   /** Whether to show debugging information */
   debug?: boolean;
   /** Whether to use AM/PM (as opposed ot 24-hour time) */
