@@ -337,3 +337,33 @@ export interface LocationSearchProps {
   /** The background color of the search box. Should be a valid CSS color */
   bgColor?: string;
 }
+
+export interface TapToInputProps {
+  /** The current value of the input */
+  modelValue: number;
+  /** Whether the input should be editable */
+  editable?: boolean;
+  /** The minimum allowed value */
+  min?: string | number;
+  /** The maximum allowed value */
+  max?: string | number;
+  /** The increment between allowed values */
+  step?: number;
+  /** Whether or not to clamp values between the min and max */
+  clamp?: boolean;
+  /** What the (minimum) padded length of the value string should be after front-padding with zeros */
+  zeroPadLength?: number;
+}
+
+export interface DateTimePickerProps {
+  /** The current datetime value */
+  modelValue: Date;
+  /** The accent color for the component. Should be a valid CSS color */
+  accentColor?: string;
+  /** Whether to show debugging information */
+  debug?: boolean;
+  /** Whether to use AM/PM (as opposed ot 24-hour time) */
+  useAmPm?: boolean;
+  /** Whether or not the time is editable via text boxes */
+  editableTime?: boolean;
+}

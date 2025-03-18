@@ -8,6 +8,7 @@ import { useWindowShape, WindowShape } from "./composables/windowShape";
 import { useWWTKeyboardControls } from "./composables/wwtKeyboard";
 
 import CreditLogos from "./components/CreditLogos.vue";
+import DateTimePicker from "./components/DateTimePicker.vue";
 import FundingAcknowledgement from "./components/FundingAcknowledgement.vue";
 import Gallery from "./components/Gallery.vue";
 import GeolocationButton from "./components/GeolocationButton.vue";
@@ -16,6 +17,7 @@ import LocationSearch from "./components/LocationSearch.vue";
 import LocationSelector from "./components/LocationSelector.vue";
 import PlaybackControl from "./components/PlaybackControl.vue";
 import SpeedControl from "./components/SpeedControl.vue";
+import TapToInput from "./components/TapToInput.vue";
 import WwtHud from "./components/WwtHud.vue";
 
 export {
@@ -34,6 +36,7 @@ export {
   useWWTKeyboardControls,
 
   CreditLogos,
+  DateTimePicker,
   FundingAcknowledgement,
   Gallery,
   GeolocationButton,
@@ -42,6 +45,7 @@ export {
   LocationSelector,
   PlaybackControl,
   SpeedControl,
+  TapToInput,
   WwtHud,
 };
 

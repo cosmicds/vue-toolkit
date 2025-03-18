@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { Meta, StoryObj } from "@storybook/vue3";
+import { ref } from "vue";
 import { LocationSearchProps, LocationSearch, geocodingInfoForSearch, textForMapboxFeature } from "..";
 
 import "./stories.css";
@@ -16,12 +17,14 @@ type Story = StoryObj<typeof LocationSearch>;
 export const Primary: Story = {
   render: (args: LocationSearchProps) => {
 
+    const open = ref(true);
     return {
       components: { LocationSearch },
       template: `
         <div style="width: 900px; height: 400px">
           <LocationSearch
             v-bind="args"
+            v-model="open"
             @set-location="(loc) => {
               $el.querySelector('#selected-location').innerHTML = textForMapboxFeature(loc);
             }"
@@ -31,13 +34,12 @@ export const Primary: Story = {
         </div>
       `,
       setup() {
-        return { args, textForMapboxFeature };
+        return { args, open, textForMapboxFeature };
       }
     };
   },
   args: {
     searchProvider: (searchText: string) => geocodingInfoForSearch(searchText, { access_token: process.env.VUE_APP_MAPBOX_ACCESS_TOKEN ?? "" }),
-    modelValue: true,
     stayOpen: true,
     accentColor: "orange",
     bgColor: "black",
