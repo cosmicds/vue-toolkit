@@ -12,23 +12,32 @@ const meta: Meta<typeof LocationSelector> = {
 export default meta;
 type Story = StoryObj<typeof LocationSelector>;
 
-// Default location is Harvard College Observatory
-const location = ref({
-  latitudeDeg: 42.3814,
-  longitudeDeg: -71.1281,
-});
+
 export const Primary: Story = {
-  render: (args: LocationSelectorProps) => ({
-    components: { LocationSelector },
-    template: `
-      <LocationSelector
-        style="width: 300px; height: 400px;"
-        v-bind="args"
-      />`,
-    setup() {
-      return { args };
-    }
-  }),
+  render: (args: LocationSelectorProps) => {
+
+    // Default location is Harvard College Observatory
+    const location = ref({
+      latitudeDeg: 42.3814,
+      longitudeDeg: -71.1281,
+    });
+    return {
+      components: { LocationSelector },
+      template: `
+        <div style="width: 900px; height: 500px">
+          <LocationSelector
+            style="width: 300px; height: 400px; margin: auto;"
+            v-bind="args"
+            v-model="location"
+          />
+          <hr style="margin: 30px">
+          <div style="width: 100%; text-align: center;">The last selected coordinates are latitude {{ location.latitudeDeg }}, longitude {{ location.longitudeDeg }}</div>
+        `,
+      setup() {
+        return { args, location };
+      }
+    };
+  },
   decorators: [
     () => {
       return { template: `<div style="display: flex; justify-content: center"><story /></div>` };
@@ -37,7 +46,6 @@ export const Primary: Story = {
   args: {
     activatorColor: "#ffffff",
     detectLocation: true,
-    modelValue: location,
     mapOptions: {
       templateUrl: 'https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
       minZoom: 1,
