@@ -2,6 +2,7 @@
 
 import { Meta, StoryObj } from "@storybook/vue3";
 import { SpectrumSonifier } from "..";
+import spectrum from "./spectrum";
 
 const meta: Meta<typeof SpectrumSonifier> = {
   component: SpectrumSonifier,
@@ -20,7 +21,7 @@ export const Primary: Story = {
     }
   }),
   args: {
-    spectrum: [[1, 1], [2, 0.5], [3, 0.7], [4, 0.2], [5, 1.7], [6, 2.8]],
+    spectrum,
     xLabel: "X Axis",
     yLabel: "Y Axis",
     sonifier: (_wavelength: number, intensity: number) => ({ pitch: intensity * 1000, db: 1 }),

@@ -1,5 +1,8 @@
 <template>
-  <div class="spectrum-sonifier-root">
+  <div
+    class="spectrum-sonifier-root"
+    :style="cssVars"
+  >
     <Scatter
       :data="chartData"
       :options="options"
@@ -37,11 +40,15 @@ interface SonifierProps {
   xLabel?: string;
   yLabel?: string;
   sonifier: Sonifier;
+  color?: string;
+  backgroundColor?: string;
 }
 
 const props = withDefaults(defineProps<SonifierProps>(), {
   xLabel: "x",
   yLabel: "y",
+  color: "#ff0000",
+  backgroundColor: "#000000",
 });
 
 const options = ref({
@@ -54,12 +61,25 @@ const chartData = computed(() => {
     datasets: [{
       data: props.spectrum.map(([x, y]) => ({ x, y })),
       showLine: true,
+      borderColor: props.color,
+      backgroundColor: props.color,
     }],
     options: {
       events: ["mousemove"],
-    },
+      scales: {
+        x: {
+          ticks: {
+            color: "#ffffff",
+          }
+        }
+      }
+    }
   };
 });
+
+const cssVars = computed(() => ({
+  "--background-color": props.backgroundColor,
+}));
 
 const chartRef = ref<ChartComponentRef>();
 let oscillator: OscillatorNode | null = null;
@@ -75,8 +95,6 @@ function start() {
 }
 
 function playTone(wavelength: number, intensity: number) {
-  console.log("playTone");
-  console.log(oscillator);
   if (!oscillator || !gainNode) {
     return;
   }
@@ -98,8 +116,6 @@ const onMove = (event: MouseEvent) => {
   if (event.type !== "mousemove") {
     return;
   }
-  // clearTone();
-
   const points = chart.getElementsAtEventForMode(event, "nearest", {}, true);
   if (points.length) {
     const point = points[0].element;
@@ -119,5 +135,9 @@ const onMove = (event: MouseEvent) => {
 .spectrum-sonifier-root {
   width: 100%;
   height: 400px;
+
+  canvas {
+    background: var(--background-color);
+  }
 }
 </style>
