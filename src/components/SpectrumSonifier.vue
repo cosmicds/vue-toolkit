@@ -8,6 +8,7 @@
       :options="options"
       ref="chartRef"
       @mousemove="onMove"
+      @mouseout="onOut"
     ></Scatter>
     <v-btn @click="start">Start</v-btn>
   </div>
@@ -25,6 +26,7 @@ import {
   ChartComponentRef,
   Scatter,
 } from "vue-chartjs";
+import { dbToGain } from "../sound";
 
 ChartJS.register(LinearScale, LineElement, PointElement);
 
@@ -48,7 +50,7 @@ const props = withDefaults(defineProps<SonifierProps>(), {
   xLabel: "x",
   yLabel: "y",
   color: "#ff0000",
-  backgroundColor: "#000000",
+  backgroundColor: "#ffffff",
 });
 
 const options = ref({
@@ -57,20 +59,26 @@ const options = ref({
 });
 
 const chartData = computed(() => {
+  const data = props.spectrum.map(([x, y]) => ({ x, y }));
+  const x = data.map(p => p.x);
+  const y = data.map(p => p.y);
   return {
     datasets: [{
-      data: props.spectrum.map(([x, y]) => ({ x, y })),
+      data,
       showLine: true,
       borderColor: props.color,
       backgroundColor: props.color,
     }],
     options: {
-      events: ["mousemove"],
+      events: ["mousemove", "mouseout"],
       scales: {
         x: {
-          ticks: {
-            color: "#ffffff",
-          }
+          min: Math.min(...x),
+          max: Math.max(...x),
+        },
+        y: {
+          min: Math.min(...y),
+          max: Math.max(...y),
         }
       }
     }
@@ -87,8 +95,10 @@ let gainNode: GainNode | null = null;
 
 function start() {
   const context = new (window.AudioContext || window.webkitAudioContext);
-  oscillator = context.createOscillator();
-  oscillator.frequency.value = 0;
+  oscillator = new OscillatorNode(context, {
+    type: "triangle",
+    frequency: 0,
+  });
   gainNode = context.createGain();
   oscillator.connect(gainNode).connect(context.destination);
   oscillator.start();
@@ -99,24 +109,29 @@ function playTone(wavelength: number, intensity: number) {
     return;
   }
   const { pitch, db } = props.sonifier(wavelength, intensity);
-  gainNode.gain.value = db;
+  console.log(db, dbToGain(db));
+  gainNode.gain.value = dbToGain(db);
   oscillator.frequency.value = pitch;
 }
 
-const onMove = (event: MouseEvent) => {
+function onOut(_event: MouseEvent) {
+  const chart = chartRef.value?.chart;
+  if (!chart || !oscillator) {
+    return;
+  }
+  oscillator.frequency.value = 0;
+}
+
+function onMove(event: MouseEvent) {
   const chart = chartRef.value?.chart;
   if (!chart || !oscillator) {
     return;
   }
 
-  if (event.type === "mouseout") {
-    oscillator.frequency.value = 0;
-    return;
-  }
   if (event.type !== "mousemove") {
     return;
   }
-  const points = chart.getElementsAtEventForMode(event, "nearest", {}, true);
+  const points = chart.getElementsAtEventForMode(event, "nearest", { axis: "x" }, true);
   if (points.length) {
     const point = points[0].element;
     const positionX = chart.scales.x.getValueForPixel(point.x);
@@ -126,7 +141,7 @@ const onMove = (event: MouseEvent) => {
     }
   }
 
-};
+}
 
 </script>
 

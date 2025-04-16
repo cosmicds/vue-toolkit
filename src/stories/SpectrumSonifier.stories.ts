@@ -24,6 +24,6 @@ export const Primary: Story = {
     spectrum,
     xLabel: "X Axis",
     yLabel: "Y Axis",
-    sonifier: (_wavelength: number, intensity: number) => ({ pitch: intensity * 1000, db: 1 }),
+    sonifier: (_wavelength: number, intensity: number) => ({ pitch: intensity * 10, db: 5 + (intensity / 10) }),
   }
 };
