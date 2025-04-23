@@ -519,6 +519,7 @@ __metadata:
     "@vue/compiler-sfc": ^3.4.25
     "@vue/eslint-config-typescript": ^12.0.0
     "@wwtelescope/engine-pinia": ^0.9.0
+    chart.js: ^4.4.9
     copy-webpack-plugin: ^12.0.2
     css-loader: ^7.1.1
     eslint: ^8.31.0
@@ -540,6 +541,7 @@ __metadata:
     typedoc-plugin-vue: ^1.1.0
     typescript: ^4.9.4
     vue: ^3.4
+    vue-chartjs: ^5.3.2
     vue-loader: ^17.4.2
     vue-template-compiler: ^2.7.14
     vuetify: ^3.3.3
@@ -920,6 +922,13 @@ __metadata:
     "@jridgewell/resolve-uri": ^3.1.0
     "@jridgewell/sourcemap-codec": ^1.4.14
   checksum: 9d3c40d225e139987b50c48988f8717a54a8c994d8a948ee42e1412e08988761d0754d7d10b803061cc3aebf35f92a5dbbab493bd0e1a9ef9e89a2130e83ba34
+  languageName: node
+  linkType: hard
+
+"@kurkle/color@npm:^0.3.0":
+  version: 0.3.4
+  resolution: "@kurkle/color@npm:0.3.4"
+  checksum: b95c6abe0241ba1745b3c84de3b464296b95ce577110b54f46e6c6dcc9a0966491533df43812bd6c66f92cf818e385d1390b280cd5851d4afb52fc37f8a6c0b9
   languageName: node
   linkType: hard
 
@@ -3625,6 +3634,15 @@ __metadata:
   dependencies:
     is-regex: ^1.0.3
   checksum: 71826fae509d4dc3ef07c2e824da9c8853f910ba0d8fe699edaab263051fd3b8db77bb96e46ed896bb36ed1d86108e6d6ceedff436bec7786ba7f0b585a0bc93
+  languageName: node
+  linkType: hard
+
+"chart.js@npm:^4.4.9":
+  version: 4.4.9
+  resolution: "chart.js@npm:4.4.9"
+  dependencies:
+    "@kurkle/color": ^0.3.0
+  checksum: f41f3a2bb835c32431fe95ae765028d08fb4844347ea307f803dbe9fd84df4bf8d02750ff9c084d7ab9c47b22ae243f40eb97600bc9536192089a035929db88c
   languageName: node
   linkType: hard
 
@@ -11069,6 +11087,16 @@ __metadata:
   version: 8.0.0
   resolution: "vscode-textmate@npm:8.0.0"
   checksum: 127780dfea89559d70b8326df6ec344cfd701312dd7f3f591a718693812b7852c30b6715e3cfc8b3200a4e2515b4c96f0843c0eacc0a3020969b5de262c2a4bb
+  languageName: node
+  linkType: hard
+
+"vue-chartjs@npm:^5.3.2":
+  version: 5.3.2
+  resolution: "vue-chartjs@npm:5.3.2"
+  peerDependencies:
+    chart.js: ^4.1.1
+    vue: ^3.0.0-0 || ^2.7.0
+  checksum: a1c7c90d1375ebfd6af4fe08f242da80918528ea647fd98d327f14bff267a284e355c69e972f46a39db73489f915af01417c5bbd156453cb8bb646c2c0d1be18
   languageName: node
   linkType: hard
 

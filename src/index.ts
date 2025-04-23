@@ -16,6 +16,7 @@ import IconButton from "./components/IconButton.vue";
 import LocationSearch from "./components/LocationSearch.vue";
 import LocationSelector from "./components/LocationSelector.vue";
 import PlaybackControl from "./components/PlaybackControl.vue";
+import SpectrumSonifier from "./components/SpectrumSonifier.vue";
 import SpeedControl from "./components/SpeedControl.vue";
 import TapToInput from "./components/TapToInput.vue";
 import WwtHud from "./components/WwtHud.vue";
@@ -44,6 +45,7 @@ export {
   LocationSearch,
   LocationSelector,
   PlaybackControl,
+  SpectrumSonifier,
   SpeedControl,
   TapToInput,
   WwtHud,
