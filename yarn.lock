@@ -1563,15 +1563,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.25.6, @babel/runtime@npm:^7.26.10":
-  version: 7.26.10
-  resolution: "@babel/runtime@npm:7.26.10"
-  dependencies:
-    regenerator-runtime: ^0.14.0
-  checksum: 22d2e0abb86e90de489ab16bb578db6fe2b63a88696db431198b24963749820c723f1982298cdbbea187f7b2b80fb4d98a514faf114ddb2fdc14a4b96277b955
-  languageName: node
-  linkType: hard
-
 "@babel/template@npm:^7.22.15, @babel/template@npm:^7.24.0":
   version: 7.24.0
   resolution: "@babel/template@npm:7.24.0"
@@ -1706,7 +1697,6 @@ __metadata:
     storybook-css-modules-preset: ^1.1.1
     storybook-dark-mode: ^4.0.1
     style-loader: ^4.0.0
-    tone: ^15.0.4
     typedoc: ^0.25.13
     typedoc-plugin-markdown: ^3.17.1
     typedoc-plugin-vue: ^1.1.0
@@ -5521,16 +5511,6 @@ __metadata:
   bin:
     atob: bin/atob.js
   checksum: dfeeeb70090c5ebea7be4b9f787f866686c645d9f39a0d184c817252d0cf08455ed25267d79c03254d3be1f03ac399992a792edcd5ffb9c91e097ab5ef42833a
-  languageName: node
-  linkType: hard
-
-"automation-events@npm:^7.0.9":
-  version: 7.1.8
-  resolution: "automation-events@npm:7.1.8"
-  dependencies:
-    "@babel/runtime": ^7.26.10
-    tslib: ^2.8.1
-  checksum: 10375db84447d7286ffff701fe7a88e30c4c638f3d475de9c986b2c634644b3634318d20601625f2be8b6a4ac33322680d3c8b2c1d21a1c82b4294055cfc4975
   languageName: node
   linkType: hard
 
@@ -13813,17 +13793,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"standardized-audio-context@npm:^25.3.70":
-  version: 25.3.77
-  resolution: "standardized-audio-context@npm:25.3.77"
-  dependencies:
-    "@babel/runtime": ^7.25.6
-    automation-events: ^7.0.9
-    tslib: ^2.7.0
-  checksum: b0f887ee40ab769ce297e037aedc76c5294c06d539a0283a4f3aacd4d25dceec98ca095280ff373628f7854c12365c59481fed7a69f25830e0f9fceaefa43ae8
-  languageName: node
-  linkType: hard
-
 "static-extend@npm:^0.1.1":
   version: 0.1.2
   resolution: "static-extend@npm:0.1.2"
@@ -14400,16 +14369,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tone@npm:^15.0.4":
-  version: 15.1.18
-  resolution: "tone@npm:15.1.18"
-  dependencies:
-    standardized-audio-context: ^25.3.70
-    tslib: ^2.3.1
-  checksum: c9b3df1be903426fb8aef2301d22d94920f79d2c853ce347f69856e291be32a5c2a69014cdc1042590c8c4357916ee06dbf3cb173e5c6f761ad6c912eb502a61
-  languageName: node
-  linkType: hard
-
 "totalist@npm:^3.0.0":
   version: 3.0.1
   resolution: "totalist@npm:3.0.1"
@@ -14474,13 +14433,6 @@ __metadata:
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: 329ea56123005922f39642318e3d1f0f8265d1e7fcb92c633e0809521da75eeaca28d2cf96d7248229deb40e5c19adf408259f4b9640afd20d13aecc1430f3ad
-  languageName: node
-  linkType: hard
-
-"tslib@npm:^2.3.1, tslib@npm:^2.7.0, tslib@npm:^2.8.1":
-  version: 2.8.1
-  resolution: "tslib@npm:2.8.1"
-  checksum: e4aba30e632b8c8902b47587fd13345e2827fa639e7c3121074d5ee0880723282411a8838f830b55100cbe4517672f84a2472667d355b81e8af165a55dc6203a
   languageName: node
   linkType: hard
 
