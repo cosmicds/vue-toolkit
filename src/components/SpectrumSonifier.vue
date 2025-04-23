@@ -58,8 +58,10 @@ const options = ref({
   maintainAspectRatio: false,
 });
 
+type Point = { x: number; y: number; };
+
 const chartData = computed(() => {
-  const data = props.spectrum.map(([x, y]) => ({ x, y }));
+  const data: Point[] = props.spectrum.map(([x, y]: [number, number]) => ({ x, y }));
   const x = data.map(p => p.x);
   const y = data.map(p => p.y);
   return {
@@ -94,7 +96,10 @@ let oscillator: OscillatorNode | null = null;
 let gainNode: GainNode | null = null;
 
 function start() {
-  const context = new (window.AudioContext || window.webkitAudioContext);
+  // Ignore complaints about `webkitAudioContext` not being defined
+  // eslint-disable-next-line
+  // @ts-ignore
+  const context: AudioContext = new (window.AudioContext || window.webkitAudioContext);
   oscillator = new OscillatorNode(context, {
     type: "triangle",
     frequency: 0,
