@@ -31,5 +31,6 @@ export const Primary: Story = {
     tooltipText: "Share selected view",
     alert: false,
     alertText: "Share link copied to clipboard. Paste to share this view!",
+    ariaLabel: "Get link to share selected view",
   }
 };

@@ -4,7 +4,7 @@
     <template v-slot:activator="{ props }">
       <v-btn
         :id="id"
-        aria-label="Get link to share selected view"
+        :aria-label="ariaLabel"
         class="share-button"
         icon
         @click="share"
@@ -56,6 +56,7 @@ const props = withDefaults(defineProps<ShareButtonProps>(), {
   tooltipText: "Share selected view",
   alert: false,
   alertText: "Share link copied to clipboard. Paste to share this view!",
+  ariaLabel: "Get link to share selected view",
 });
 
 const emit = defineEmits<{
