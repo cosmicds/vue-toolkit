@@ -518,7 +518,7 @@ __metadata:
     "@vue/cli-service": ^5.0.8
     "@vue/compiler-sfc": ^3.4.25
     "@vue/eslint-config-typescript": ^12.0.0
-    "@vueuse/components": ^13.1.0
+    "@vueuse/core": ^13.1.0
     "@wwtelescope/engine-pinia": ^0.9.0
     copy-webpack-plugin: ^12.0.2
     css-loader: ^7.1.1
@@ -2632,19 +2632,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/components@npm:^13.1.0":
-  version: 13.1.0
-  resolution: "@vueuse/components@npm:13.1.0"
-  dependencies:
-    "@vueuse/core": 13.1.0
-    "@vueuse/shared": 13.1.0
-  peerDependencies:
-    vue: ^3.5.0
-  checksum: 1374766d4b92ade6663b49721a72acd3dc7687aa590038ae2a7eb4ab5f0118e8cb77ef1e36a80f6ebdce14e1bf43a1c48baf69abdee5b76dc14afbbabeaa3bbf
-  languageName: node
-  linkType: hard
-
-"@vueuse/core@npm:13.1.0":
+"@vueuse/core@npm:^13.1.0":
   version: 13.1.0
   resolution: "@vueuse/core@npm:13.1.0"
   dependencies:

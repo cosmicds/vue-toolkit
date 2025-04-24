@@ -369,7 +369,7 @@ export interface DateTimePickerProps {
 }
 
 export interface ShareButtonProps {
-  source: string;
+  source?: (() => string) | string;
   buttonColor?: string;
   iconColor?: string;
   elevation?: string | number;
