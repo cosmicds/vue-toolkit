@@ -1,9 +1,9 @@
 <template>
 
-  <v-tooltip :disabled="tooltipDisabled" text="Share selected view">
+  <v-tooltip :disabled="!tooltip" :text="tooltipText">
     <template v-slot:activator="{ props }">
       <v-btn
-        id="share-button"
+        :id="id"
         aria-label="Get link to share selected view"
         class="share-button"
         icon
@@ -18,12 +18,12 @@
         <v-icon :color="iconColor">mdi-share-variant</v-icon>
       </v-btn>
       <v-snackbar 
-        v-if="tooltipDisabled || alert"
+        v-if="!tooltip || alert"
         class="share-button-snackbar"   
         timeout="3500" 
         location="top" 
-        activator="#share-button"
-        text="Share link copied to clipboard. Paste to share this view!"
+        :activator="`#${id}`"
+        :text="alertText"
         color="success"
         variant="flat"
         min-height="0px"
@@ -37,9 +37,13 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import { useClipboard } from "@vueuse/core";
 const { copy } = useClipboard();
-import { type ShareButtonProps } from "../types";
+import { v4 } from "uuid";
+import type { ShareButtonProps } from "../types";
+
+const id = ref(`share-button-${v4()}`);
 
 const props = withDefaults(defineProps<ShareButtonProps>(), {
   source: () => window.location.href,
@@ -48,8 +52,10 @@ const props = withDefaults(defineProps<ShareButtonProps>(), {
   elevation: "0",
   size: "small",
   rounded: "1",
-  tooltipDisabled: false,
+  tooltip: true,
+  tooltipText: "Share selected view",
   alert: false,
+  alertText: "Share link copied to clipboard. Paste to share this view!",
 });
 
 const emit = defineEmits<{

@@ -375,6 +375,8 @@ export interface ShareButtonProps {
   elevation?: string | number;
   size?: string;
   rounded?: string | number;
-  tooltipDisabled?: boolean;
+  tooltip?: boolean;
+  tooltipText?: string;
   alert?: boolean;
+  alertText?: string;
 }

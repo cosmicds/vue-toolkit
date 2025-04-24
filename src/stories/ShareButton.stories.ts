@@ -27,7 +27,9 @@ export const Primary: Story = {
     elevation: "0",
     size: "small",
     rounded: "1",
-    tooltipDisabled: false,
+    tooltip: true,
+    tooltipText: "Share selected view",
     alert: false,
+    alertText: "Share link copied to clipboard. Paste to share this view!",
   }
 };
