@@ -367,3 +367,14 @@ export interface DateTimePickerProps {
   /** Whether or not the time is editable via text boxes */
   editableTime?: boolean;
 }
+
+export interface ShareButtonProps {
+  source: string;
+  buttonColor?: string;
+  iconColor?: string;
+  elevation?: string | number;
+  size?: string;
+  rounded?: string | number;
+  tooltipDisabled?: boolean;
+  alert?: boolean;
+}
