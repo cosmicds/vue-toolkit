@@ -1,7 +1,7 @@
 <template>
 
   <v-tooltip :disabled="!tooltip" :text="tooltipText">
-    <template v-slot:activator="{ props }">
+    <template v-slot:activator="{ props }: { props: Record<string,any> }">
       <v-btn
         :id="id"
         :aria-label="ariaLabel"
