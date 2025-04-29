@@ -518,6 +518,7 @@ __metadata:
     "@vue/cli-service": ^5.0.8
     "@vue/compiler-sfc": ^3.4.25
     "@vue/eslint-config-typescript": ^12.0.0
+    "@vueuse/core": ^13.1.0
     "@wwtelescope/engine-pinia": ^0.9.0
     copy-webpack-plugin: ^12.0.2
     css-loader: ^7.1.1
@@ -2002,6 +2003,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/web-bluetooth@npm:^0.0.21":
+  version: 0.0.21
+  resolution: "@types/web-bluetooth@npm:0.0.21"
+  checksum: 85a957d52263607d26236b1748771fdcfc0791f2c20373370e6c725410067dee6a5ec425b0e25ec85db2908dd59415079070655fd3277841cbbd3a557d1f7777
+  languageName: node
+  linkType: hard
+
 "@types/webpack-env@npm:^1.15.2":
   version: 1.18.8
   resolution: "@types/webpack-env@npm:1.18.8"
@@ -2621,6 +2629,35 @@ __metadata:
   version: 1.3.0
   resolution: "@vue/web-component-wrapper@npm:1.3.0"
   checksum: 8cc4d1135990e61ab9d38a7b6460b018703b38b4dd3477390083018bffb93b283fabb7d57d83b3cfb78dd44da4f863167b964fe88dfa9886a54996f308036a94
+  languageName: node
+  linkType: hard
+
+"@vueuse/core@npm:^13.1.0":
+  version: 13.1.0
+  resolution: "@vueuse/core@npm:13.1.0"
+  dependencies:
+    "@types/web-bluetooth": ^0.0.21
+    "@vueuse/metadata": 13.1.0
+    "@vueuse/shared": 13.1.0
+  peerDependencies:
+    vue: ^3.5.0
+  checksum: 94323f644be9c6b8d235c085806090a9f88567b43893d55189b358ed2754c957e7d6ef31128785c67c07bf4bea99d6395704e5da56e95b271a5d2ac366481f83
+  languageName: node
+  linkType: hard
+
+"@vueuse/metadata@npm:13.1.0":
+  version: 13.1.0
+  resolution: "@vueuse/metadata@npm:13.1.0"
+  checksum: 2e319241aab2a381fc46bf9ea576389f34ec157a51d4df52e20ff63e746f65b56a66dc1756aac31b4e10150403933b7cf65da1ad143ff46d173bff369ccbfc71
+  languageName: node
+  linkType: hard
+
+"@vueuse/shared@npm:13.1.0":
+  version: 13.1.0
+  resolution: "@vueuse/shared@npm:13.1.0"
+  peerDependencies:
+    vue: ^3.5.0
+  checksum: 7d3dcd3a4545b5a583a3a1e9d4991138e1830cd39ccc9301b22d348ad3902574883355b217a63a28f3ca7f47ad925d882b598e643a67522c63544b5c1daa8835
   languageName: node
   linkType: hard
 

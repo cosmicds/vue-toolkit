@@ -367,3 +367,28 @@ export interface DateTimePickerProps {
   /** Whether or not the time is editable via text boxes */
   editableTime?: boolean;
 }
+
+export interface ShareButtonProps {
+  /** A string, or a function producing a string, that gives the text to be copied */
+  source?: (() => string) | string;
+  /** The color of the button. Should be a valid CSS color */
+  buttonColor?: string;
+  /** The color of the share icon. Should be a valid CSS color */
+  iconColor?: string;
+  /** The elevatio of the button */ 
+  elevation?: string | number;
+  /** The size of the button. Can be a number (in px), a CSS size, or a predefined Vuetify size */
+  size?: string;
+  /** The border radius of the button. Can be 0, xs, sm, true, lg, xl, pill, circle, shaped. These come from Vuetify */
+  rounded?: string | number;
+  /** Whether to show a tooltip on hover */
+  tooltip?: boolean;
+  /** The text of the tooltip */
+  tooltipText?: string;
+  /** Whether to show a snackbar alert when the button is pressed */
+  alert?: boolean;
+  /** The text of the snackbar alert */
+  alertText?: string;
+  /** The ARIA label for the button */
+  ariaLabel?: string;
+}
