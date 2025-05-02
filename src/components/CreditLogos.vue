@@ -40,9 +40,9 @@ const DEFAULT_LOGOS: Map<DefaultCreditLogo, CreditLogo> = new Map([
     alt: "SciAct Logo",
   }],
   ["nasa", {
-    src: "https://raw.githubusercontent.com/cosmicds/minids/main/assets/NASA_Partner_color_300_no_outline.png",
+    src: "https://raw.githubusercontent.com/cosmicds/minids/main/assets/NASA_Grantee_color_no_outline.png",
     href: "https://nasa.gov/",
-    alt: "NASA Partner Logo"
+    alt: "NASA Grantee Logo"
   }]
 ]);
 
