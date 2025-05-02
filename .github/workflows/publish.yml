@@ -20,7 +20,7 @@ jobs:
         env:
           VERSION: ${{ github.event.release.tag_name }}
         with:
-          cmd: cat package.json | jq ".version = \"$VERSION\"" > package.json
+          cmd: cat package.json | jq ".version = \"$VERSION\"" > updated.json; mv updated.json package.json
 
       - name: Enable corepack
         run: corepack enable
