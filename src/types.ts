@@ -27,6 +27,8 @@ export interface CreditLogo {
   href: string;
   /** Alt text to use for the logo. If none is given, the logo will have no alt text */
   alt?: string;
+  /** A name to use for the logo. If provided, the logo is given a class of `logo-${name}` to allow CSS targeting */
+  name?: string;
 }
 
 /** A union type enumerating the default credit logos */
