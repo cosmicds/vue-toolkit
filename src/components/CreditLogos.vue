@@ -4,10 +4,11 @@
       <a
         v-for="logo in logos"
         v-bind:key="logo.href"
+        :id="logo.name ? logo.name : undefined"
         :href="logo.href"
         target="_blank"
         rel="noopener noreferrer"
-        class="logo-link"
+        :class="['logo-link', logo.name ? `logo-${logo.name}` : '']"
       >
         <img
           :alt="logo.alt"
@@ -25,24 +26,28 @@ import { CreditLogo, CreditLogosProps, DefaultCreditLogo } from "../types";
 
 const DEFAULT_LOGOS: Map<DefaultCreditLogo, CreditLogo> = new Map([
   ["cosmicds", {
-    src: "https://raw.githubusercontent.com/cosmicds/minids/main/assets/cosmicds_logo_for_dark_backgrounds.png",
+    src: "https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/cosmicds_logo_for_dark_backgrounds.png",
     href: "https://www.cosmicds.cfa.harvard.edu/",
     alt: "CosmicDS Logo",
+    name: "cosmicds",
   }],
   ["wwt", {
-    src: "https://raw.githubusercontent.com/cosmicds/minids/main/assets/logo_wwt.png",
+    src: "https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/logo_wwt.png",
     href: "https://worldwidetelescope.org/home/",
     alt: "WWT Logo",
+    name: "wwt",
   }],
   ["sciact", {
-    src: "https://raw.githubusercontent.com/cosmicds/minids/main/assets/logo_sciact.png",
+    src: "https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/logo_sciact.png",
     href: "https://science.nasa.gov/learners",
     alt: "SciAct Logo",
+    name: "sciact",
   }],
   ["nasa", {
-    src: "https://raw.githubusercontent.com/cosmicds/minids/main/assets/NASA_Grantee_color_no_outline.png",
+    src: "https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/NASA_Grantee_color_no_outline.png",
     href: "https://nasa.gov/",
-    alt: "NASA Grantee Logo"
+    alt: "NASA Grantee Logo",
+    name: "nasa",
   }]
 ]);
 
@@ -70,9 +75,11 @@ const cssVars = computed(() => {
 
   img {
     height: var(--logo-size);
+    width: auto;
     margin-inline: 0.1em;
   }
 }
+
 .logo-link {
   display: inline-flex;
 }
