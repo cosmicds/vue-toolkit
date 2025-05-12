@@ -42,7 +42,7 @@
 
 
 <script setup lang="ts">
-import { computed, ref, useAttrs } from "vue";
+import { computed, ref, useAttrs, type VNode } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { VIcon } from "vuetify/components/VIcon";
 import { VTooltip } from "vuetify/components/VTooltip";
@@ -68,8 +68,15 @@ const props = withDefaults(defineProps<IconButtonProps>(), {
 });
 
 const emit = defineEmits<{
-  "update:modelValue": [active: boolean],
-  "activate": [activate?: null]
+  /** Fired whenever the modelValue of the button changes. If no modelValue is assigned, this will not fire */
+  (event: "update:modelValue", active: boolean): void
+  /** Fired whenever the button is pressed. This allows receiving events even when a modelValue is not assigned. */
+  (event: "activate"): void
+}>();
+
+defineSlots<{
+  /** Allows configuration of the button content, which by default is simply the button icon */
+  button(): VNode[];
 }>();
 
 

@@ -70,9 +70,12 @@ const props = withDefaults(defineProps<LocationSearchProps>(), {
 });
 
 const emit = defineEmits<{
-  (e: "error", message: string): void
-  (e: "set-location", feature: MapBoxFeature): void
-  (e: "update:modelValue", value: boolean): void
+  /** Fires when there is an error identifying a searched location. The event value is a message describing the error. */
+  (event: "error", message: string): void
+  /** Fires whenever the location changes. The event value is a `MapBoxFeature` describing the location. */
+  (event: "set-location", feature: MapBoxFeature): void
+  /** Fires whenever the search is opened or closed. The event value is a boolean that is true if the search is open. */
+  (event: "update:modelValue", value: boolean): void
 }>();
 
 const searchOpen = ref(props.modelValue || props.stayOpen);

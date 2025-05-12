@@ -235,11 +235,17 @@ const props = withDefaults(defineProps<SpeedControlProps>(), {
 const minSpeed = 1;
 
 const emit = defineEmits<{
+  /** Fired whenever the reset button is pressed .*/
   (event: "reset"): void
+  /** Fired whenever the reverse button is pressed. The event value is a boolean that is true if playback is now reversed. */
   (event: "update:reverse", reverse: boolean): void
+  /** Fired whenever the playback is started or paused. The event value is a boolean that is true if time is now playing. */
   (event: "update:modelValue", playing: boolean): void
+  /** Fired whenever the slowdown button is pressed. The event value is the new playback rate */
   (event: "slow-down", rate: number): void
+  /** Fired whenever the speed up button is pressed. The event value is the new playback rate. */
   (event: "speed-up", rate: number): void
+  /** Fired whenever the playback rate is changed. The event value is the new playback rate. */
   (event: "set-rate", rate: number): void
 }>();
 

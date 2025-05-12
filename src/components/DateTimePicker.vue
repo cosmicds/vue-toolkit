@@ -40,7 +40,7 @@
         <!-- 2-4 -->
         <span>-</span>
         <!-- 3-4 -->
-        <slot name="bottom-middle"><span></span></slot>
+        <slot name="bottom"><span></span></slot>
 
         <!-- 1-5 -->
         <button id="dtp__day-up" class="dtp__grid-item" @click="increment('day')">
@@ -55,9 +55,9 @@
         </button>
 
         <!-- 1-6 -->
-        <slot name="top-middle"><span></span></slot>
+        <slot name="top"><span></span></slot>
         <!-- 2-6 -->
-        <span class="dtp__middle-slot"><slot name="center-middle"></slot></span>
+        <span class="dtp__middle-slot"><slot name="center"></slot></span>
         <!-- 3-6 -->
         <span></span>
 
@@ -156,7 +156,7 @@
 
 
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue';
+import { ref, watch, computed, type VNode } from 'vue';
 import TapToInput from './TapToInput.vue';
 import { DateTimePickerProps } from "../types";
 
@@ -168,7 +168,20 @@ const props = withDefaults(defineProps<DateTimePickerProps>(), {
 });
 
 const emit = defineEmits<{
+  /** Fired whenever the datetime value is change d*/
   (event: "update:modelValue", datetime: Date): void
+}>();
+
+// TODO: Make these descriptions better
+defineSlots<{
+  /** A slot for adding additional content below the datetime picker. */
+  default(): VNode[];
+  /** A slot for adding additional content at the top-middle of the picker */
+  top(): VNode[];
+  /** A slot for adding additional content at the center-middle of the picker */
+  center(): VNode[];
+  /** A slot for adding additional content at the bottom-middle of the picker */
+  bottom(): VNode[];
 }>();
 
 const year = ref(props.modelValue.getFullYear());
@@ -208,7 +221,6 @@ const values = {
   second: second,
 };
 
-type Unit = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second';
 
 const limits = computed(() => ({
   year: { min: 1, max: Infinity },
@@ -219,6 +231,16 @@ const limits = computed(() => ({
   second: { min: 0, max: 59 },
 }));
 
+/**
+  JC: For reasons that I don't entirely understand, we get a build error
+  if we do
+  ```
+  const units = ["second", "minute", "hour", "day", "month", "year"] as const;
+  type Unit = typeof units[number];
+  ```
+  I'd prefer that as it's less redundant, but oh well
+*/
+type Unit = "second" | "minute" | "hour" | "day" | "month" | "year";
 const units: Unit[] = ['second', 'minute', 'hour', 'day', 'month', 'year'];
 
 function changeValue(unit: Unit, increment: boolean) {

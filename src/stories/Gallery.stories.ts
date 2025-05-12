@@ -7,6 +7,7 @@ import { WWTComponent } from "@wwtelescope/engine-pinia";
 const meta: Meta<typeof Gallery> = {
   component: Gallery,
   tags: ["autodocs"],
+  title: "Vue Toolkit/Components/Gallery",
 };
 
 export default meta;

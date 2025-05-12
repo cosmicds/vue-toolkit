@@ -9,6 +9,7 @@ import "./stories.css";
 const meta: Meta<typeof SpeedControl> = {
   component: SpeedControl,
   tags: ["autodocs"],
+  title: "Vue Toolkit/Components/Speed Control",
 };
 
 export default meta;

@@ -1,7 +1,14 @@
 import type { StorybookConfig } from "@storybook/vue3-webpack5";
 
+const vueOptions: StorybookConfig["framework"] = {
+  name: "@storybook/vue3-webpack5",
+  options: {
+    docgen: "vue-component-meta",
+  }
+}
+
 const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     "@storybook/addon-webpack5-compiler-swc",
     "@storybook/addon-links",
@@ -10,10 +17,7 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "storybook-dark-mode",
   ],
-  framework: {
-    name: "@storybook/vue3-webpack5",
-    options: {},
-  },
+  framework: vueOptions,
   docs: {
     autodocs: "tag",
   },
