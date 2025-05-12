@@ -60,7 +60,8 @@ const props = withDefaults(defineProps<ShareButtonProps>(), {
 });
 
 const emit = defineEmits<{
-  "share": [activate?: null],
+  /** Fired whenever the share button is pressed. */
+  (event: "share"): void
 }>();
 
 function getURL() {

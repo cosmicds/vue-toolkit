@@ -156,7 +156,7 @@
 
 
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue';
+import { ref, watch, computed, type VNode } from 'vue';
 import TapToInput from './TapToInput.vue';
 import { DateTimePickerProps } from "../types";
 
@@ -168,7 +168,15 @@ const props = withDefaults(defineProps<DateTimePickerProps>(), {
 });
 
 const emit = defineEmits<{
+  /** Fired whenever the datetime value is change d*/
   (event: "update:modelValue", datetime: Date): void
+}>();
+
+defineSlots<{
+  default(): VNode[];
+  topMiddle(): VNode[];
+  centerMiddle(): VNode[];
+  bottomMiddle(): VNode[];
 }>();
 
 const year = ref(props.modelValue.getFullYear());

@@ -61,10 +61,12 @@ const props = withDefaults(defineProps<LocationSelectorProps>(), {
 });
 
 const emit = defineEmits<{
-  mapReady: [ready?: null],
-  error: [msg: string],
-  place: [place: PlaceDeg],
-  "update:modelValue": [location: LocationDeg],
+  /** Fires when the location selector map is ready for use */
+  (event: "mapReady"): void
+  /** Fires whenever there is an error getting the location for the selected position. The event value is a message describing the error. */
+  (event: "error", message: string): void
+  /** Fires whenever the selected location changes. The event value is an object containing the longitude and latitude of the location in degrees. */
+  (event: "update:modelValue", location: LocationDeg): void
 }>();
 
 const placeCircles = ref<L.CircleMarker[]>([]);

@@ -9,6 +9,7 @@
     <slot
       name="closed"
       v-if="!open"
+      v-bind="props"
     >
       <div
         class="default-activator blurred"
@@ -66,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watch, onBeforeMount, toRaw } from "vue";
+import { ref, reactive, computed, watch, onBeforeMount, toRaw, type VNode } from "vue";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { Folder, Imageset, Place } from "@wwtelescope/engine";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -91,9 +92,17 @@ const props = withDefaults(defineProps<GalleryProps>(), {
 });
 
 const emit = defineEmits<{
-  "select": [place: Place],
-  "deselect": [place: Place],
-  "listAllSelected": [places: Place[]],
+  /** Fired whenever an image is selected. The event value is the WWT `Place` associated with the image */
+  (event: "select", place: Place): void
+  /** Fired whenever an image is deselected. The event value is the WWT `Place` associated with the image */
+  (event: "deselect", place: Place): void
+  /** Fired whenever an image is selected. The event value is a list of WWT `Place`s associated with all selected images */
+  (event: "listAllSelected", places: Place[]): void
+}>();
+
+defineSlots<{
+  /** A slot allowing customization of what is shown when the gallery is closed. This slot has access to all of the component props. */
+  closed(props: GalleryProps): VNode[];
 }>();
 
 const store = engineStore();

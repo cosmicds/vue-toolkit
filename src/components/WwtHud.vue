@@ -26,7 +26,7 @@
       </p>
       
       <!-- a default slot for whatever -->
-      <slot></slot>
+      <slot v-bind="props"></slot>
       
     </div>
   </div>
@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, type VNode } from "vue";
 import { Settings } from "@wwtelescope/engine";
 import { storeToRefs } from "pinia";
 
@@ -54,6 +54,11 @@ const props = withDefaults(defineProps<WwtHUDProps>(), {
   backgroundColor: "rgba(0, 0, 0, 0.5)",
   textShadow: "0 0 5px black",
 });
+
+defineSlots<{
+  /** A slot for displaying extra WWT content below the default HUD content. This slot has access to all of the component props (including the WWT store). */ 
+  default(props: WwtHUDProps): VNode[];
+}>();
 
 /*
 * I really don't care for passing the store as a prop,
