@@ -12,6 +12,7 @@ library.add(faBookOpen);
 const meta: Meta<typeof IconButton> = {
   component: IconButton,
   tags: ["autodocs"],
+  title: "Vue Toolkit/Components/Icon Button",
 };
 
 export default meta;

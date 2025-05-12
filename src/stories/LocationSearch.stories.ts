@@ -9,6 +9,7 @@ import "./stories.css";
 const meta: Meta<typeof LocationSearch> = {
   component: LocationSearch,
   tags: ["autodocs"],
+  title: "Vue Toolkit/Components/Location Search",
 };
 
 export default meta;

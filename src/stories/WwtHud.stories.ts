@@ -9,6 +9,7 @@ import "./stories.css";
 const meta: Meta<typeof WwtHud> = {
   component: WwtHud,
   tags: ["autodocs"],
+  title: "Vue Toolkit/Components/WWT HUD",
 };
 
 export default meta;

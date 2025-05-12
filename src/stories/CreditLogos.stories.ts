@@ -6,6 +6,7 @@ import { CreditLogos, CreditLogosProps } from "..";
 const meta: Meta<typeof CreditLogos> = {
   component: CreditLogos,
   tags: ["autodocs"],
+  title: "Vue Toolkit/Components/Credit Logos",
 };
 
 export default meta;

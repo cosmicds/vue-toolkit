@@ -6,6 +6,7 @@ import { FundingAcknowledgement, FundingAcknowledgementProps } from "..";
 const meta: Meta<typeof FundingAcknowledgement> = {
   component: FundingAcknowledgement,
   tags: ["autodocs"],
+  title: "Vue Toolkit/Components/Funding Acknowledgement",
 };
 
 export default meta;

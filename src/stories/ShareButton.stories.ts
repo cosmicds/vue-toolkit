@@ -6,6 +6,7 @@ import { ShareButton, ShareButtonProps } from "..";
 const meta: Meta<typeof ShareButton> = {
   component: ShareButton,
   tags: ["autodocs"],
+  title: "Vue Toolkit/Components/Share Button",
 };
 
 export default meta;

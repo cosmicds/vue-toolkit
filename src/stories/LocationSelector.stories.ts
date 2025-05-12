@@ -7,6 +7,7 @@ import { ref } from "vue";
 const meta: Meta<typeof LocationSelector> = {
   component: LocationSelector,
   tags: ["autodocs"],
+  title: "Vue Toolkit/Components/Location Selector",
 };
 
 export default meta;

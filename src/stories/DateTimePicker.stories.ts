@@ -8,6 +8,7 @@ import { ref } from "vue";
 const meta: Meta<typeof DateTimePicker> = {
   component: DateTimePicker,
   tags: ["autodocs"],
+  title: "Vue Toolkit/Components/Datetime Picker",
 };
 
 export default meta;
