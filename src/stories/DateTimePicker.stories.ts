@@ -39,5 +39,6 @@ export const Primary: Story = {
     debug: false,
     useAmPm: true,
     editableTime: true,
+    accentColor: "#f4ba3e",
   }
 };
