@@ -231,8 +231,17 @@ const limits = computed(() => ({
   second: { min: 0, max: 59 },
 }));
 
-const units  = ['second', 'minute', 'hour', 'day', 'month', 'year'] as const;
-type Unit = typeof units[number];
+/**
+  JC: For reasons that I don't entirely understand, we get a build error
+  if we do
+  ```
+  const units = ["second", "minute", "hour", "day", "month", "year"] as const;
+  type Unit = typeof units[number];
+  ```
+  I'd prefer that as it's less redundant, but oh well
+*/
+type Unit = "second" | "minute" | "hour" | "day" | "month" | "year";
+const units: Unit[] = ['second', 'minute', 'hour', 'day', 'month', 'year'];
 
 function changeValue(unit: Unit, increment: boolean) {
   const limit = limits.value[unit].max;

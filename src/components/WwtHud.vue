@@ -26,7 +26,7 @@
       </p>
       
       <!-- a default slot for whatever -->
-      <slot v-bind="props"></slot>
+      <slot :store="store"></slot>
       
     </div>
   </div>
@@ -56,7 +56,7 @@ const props = withDefaults(defineProps<WwtHUDProps>(), {
 });
 
 defineSlots<{
-  /** A slot for displaying extra WWT content below the default HUD content. This slot has access to all of the component props (including the WWT store). */ 
+  /** A slot for displaying extra WWT content below the default HUD content. This slot has access to the WWT store passed in via the component props. */ 
   default(props: WwtHUDProps): VNode[];
 }>();
 

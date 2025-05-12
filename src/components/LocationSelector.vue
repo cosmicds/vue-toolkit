@@ -65,6 +65,8 @@ const emit = defineEmits<{
   (event: "mapReady"): void
   /** Fires whenever there is an error getting the location for the selected position. The event value is a message describing the error. */
   (event: "error", message: string): void
+  /** Fires whenever a predefined place is selected. The event value is an object describing the selected place. */
+  (event: "place", place: PlaceDeg): void
   /** Fires whenever the selected location changes. The event value is an object containing the longitude and latitude of the location in degrees. */
   (event: "update:modelValue", location: LocationDeg): void
 }>();

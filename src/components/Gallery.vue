@@ -9,7 +9,9 @@
     <slot
       name="closed"
       v-if="!open"
-      v-bind="props"
+      :places="places"
+      :selected-place="selectedPlace"
+      :selected-places="selectedPlaces"
     >
       <div
         class="default-activator blurred"
@@ -101,7 +103,7 @@ const emit = defineEmits<{
 }>();
 
 defineSlots<{
-  /** A slot allowing customization of what is shown when the gallery is closed. This slot has access to all of the component props. */
+  /** A slot allowing customization of what is shown when the gallery is closed. This slot has access to the component's list of places and selected place(s).*/
   closed(props: GalleryProps): VNode[];
 }>();
 
