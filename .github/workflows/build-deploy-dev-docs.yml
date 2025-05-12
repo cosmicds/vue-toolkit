@@ -1,0 +1,57 @@
+name: Build and Deploy Development Docs
+
+on:
+  push:
+    branches:
+      main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: Set up yarn
+        run: corepack enable && yarn set version 3.3.0
+
+      - name: Install
+        run: yarn install
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Build
+        run: yarn build
+
+      - name: Build Storybook
+        run: yarn build-storybook 
+        env:
+          VUE_APP_MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
+
+      - name: Rename docs folder to dev
+        run: mv docs dev
+
+      - name: Check out the current docs
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: docs
+
+      - name: Move development docs into docs folder
+        run: mv dev docs/
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
