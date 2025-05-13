@@ -15,6 +15,12 @@ yarn add @cosmicds/vue-toolkit
 
 You can find this package on the npm registry [here](https://www.npmjs.com/package/@cosmicds/vue-toolkit).
 
+## Documentation
+
+The documentation for the current release of this package can be found [here](https://projects.cosmicds.cfa.harvard.edu/vue-toolkit).
+
+Additionally, a version of the documentation that is up-to-date with the current main branch of this repository is located [here](https://projects.cosmicds.cfa.harvard.edu/vue-toolkit/dev).
+
 ## Development
 
 If you're doing development work on these components, it will likely be useful to have an external sample project that imports a development version of this one. The easiest way to do this is probably to use [`npm-link`](https://docs.npmjs.com/cli/v10/commands/npm-link). For example:
