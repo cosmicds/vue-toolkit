@@ -43,6 +43,10 @@ const config: StorybookConfig = {
       test: /\.mdx$/,
       use: ['@mdx-js/loader'],
     });
+    config.module?.rules?.push({
+      test: /\.html/,
+      use: ["html-loader"],
+    });
     return config;
   },
 };

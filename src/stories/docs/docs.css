@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "EB Garamond";
+  src: url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Poppins:wght@200;400&display=swap");
+}
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Poppins:wght@200;400&display=swap');
+
+#storybook-root html {
+    font-family: "EB Garamond";
+}
