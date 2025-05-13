@@ -47,7 +47,9 @@ jobs:
           path: docs
 
       - name: Move development docs into docs folder
-        run: mv dev docs/
+        run: |
+          rm docs/dev
+          mv dev docs/
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
