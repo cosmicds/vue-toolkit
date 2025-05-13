@@ -48,7 +48,7 @@ jobs:
 
       - name: Move development docs into docs folder
         run: |
-          rm docs/dev
+          rm -rf docs/dev
           mv dev docs/
 
       - name: Deploy to GitHub Pages
