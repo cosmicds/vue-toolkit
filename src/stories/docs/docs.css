@@ -6,5 +6,15 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Poppins:wght@200;400&display=swap');
 
 #storybook-root html {
-    font-family: "EB Garamond";
+    font-family: "EB Garamond" Garamond serif;
 }
+
+#storybook-root p {
+  padding: 15px;
+}
+
+#storybook-root h1 {
+  text-align: center;
+  padding-top: 20px;
+}
+
