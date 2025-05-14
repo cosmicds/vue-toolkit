@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { Meta, StoryObj } from "@storybook/vue3";
-import CreatingAStory from "./creating-a-story.html";
+import CreatingAStory from "./CreatingAStory.vue";
 import "./docs.css";
 
 const meta: Meta = {
+  component: CreatingAStory,
   title: "Documentation/Creating",
 };
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<typeof CreatingAStory>;
 
 export const Creating: Story = {
   parameters: {
@@ -18,9 +19,8 @@ export const Creating: Story = {
       rightPanelWidth: 0,
     },
   },
-  render: () => {
-    return {
-      template: `${CreatingAStory}`,
-    };
-  },
+  render: () => ({
+    components: { CreatingAStory },
+    template: `<CreatingAStory/>`,
+  }),
 };
