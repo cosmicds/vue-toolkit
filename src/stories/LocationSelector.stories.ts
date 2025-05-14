@@ -33,6 +33,7 @@ export const Primary: Story = {
           />
           <hr style="margin: 30px">
           <div style="width: 100%; text-align: center;">The last selected coordinates are latitude {{ location.latitudeDeg }}, longitude {{ location.longitudeDeg }}</div>
+        </div>
         `,
       setup() {
         return { args, location };
