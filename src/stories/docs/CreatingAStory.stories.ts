@@ -6,13 +6,14 @@ import "./docs.css";
 
 const meta: Meta = {
   component: CreatingAStory,
-  title: "Documentation/Creating",
+  title: "Documentation/Creating a Story",
 };
 
 export default meta;
 type Story = StoryObj<typeof CreatingAStory>;
 
 export const Creating: Story = {
+  name: "Template Setup",
   parameters: {
     options: {
       bottomPanelHeight: 0,
