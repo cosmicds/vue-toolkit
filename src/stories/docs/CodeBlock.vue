@@ -4,6 +4,7 @@
     class="code-block"
   >
     <div class="code">
+      <slot></slot>
       {{ displayCode }}   
     </div>
     <v-btn
@@ -39,7 +40,7 @@ import { v4 } from "uuid";
 const buttonID = `button-${v4()}`;
 
 export interface CodeBlockProps {
-  code: string | string[];
+  code?: string | string[];
   copyable?: boolean;
 }
 
@@ -60,14 +61,18 @@ const cssVars = computed(() => ({
   border: solid 1px;
   border-radius: 2px;
   padding: 15px;
-  width: 100%;
+  margin: 10px;
+  max-width: 100%;
+  width: fit-content;
   position: relative;
   display: flex;
 
   div.code {
     font-family: monospace;
+    font-size: 10pt;
     text-align: left;
     padding-left: 0;
+    padding-right: 48px;
     text-align: left;
     height: fit-content;
     width: var(--pre-width);
