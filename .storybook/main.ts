@@ -17,6 +17,9 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "storybook-dark-mode",
   ],
+  staticDirs: [
+    "../src/stories/assets",
+  ],
   framework: vueOptions,
   docs: {
     autodocs: "tag",
