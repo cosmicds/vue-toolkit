@@ -23,6 +23,11 @@ const preview: Preview = {
   // with this tag
   // tags: ["autodocs"],
   parameters: {
+    options: {
+      storySort: {
+        order: ["Documentation", ["Introduction", "Creating a Story"], "Components"],
+      }
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

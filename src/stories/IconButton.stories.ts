@@ -38,7 +38,6 @@ export const Primary: Story = {
     color: "white",
     focusColor: "red",
     backgroundColor: "#040404",
-    boxShadow: true,
     border: true,
     longPressTimeMs: 500,
     tooltipText: "Tooltip",

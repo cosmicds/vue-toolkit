@@ -17,6 +17,9 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "storybook-dark-mode",
   ],
+  staticDirs: [
+    "../src/stories/assets",
+  ],
   framework: vueOptions,
   docs: {
     autodocs: "tag",
@@ -42,6 +45,10 @@ const config: StorybookConfig = {
     config.module?.rules?.push({
       test: /\.mdx$/,
       use: ['@mdx-js/loader'],
+    });
+    config.module?.rules?.push({
+      test: /\.html/,
+      use: ["html-loader"],
     });
     return config;
   },
