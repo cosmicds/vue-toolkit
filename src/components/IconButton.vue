@@ -19,7 +19,7 @@
         @touchend="handleTouchEnd"
         :style="cssVars"
         tabindex="0"
-        :aria-disabled="props.disabled"
+        :aria-disabled="disabled"
       >
         <slot name="button">
           <font-awesome-icon
