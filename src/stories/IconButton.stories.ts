@@ -7,6 +7,8 @@ import { IconButton } from "..";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
 
+import "./stories.css";
+
 library.add(faBookOpen);
 
 const meta: Meta<typeof IconButton> = {
@@ -47,6 +49,7 @@ export const Primary: Story = {
     tooltipOnHover: true,
     showTooltip: true,
     faSize: "lg",
-    mdSize: "100px"
+    mdSize: "100px",
+    disabled: false,
   }
 };

@@ -160,7 +160,7 @@ export interface IconButtonProps {
   faSize?: SizeType;
   /** The size of the MDI icon. Should be a valid CSS size */
   mdSize?: string;
-  /** Disable the button and prevent actions from running: Defualt is false */
+  /** Disable the button and prevent actions from running: Default is false */
   disabled?: boolean;
 }
 
