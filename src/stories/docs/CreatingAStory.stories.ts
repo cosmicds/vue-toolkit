@@ -7,7 +7,7 @@ import "./docs.css";
 
 const meta: Meta = {
   component: CreatingTheProject,
-  title: "Documentation/Creating a Story/Creating the Project",
+  title: "Documentation/Creating a Story",
 };
 
 export default meta;

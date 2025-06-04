@@ -14,7 +14,19 @@
     <li>Remove the git folder so that your story no longer has the template's commit history</li>
   </ul>
 
+  <p>
+    Finally, you'll need to install the necessary dependencies for the project. The project dependencies are stored in the <pre>package.json</pre> file, but you don't
+    need to worry about that - just simply run
+  </p>
+  <CodeBlock code="yarn"/>
+  <p>
+    and the yarn package manager will read the contents of <pre>package.json</pre> and install everything for you. Whenever you want to
+    see the current state of your story, you can run the development server using <pre>yarn serve</pre>. This will let you view the story
+    on a local URL (<pre>http://localhost:8080</pre> by default).
+  </p>
+
   <p>And now you're set up! In the next guide, we'll tackle the first piece of content that users see - the splash screen!</p>
+
   </div>
 </template>
 
