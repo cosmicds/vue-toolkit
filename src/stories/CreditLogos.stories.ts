@@ -30,6 +30,6 @@ export const Primary: Story = {
         name: "smithsonian",
       }
     ],
-    defaultLogos: ["wwt", "cosmicds", "nasa", "sciact"],
+    defaultLogos: ["cosmicds", "wwt", "sciact"],
   }
 };
