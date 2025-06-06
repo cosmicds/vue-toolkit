@@ -19,6 +19,7 @@
         @touchend="handleTouchEnd"
         :style="cssVars"
         tabindex="0"
+        :aria-disabled="disabled"
       >
         <slot name="button">
           <font-awesome-icon
@@ -64,7 +65,8 @@ const props = withDefaults(defineProps<IconButtonProps>(), {
   tooltipOffset: 0,
   showTooltip: true,
   faSize: "lg",
-  mdSize: "1.25em"
+  mdSize: "1.25em",
+  disabled: false,
 });
 
 const emit = defineEmits<{
@@ -106,6 +108,9 @@ function updateValue() {
 }
 
 function handleAction() {
+  if (props.disabled) {
+    return;
+  }
   updateValue();
   emit('activate');
 }
