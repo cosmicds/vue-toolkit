@@ -7,6 +7,7 @@
     :open-on-hover="tooltipOnHover"
     :offset="tooltipOffset"
     :disabled="!tooltipText || !showTooltip"
+    :class="['icon-button-v-tooltip', disabled ? 'disabled-tooltip' : '']"
   >
     <template v-slot:activator="{ props }: { props: Record<string,any> }">
       <div
@@ -148,6 +149,18 @@ function handleTouchEnd() {
   &.active {
     color: var(--active-color);
     border-color: var(--active-color);
+  }
+  
+  &[aria-disabled="true"]:hover {
+    cursor: not-allowed;
+  }
+}
+
+.icon-button-v-tooltip {
+  
+  &.disabled-tooltip .v-overlay__content {
+    color: rgb(156, 156, 156); // fallback grey color for disabled state
+    color: color-mix(in hsl, currentColor, rgb(var(--v-theme-surface-variant)) 50%);
   }
 }
 </style>
