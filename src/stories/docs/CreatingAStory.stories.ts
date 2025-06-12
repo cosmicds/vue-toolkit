@@ -3,6 +3,7 @@
 import { Meta, StoryObj } from "@storybook/vue3";
 import CreatingTheProject from "./CreatingTheProject.vue";
 import CreateSplashScreen from "./CreateSplashScreen.vue";
+import SettingUpLayers from "./SettingUpLayers.vue";
 import "./docs.css";
 
 const meta: Meta = {
@@ -38,5 +39,19 @@ export const CreateSplash: Story = {
   render: () => ({
     components: { CreateSplashScreen },
     template: `<CreateSplashScreen/>`,
+  }),
+};
+
+export const SetUpLayers: Story = {
+  name: "Images in WWT",
+  parameters: {
+    options: {
+      bottomPanelHeight: 0,
+      rightPanelWidth: 0,
+    },
+  },
+  render: () => ({
+    components: { SettingUpLayers },
+    template: `<SettingUpLayers/>`,
   }),
 };
