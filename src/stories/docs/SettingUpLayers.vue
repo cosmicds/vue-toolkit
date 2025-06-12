@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Setting Up Images</h1>
+    <h1>Setting Up Images and Camera</h1>
 
     <p>
       If you've followed along with our guide so far, you've got a working Vue project and a splash screen with some relevant content.
@@ -65,6 +65,13 @@
     <CodeBlock :code="resetView" lang="javascript" />
     <p>Additionally, add the following near the top of the scrip section of the template, near the other imports:</p>
     <CodeBlock :code="importD2R" lang="javascript" />
+    <p>
+      While there's nothing wrong with setting the position "by hand", this code allows us to automatically grab the center position of the JWST imageset and, after converting it to radians, set the WWT camera to that
+      RA/Dec position. The zoom and roll parameters are values that we picked manually, though.
+    </p>
+    <p>
+      With this, we've now got our basic view set up. When the loading screen finishes, we'll have both images loaded into WWT, with the camera at the correct RA/Dec position and zoom level!
+    </p>
   </div>
 </template>
 

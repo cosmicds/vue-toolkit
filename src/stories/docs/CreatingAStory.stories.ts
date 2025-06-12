@@ -43,7 +43,7 @@ export const CreateSplash: Story = {
 };
 
 export const SetUpLayers: Story = {
-  name: "Images in WWT",
+  name: "Setting up the WWT View",
   parameters: {
     options: {
       bottomPanelHeight: 0,
