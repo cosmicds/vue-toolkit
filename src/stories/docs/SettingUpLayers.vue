@@ -43,8 +43,28 @@
     Let's go over what we're doing here. First, we create a <code>wtmls</code> object that stores the URLs for our two WTML files. Here we have two separate WTML files (one for our Hubble image, the other 
     for our JWST image), but you can store multiple imagesets in one WTML. For each key, value pair in our <code>wtmls</code> object, we load the WTML from its URL using WWT's <code>loadImageCollection</code> 
     method. Again, as this generally requires loading from a remote location, it returns a Promise whose resolved value is a WWT <code>Folder</code> object, which is a class describing a folder of contents, 
-    similar to a folder in a filesystem. 
+    similar to a folder in a filesystem. Our images are stored as WWT <code>Imageset</code>s within <code>Place</code> entries, so after the Promise resolves, 
+    we do a few checks to make sure that the items have the right structure and then use WWT's <code>addImageSetLayer</code> to add the images into WWT using the names (<code>"jwst"</code> and <code>"hubble"</code>) that we used as keys in our <code>wtmls</code> object.
+    This method also returns a promise which we return, meaning that <code>layerPromises</code> is, as the name suggests, an array of promises.
+    Before we do our next steps, we want to be sure that both layers have finished being set up in WWT. To do that, we use JavaScript's <code>Promise.all</code>, which takes in an array of promises and returns a promise that resolves only when all of them are complete. The resolved value will be an array whose members are the resolved values of the input promises. In our case, once all of the layers have loaded, we add them to our component-level <code>layers</code> object for access later, and set the opacity of each to 0.5 (out of 1).
     </p>
+    <v-alert type="info" variant="tonal">
+      <template #text>
+        Note that we haven't added any handling for what happens if the promises fail for any reason. We've omitted error handling in order to keep the tutorial simpler, but in your own story you can use the promise's <code>catch</code> method 
+        to decide how to handle any errors that pop up as you're handling data.
+      </template>
+    </v-alert>
+    <p>
+      With the layers loaded and set up, we now set <code>layersLoaded.value = true</code>. Why do we do this?  
+      The variables <code>layersLoaded</code> and <code>positionSet</code> are built-in variables in the template. When both of these are set to true, the <code>isReady</code> value will automatically be updated to be true. Note that these values are both Vue references (so that we can use them in the template), and so we update their stored values by setting their <code>value</code> member.
+      Until this happens, the template has a built in "Loading..." screen with a small Moon GIF. Feel free to customize what you want there!
+    </p>
+    <p>
+      So now we've set <code>layersLoaded</code> to be true, but we haven't handled setting the position. In addition to allowing the loading screen to pass, we also want WWT to bring the user to the right place on the sky. We're going to add a button to reset the camera later, so let's do ourselves a favor now and make this functionality that we can use in multiple places. To do this, add the following function to the top level of the component:
+    </p>
+    <CodeBlock :code="resetView" lang="javascript" />
+    <p>Additionally, add the following near the top of the scrip section of the template, near the other imports:</p>
+    <CodeBlock :code="importD2R" lang="javascript" />
   </div>
 </template>
 
@@ -107,6 +127,22 @@ Promise.all(layerPromises).then((layers) => {
     applyImageSetLayerSetting(layer, ["opacity", 0.5]);
   });
   this.layersLoaded = true;
+});
 `
 );
+
+const resetView = ref(
+`function resetView(instant = false) {
+  const imageset = layers.jwst.get_imageSet();
+  store.gotoRADecZoom({
+    raRad: D2R * imageset.get_centerX(),
+    decRad: D2R * imageset.get_centerY(),
+    zoomDeg: 0.8595,
+    rollRad: 1.799,
+    instant,
+  });
+}` 
+);
+
+const importD2R = ref(`import { D2R } from "@wwtelescope/astro";`);
 </script>
