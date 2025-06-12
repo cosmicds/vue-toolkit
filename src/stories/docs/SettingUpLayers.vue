@@ -63,14 +63,17 @@
       So now we've set <code>layersLoaded</code> to be true, but we haven't handled setting the position. In addition to allowing the loading screen to pass, we also want WWT to bring the user to the right place on the sky. We're going to add a button to reset the camera later, so let's do ourselves a favor now and make this functionality that we can use in multiple places. To do this, add the following function to the top level of the component:
     </p>
     <CodeBlock :code="resetView" lang="javascript" />
-    <p>Additionally, add the following near the top of the scrip section of the template, near the other imports:</p>
+    <p>Additionally, add the following near the top of the script section of the template, near the other imports:</p>
     <CodeBlock :code="importD2R" lang="javascript" />
     <p>
       While there's nothing wrong with setting the position "by hand", this code allows us to automatically grab the center position of the JWST imageset and, after converting it to radians, set the WWT camera to that
-      RA/Dec position. The zoom and roll parameters are values that we picked manually, though.
+      RA/Dec position. The zoom and roll parameters are values that we picked manually, though. 
+      Now that we've defined this function, let's call it and let the template know that we've set our position. Below <code>layersLoaded.value = true</code>, add the following:
     </p>
+    <CodeBlock :code="callResetView" lang="javascript" />
     <p>
-      With this, we've now got our basic view set up. When the loading screen finishes, we'll have both images loaded into WWT, with the camera at the correct RA/Dec position and zoom level!
+    Now that we have code to mark both the layers and position as all set up, the user can advance through the loading screen. When the loading screen finishes, we'll have 
+    both images loaded into WWT, with the camera at the correct RA/Dec position and zoom level! With the basic view set up, we can now move on to the controls!
     </p>
   </div>
 </template>
@@ -133,7 +136,7 @@ Promise.all(layerPromises).then((layers) => {
     layers[layer.get_name()] = layer;
     applyImageSetLayerSetting(layer, ["opacity", 0.5]);
   });
-  this.layersLoaded = true;
+  layersLoaded.value = true;
 });
 `
 );
@@ -152,4 +155,10 @@ const resetView = ref(
 );
 
 const importD2R = ref(`import { D2R } from "@wwtelescope/astro";`);
+
+const callResetView = ref(
+`resetView();
+positionSet.value = true;
+`
+);
 </script>
