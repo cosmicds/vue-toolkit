@@ -4,6 +4,7 @@ import { Meta, StoryObj } from "@storybook/vue3";
 import CreatingTheProject from "./CreatingTheProject.vue";
 import CreateSplashScreen from "./CreateSplashScreen.vue";
 import SettingUpLayers from "./SettingUpLayers.vue";
+import OpacityControls from "./OpacityControls.vue";
 import "./docs.css";
 
 const meta: Meta = {
@@ -53,5 +54,20 @@ export const SetUpLayers: Story = {
   render: () => ({
     components: { SettingUpLayers },
     template: `<SettingUpLayers/>`,
+  }),
+};
+
+
+export const ImageOpacityControls: Story = {
+  name: "Image Opacity Controls",
+  parameters: {
+    options: {
+      bottomPanelHeight: 0,
+      rightPanelWidth: 0,
+    },
+  },
+  render: () => ({
+    components: { OpacityControls },
+    template: `<OpacityControls/>`,
   }),
 };
