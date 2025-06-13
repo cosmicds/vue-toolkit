@@ -17,7 +17,17 @@
       this component), but for this story we'll use the default logos. As far as image controls go, for our Carina story we want to have three opacity control 
       elements:
       <ul>
+        <li>A button for setting the JWST image to 100% opacity and the Hubble image to 0% opacity</li>
+        <li>A button to do the reverse - set the Hubble image to 100% opacity and the JWST image to 0%</li>
+        <li>A slider to slide between the two, with the two opacities complementary - i.e. if JWST is at X%, Hubble is at (100 - X)%</li>
       </ul>
+    </p>
+    <p>
+      Let's implement these in order, so we'll start with the button to show the JWST image only. First, let's add a container for our control widgets, above the credit logos:
+    </p>
+    <CodeBlock :code="controlsContainer" lang="html" />
+    <p>The bottom content container is already set up as a flex container with <code>flex-direction: column</code>, so the controls will automatically show up above the logos 
+    (if this doesn't mean anything to you, it's just a fancy way of saying the that bottom content container will vertically stack its top-level items
     </p>
   </div>
 </template>
@@ -36,4 +46,14 @@ const bottomContentEmpty = ref(
 </div>
 `
 );
+
+const controlsContainer = ref(
+`<div id="bottom-content">
+  <div id="controls-container">
+  </div>
+  <div id="body-logos" v-if= "!smallSize">
+    <credit-logos/>
+  </div>
+</div>
+`);
 </script>
