@@ -77,8 +77,9 @@
     <CodeBlock :code="crossfadeSlider" lang="html" />
     <p>
       The markup for the slider is pretty straightforward. <code>min</code> and <code>max</code> are the min and max values of the slider, and <code>step</code> is the 
-      gap between adjacent slider values. The <code>v-model="crossfade"</code> line hooks up the value of the slider to our crossfade value. This means that changing the 
-      value of the slider will adjust the value of <code>crossfade</code>, and changing the value of crossfade somewhere else will cause the slider to update to match.
+      gap between adjacent slider values. So our slider goes from 0 to 100, in increments of 1. The <code>v-model="crossfade"</code> line hooks up the value of the 
+      slider to our crossfade value. This means that changing the value of the slider will adjust the value of <code>crossfade</code>, and changing the value of crossfade 
+      somewhere else will cause the slider to update to match.
     </p>
     <p>
       Finally, let's set up the layout for the controls. To keep things simple, let's just have the controls container lay its items out in a single row. Add the following in 
@@ -94,6 +95,13 @@
         </li>
       </ul>
     </p>
+    <p>
+      Your controls should now look something like what's below. More importantly, they should adjust the image opacities in exactly the way that we want. This example highlights 
+      the power of setting up our user interface logic using Vue - once we set up <code>crossfade</code> to control our opacities in the way that we want, hooking up UI elements 
+      with the interactions that we wanted became almost trivial. In the next part of the guide, we'll take things one step further - we'll allow showing and hiding the images, and 
+      even update our UI based on whether the images are visible or not!
+    </p>
+    <em><strong>ADD IMAGE HERE</strong></em>
   </div>
 </template>
 
