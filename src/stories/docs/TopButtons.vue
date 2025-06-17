@@ -10,6 +10,51 @@
       Similar to with the controls, we'll place these buttons in a pre-existing template container - in this case we'll use the <code>top-content</code> container, which by default in the template looks like:
     </p>
     <CodeBlock :code="topContentDefault" lang="html" />
+    <p>
+      In particular, let's put these buttons inside the <code>center-buttons</code> container which, as the name suggests, is in the top-center of screen. For the button that 
+      resets the view, we're going to use the toolkit's icon button component. Add the following markup inside of the <code>center-buttons</code> container:
+    </p>
+    <CodeBlock :code="resetViewButton" lang="html" />
+    <p>
+      This specifies a few things: the icon that we want to use, the code that gets triggered when the button is pressed, the button color, and setup for the button tooltip. 
+      Going item-by-item:
+      <ul>
+        <li>
+          <code>fa-icon="redo"</code> specifies that we want the Redo icon from <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">Font Awesome</a>. 
+          The icon button component has built-in support for Font Awesome icons (as well as <a href="https://pictogrammers.com/library/mdi/" target="_blank" rel="noopener noreferrer">Material Design Icons</a>). 
+        </li>
+        <li>
+          <code>@activate="() => resetView(false)"</code> runs when the button is pressed (causing it to emit the <code>activate</code> event). As you'll recall, we made <code>resetView</code>
+          a standalone function in our earlier section about setting up layers. This is the reason that we defined this logic in its own function before - we can now reuse it 
+          here without needing to do anything extra.
+        </li>
+        <li><code>:color="buttonColor"</code> sets the button color to <code>buttonColor</code>, which is a predefined variable in the template (set to white by default)</li>
+        <li>
+          <code>
+            tooltip-text="Return to Carina"
+            tooltip-location="bottom"
+            tooltip-offset="3px"
+            :show-tooltip="!mobile"
+          </code>
+          <br>
+          These four lines set up the tooltip for the icon button (the tooltip is text that displays when e.g. hovering over the button). The first line sets the text of the 
+          tooltip. The second sets the tooltip location relative to the button (in this case, we're setting the tooltip to diplay below the button). The third line sets the 
+          tooltip offset, which is the distance between the button and the tooltip - here we set it to 3 pixels. Finally, the last line disables the tooltip on a mobile device, 
+          where there's really no concept of "hovering over" an element.
+        </li>
+      </ul>
+    </p>
+    <p>
+      Next, let's set up our button to show and hide images. First, let's do a little setup in the template. Similar to what we did when we set up <code>crossfade</code> 
+      to control our opacities, we'll create a Vue ref to control whether or not the images are shown or hidden. At the top level of the script portion of the template, 
+      add the following:
+    </p>
+    <CodeBlock :code="showLayers" lang="javascript" />
+    <p>
+      So how do we want to use <code>showLayers</code>? Also similar to <code>crossfade</code>, what we'll do is define a watcher that updates the WWT state to match the 
+      current value of <code>showLayers</code>. Add the following below the watcher for <code>crossfade</code>:
+    </p>
+    <CodeBlock :code="showLayersWatcher" lang="javascript" />
   </div>
 </template>
 
@@ -46,4 +91,28 @@ const topContentDefault = ref(
 </div>
 `
 );
+
+const resetViewButton = ref(
+`<icon-button
+  fa-icon="redo"
+  :color="accentColor"
+  @activate="() => resetView(false)"
+  tooltip-text="Return to Carina"
+  tooltip-location="bottom"
+  tooltip-offset="3px"
+  :show-tooltip="!mobile"
+`
+);
+
+const showLayers = ref("const showLayers = ref(true);");
+
+const showLayersWatcher = ref(
+`watch(showLayers, (show: boolean) => {
+  Object.values(layers).forEach(layer => {
+    layer.set_enabled(show);
+  });
+});
+`
+);
+
 </script>
