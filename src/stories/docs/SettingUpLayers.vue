@@ -81,10 +81,9 @@
 <script setup lang="ts">
 /* eslint-disable indent */
 
-import { ref } from "vue";
 import CodeBlock from "./CodeBlock.vue";
 
-const onMountedInitial = ref(
+const onMountedInitial = 
 `onMounted(() => {
   store.waitForReady().then(async () => {
     skyBackgroundImagesets.forEach(iset => backgroundImagesets.push(iset));
@@ -98,16 +97,16 @@ const onMountedInitial = ref(
   });
 });
 `
-);
+;
 
-const props = ref(
+const props = 
 `const props = withDefaults(defineProps<CarinaProps>(), {
   wwtNameSpace: "carina",
 });
 `
-);
+;
 
-const layerSetup = ref(
+const layerSetup = 
 `const wtmls = {
   jwst: "https://web.wwtassets.org/specials/2023/cosmicds-carina/collection/jwst_carina.wtml",
   hubble: "https://web.wwtassets.org/specials/2023/cosmicds-carina/collection/carina_carina.wtml"
@@ -139,9 +138,9 @@ Promise.all(layerPromises).then((layers) => {
   layersLoaded.value = true;
 });
 `
-);
+;
 
-const resetView = ref(
+const resetView = 
 `function resetView(instant = false) {
   const imageset = layers.jwst.get_imageSet();
   store.gotoRADecZoom({
@@ -152,13 +151,13 @@ const resetView = ref(
     instant,
   });
 }` 
-);
+;
 
-const importD2R = ref(`import { D2R } from "@wwtelescope/astro";`);
+const importD2R = `import { D2R } from "@wwtelescope/astro";`;
 
-const callResetView = ref(
+const callResetView = 
 `resetView();
 positionSet.value = true;
 `
-);
+;
 </script>

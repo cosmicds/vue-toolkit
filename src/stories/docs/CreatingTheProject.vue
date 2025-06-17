@@ -15,14 +15,14 @@
   </ul>
 
   <p>
-    Finally, you'll need to install the necessary dependencies for the project. The project dependencies are stored in the <pre>package.json</pre> file, but you don't
+    Finally, you'll need to install the necessary dependencies for the project. The project dependencies are stored in the <code>package.json</code> file, but you don't
     need to worry about that - just simply run
   </p>
   <CodeBlock code="yarn"/>
   <p>
-    and the yarn package manager will read the contents of <pre>package.json</pre> and install everything for you. Whenever you want to
-    see the current state of your story, you can run the development server using <pre>yarn serve</pre>. This will let you view the story
-    on a local URL (<pre>http://localhost:8080</pre> by default).
+    and the yarn package manager will read the contents of <code>package.json</code> and install everything for you. Whenever you want to
+    see the current state of your story, you can run the development server using <code>yarn serve</code>. This will let you view the story
+    on a local URL (<code>http://localhost:8080</code> by default).
   </p>
 
   <p>And now you're set up! In the next guide, we'll tackle the first piece of content that users see - the splash screen!</p>
@@ -31,13 +31,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import CodeBlock from "./CodeBlock.vue";
 import { trimLeadingWhitespacePerLine } from "./utils";
 
-const clone = ref(trimLeadingWhitespacePerLine(`
+const clone = trimLeadingWhitespacePerLine(`
   git clone https://github.com/cosmicds/vue-ds-template.git carina
-  cd carina`));
-const setup = ref(`scripts/setup.sh carina`);
+  cd carina`);
+
+const setup = "scripts/setup.sh carina";
   
 </script>

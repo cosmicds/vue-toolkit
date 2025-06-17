@@ -18,32 +18,43 @@
     <p>
       This specifies a few things: the icon that we want to use, the code that gets triggered when the button is pressed, the button color, and setup for the button tooltip. 
       Going item-by-item:
-      <ul>
-        <li>
-          <code>fa-icon="redo"</code> specifies that we want the Redo icon from <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">Font Awesome</a>. 
-          The icon button component has built-in support for Font Awesome icons (as well as <a href="https://pictogrammers.com/library/mdi/" target="_blank" rel="noopener noreferrer">Material Design Icons</a>). 
-        </li>
-        <li>
-          <code>@activate="() => resetView(false)"</code> runs when the button is pressed (causing it to emit the <code>activate</code> event). As you'll recall, we made <code>resetView</code>
-          a standalone function in our earlier section about setting up layers. This is the reason that we defined this logic in its own function before - we can now reuse it 
-          here without needing to do anything extra.
-        </li>
-        <li><code>:color="buttonColor"</code> sets the button color to <code>buttonColor</code>, which is a predefined variable in the template (set to white by default)</li>
-        <li>
-          <code>
-            tooltip-text="Return to Carina"
-            tooltip-location="bottom"
-            tooltip-offset="3px"
-            :show-tooltip="!mobile"
-          </code>
-          <br>
-          These four lines set up the tooltip for the icon button (the tooltip is text that displays when e.g. hovering over the button). The first line sets the text of the 
-          tooltip. The second sets the tooltip location relative to the button (in this case, we're setting the tooltip to diplay below the button). The third line sets the 
-          tooltip offset, which is the distance between the button and the tooltip - here we set it to 3 pixels. Finally, the last line disables the tooltip on a mobile device, 
-          where there's really no concept of "hovering over" an element.
-        </li>
-      </ul>
     </p>
+    <ul>
+      <li>
+        <code>fa-icon="redo"</code> specifies that we want the Redo icon from <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">Font Awesome</a>. 
+        The icon button component has built-in support for Font Awesome icons (as well as <a href="https://pictogrammers.com/library/mdi/" target="_blank" rel="noopener noreferrer">Material Design Icons</a>). 
+      </li>
+      <li>
+        <code>@activate="() => resetView(false)"</code> runs when the button is pressed (causing it to emit the <code>activate</code> event). As you'll recall, we made <code>resetView</code>
+        a standalone function in our earlier section about setting up layers. This is the reason that we defined this logic in its own function before - we can now reuse it 
+        here without needing to do anything extra.
+      </li>
+      <li><code>:color="buttonColor"</code> sets the button color to <code>buttonColor</code>, which is a predefined variable in the template (set to white by default)</li>
+      <li>
+        <code>
+          tooltip-text="Return to Carina"<br>
+          tooltip-location="bottom"<br>
+          tooltip-offset="3px"<br>
+          :show-tooltip="!mobile"
+        </code>
+        <br>
+        These four lines set up the tooltip for the icon button (the tooltip is text that displays when e.g. hovering over the button). The first line sets the text of the 
+        tooltip. The second sets the tooltip location relative to the button (in this case, we're setting the tooltip to diplay below the button). The third line sets the 
+        tooltip offset, which is the distance between the button and the tooltip - here we set it to 3 pixels. Finally, the last line disables the tooltip on a mobile device, 
+        where there's really no concept of "hovering over" an element.
+      </li>
+    </ul>
+    <p>
+      So this button is <em>almost</em> done, but if you try and run the story now, you'll see that the icon doesn't appear. There's one extra thing we need to do in order to use 
+      the icon that we want on the button. To do this, go to the <code>src/main.ts</code> file. Find the block near the top that imports some icons from Font Awesome. We need to update 
+      this to import the Redo icon as well:
+    </p>
+    <CodeBlock :code="importRedo" lang="javascript" />
+    <p>
+      Similarly, we also need to add the icon to the local Font Awesome library. Below the import block should be a set of lines of the form <code>library.add(...)</code>. 
+      Add one more line there:
+    </p>
+    <CodeBlock :code="addRedoToLibrary" lang="javascript" />
     <p>
       Next, let's set up our button to show and hide images. First, let's do a little setup in the template. Similar to what we did when we set up <code>crossfade</code> 
       to control our opacities, we'll create a Vue ref to control whether or not the images are shown or hidden. At the top level of the script portion of the template, 
@@ -61,10 +72,9 @@
 <script setup lang="ts">
 /* eslint-disable indent */
 
-import { ref } from "vue";
 import CodeBlock from "./CodeBlock.vue";
 
-const topContentDefault = ref(
+const topContentDefault = 
 `<div id="top-content">
   <div id="left-buttons">
     <icon-button
@@ -90,9 +100,9 @@ const topContentDefault = ref(
   </div>
 </div>
 `
-);
+;
 
-const resetViewButton = ref(
+const resetViewButton = 
 `<icon-button
   fa-icon="redo"
   :color="accentColor"
@@ -102,17 +112,29 @@ const resetViewButton = ref(
   tooltip-offset="3px"
   :show-tooltip="!mobile"
 `
-);
+;
 
-const showLayers = ref("const showLayers = ref(true);");
+const showLayers = "const showLayers = ref(true);";
 
-const showLayersWatcher = ref(
+const showLayersWatcher = 
 `watch(showLayers, (show: boolean) => {
   Object.values(layers).forEach(layer => {
     layer.set_enabled(show);
   });
 });
 `
-);
+;
+
+const importRedo = 
+`import {
+  faBookOpen,
+  faRedo,
+  faTimes,
+  faVideo
+} from "@fortawesome/free-solid-svg-icons";
+`
+;
+
+const addRedoToLibrary = "library.add(faRedo)";
 
 </script>

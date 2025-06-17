@@ -7,7 +7,7 @@ import SettingUpLayers from "./SettingUpLayers.vue";
 import OpacityControls from "./OpacityControls.vue";
 import TopButtons from "./TopButtons.vue";
 import "./docs.css";
-import { defineComponent } from "vue";
+import { s } from "@storybook/vue3/dist/render-0377a2e9";
 
 const meta: Meta = {
   component: CreatingTheProject,
@@ -16,52 +16,56 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj<typeof CreatingTheProject>;
-type Component = ReturnType<typeof defineComponent>;
 
-interface DocStoryOptions {
-  name: string;
-  component: Record<string, Component>;
-}
+const storyParameters = {
+  options: {
+    bottomPanelHeight: 0,
+    rightPanelWidth: 0,
+  },
+} as const;
 
-function createDocStory(options: DocStoryOptions): Story {
-  const componentName = Object.keys(options.component)[0];
-  const component = options.component[componentName];
-  return {
-    name: options.name,
-    parameters: {
-      options: {
-        bottomPanelHeight: 0,
-        rightPanelWidth: 0,
-      },
-    },
-    render: () => ({
-      components: { [componentName]: component },
-      template: `<${componentName}/>`,
-    }),
-  };
-}
-
-export const CreateProject = createDocStory({
+export const CreateProject: Story = {
   name: "Creating the Project",
-  component: { CreatingTheProject },
-});
+  parameters: storyParameters,
+  render: () => ({
+    components: { CreatingTheProject },
+    template: "<CreatingTheProject/>",
+  }),
+};
 
-export const CreateSplash = createDocStory({
+export const CreateSplash: Story = {
   name: "Splash Screen",
-  component: { CreateSplashScreen },
-});
+  parameters: storyParameters,
+  render: () => ({
+    components: { CreateSplashScreen },
+    template: "<CreateSplashScreen/>",
+  }),
+};
 
-export const SetUpLayers = createDocStory({
+
+export const SetUpLayers: Story = {
   name: "Setting up the WWT View",
-  component: { SettingUpLayers },
-});
+  parameters: storyParameters,
+  render: () => ({
+    components: { SettingUpLayers },
+    template: "<SettingUpLayers/>",
+  }),
+};
 
-export const ImageOpacityControls = createDocStory({
+export const ImageOpacityControls: Story = {
   name: "Image Opacity Controls",
-  component: { OpacityControls },
-});
+  parameters: storyParameters,
+  render: () => ({
+    components: { OpacityControls },
+    template: "<OpacityControls/>",
+  }),
+};
 
-export const TopButtonSetup = createDocStory({
+export const TopButtonsSetup: Story = {
   name: "Convenience Buttons",
-  component: { TopButtons },
-});
+  parameters: storyParameters,
+  render: () => ({
+    components: { TopButtons },
+    template: "<TopButtons/>",
+  }),
+};

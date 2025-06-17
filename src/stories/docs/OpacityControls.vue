@@ -16,19 +16,19 @@
       To start with, the only thing along the bottom is our credit logos component. You can customize the logos that appear here (see the documentation for 
       this component), but for this story we'll use the default logos. As far as image controls go, for our Carina story we want to have three opacity control 
       elements:
-      <ul>
-        <li>A button for setting the JWST image to 100% opacity and the Hubble image to 0% opacity</li>
-        <li>A button to do the reverse - set the Hubble image to 100% opacity and the JWST image to 0%</li>
-        <li>A slider to slide between the two, with the two opacities complementary - i.e. if JWST is at X%, Hubble is at (100 - X)%</li>
-      </ul>
     </p>
+    <ul>
+      <li>A button for setting the JWST image to 100% opacity and the Hubble image to 0% opacity</li>
+      <li>A button to do the reverse - set the Hubble image to 100% opacity and the JWST image to 0%</li>
+      <li>A slider to slide between the two, with the two opacities complementary - i.e. if JWST is at X%, Hubble is at (100 - X)%</li>
+    </ul>
     <p>
       Additionally, we'll want these UI elements to be in sync - for example, if a user presses the JWST button, the slider should move all the way to the JWST end 
       as well. To help facilitate that, let's create a reactive variable that will let Vue help us with that. There's no one right way to set this up, but for this 
       story, let's define a variable called <code>crossfade</code> that goes from 0 to 100, with 0 meaning that only the Hubble image is visible, and 100 meaning 
       that only the JWST image is visible. Add the following at the top level of the component:
     </p>
-    <CodeBlock code="const crossfade = ref(50);" lang="javascript" />
+    <CodeBlock code="const crossfade = 50);" lang="javascript" />
     <p>
       And then let's have Vue hook this variable up to our imageset layer opacities. Also at the top level of the component, add:
     </p>
@@ -87,14 +87,14 @@
     </p>
     <CodeBlock :code="controlsContainerCSS" lang="css" />
     <p>The main highlights of this are:
-      <ul>
-        <li>Setting <code>display: flex</code> and <code>flex-direction: row</code> will cause the container to lay its items out in a single row</li>
-        <li>
-          In order to not block the pointer from adjusting the WWT view, we have things in the interactive set to <code>pointer-events: none</code> by default. 
-          So in order for these to be usable, we need to be <code>pointer-events: auto</code> for the controls container.
-        </li>
-      </ul>
     </p>
+    <ul>
+      <li>Setting <code>display: flex</code> and <code>flex-direction: row</code> will cause the container to lay its items out in a single row</li>
+      <li>
+        In order to not block the pointer from adjusting the WWT view, we have things in the interactive set to <code>pointer-events: none</code> by default. 
+        So in order for these to be usable, we need to be <code>pointer-events: auto</code> for the controls container.
+      </li>
+    </ul>
     <p>
       Your controls should now look something like what's below. More importantly, they should adjust the image opacities in exactly the way that we want. This example highlights 
       the power of setting up our user interface logic using Vue - once we set up <code>crossfade</code> to control our opacities in the way that we want, hooking up UI elements 
@@ -108,19 +108,18 @@
 <script setup lang="ts">
 /* eslint-disable indent */
 
-import { ref } from "vue";
 import CodeBlock from "./CodeBlock.vue";
 
-const bottomContentEmpty = ref(
+const bottomContentEmpty = 
 `<div id="bottom-content">
   <div id="body-logos" v-if= "!smallSize">
     <credit-logos/>
   </div>
 </div>
 `
-);
+;
 
-const controlsContainer = ref(
+const controlsContainer = 
 `<div id="bottom-content">
    <div id="controls-container">
    </div>
@@ -128,46 +127,46 @@ const controlsContainer = ref(
      <credit-logos/>
    </div>
 </div>
-`);
+`;
 
-const crossfadeWatcher = ref(
+const crossfadeWatcher = 
 `watch(crossfade, (value: number) => {
    const jwstOpacity = 0.01 * value;
    layers.jwst.set_opacity(jwstOpacity);
    layers.hubble.set_opacity(1 - jwstOpacity);
 });
-`);
+`;
 
-const importWithWatch = ref(`import { ref, reactive, computed, onMounted, nextTick } from "vue";`);
+const importWithWatch = `import { ref, reactive, computed, onMounted, nextTick } from "vue";`;
 
-const hubbleButton = ref(
+const hubbleButton = 
 `<span
   class="ui-text slider-label"
   @click="crossfade = 0"
   @keyup.enter="crossfade = 0"
   tabindex="0"
 >Hubble<br><span class="light-type">(Visible)</span></span>
-`);
+`;
 
-const jwstButton = ref(
+const jwstButton = 
 `<span
   class="ui-text slider-label"
   @click="crossfade = 100"
   @keyup.enter="crossfade = 100"
   tabindex="0"
 >JWST<br><span class="light-type">(Infrared)</span></span>
-`);
+`;
 
-const crossfadeSlider = ref(
+const crossfadeSlider = 
 `<v-slider
   v-model="crossfade"
   :min="0"
   :max="100"
   :step="1"
 ></v-slider>
-`);
+`;
 
-const controlsContainerCSS = ref(
+const controlsContainerCSS = 
 `#controls-container {
   display: flex;
   flex-direction: row;
@@ -175,6 +174,6 @@ const controlsContainerCSS = ref(
   gap: 5px;
   pointer-events: auto;
 }
-`);
+`;
 
 </script>
