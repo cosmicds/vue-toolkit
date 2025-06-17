@@ -66,6 +66,41 @@
       current value of <code>showLayers</code>. Add the following below the watcher for <code>crossfade</code>:
     </p>
     <CodeBlock :code="showLayersWatcher" lang="javascript" />
+    <p>
+      So, once again, we're able to control the state of the WWT view using our Vue template variables - we now only need to adjust the value of <code>showLayers</code> in order to 
+      manipulate WWT. As you're hopefully seeing, this pattern can be used to great effect. Now, let's give the user a way to change the value of <code>showLayers</code>. Add the following 
+      directly before the reset button in the template:
+    </p>
+    <CodeBlock :code="showHideButton" lang="html" />
+    <p>
+      The pieces inside the tag should be straightforward by now - the most important thing is that on a click event, we switch the value of <code>showLayers</code>, which will cause the layers to 
+      update. Inside of the button element is something new though:<br><code>{{ showLayers ? "Hide Images" : "Show Images" }}</code><br>This is using Vue's 
+      <a href="https://vuejs.org/guide/essentials/template-syntax.html#text-interpolation" target="_blank" rel="noopener noreferrer">text interpolation</a> capabilities to insert the value of the expression 
+      in double curly braces into the template. Here we're using a simple ternary - if <code>showLayers.value</code> is true, the button says "Hide Images"; if it's false, it says "Show Images". This is a 
+      simple way to allow our button to react to the current state that the user has set.
+    </p>
+    <p>
+      This finishes setting up the show/hide button - the user now has a simple way to control whether the images are visible, and our button even reacts to what they've done! But there's one more thing that 
+      we can do on this front to help our interactive feel more context-aware. In the previous section of this guide we added opacity controls for the images, but it doesn't really make sense to have the buttons 
+      and slider when the images aren't visible! To deal with this, find the controls container and change the opening tag to the following:
+    </p>
+    <CodeBlock :code="controlsContainerVif" lang="html" />
+    <p>
+      This update uses Vuetify's <a href="https://vuejs.org/guide/essentials/conditional.html#v-if" target="_blank" rel="noopener noreferrer">conditional rendering</a> capabilities to only render
+      the opacity controls when the image layers are visible. This way, the user interface is as clean as possible based on the current state. Not bad for just a few extra characters of code!
+    </p>
+    <v-alert type="info" variant="tonal">
+      <template #text>
+        Note that Vue has another conditional rendering directive: <code>v-show</code>. Which one you want to use depends on your particular interactive and what you want to do with the relevant elements. 
+        We'll defer to this discussion in the <a href="https://vuejs.org/guide/essentials/conditional.html#v-if-vs-v-show" target="_blank" rel="noopener noreferrer">Vue documentation</a> of which directive 
+        to use when.
+      </template>
+    </v-alert>
+    <p>
+      And that's it! We've now got an interactive data story with all of the UI elements and functionality that we want. While this isn't a carbon copy of our 
+      <a href="https://projects.cosmicds.cfa.harvard.edu/carina/" target="_blank" rel="noopener noreferrer">Carina data story</a>, it does have all of the same essential functionality. 
+      Hope
+    </p>
   </div>
 </template>
 
@@ -136,5 +171,18 @@ const importRedo =
 ;
 
 const addRedoToLibrary = "library.add(faRedo)";
+
+const showHideButton = 
+`<button
+  id="show-layers-button"
+  class="ui-text"
+  @click="showLayers = !showLayers"
+>
+  {{ showLayers ? "Hide Images" : "Show Images" }}
+</button>
+`
+;
+
+const controlsContainerVif = `<div id="controls-container" v-if="showLayers">`;
 
 </script>

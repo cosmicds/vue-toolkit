@@ -6,8 +6,9 @@ import CreateSplashScreen from "./CreateSplashScreen.vue";
 import SettingUpLayers from "./SettingUpLayers.vue";
 import OpacityControls from "./OpacityControls.vue";
 import TopButtons from "./TopButtons.vue";
+import InformationalContent from "./InformationalContent.vue";
+import AdditionalResources from "./AdditionalResources.vue";
 import "./docs.css";
-import { s } from "@storybook/vue3/dist/render-0377a2e9";
 
 const meta: Meta = {
   component: CreatingTheProject,
@@ -67,5 +68,23 @@ export const TopButtonsSetup: Story = {
   render: () => ({
     components: { TopButtons },
     template: "<TopButtons/>",
+  }),
+};
+
+export const InformationalContentSetup: Story = {
+  name: "Informational Content",
+  parameters: storyParameters,
+  render: () => ({
+    components: { InformationalContent },
+    template: "<InformationalContent/>",
+  }),
+};
+
+export const Resources: Story = {
+  name: "Additional Resources",
+  parameters: storyParameters,
+  render: () => ({
+    components: { AdditionalResources },
+    template: "<AdditionalResources/>",
   }),
 };
