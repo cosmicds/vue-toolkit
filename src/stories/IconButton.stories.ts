@@ -38,6 +38,7 @@ export const Primary: Story = {
     mdIcon: null,
     color: "white",
     focusColor: "red",
+    activeColor: "green",
     backgroundColor: "#040404",
     boxShadow: true,
     border: true,
