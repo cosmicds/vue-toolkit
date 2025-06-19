@@ -92,6 +92,7 @@ const cssVars = computed(() => {
     "--background-color": props.backgroundColor,
     "--focus-color": props.focusColor,
     "--active-color": props.activeColor,
+    "--border": props.border ? "1px solid var(--color)" : "none",
   };
 });
 
@@ -131,7 +132,7 @@ function handleTouchEnd() {
   border-color: var(--color);
   background: var(--background-color);
   padding: 6px 8px;
-  border: 1px solid var(--color);
+  border: var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
