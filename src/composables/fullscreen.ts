@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted, Ref } from "vue";
+import { ref, watch, onMounted, onUnmounted, Ref } from "vue";
 import screenfull from "screenfull";
 
 /**
@@ -20,6 +20,14 @@ export function useFullscreen(): Ref<boolean> {
   onUnmounted(() => {
     if (screenfull.isEnabled) {
       screenfull.off("change", update);
+    }
+  });
+
+  watch(fullscreenModeActive, (active: boolean) => {
+    if (active) {
+      screenfull.request();
+    } else {
+      screenfull.exit();
     }
   });
 
