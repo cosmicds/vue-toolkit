@@ -25,7 +25,7 @@ const preview: Preview = {
   parameters: {
     options: {
       storySort: {
-        order: ["Documentation", ["Introduction", "Creating a Story", ["Creating the Project", "Splash Screen"]], "Components"],
+        order: ["Documentation", ["Introduction", "Creating a Story"], "Components"],
       }
     },
     controls: {
