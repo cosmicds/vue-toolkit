@@ -165,7 +165,7 @@ const resetView =
 const importD2R = `import { D2R } from "@wwtelescope/astro";`;
 
 const callResetView = 
-`resetView();
+`resetView(true);
 positionSet.value = true;
 `
 ;

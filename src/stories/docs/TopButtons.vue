@@ -45,7 +45,7 @@
       </li>
     </ul>
     <p>
-      So this button is <em>almost</em> done, but if you try and run the story now, you'll see that the icon doesn't appear. There's one extra thing we need to do in order to use 
+      So this button is <em>almost</em> done, but if you try and run the story now, you'll see some errors. If the story does render, you might also see that the icon doesn't appear. There's one extra thing we need to do in order to use 
       the icon that we want on the button. To do this, go to the <code>src/main.ts</code> file. Find the block near the top that imports some icons from Font Awesome. We need to update 
       this to import the Redo icon as well:
     </p>
@@ -56,9 +56,18 @@
     </p>
     <CodeBlock :code="addRedoToLibrary" lang="javascript" />
     <p>
-      Next, let's set up our button to show and hide images. First, let's do a little setup in the template. Similar to what we did when we set up <code>crossfade</code> 
-      to control our opacities, we'll create a Vue ref to control whether or not the images are shown or hidden. At the top level of the script portion of the template, 
-      add the following:
+      We also need to add our mobile device check into the main component. Go back to <code>src/Carina.vue</code>. Find the line that imports from the CosmicDS toolkit, and change it to:
+    </p>
+    <CodeBlock :code="importIsMobile" lang="javascript" />
+    <p>
+      This imports the <code>isMobile</code> convenience function from the toolkit. In order to use it in our template, define <code>mobile</code> as follows somewhere at the top level 
+      of the component script. We pass in the browser's user agent in order to detect what type of device they're using:
+    </p>
+    <CodeBlock :code="defineMobile" lang="javascript" />
+    <p>
+      Now our reset view button should be working properly, so now let's set up our button to show and hide images. First, we need to do a little setup in the template. 
+      Similar to what we did when we set up <code>crossfade</code>to control our opacities, we'll create a Vue ref to control whether or not the images are shown or hidden. 
+      At the top level of the script portion of the template, add the following:
     </p>
     <CodeBlock :code="showLayers" lang="javascript" />
     <p>
@@ -80,6 +89,10 @@
       simple way to allow our button to react to the current state that the user has set.
     </p>
     <p>
+      Now we just need a bit of CSS to lay out the top buttons and adjust the text inside the layer control button:
+    </p>
+    <CodeBlock :code="centerButtonsStyling" lang="css" />
+    <p>
       This finishes setting up the show/hide button - the user now has a simple way to control whether the images are visible, and our button even reacts to what they've done! But there's one more thing that 
       we can do on this front to help our interactive feel more context-aware. In the previous section of this guide we added opacity controls for the images, but it doesn't really make sense to have the buttons 
       and slider when the images aren't visible! To deal with this, find the controls container and change the opening tag to the following:
@@ -96,6 +109,8 @@
         to use when.
       </template>
     </v-alert>
+    <p>If all went well, your top buttons should look like this:</p>
+    <v-img :src="topButtonsImageURL" width="500" height="200"/>
     <p>
       And that's it! We've now got an interactive data story with all of the UI elements and functionality that we want. While this isn't a carbon copy of our 
       <a href="https://projects.cosmicds.cfa.harvard.edu/carina/" target="_blank" rel="noopener noreferrer">Carina data story</a>, it does have all of the same essential functionality. 
@@ -145,7 +160,8 @@ const resetViewButton =
   tooltip-text="Return to Carina"
   tooltip-location="bottom"
   tooltip-offset="3px"
-  :show-tooltip="!mobile"
+  :show-tooltip="!smallSize"
+></icon-button>
 `
 ;
 
@@ -172,6 +188,10 @@ const importRedo =
 
 const addRedoToLibrary = "library.add(faRedo)";
 
+const importIsMobile = `import { BackgroundImageset, skyBackgroundImagesets, supportsTouchscreen, blurActiveElement, useWWTKeyboardControls, isMobile } from "@cosmicds/vue-toolkit";`;
+
+const defineMobile = "const mobile = isMobile(window.navigator.userAgent);";
+
 const showHideButton = 
 `<button
   id="show-layers-button"
@@ -183,6 +203,20 @@ const showHideButton =
 `
 ;
 
-const controlsContainerVif = `<div id="controls-container" v-if="showLayers">`;
+const centerButtonsStyling = 
+`#center-buttons {
+  display: flex;
+  flex-direction: row;
+}
 
+#show-layers-button {
+  font-size: 14pt;
+  pointer-events: auto;
+}
+`
+;
+
+const topButtonsImageURL = require("../assets/top-buttons.png");
+
+const controlsContainerVif = `<div id="controls-container" v-if="showLayers">`;
 </script>

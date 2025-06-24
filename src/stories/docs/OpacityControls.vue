@@ -50,15 +50,23 @@
     </p>
     <p>
       Now that we've got a container, let's add our first button - a button to set the current view to show only the Hubble image. There are a look of ways that we could 
-      create a button - the HTML button element, Vuetify's <code>v-btn</code> component, etc., but to allow us to do some really simple styling here we'll use a 
-      <code>span</code> element with a click listener. Inside the <code>controls-container</code>, add the following:
+      create a button - the HTML button element, Vuetify's <code>v-btn</code> component, etc. To keep things simple, we'll do the most natural thing and create a 
+      <code>button</code> element with a click listener. Inside the <code>controls-container</code>, add the following:
     </p>
     <CodeBlock :code="hubbleButton" lang="html" />
     <p>
-      Breaking this down a bit: <code>@click="crossfade = 0"</code> tells Vue to set our <code>crossfade</code> value to zero when the button is clicked.
-      <code>@keyup.enter="crossfade = 0"</code> does the same thing when the Enter button is pressed when the button is focused. 
-      The line <code>tabindex="0"</code> allows the button to be tab-focusable. Together these help make the controls more accessible 
-      for users who are navigating via the keyboard.
+      We also want to add some styling. Notice that we're applying these styles to the <code>ui-text</code> and <code>slider-label</code> classes that we assigned to the button. 
+      The <code>slider-label</code> styling will just be for the two buttons we're going to add now, but we'll reuse the <code>ui-text</code> class a few times throughout the story:
+    </p>
+    <CodeBlock :code="styling" lang="css" />
+    <p>To break down the Vue functionality a bit:</p>
+    <ul>
+      <li><code>@click="crossfade = 0"</code> tells Vue to set our <code>crossfade</code> value to zero when the button is clicked</li>
+      <li><code>@keyup.enter="crossfade = 0"</code> does the same thing when the Enter button is pressed when the button is focused</li>
+      <li><code>tabindex="0"</code> allows the button to be tab-focusable</li>
+    </ul>
+    <p>
+      Together the last two lines help make the controls more accessible for users who are navigating via the keyboard.
     </p>
     <v-alert type="info" variant="tonal">
       <template #text>
@@ -101,7 +109,7 @@
       with the interactions that we wanted became almost trivial. In the next part of the guide, we'll take things one step further - we'll allow showing and hiding the images, and 
       even update our UI based on whether the images are visible or not!
     </p>
-    <em><strong>ADD IMAGE HERE</strong></em>
+    <v-img :src="controlsURL" />
   </div>
 </template>
 
@@ -140,21 +148,23 @@ const crossfadeWatcher =
 const importWithWatch = `import { ref, reactive, computed, onMounted, nextTick, watch } from "vue";`;
 
 const hubbleButton = 
-`<span
+`<button
   class="ui-text slider-label"
   @click="crossfade = 0"
   @keyup.enter="crossfade = 0"
   tabindex="0"
->Hubble<br><span class="light-type">(Visible)</span></span>
+>Hubble<br><span class="light-type">(Visible)</span>
+</button>
 `;
 
 const jwstButton = 
-`<span
+`<button
   class="ui-text slider-label"
   @click="crossfade = 100"
   @keyup.enter="crossfade = 100"
   tabindex="0"
->JWST<br><span class="light-type">(Infrared)</span></span>
+>JWST<br><span class="light-type">(Infrared)</span>
+</button>
 `;
 
 const crossfadeSlider = 
@@ -163,6 +173,7 @@ const crossfadeSlider =
   :min="0"
   :max="100"
   :step="1"
+  hide-details
 ></v-slider>
 `;
 
@@ -173,7 +184,41 @@ const controlsContainerCSS =
   align-items: center;
   gap: 5px;
   pointer-events: auto;
+  width: 75%;
 }
 `;
 
+const styling = 
+`.ui-text {
+  color: var(--accent-color);
+  background: black;
+  padding: 5px 5px;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-size: calc(0.7em + 0.2vw);
+
+  &:focus {
+    color: white;
+  }
+}
+
+.slider-label {
+  font-weight: bold;
+  font-size: calc(0.8em + 0.5vw);
+  padding: 5px 10px;
+  text-align: center;
+  line-height: 20px;
+
+  .light-type {
+    font-size: calc(0.56em + 0.35vw);
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+`
+;
+
+const controlsURL = require("../assets/controls.png");
 </script>
