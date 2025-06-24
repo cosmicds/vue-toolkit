@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { CircleMarkerOptions, TileLayerOptions } from "leaflet";
+import { Folder } from "@wwtelescope/engine";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { MapBoxFeatureCollection } from "./mapbox";
 
@@ -394,3 +395,16 @@ export interface ShareButtonProps {
   /** The ARIA label for the button */
   ariaLabel?: string;
 }
+
+export interface FolderViewProps {
+  rootFolder: Folder;
+  flexDirection: "row" | "column";
+  gap?: string;
+  backgroundColor?: string;
+  thumbnailColor?: string;
+  highlightColor?: string;
+  textColor?: string;
+  startExpanded?: boolean;
+}
+
+export type ItemSelectionType = "click" | "dblclick" | "keyup" | "folder";
