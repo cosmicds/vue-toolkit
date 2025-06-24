@@ -121,6 +121,7 @@
 
 <script setup lang="ts">
 /* eslint-disable indent */
+/* eslint-disable @typescript-eslint/no-var-requires */
 
 import CodeBlock from "./CodeBlock.vue";
 

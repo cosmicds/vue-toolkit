@@ -195,5 +195,5 @@ const getStartedButton =
 `
 ;
 
-const accentColor = `ref("#F0AB52");`
+const accentColor = `ref("#F0AB52");`;
 </script>

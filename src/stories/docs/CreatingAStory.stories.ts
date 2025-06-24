@@ -54,7 +54,6 @@ export const SetUpLayers: Story = {
 };
 
 export const ImageOpacityControls: Story = {
-  name: "Image Opacity Controls",
   parameters: storyParameters,
   render: () => ({
     components: { OpacityControls },
