@@ -85,10 +85,17 @@
       <li><code>rounded="lg"</code> tells Vuetify how much to round the button. If you're familiar with CSS, this is like setting a <code>border-radius</code></li>
     </ul>
     <p>You should now have a splash screen that looks like the image below</p>
-    <img :src="finalSplashScreenURL" />
+    <img :src="splashScreenTextURL" height="400" width="400"/>
     <p>
-      For our purposes, this is pretty close to the Carina splash screen. We'll adjust some things like accent colors as we go,
-      but for now, let's move on to setting up the content of our story!
+      As a final tweak, let's add a bit of color. The template has a built-in <code>accentColor</code> variable that gets used in a few places to set the color of various elements. Let's set it to one of the 
+      accent colors that we used for Carina. Find that variable and change its definition to the following:
+    </p>
+    <CodeBlock :code="accentColor" lang="javascript"/>
+    <p>The splash screen should now look like this:</p>
+    <v-img :src="finalSplashScreenURL" height="400" width="400"/>
+    <p>
+      This is looking pretty close to the original Carina splash screen! It's not quite a perfect match, but for our purposes this is close enough. 
+      Now, let's move on to creating the content of our data story!
     </p>
   </div>
 </template>
@@ -115,6 +122,7 @@ const splashScreenStart =
 ;
 
 const initialSplashScreenURL = require("../assets/initial-splash-screen.png");
+const splashScreenTextURL = require("../assets/splash-screen-text.png");
 const finalSplashScreenURL = require("../assets/final-splash-screen.png");
 
 const splashScreenTitleV1 = 
@@ -186,4 +194,6 @@ const getStartedButton =
 </div>
 `
 ;
+
+const accentColor = `ref("#F0AB52");`
 </script>

@@ -28,7 +28,7 @@
       story, let's define a variable called <code>crossfade</code> that goes from 0 to 100, with 0 meaning that only the Hubble image is visible, and 100 meaning 
       that only the JWST image is visible. Add the following at the top level of the component:
     </p>
-    <CodeBlock code="const crossfade = 50);" lang="javascript" />
+    <CodeBlock code="const crossfade = ref(50);" lang="javascript" />
     <p>
       And then let's have Vue hook this variable up to our imageset layer opacities. Also at the top level of the component, add:
     </p>
@@ -137,7 +137,7 @@ const crossfadeWatcher =
 });
 `;
 
-const importWithWatch = `import { ref, reactive, computed, onMounted, nextTick } from "vue";`;
+const importWithWatch = `import { ref, reactive, computed, onMounted, nextTick, watch } from "vue";`;
 
 const hubbleButton = 
 `<span
