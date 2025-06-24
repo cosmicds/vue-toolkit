@@ -7,13 +7,26 @@
   margin: auto;
 }
 
-#storybook-root p {
+#storybook-root {
   padding: 15px;
+}
+
+#storybook-root p {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+#storybook-root ul {
+  padding-left: 30px;
 }
 
 #storybook-root h1 {
   text-align: center;
   padding-top: 20px;
+}
+
+#storybook-root pre {
+  display: inline;
 }
 
 img.dep-logo {
