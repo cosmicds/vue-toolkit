@@ -394,3 +394,12 @@ export interface ShareButtonProps {
   /** The ARIA label for the button */
   ariaLabel?: string;
 }
+
+export interface SkyballProps {
+  height?: number;
+  width?: number;
+  axisColor?: string;
+  boxColor?: string;
+  backgroundColor?: string;
+  ellipseColor?: string;
+}

@@ -17,6 +17,7 @@ import LocationSearch from "./components/LocationSearch.vue";
 import LocationSelector from "./components/LocationSelector.vue";
 import PlaybackControl from "./components/PlaybackControl.vue";
 import ShareButton from "./components/ShareButton.vue";
+import Skyball from "./components/Skyball.vue";
 import SpeedControl from "./components/SpeedControl.vue";
 import TapToInput from "./components/TapToInput.vue";
 import WwtHud from "./components/WwtHud.vue";
@@ -46,6 +47,7 @@ export {
   LocationSelector,
   PlaybackControl,
   ShareButton,
+  Skyball,
   SpeedControl,
   TapToInput,
   WwtHud,
