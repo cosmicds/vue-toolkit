@@ -106,11 +106,7 @@ function toggleExpanded() {
 
 function updateFolder(folder: Folder) {
   const children = folder.get_children() ?? [];
-  if (props.filter) {
-    items.value = children.filter(props.filter);
-  } else {
-    items.value = children;
-  }
+  items.value = props.filter ? children.filter(props.filter) : children;
   currentFolder = folder;
   const firstItem = items.value.find((item) => (!(item instanceof Folder) || (item instanceof FolderUp)));
   if (props.selectFirst && firstItem) {
