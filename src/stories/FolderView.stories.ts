@@ -3,7 +3,9 @@
 import { Meta, StoryContext, StoryObj } from "@storybook/vue3";
 import { FolderView, FolderViewProps } from "..";
 import { Folder } from "@wwtelescope/engine";
-import { engineStore } from "@wwtelescope/engine-pinia";
+import { WWTComponent } from "@wwtelescope/engine-pinia";
+
+import "./stories.css";
 
 interface LoadedData {
   loaded: {
@@ -21,33 +23,35 @@ export default meta;
 type Story = StoryObj<typeof FolderView>;
 type Context = StoryContext<LoadedData>;
 
-const store = engineStore();
 
 export const Primary: Story = {
-  loaders: [
-    async() => ({
-      folder: await store.loadImageCollection({
-        url: "https://data1.wwtassets.org/packages/2022/07_jwst/smacs0723/jwst_smacs0723.wtml",
-        loadChildFolders: false,
-      })
-    })
-  ],
-  render: async (args: FolderViewProps, context: Context) => {
+  render: (args: FolderViewProps, _context: Context) => {
     return {
-      components: { FolderView },
-      template: `<FolderView v-bind="args" :root-folder="folder" />`, 
+      components: { FolderView, WWTComponent },
+      template: `
+        <div style="width: 1000px; height: 500px; position: relative;">
+          <div style="height: fit-content;">
+            <FolderView v-bind="args" />
+          </div>
+          <WWTComponent
+            :wwtNamespace="storybook"
+          />
+        </div>
+      `, 
       setup() {
-        return { args, folder: context.loaded.folder };
+        return { args };
       }
     };
   },
   args: {
-    flexDirection: "column",
+    flexDirection: "row",
     gap: "10px",
     backgroundColor: "black",
     thumbnailColor: "black",
     highlightColor: "dodgerblue",
     textColor: "white",
     startExpanded: true,
+    lazy: true,
+    rootUrl: "https://cdn.worldwidetelescope.org/wwtweb/catalog.aspx?W=explorerootweb",
   }
 };

@@ -30,8 +30,7 @@
           :select-item="selectItem"
         >
           <div
-            :class="['item', lastSelectedItem === item ? 'selected' : '']"
-            v-for="item of items"
+            :class="['fv-item', lastSelectedItem === item ? 'selected' : '']"
             :key="item.get_name()"
             :title="item.get_name()"
             @click="() => selectItem(item, 'click')"
@@ -42,8 +41,8 @@
             :aria-label="item.get_name()"
             :aria-selected="lastSelectedItem === item"
           >
-            <img :src="item.get_thumbnailUrl()" :alt="item.get_name()" />
-            <div class="item-name">
+            <img :src="item.get_thumbnailUrl() ?? defaultThumbnail" :alt="item.get_name()" />
+            <div class="fv-item-name">
               {{item.get_name()}}
             </div>
           </div>
@@ -55,9 +54,10 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch, type Ref } from "vue";
-import { Folder, FolderUp, Place } from "@wwtelescope/engine";
+import { Folder, FolderUp } from "@wwtelescope/engine";
 import { Thumbnail } from "@wwtelescope/engine-types";
 import { FolderViewProps, ItemSelectionType } from "../types";
+import { engineStore } from "@wwtelescope/engine-pinia";
 
 const items: Ref<Thumbnail[] | null> = ref<Thumbnail[]>([]);
 const lastSelectedItem: Ref<Thumbnail | null> = ref(null);
@@ -70,7 +70,30 @@ const props = withDefaults(defineProps<FolderViewProps>(), {
   backgroundColor: "black",
   textColor: "white",
   startExpanded: true,
+  selectFirst: true,
+  lazy: true,
+  defaultThumbnail: "https://web.wwtassets.org/engine/assets/thumb_star.jpg",
 });
+
+if (!(props.rootFolder || props.rootUrl)) {
+  throw new Error("Either one of rootFolder or rootUrl must be specified!");
+}
+
+const store = engineStore();
+const folder = ref<Folder | null>(null);
+let currentFolder: Folder | null = null;
+
+if (props.rootFolder != null) {
+  folder.value = props.rootFolder; 
+} else if (props.rootUrl != null) {
+  const url = props.rootUrl;
+  store.waitForReady().then(() => {
+    store.loadImageCollection({ url, loadChildFolders: !props.lazy })
+      .then(loadedFolder => {
+        folder.value = loadedFolder;
+      });
+  });
+}
 
 const emit = defineEmits<{
   (event: "select", data: { item: Thumbnail, type: ItemSelectionType }): void;
@@ -82,17 +105,35 @@ function toggleExpanded() {
 }
 
 function updateFolder(folder: Folder) {
-  const folderItems = folder.get_children()?.filter(item => item instanceof Place) ?? [];
-  items.value = folderItems;
+  const children = folder.get_children() ?? [];
+  if (props.filter) {
+    items.value = children.filter(props.filter);
+  } else {
+    items.value = children;
+  }
+  currentFolder = folder;
   const firstItem = items.value.find((item) => (!(item instanceof Folder) || (item instanceof FolderUp)));
-  if (firstItem) {
+  if (props.selectFirst && firstItem) {
     selectItem(firstItem, "folder");
   }
 }
 
 function selectItem(item: Thumbnail, type: ItemSelectionType) {
   lastSelectedItem.value = item;
-  if (item instanceof Folder || item instanceof FolderUp) {
+  if (props.lazy && item instanceof Folder) {
+    store.loadImageCollection({
+      url: item.get_url(),
+      loadChildFolders: !props.lazy,
+    }).then(loadedFolder => {
+      const up = new FolderUp();
+      if (currentFolder) {
+        up.parent = currentFolder;
+      }
+      currentFolder = loadedFolder;
+      items.value = ([up] as Thumbnail[]).concat(loadedFolder.get_children() ?? []);
+    });
+  } else if (item instanceof FolderUp) {
+    currentFolder = item.parent;
     items.value = item.get_children();
   }
 
@@ -100,10 +141,29 @@ function selectItem(item: Thumbnail, type: ItemSelectionType) {
 }
 
 onMounted(() => {
-  updateFolder(props.rootFolder);
+  if (folder.value) {
+    updateFolder(folder.value);
+  }
 });
 
-watch(() => props.rootFolder, updateFolder);
+watch(() => props.rootFolder, (propFolder: Folder | undefined) => {
+  if (propFolder != undefined) {
+    folder.value = propFolder;
+  }
+});
+
+watch(() => props.rootUrl, async (url: string | undefined) => {
+  if (url != undefined) {
+    folder.value = await store.loadImageCollection({ url, loadChildFolders: false });
+  }
+});
+
+watch(folder, (newFolder: Folder | null) => {
+  console.log(newFolder);
+  if (newFolder != null) {
+    updateFolder(newFolder);
+  }
+});
 
 const cssVars = computed(() => ({
   "--flex-direction": props.flexDirection,
@@ -163,15 +223,18 @@ const cssVars = computed(() => ({
   }
 }
 
-.item {
+.fv-item {
   padding: 1px;
   border: 1px solid #444;
   background: var(--thumbnail-color);
   border-radius: 2px;
-  width: ~"min(96px, 22vw)";
+  width: ~"min(100px, 22vw)";
+  height: 100%;
   color: var(--text-color);
   cursor: pointer;
   pointer-events: auto;
+  font-size: 10pt;
+  flex-grow: 1;
 
   & img {
     width: 100%;
@@ -190,7 +253,7 @@ const cssVars = computed(() => ({
   }
 }
 
-.item-name {
+.fv-item-name {
   color: var(--text-color);
   width: 100%;
   line-height: 1;
