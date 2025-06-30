@@ -45,6 +45,11 @@
             <div class="fv-item-name">
               {{item.get_name()}}
             </div>
+            <FontAwesomeIcon
+              v-if="item instanceof Folder"
+              icon="folder-open"
+              class="fv-folder-icon"
+            />
           </div>
         </slot>
       </div>
@@ -58,6 +63,11 @@ import { Folder, FolderUp } from "@wwtelescope/engine";
 import { Thumbnail } from "@wwtelescope/engine-types";
 import { FolderViewProps, ItemSelectionType } from "../types";
 import { engineStore } from "@wwtelescope/engine-pinia";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+library.add(faFolderOpen);
 
 const items: Ref<Thumbnail[] | null> = ref<Thumbnail[]>([]);
 const lastSelectedItem: Ref<Thumbnail | null> = ref(null);
@@ -114,23 +124,37 @@ function updateFolder(folder: Folder) {
   }
 }
 
+function folderItems(folder: Folder, includeUp=true): Thumbnail[] {
+  const items = [] as Thumbnail[];
+  if (includeUp) {
+    const up = new FolderUp();
+    if (currentFolder) {
+      up.parent = currentFolder;
+    }
+    items.push(up);
+  }
+  return items.concat(folder.get_children() ?? []);
+}
+
 function selectItem(item: Thumbnail, type: ItemSelectionType) {
   lastSelectedItem.value = item;
-  if (props.lazy && item instanceof Folder) {
-    store.loadImageCollection({
-      url: item.get_url(),
-      loadChildFolders: !props.lazy,
-    }).then(loadedFolder => {
-      const up = new FolderUp();
-      if (currentFolder) {
-        up.parent = currentFolder;
-      }
-      currentFolder = loadedFolder;
-      items.value = ([up] as Thumbnail[]).concat(loadedFolder.get_children() ?? []);
-    });
+  if (item instanceof Folder) {
+    if (props.lazy) {
+      store.loadImageCollection({
+        url: item.get_url(),
+        loadChildFolders: !props.lazy,
+      }).then(loadedFolder => {
+        items.value = folderItems(loadedFolder);
+        currentFolder = loadedFolder;
+      });
+    } else {
+      items.value = folderItems(item);
+      currentFolder = item;
+    }
   } else if (item instanceof FolderUp) {
     currentFolder = item.parent;
-    items.value = item.get_children();
+    items.value = folderItems(item.parent, item.parent != folder.value);
+    console.log(item.parent == folder.value);
   }
 
   emit("select", { item, type });
@@ -155,7 +179,6 @@ watch(() => props.rootUrl, async (url: string | undefined) => {
 });
 
 watch(folder, (newFolder: Folder | null) => {
-  console.log(newFolder);
   if (newFolder != null) {
     updateFolder(newFolder);
   }
@@ -220,6 +243,7 @@ const cssVars = computed(() => ({
 }
 
 .fv-item {
+  position: relative;
   padding: 1px;
   border: 1px solid #444;
   background: var(--thumbnail-color);
@@ -254,5 +278,12 @@ const cssVars = computed(() => ({
   width: 100%;
   line-height: 1;
   padding-left: 2px;
+}
+
+.fv-folder-icon {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  z-index: 10;
 }
 </style>
