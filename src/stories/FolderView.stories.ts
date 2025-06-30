@@ -44,7 +44,7 @@ export const Primary: Story = {
     };
   },
   args: {
-    flexDirection: "row",
+    orientation: "row",
     gap: "10px",
     backgroundColor: "black",
     thumbnailColor: "black",

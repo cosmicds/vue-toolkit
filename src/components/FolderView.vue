@@ -79,6 +79,7 @@ const props = withDefaults(defineProps<FolderViewProps>(), {
   thumbnailColor: "white",
   backgroundColor: "black",
   textColor: "white",
+  orientation: "column",
   startExpanded: true,
   selectFirst: true,
   lazy: true,
@@ -185,7 +186,7 @@ watch(folder, (newFolder: Folder | null) => {
 });
 
 const cssVars = computed(() => ({
-  "--flex-direction": props.flexDirection,
+  "--flex-direction": props.orientation,
   "--background-color": props.backgroundColor,
   "--thumbnail-color": props.thumbnailColor,
   "--highlight-color": props.highlightColor,
