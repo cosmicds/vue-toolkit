@@ -54,11 +54,19 @@
         </slot>
       </div>
     </div>
+    <div
+      v-if="loading"
+      class="fv-loading"
+    >
+      <v-progress-circular indeterminate />
+      <span>Loading folder contents. Please wait...</span>
+    </div>
   </nav>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch, type Ref } from "vue";
+import { VProgressCircular } from "vuetify/components";
 import { Folder, FolderUp } from "@wwtelescope/engine";
 import { Thumbnail } from "@wwtelescope/engine-types";
 import { FolderViewProps, ItemSelectionType } from "../types";
@@ -93,15 +101,18 @@ if (!(props.rootFolder || props.rootUrl)) {
 const store = engineStore();
 const folder = ref<Folder | null>(null);
 let currentFolder: Folder | null = null;
+const loading = ref(false);
 
 if (props.rootFolder != null) {
   folder.value = props.rootFolder; 
 } else if (props.rootUrl != null) {
   const url = props.rootUrl;
   store.waitForReady().then(() => {
+    loading.value = true;
     store.loadImageCollection({ url, loadChildFolders: !props.lazy })
       .then(loadedFolder => {
         folder.value = loadedFolder;
+        loading.value = false;
       });
   });
 }
@@ -141,12 +152,14 @@ function selectItem(item: Thumbnail, type: ItemSelectionType) {
   lastSelectedItem.value = item;
   if (item instanceof Folder) {
     if (props.lazy) {
+      loading.value = true;
       store.loadImageCollection({
         url: item.get_url(),
         loadChildFolders: !props.lazy,
       }).then(loadedFolder => {
         items.value = folderItems(loadedFolder);
         currentFolder = loadedFolder;
+        loading.value = false;
       });
     } else {
       items.value = folderItems(item);
@@ -285,6 +298,17 @@ const cssVars = computed(() => ({
   position: absolute;
   top: 1px;
   right: 1px;
-  z-index: 10;
+}
+
+.fv-loading {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  border-radius: 5px;
+  padding: 5px;
 }
 </style>
