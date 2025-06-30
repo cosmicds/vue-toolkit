@@ -22,6 +22,7 @@
       <div
         v-for="(item, index) of items"
         :key="index"
+        class="fv-item"
       >
         <slot
           name="item"
@@ -30,7 +31,7 @@
           :select-item="selectItem"
         >
           <div
-            :class="['fv-item', lastSelectedItem === item ? 'selected' : '']"
+            :class="['fv-item-content', lastSelectedItem === item ? 'selected' : '']"
             :key="item.get_name()"
             :title="item.get_name()"
             @click="() => selectItem(item, 'click')"
@@ -42,9 +43,9 @@
             :aria-selected="lastSelectedItem === item"
           >
             <img :src="item.get_thumbnailUrl() ?? defaultThumbnail" :alt="item.get_name()" />
-            <div class="fv-item-name">
+            <label class="fv-item-name">
               {{item.get_name()}}
-            </div>
+            </label>
             <FontAwesomeIcon
               v-if="item instanceof Folder"
               icon="folder-open"
@@ -168,7 +169,6 @@ function selectItem(item: Thumbnail, type: ItemSelectionType) {
   } else if (item instanceof FolderUp) {
     currentFolder = item.parent;
     items.value = folderItems(item.parent, item.parent != folder.value);
-    console.log(item.parent == folder.value);
   }
 
   emit("select", { item, type });
@@ -215,6 +215,7 @@ const cssVars = computed(() => ({
   overflow-x: auto;
   overflow-y: auto;
   background: var(--background-color);
+  padding: 5px;
 
 	&::-webkit-scrollbar {
     padding: 1px;
@@ -227,14 +228,13 @@ const cssVars = computed(() => ({
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #1671e0;
+    background: var(--highlight-color);
     border-radius: 10px;
   }	
 }
 
 .fv-header-container {
   pointer-events: auto;
-  padding: 5px;
   user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
@@ -257,18 +257,23 @@ const cssVars = computed(() => ({
 }
 
 .fv-item {
+  height: 100%;
+  flex-grow: 1;
+}
+
+.fv-item-content {
   position: relative;
   padding: 1px;
-  border: 1px solid #444;
+  margin: 2px;
+  border: 2px solid #444;
   background: var(--thumbnail-color);
   border-radius: 2px;
-  width: ~"min(100px, 22vw)";
+  width: ~"min(115px, 22vw)";
   height: 100%;
   color: var(--text-color);
   cursor: pointer;
   pointer-events: auto;
   font-size: 10pt;
-  flex-grow: 1;
 
   & img {
     width: 100%;
@@ -289,9 +294,12 @@ const cssVars = computed(() => ({
 
 .fv-item-name {
   color: var(--text-color);
-  width: 100%;
-  line-height: 1;
+  max-width: 100%;
   padding-left: 2px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .fv-folder-icon {
