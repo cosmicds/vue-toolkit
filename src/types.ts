@@ -394,3 +394,10 @@ export interface ShareButtonProps {
   /** The ARIA label for the button */
   ariaLabel?: string;
 }
+
+export interface UserExperienceProps {
+  apiKey: string;
+  baseColor?: string;
+  ratingColors: string[];
+  story: string;
+}

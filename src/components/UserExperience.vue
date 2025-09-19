@@ -1,26 +1,51 @@
 <template>
-  <div>
+  <div class="rating-root">
     <h3>How would you rate your experience?</h3>
     <div class="rating-icon-row">
-      <FontAwesomeIcon
+      <v-hover
         v-for="[rating, [icon, color]] of Object.entries(ratingIcons)"
-        class="rating"
         :key="rating"
-        :icon="icon"
-        :color="color"
       >
-      </FontAwesomeIcon>
+        <template #default="{ isHovering, props }">
+          <FontAwesomeIcon
+            v-bind="props"
+            size="5x"
+            :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
+            :icon="icon"
+            :color="(isHovering || rating === currentRating) ? color : baseColor"
+            @click="currentRating = rating as UserExperienceRating"
+          >
+          </FontAwesomeIcon>
+        </template>
+      </v-hover>
     </div>
-    <VTextField
+    <VTextarea
       v-model="comments"
+      class="comments-box"
       placeholder="Tell us any comments you have about this story"
+      auto-grow
+      max-rows="4"
+      density="compact"
+      width="100%"
     >
-    </VTextField>
+    </VTextarea>
+    <v-btn
+      @click="handleRatingSubmission"
+      width="fit-content"
+    >
+      Submit
+    </v-btn>
+    <notifications group="rating-submission" position="center bottom" classes="rating-notification"/>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+/* eslint-disable @typescript-eslint/naming-convention */
+import { computed, ref } from "vue";
+import { useTheme } from "vuetify";
+import { v4 } from "uuid";
+import type { UserExperienceProps } from "../types";
+import { DEFAULT_RATING_COLORS, type UserExperienceRating, API_BASE_URL, submitUserExperienceRating } from "../utils";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -31,18 +56,18 @@ import {
   faFaceFrown,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { VTextField } from "vuetify/components";
+import { VTextarea } from "vuetify/components";
+import { notify } from "@kyvg/vue3-notification";
 
-const defaultRatingColors = ["red", "orange", "yellow", "lightgreen", "green"];
+const { current: currentTheme } = useTheme();
 
-interface Props {
-  baseColor?: string;
-  ratingColors: string[];
-}
-withDefaults(defineProps<Props>(), {
-  baseColor: "white",
-  ratingColors: defaultRatingColors,
+const props = withDefaults(defineProps<UserExperienceProps>(), {
+  ratingColors: () => DEFAULT_RATING_COLORS,
 });
+
+const emit = defineEmits<{
+  (event: "submit"): void;
+}>();
 
 library.add(faFaceGrinStars);
 library.add(faFaceSmile);
@@ -51,25 +76,87 @@ library.add(faFaceFrownOpen);
 library.add(faFaceFrown);
 
 
-const ratings = ["very_bad", "poor", "medium", "good", "excellent"] as const;
-
-const ratingIcons: Record<Rating, [string, string]> = {
+const ratingIcons: Record<UserExperienceRating, [string, string]> = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   "very_bad": ["fa-face-frown", "red"],
   "poor": ["fa-face-frown-open", "orange"],
-  "medium": ["fa-face-meh", "yellow"],
+  "medium": ["fa-face-meh", "goldenrod"],
   "good": ["fa-face-smile", "lightgreen"],
   "excellent": ["fa-face-grin-stars", "green"],
 };
 
-const rating = ref<Rating | null>(null);
+const currentRating = ref<UserExperienceRating | null>(null);
+const baseColor = computed(() => props.baseColor ?? (currentTheme.value.dark ? 'white' : 'black'));
 const comments = ref<string | null>(null);
 
-function submitRating() {
+interface SubmitRatingRequestBody {
+  story_name: string;
+  uuid: string;
+  comments?: string;
+  rating?: string;
+}
 
+async function handleRatingSubmission() {
+  submitUserExperienceRating({
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    story_name: props.story,
+    uuid: v4(),
+    comments: comments.value ?? undefined,
+    rating: currentRating.value ?? undefined,
+  }, props.apiKey).then((response) => {
+    console.log(`Response: ${response}`);
+    const type = response ? "success" : "error";
+    const text = response ?
+      "Your feedback was submitted successfully!" :
+      "There was an issue submitting your feedback";
+    notify({
+      group: "rating-submission",
+      type,
+      text,
+      duration: 4500,
+    });
+
+    if (response) {
+      emit("submit");
+    }
+  });
 }
 </script>
 
 <style lang="less">
+.rating-root {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
 
+.rating-icon-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.rating {
+  transition: color 0.1s;
+}
+
+.selected {
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px silver;
+}
+
+.rating-notification {
+  border-radius: 5px;
+  font-size: calc(1.1 * var(--default-font-size));
+  padding: 1em;
+  color: white;
+
+  &.success {
+    background-color: #9a009a;
+  }
+  &.error {
+    background-color: #b30000;
+  }
+}
 </style>

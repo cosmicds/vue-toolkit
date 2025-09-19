@@ -19,6 +19,7 @@ import PlaybackControl from "./components/PlaybackControl.vue";
 import ShareButton from "./components/ShareButton.vue";
 import SpeedControl from "./components/SpeedControl.vue";
 import TapToInput from "./components/TapToInput.vue";
+import UserExperience from "./components/UserExperience.vue";
 import WwtHud from "./components/WwtHud.vue";
 
 export {
@@ -48,6 +49,7 @@ export {
   ShareButton,
   SpeedControl,
   TapToInput,
+  UserExperience,
   WwtHud,
 };
 

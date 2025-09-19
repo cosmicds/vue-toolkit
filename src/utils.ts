@@ -56,3 +56,39 @@ export function filterInPlace<T>(array: T[], condition: (t: T) => boolean) {
 
   array.length = j;
 }
+
+export type UserExperienceRating = "very_bad" | "poor" | "medium" | "good" | "excellent";
+export const DEFAULT_RATING_COLORS = ["red", "orange", "yellow", "lightgreen", "green"];
+
+export interface UserExperienceSubmissionInfo {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  story_name: string;
+  uuid: string;
+  comments?: string;
+  rating?: UserExperienceRating;
+}
+
+export async function submitUserExperienceRating(info: UserExperienceSubmissionInfo, apiKey: string): Promise<boolean> {
+  const body: UserExperienceSubmissionInfo = {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    story_name: info.story_name,
+    uuid: info.uuid,
+  };
+  if (info.comments) {
+    body.comments = info.comments;
+  }
+  if (info.rating) {
+    body.rating == info.rating;
+  }
+  return fetch(`${API_BASE_URL}/stories/user-experience`, {
+    method: "PUT",
+    body: JSON.stringify(body),
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    headers: { "Authorization": apiKey },
+  })
+    .then(response => response.status === 200)
+    .catch(error => {
+      console.error(error);
+      return false;
+    });
+}
