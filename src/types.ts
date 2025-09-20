@@ -398,6 +398,6 @@ export interface ShareButtonProps {
 export interface UserExperienceProps {
   apiKey: string;
   baseColor?: string;
-  ratingColors: string[];
+  ratingColors?: string[];
   story: string;
 }
