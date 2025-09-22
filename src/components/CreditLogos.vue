@@ -48,11 +48,11 @@ const DEFAULT_LOGOS: Map<string, CreditLogo> = new Map([
     alt: "SciAct Logo",
     name: "sciact",
   }],
-  ["nasa", {
+  ["nasa-grantee", {
     src: "https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/NASA_Grantee_color_no_outline.png",
     href: "https://nasa.gov/",
     alt: "NASA Grantee Logo",
-    name: "nasa",
+    name: "nasa-grantee",
   }]
 ]);
 
