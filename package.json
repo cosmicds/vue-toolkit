@@ -1,6 +1,6 @@
 {
   "name": "@cosmicds/vue-toolkit",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "browser": "dist/index.umd.js",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
