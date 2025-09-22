@@ -1,21 +1,60 @@
 <template>
   <div id="logo-credits" :style="cssVars">
     <div id="icons-container">
-      <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer"
-        ><img alt="CosmicDS Logo" src="https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/cosmicds_logo_for_dark_backgrounds.png"
-      /></a>
-      <a href="https://worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer"
-        ><img alt="WWT Logo" src="https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/logo_wwt.png"
-      /></a>
-      <a href="https://science.nasa.gov/learners" target="_blank" rel="noopener noreferrer" class="pl-1"
-        ><img alt="SciAct Logo" src="https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/logo_sciact.png"
-      /></a>
+      <a
+        v-for="logo in logos"
+        v-bind:key="logo.href"
+        :id="logo.name ? logo.name : undefined"
+        :href="logo.href"
+        target="_blank"
+        rel="noopener noreferrer"
+        :class="['logo-link', logo.name ? `logo-${logo.name}` : '']"
+      >
+        <img
+          :alt="logo.alt"
+          :src="logo.src"
+        />
+      </a>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
+
+interface CreditLogo {
+  src: string;
+  href: string;
+  alt: string;
+  name: string;
+}
+
+const DEFAULT_LOGOS: Map<string, CreditLogo> = new Map([
+  ["cosmicds", {
+    src: "https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/cosmicds_logo_for_dark_backgrounds.png",
+    href: "https://www.cosmicds.cfa.harvard.edu/",
+    alt: "CosmicDS Logo",
+    name: "cosmicds",
+  }],
+  ["wwt", {
+    src: "https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/logo_wwt.png",
+    href: "https://worldwidetelescope.org/home/",
+    alt: "WWT Logo",
+    name: "wwt",
+  }],
+  ["sciact", {
+    src: "https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/logo_sciact.png",
+    href: "https://science.nasa.gov/learners",
+    alt: "SciAct Logo",
+    name: "sciact",
+  }],
+  ["nasa", {
+    src: "https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/NASA_Grantee_color_no_outline.png",
+    href: "https://nasa.gov/",
+    alt: "NASA Grantee Logo",
+    name: "nasa",
+  }]
+]);
 
 export default defineComponent({
 
@@ -27,7 +66,15 @@ export default defineComponent({
     logoSize: {
       type: String,
       default: "5vmin"
-    }
+    },
+    extraLogos: {
+      type: Array as PropType<CreditLogo[]>,
+      default: () => [],
+    },
+    defaultLogos: {
+      type: Array as PropType<string[]>,
+      default: () => ["cosmicds", "wwt", "sciact"],
+    },
   },
 
   computed: { 
@@ -38,6 +85,10 @@ export default defineComponent({
       return {
         "--logo-size": this.logoSize,
       };
+    },
+    logos() {
+      const defaultLogos = this.defaultLogos.map((logo: string) => DEFAULT_LOGOS.get(logo)).filter((logo: CreditLogo | undefined) => logo != undefined) as CreditLogo[];
+      return defaultLogos.concat(this.extraLogos);
     }
   },
 
