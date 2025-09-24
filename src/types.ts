@@ -317,6 +317,8 @@ export interface SpeedControlProps {
   showStatus?: boolean;
   /** The factor by which to adjust the WWT speed when speeding up or down */ 
   rateDelta?: number;
+  /** Whether or not to display the additional speed controls */
+  hideMoreControls?: boolean;
 }
 
 /** An async function taking an input string and returning a collection of MapBox Features */

@@ -45,5 +45,6 @@ export const Primary: Story = {
     showStatus: false,
     rateDelta: 10,
     modelValue: false,
+    hideMoreControls: false,
   }
 };
