@@ -2,27 +2,31 @@
   <div class="rating-root">
     <h3>How would you rate your experience?</h3>
     <div class="rating-icon-row">
-      <v-hover
-        v-for="[rating, [icon, color]] of Object.entries(ratingIcons)"
-        :key="rating"
+      <slot
+        v-for="rating in Object.keys(ratingIcons)"
+        :rating="rating"
       >
-        <template #default="{ isHovering, props }">
-          <FontAwesomeIcon
-            v-bind="props"
-            size="5x"
-            :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
-            :icon="icon"
-            :color="(isHovering || rating === currentRating) ? color : baseColor"
-            @click="currentRating = rating as UserExperienceRating"
-          >
-          </FontAwesomeIcon>
-        </template>
-      </v-hover>
+        <v-hover
+          :key="rating"
+        >
+          <template #default="{ isHovering, props }">
+            <FontAwesomeIcon
+              v-bind="props"
+              size="5x"
+              :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
+              :icon="ratingIcons[rating as UserExperienceRating][0]"
+              :color="(isHovering || rating === currentRating) ? ratingIcons[rating as UserExperienceRating][1]: baseColor"
+              @click="currentRating = rating as UserExperienceRating"
+            >
+            </FontAwesomeIcon>
+          </template>
+        </v-hover>
+      </slot>
     </div>
     <VTextarea
       v-model="comments"
       class="comments-box"
-      placeholder="Tell us any comments you have about this story"
+      :placeholder="commentPlaceholder"
       auto-grow
       max-rows="4"
       density="compact"
@@ -45,7 +49,7 @@ import { computed, ref } from "vue";
 import { useTheme } from "vuetify";
 import { v4 } from "uuid";
 import type { UserExperienceProps } from "../types";
-import { DEFAULT_RATING_COLORS, type UserExperienceRating, API_BASE_URL, submitUserExperienceRating } from "../utils";
+import { DEFAULT_RATING_COLORS, type UserExperienceRating, submitUserExperienceRating } from "../utils";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -63,6 +67,7 @@ const { current: currentTheme } = useTheme();
 
 const props = withDefaults(defineProps<UserExperienceProps>(), {
   ratingColors: () => DEFAULT_RATING_COLORS,
+  commentPlaceholder: "Tell us any comments you have about this story",
 });
 
 const emit = defineEmits<{

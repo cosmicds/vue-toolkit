@@ -400,4 +400,5 @@ export interface UserExperienceProps {
   baseColor?: string;
   ratingColors?: string[];
   story: string;
+  commentPlaceholder?: string;
 }
