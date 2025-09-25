@@ -29,5 +29,10 @@ export const Primary: Story = {
     };
   },
   args: {
+    visible: true,
+    bounceAmount: "10%",
+    bounceDuration: 500,
+    betweenBouncesDuration: 1000,
+    popupTime: 500,
   }
 };

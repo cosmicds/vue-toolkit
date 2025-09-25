@@ -2,7 +2,7 @@
   <div
     class="attention-hook"
     v-show="visible"
-    :style="css"
+    ref="hook"
   >
     <slot>
       <font-awesome-icon
@@ -16,10 +16,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { watch, onMounted, useTemplateRef } from "vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+import { createBounceAnimation } from "../utils";
 
 library.add(faChevronUp);
 
@@ -27,18 +29,46 @@ interface Props {
   visible?: boolean;
   bounceAmount?: string;
   bounceDuration?: number;
+  betweenBouncesDuration?: number;
+  popupTime?: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   visible: true,
   bounceAmount: "10%",
-  bounceDuration: 0.5,
+  bounceDuration: 500,
+  betweenBouncesDuration: 1000,
+  popupTime: 500,
 });
 
-const css = computed(() => ({
-  "--bounce-amount": props.bounceAmount,
-  "--bounce-duration": `${props.bounceDuration}s`,
-}));
+const root = useTemplateRef<HTMLElement>("hook");
+
+onMounted(() => {
+  setupAnimation();
+});
+
+function setupAnimation() {
+  console.log("Setting up animation");
+  const element = root.value;
+  if (!element) { return; }
+  const popupAnimation = element.animate([
+    // Remember: +Y is down, so we're moving up
+    { transform: "translateY(100%)", offset: 0 },
+    { transform: "translateY(0)", offset: 1 },
+  ],
+  { duration: props.popupTime });
+  popupAnimation.finished.then(() => {
+    const bounceAnimation = createBounceAnimation(element, props);
+    bounceAnimation.play();
+  });
+  popupAnimation.play();
+}
+
+watch(() => props.visible, (visible: boolean) => {
+  if (visible) {
+    setupAnimation();
+  }
+});
 
 const emit = defineEmits<{
   (event: "open"): void;
@@ -49,7 +79,7 @@ const emit = defineEmits<{
 .attention-hook {
   position: absolute;
   bottom: 0;
-  right: 10px; 
+  right: 10px;
   width: 40px;
   height: 40px;
   background: #808080;
@@ -57,7 +87,6 @@ const emit = defineEmits<{
   align-items: center; 
   justify-content: center;
   border-radius: 10px;
-  animation: bounce-vertical var(--bounce-duration) infinite alternate;
 
   &:hover {
     cursor: pointer;
@@ -68,12 +97,9 @@ const emit = defineEmits<{
   }
 }
 
-@keyframes bounce-vertical {
+@keyframes pop-up {
   0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(var(--bounce-amount));
+    transform: translateY(-100%);
   }
   100% {
     transform: translateY(0);

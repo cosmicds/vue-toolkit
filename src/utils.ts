@@ -92,3 +92,26 @@ export async function submitUserExperienceRating(info: UserExperienceSubmissionI
       return false;
     });
 }
+
+export interface BounceAnimationProperties {
+  bounceAmount: string;
+  bounceDuration: number;
+  betweenBouncesDuration: number;
+}
+
+export function createBounceKeyframes(props: BounceAnimationProperties): Keyframe[] {
+  const totalDuration = props.bounceDuration + props.betweenBouncesDuration;
+  const bounceFraction = props.bounceDuration / totalDuration;
+  return [
+    { transform: "translateY(0)", offset: 0 },
+    { transform: `translateY(${props.bounceAmount})`, offset: 0.5 * bounceFraction },
+    { transform: "translateY(0)", offset: bounceFraction },
+  ];
+}
+
+export function createBounceAnimation(element: HTMLElement, props: BounceAnimationProperties): Animation {
+  const keyframes = createBounceKeyframes(props);
+  const totalDuration = props.bounceDuration + props.betweenBouncesDuration;
+  const animation = element.animate(keyframes, { duration: totalDuration, iterations: Infinity });
+  return animation;
+}
