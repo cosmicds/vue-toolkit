@@ -1,5 +1,5 @@
 <template>
-  <div class="rating-root">
+  <v-card class="rating-root">
     <h3>How would you rate your experience?</h3>
     <div class="rating-icon-row">
       <slot
@@ -30,17 +30,18 @@
       auto-grow
       max-rows="4"
       density="compact"
-      width="100%"
+      width="75%"
     >
     </VTextarea>
     <v-btn
       @click="handleRatingSubmission"
       width="fit-content"
+      color="success"
     >
       Submit
     </v-btn>
     <notifications group="rating-submission" position="center bottom" classes="rating-notification"/>
-  </div>
+  </v-card>
 </template>
 
 <script setup lang="ts">
@@ -59,7 +60,7 @@ import {
   faFaceFrown,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { VTextarea } from "vuetify/components";
+import { VCard, VTextarea } from "vuetify/components";
 
 const { current: currentTheme } = useTheme();
 
@@ -71,6 +72,7 @@ const props = withDefaults(defineProps<UserExperienceProps>(), {
 });
 
 const emit = defineEmits<{
+  (event: "empty"): void;
   (event: "submit", response: Response | null): void;
 }>();
 
@@ -95,6 +97,10 @@ const baseColor = computed(() => props.baseColor ?? (currentTheme.value.dark ? '
 const comments = ref<string | null>(null);
 
 async function handleRatingSubmission() {
+  if (!(currentRating.value || comments.value)) {
+    emit("empty");
+    return;
+  }
   props.submitter({
     // eslint-disable-next-line @typescript-eslint/naming-convention
     story_name: props.story,
@@ -114,6 +120,7 @@ async function handleRatingSubmission() {
   flex-direction: column;
   gap: 10px;
   align-items: center;
+  padding: 5px;
 }
 
 .rating-icon-row {

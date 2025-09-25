@@ -40,6 +40,15 @@ export const Primary: Story = {
   }
 };
 
+function emptyHandler() {
+  notify({
+    group: "rating-submission",
+    type: "error",
+    text: "You cannot submit an empty response",
+    duration: 4500,
+  });
+}
+
 function submitter(info: UserExperienceSubmissionInfo, apiKey: string): Promise<Response | null> {
   return submitUserExperienceRating(info, apiKey, `${API_BASE_URL}/storybook/user-experience`);
 }
@@ -84,6 +93,7 @@ export const WithUserExperience: Story = {
             style="position: absolute; bottom: 10px;"
             v-bind="args"
             @submit="submitResponseHandler"
+            @empty="emptyHandler"
           >
           </UserExperience>
           <notifications group="rating-submission" position="center bottom" classes="rating-notification"/>
@@ -92,6 +102,7 @@ export const WithUserExperience: Story = {
       setup() {
         return {
           args,
+          emptyHandler,
           showHook,
           showExperience,
           submitResponseHandler,
