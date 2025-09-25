@@ -4,8 +4,7 @@ export const D2R = Math.PI / 180;
 export const R2D = 180 / Math.PI;
 
 /** The base URL for the CosmicDS API server */
-// export const API_BASE_URL = "https://api.cosmicds.cfa.harvard.edu";
-export const API_BASE_URL = "http://localhost:8081";
+export const API_BASE_URL = "https://api.cosmicds.cfa.harvard.edu";
 
 /**
   * Determine whether the user's device supports touch events.
@@ -69,7 +68,11 @@ export interface UserExperienceSubmissionInfo {
   rating?: UserExperienceRating;
 }
 
-export async function submitUserExperienceRating(info: UserExperienceSubmissionInfo, apiKey: string): Promise<boolean> {
+export async function submitUserExperienceRating(
+  info: UserExperienceSubmissionInfo,
+  apiKey: string,
+  url?: string
+): Promise<Response | null> {
   const body: UserExperienceSubmissionInfo = {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     story_name: info.story_name,
@@ -81,7 +84,8 @@ export async function submitUserExperienceRating(info: UserExperienceSubmissionI
   if (info.rating) {
     body.rating == info.rating;
   }
-  return fetch(`${API_BASE_URL}/stories/user-experience`, {
+  const destination = url ?? `${API_BASE_URL}/stories/user-experience`;
+  return fetch(destination, {
     method: "PUT",
     body: JSON.stringify(body),
     headers: {
@@ -91,10 +95,9 @@ export async function submitUserExperienceRating(info: UserExperienceSubmissionI
       "Content-Type": "application/json",
     },
   })
-    .then(response => response.status === 200)
     .catch(error => {
       console.error(error);
-      return false;
+      return null;
     });
 }
 

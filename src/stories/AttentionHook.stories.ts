@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { Meta, StoryObj } from "@storybook/vue3";
-import { AttentionHook, UserExperience } from "..";
+import { AttentionHook, submitUserExperienceRating, UserExperience, UserExperienceSubmissionInfo, API_BASE_URL } from "..";
 import { ref } from "vue";
+import { notify } from "@kyvg/vue3-notification";
 
 const meta: Meta<typeof AttentionHook> = {
   component: AttentionHook,
@@ -14,6 +15,7 @@ export default meta;
 type Story = StoryObj<typeof AttentionHook>;
 
 export const Primary: Story = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   render: (args: any) => {
 
     return {
@@ -38,13 +40,31 @@ export const Primary: Story = {
   }
 };
 
-console.log(process.env.VUE_APP_CDS_API_KEY);
+function submitter(info: UserExperienceSubmissionInfo, apiKey: string): Promise<Response | null> {
+  return submitUserExperienceRating(info, apiKey, `${API_BASE_URL}/storybook/user-experience`);
+}
+
+const showHook = ref(true);
+const showExperience = ref(false);
+function submitResponseHandler(response: Response | null) {
+  const success = response?.status === 200;
+  const type = success ? "success" : "error";
+  const text = success ?
+    "Your feedback was submitted successfully!" :
+    "There was an issue submitting your feedback";
+  notify({
+    group: "rating-submission",
+    type,
+    text,
+    duration: 4500,
+    closeOnClick: false,
+  });
+  showExperience.value = false;
+}
 
 export const WithUserExperience: Story = {
   render: (args: any) => {
 
-    const showHook = ref(true);
-    const showExperience = ref(false);
     return {
       components: { AttentionHook, UserExperience },
       template: `
@@ -53,18 +73,19 @@ export const WithUserExperience: Story = {
             v-bind="args"
             v-if="showHook"
             @open="() => {
-              console.log('open');
               showHook = false;
               showExperience = true;
             }"
           >
           </AttentionHook>
           <UserExperience
-            v-if="showExperience" 
+            v-show="showExperience" 
             style="position: absolute; bottom: 10px;"
             v-bind="args"
+            @submit="submitResponseHandler"
           >
           </UserExperience>
+          <notifications group="rating-submission" position="center bottom" classes="rating-notification"/>
         </div>
       `,
       setup() {
@@ -72,6 +93,7 @@ export const WithUserExperience: Story = {
           args,
           showHook,
           showExperience,
+          submitResponseHandler,
         };
       }
     };
@@ -89,5 +111,6 @@ export const WithUserExperience: Story = {
 
     // We don't need these responses, so just use the same UUID for everyone
     uuid: "42274bf4-4228-4cb0-951b-18cbce176189",
+    submitter,
   }
 };

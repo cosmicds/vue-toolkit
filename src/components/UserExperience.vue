@@ -47,7 +47,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { computed, ref } from "vue";
 import { useTheme } from "vuetify";
-import { v4 } from "uuid";
 import type { UserExperienceProps } from "../types";
 import { DEFAULT_RATING_COLORS, type UserExperienceRating, submitUserExperienceRating } from "../utils";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -61,17 +60,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { VTextarea } from "vuetify/components";
-import { notify } from "@kyvg/vue3-notification";
 
 const { current: currentTheme } = useTheme();
 
 const props = withDefaults(defineProps<UserExperienceProps>(), {
   ratingColors: () => DEFAULT_RATING_COLORS,
   commentPlaceholder: "Tell us any comments you have about this story",
+  submitter: submitUserExperienceRating,
 });
 
 const emit = defineEmits<{
-  (event: "submit"): void;
+  (event: "submit", response: Response | null): void;
 }>();
 
 library.add(faFaceGrinStars);
@@ -95,28 +94,14 @@ const baseColor = computed(() => props.baseColor ?? (currentTheme.value.dark ? '
 const comments = ref<string | null>(null);
 
 async function handleRatingSubmission() {
-  submitUserExperienceRating({
+  props.submitter({
     // eslint-disable-next-line @typescript-eslint/naming-convention
     story_name: props.story,
-    uuid: v4(),
+    uuid: props.uuid,
     comments: comments.value ?? undefined,
     rating: currentRating.value ?? undefined,
   }, props.apiKey).then((response) => {
-    console.log(`Response: ${response}`);
-    const type = response ? "success" : "error";
-    const text = response ?
-      "Your feedback was submitted successfully!" :
-      "There was an issue submitting your feedback";
-    notify({
-      group: "rating-submission",
-      type,
-      text,
-      duration: 4500,
-    });
-
-    if (response) {
-      emit("submit");
-    }
+    emit("submit", response);
   });
 }
 </script>
