@@ -63,6 +63,7 @@ function submitResponseHandler(response: Response | null) {
 }
 
 export const WithUserExperience: Story = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   render: (args: any) => {
 
     return {
@@ -103,6 +104,7 @@ export const WithUserExperience: Story = {
     bounceAmount: "10%",
     bounceDuration: 500,
     betweenBouncesDuration: 1000,
+    bounceCount: 3,
     popupTime: 500,
 
     baseColor: "black",

@@ -30,6 +30,7 @@ interface Props {
   bounceAmount?: string;
   bounceDuration?: number;
   betweenBouncesDuration?: number;
+  bounceCount?: number;
   popupTime?: number;
 }
 
@@ -38,6 +39,7 @@ const props = withDefaults(defineProps<Props>(), {
   bounceAmount: "10%",
   bounceDuration: 500,
   betweenBouncesDuration: 1000,
+  bounceCount: Infinity,
   popupTime: 500,
 });
 
@@ -87,6 +89,7 @@ const emit = defineEmits<{
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+  overscroll-behavior-y: contain;
 
   &:hover {
     cursor: pointer;
