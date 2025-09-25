@@ -105,6 +105,7 @@ export interface BounceAnimationProperties {
   bounceAmount: string;
   bounceDuration: number;
   betweenBouncesDuration: number;
+  bounceCount: number;
 }
 
 export function createBounceKeyframes(props: BounceAnimationProperties): Keyframe[] {
@@ -112,7 +113,7 @@ export function createBounceKeyframes(props: BounceAnimationProperties): Keyfram
   const bounceFraction = props.bounceDuration / totalDuration;
   return [
     { transform: "translateY(0)", offset: 0 },
-    { transform: `translateY(${props.bounceAmount})`, offset: 0.5 * bounceFraction },
+    { transform: `translateY(-${props.bounceAmount})`, offset: 0.5 * bounceFraction },
     { transform: "translateY(0)", offset: bounceFraction },
   ];
 }
@@ -120,6 +121,10 @@ export function createBounceKeyframes(props: BounceAnimationProperties): Keyfram
 export function createBounceAnimation(element: HTMLElement, props: BounceAnimationProperties): Animation {
   const keyframes = createBounceKeyframes(props);
   const totalDuration = props.bounceDuration + props.betweenBouncesDuration;
-  const animation = element.animate(keyframes, { duration: totalDuration, iterations: Infinity });
+  console.log(props);
+  const animation = element.animate(keyframes, {
+    duration: totalDuration,
+    iterations: props.bounceCount
+  });
   return animation;
 }
