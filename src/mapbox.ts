@@ -194,7 +194,7 @@ function searchParams(options: MapBoxForwardGeocodingOptions | MapBoxReverseGeoc
   * @param latitudeDeg The latitude of the location, in degrees
   * @returns A string describing the given coordinates
   */
-export function latitudeLongitudeText(longitudeDeg: number, latitudeDeg: number) {
+export function latitudeLongitudeText(longitudeDeg: number, latitudeDeg: number): string {
   const ns = latitudeDeg >= 0 ? 'N' : 'S';
   const ew = longitudeDeg >= 0 ? 'E' : 'W';
   const lat = Math.abs(latitudeDeg).toFixed(3);
