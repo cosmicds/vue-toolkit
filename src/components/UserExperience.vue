@@ -89,13 +89,6 @@ const currentRating = ref<UserExperienceRating | null>(null);
 const baseColor = computed(() => props.baseColor ?? (currentTheme.value.dark ? 'white' : 'black'));
 const comments = ref<string | null>(null);
 
-interface SubmitRatingRequestBody {
-  story_name: string;
-  uuid: string;
-  comments?: string;
-  rating?: string;
-}
-
 async function handleRatingSubmission() {
   submitUserExperienceRating({
     // eslint-disable-next-line @typescript-eslint/naming-convention

@@ -4,7 +4,8 @@ export const D2R = Math.PI / 180;
 export const R2D = 180 / Math.PI;
 
 /** The base URL for the CosmicDS API server */
-export const API_BASE_URL = "https://api.cosmicds.cfa.harvard.edu";
+// export const API_BASE_URL = "https://api.cosmicds.cfa.harvard.edu";
+export const API_BASE_URL = "http://localhost:8081";
 
 /**
   * Determine whether the user's device supports touch events.
@@ -83,8 +84,12 @@ export async function submitUserExperienceRating(info: UserExperienceSubmissionI
   return fetch(`${API_BASE_URL}/stories/user-experience`, {
     method: "PUT",
     body: JSON.stringify(body),
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    headers: { "Authorization": apiKey },
+    headers: {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      "Authorization": apiKey,
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      "Content-Type": "application/json",
+    },
   })
     .then(response => response.status === 200)
     .catch(error => {

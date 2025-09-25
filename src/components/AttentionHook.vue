@@ -84,7 +84,7 @@ const emit = defineEmits<{
   height: 40px;
   background: #808080;
   display: flex;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
   border-radius: 10px;
 
