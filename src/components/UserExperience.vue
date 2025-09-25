@@ -12,7 +12,7 @@
           <template #default="{ isHovering, props }: { isHovering: boolean | null, props: Record<string, unknown> }">
             <FontAwesomeIcon
               v-bind="props"
-              size="5x"
+              :size="iconSize"
               :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
               :icon="ratingIcons[rating as UserExperienceRating][0]"
               :color="(isHovering || rating === currentRating) ? ratingIcons[rating as UserExperienceRating][1]: baseColor"
@@ -67,6 +67,7 @@ const props = withDefaults(defineProps<UserExperienceProps>(), {
   ratingColors: () => DEFAULT_RATING_COLORS,
   commentPlaceholder: "Tell us any comments you have about this story",
   submitter: submitUserExperienceRating,
+  iconSize: "5x",
 });
 
 const emit = defineEmits<{
