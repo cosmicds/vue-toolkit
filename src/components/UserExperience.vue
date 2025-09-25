@@ -9,7 +9,7 @@
         <v-hover
           :key="rating"
         >
-          <template #default="{ isHovering, props }">
+          <template #default="{ isHovering, props }: { isHovering: boolean | null, props: Record<string, unknown> }">
             <FontAwesomeIcon
               v-bind="props"
               size="5x"
@@ -100,9 +100,10 @@ async function handleRatingSubmission() {
     uuid: props.uuid,
     comments: comments.value ?? undefined,
     rating: currentRating.value ?? undefined,
-  }, props.apiKey).then((response) => {
-    emit("submit", response);
-  });
+  }, props.apiKey)
+    .then((response: Response | null) => {
+      emit("submit", response);
+    });
 }
 </script>
 
