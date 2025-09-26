@@ -403,6 +403,8 @@ export interface UserExperienceProps {
   uuid: string;
   /** The story name to pass into the submitter */
   story: string;
+  /** The question to ask the user */
+  question?: string;
   /** Placeholder text to use for comments */
   commentPlaceholder?: string;
   /** The base color to use for icons. Can be ignored if not using default slot content. */

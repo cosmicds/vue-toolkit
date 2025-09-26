@@ -1,45 +1,61 @@
 <template>
   <v-card class="rating-root">
-    <h3>How would you rate your experience?</h3>
-    <div class="rating-icon-row">
-      <slot
-        v-for="rating in Object.keys(ratingIcons)"
-        :rating="rating"
-      >
-        <v-hover
-          :key="rating"
-        >
-          <template #default="{ isHovering, props }: { isHovering: boolean | null, props: Record<string, unknown> }">
-            <FontAwesomeIcon
-              v-bind="props"
-              :size="iconSize"
-              :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
-              :icon="ratingIcons[rating as UserExperienceRating][0]"
-              :color="(isHovering || rating === currentRating) ? ratingIcons[rating as UserExperienceRating][1]: baseColor"
-              @click="currentRating = rating as UserExperienceRating"
+    <v-card-title>{{ question }}</v-card-title>
+    <v-stepper
+      :items="['Rating', 'Comments']"
+    >
+      <v-stepper-item>
+        <div class="rating-icon-row">
+          <slot
+            v-for="rating in Object.keys(ratingIcons)"
+            :rating="rating"
+          >
+            <v-hover
+              :key="rating"
             >
-            </FontAwesomeIcon>
-          </template>
-        </v-hover>
-      </slot>
-    </div>
-    <VTextarea
-      v-model="comments"
-      class="comments-box"
-      :placeholder="commentPlaceholder"
-      auto-grow
-      max-rows="4"
-      density="compact"
-      width="75%"
-    >
-    </VTextarea>
-    <v-btn
-      @click="handleRatingSubmission"
-      width="fit-content"
-      color="success"
-    >
-      Submit
-    </v-btn>
+              <template #default="{ isHovering, props }: { isHovering: boolean | null, props: Record<string, unknown> }">
+                <FontAwesomeIcon
+                  v-bind="props"
+                  :size="iconSize"
+                  :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
+                  :icon="ratingIcons[rating as UserExperienceRating][0]"
+                  :color="(isHovering || rating === currentRating) ? ratingIcons[rating as UserExperienceRating][1]: baseColor"
+                  @click="currentRating = rating as UserExperienceRating"
+                >
+                </FontAwesomeIcon>
+              </template>
+            </v-hover>
+          </slot>
+        </div>
+      </v-stepper-item>
+      <v-stepper-item>
+        <div class="rating-icon-row">
+          <slot
+            v-for="rating in Object.keys(ratingIcons)"
+            :rating="rating"
+          >
+          </slot>
+        </div>
+        <VTextarea
+          v-model="comments"
+          class="comments-box"
+          :placeholder="commentPlaceholder"
+          auto-grow
+          max-rows="4"
+          density="compact"
+          width="75%"
+        >
+        </VTextarea>
+        <v-btn
+          @click="handleRatingSubmission"
+          width="fit-content"
+          color="success"
+        >
+          Submit
+        </v-btn>
+      </v-stepper-item>
+    </v-stepper>
+
     <notifications group="rating-submission" position="center bottom" classes="rating-notification"/>
   </v-card>
 </template>
@@ -60,12 +76,13 @@ import {
   faFaceFrown,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { VCard, VTextarea } from "vuetify/components";
+import { VCard, VStepper, VTextarea } from "vuetify/components";
 
 const { current: currentTheme } = useTheme();
 
 const props = withDefaults(defineProps<UserExperienceProps>(), {
   ratingColors: () => DEFAULT_RATING_COLORS,
+  question: "How would you rate your experience?",
   commentPlaceholder: "Tell us any comments you have about this story",
   submitter: submitUserExperienceRating,
   iconSize: "5x",
