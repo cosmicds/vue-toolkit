@@ -189,6 +189,20 @@ function searchParams(options: MapBoxForwardGeocodingOptions | MapBoxReverseGeoc
 }
 
 /**
+  * Obtain a string describing the given location in terms of NSEW directions - for example: 10° N, 25° W
+  * @param longitudeDeg The longitude of the location, in degrees
+  * @param latitudeDeg The latitude of the location, in degrees
+  * @returns A string describing the given coordinates
+  */
+export function latitudeLongitudeText(longitudeDeg: number, latitudeDeg: number): string {
+  const ns = latitudeDeg >= 0 ? 'N' : 'S';
+  const ew = longitudeDeg >= 0 ? 'E' : 'W';
+  const lat = Math.abs(latitudeDeg).toFixed(3);
+  const lon = Math.abs(longitudeDeg).toFixed(3);
+  return `${lat}° ${ns}, ${lon}° ${ew}`;
+}
+
+/**
   * Obtain text describing a given longitude and latitude based on a MapBox reverse geocoding query
   * @param longitudeDeg The longitude of the location, in degrees
   * @param latitudeDeg The latitude of the location, in degrees
@@ -202,11 +216,7 @@ export async function textForLocation(longitudeDeg: number, latitudeDeg: number,
     .then(response => response.json())
     .then((result: MapBoxFeatureCollection) => {
       if (result.features.length === 0) {
-        const ns = latitudeDeg >= 0 ? 'N' : 'S';
-        const ew = longitudeDeg >= 0 ? 'E' : 'W';
-        const lat = Math.abs(latitudeDeg).toFixed(3);
-        const lon = Math.abs(longitudeDeg).toFixed(3);
-        return `${lat}° ${ns}, ${lon}° ${ew}`;
+        return latitudeLongitudeText(latitudeDeg, longitudeDeg);
       }
       return textForMapboxResults(result);
     });
