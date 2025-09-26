@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { CircleMarkerOptions, TileLayerOptions } from "leaflet";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { MapBoxFeatureCollection } from "./mapbox";
+import { UserExperienceSubmissionInfo } from "./utils";
 
 /** The type of the WWT engine Pinia store */
 export type WWTEngineStore = ReturnType<typeof engineStore>;
@@ -395,4 +396,23 @@ export interface ShareButtonProps {
   alertText?: string;
   /** The ARIA label for the button */
   ariaLabel?: string;
+}
+
+export interface UserExperienceProps {
+  /** The CosmicDS API key to pass into the submitter */
+  apiKey: string;
+  /** The UUID to pass into the submitter */
+  uuid: string;
+  /** The story name to pass into the submitter */
+  story: string;
+  /** Placeholder text to use for comments */
+  commentPlaceholder?: string;
+  /** The base color to use for icons. Can be ignored if not using default slot content. */
+  baseColor?: string;
+  /** The colors to use for hovered/selected rating icons. Can be ignored if not using default slot content. */
+  ratingColors?: string[];
+  /** The size to use for icons. Can be ignored if not using default slot content. */
+  iconSize?: string;
+  /** The function that submits the data to the server */
+  submitter: (info: UserExperienceSubmissionInfo, apiKey: string) => Promise<Response | null>;
 }

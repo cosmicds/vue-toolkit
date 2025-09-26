@@ -1,0 +1,129 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
+import { Meta, StoryObj } from "@storybook/vue3";
+import { AttentionHook, submitUserExperienceRating, UserExperience, UserExperienceSubmissionInfo, API_BASE_URL } from "..";
+import { ref } from "vue";
+import { notify } from "@kyvg/vue3-notification";
+
+const meta: Meta<typeof AttentionHook> = {
+  component: AttentionHook,
+  tags: ["autodocs"],
+  title: "Vue Toolkit/Components/Attention Hook",
+};
+
+export default meta;
+type Story = StoryObj<typeof AttentionHook>;
+
+export const Primary: Story = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  render: (args: any) => {
+
+    return {
+      components: { AttentionHook },
+      template: `
+        <div>
+          <AttentionHook v-bind="args">
+          </AttentionHook>
+        </div>
+      `,
+      setup() {
+        return { args };
+      }
+    };
+  },
+  args: {
+    visible: true,
+    bounceAmount: "10%",
+    bounceDuration: 500,
+    betweenBouncesDuration: 1000,
+    popupTime: 500,
+  }
+};
+
+function emptyHandler() {
+  notify({
+    group: "rating-submission",
+    type: "error",
+    text: "You cannot submit an empty response",
+    duration: 4500,
+  });
+}
+
+function submitter(info: UserExperienceSubmissionInfo, apiKey: string): Promise<Response | null> {
+  return submitUserExperienceRating(info, apiKey, `${API_BASE_URL}/storybook/user-experience`);
+}
+
+const showHook = ref(true);
+const showExperience = ref(false);
+function submitResponseHandler(response: Response | null) {
+  const success = response?.status === 200;
+  const type = success ? "success" : "error";
+  const text = success ?
+    "Your feedback was submitted successfully!" :
+    "There was an issue submitting your feedback";
+  notify({
+    group: "rating-submission",
+    type,
+    text,
+    duration: 4500,
+    closeOnClick: false,
+  });
+  showExperience.value = false;
+}
+
+export const WithUserExperience: Story = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  render: (args: any) => {
+
+    return {
+      components: { AttentionHook, UserExperience },
+      template: `
+        <div>
+          <AttentionHook
+            v-bind="args"
+            v-if="showHook"
+            @open="() => {
+              showHook = false;
+              showExperience = true;
+            }"
+          >
+          </AttentionHook>
+          <UserExperience
+            v-show="showExperience" 
+            style="position: absolute; bottom: 10px;"
+            v-bind="args"
+            @submit="submitResponseHandler"
+            @empty="emptyHandler"
+          >
+          </UserExperience>
+          <notifications group="rating-submission" position="center bottom" classes="rating-notification"/>
+        </div>
+      `,
+      setup() {
+        return {
+          args,
+          emptyHandler,
+          showHook,
+          showExperience,
+          submitResponseHandler,
+        };
+      }
+    };
+  },
+  args: {
+    visible: true,
+    bounceAmount: "10%",
+    bounceDuration: 500,
+    betweenBouncesDuration: 1000,
+    bounceCount: 3,
+    popupTime: 500,
+
+    baseColor: "black",
+    apiKey: process.env.VUE_APP_CDS_API_KEY,
+    story: "storybook",
+
+    // We don't need these responses, so just use the same UUID for everyone
+    uuid: "42274bf4-4228-4cb0-951b-18cbce176189",
+    submitter,
+  }
+};
