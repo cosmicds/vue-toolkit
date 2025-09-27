@@ -1,68 +1,61 @@
 <template>
   <v-card class="rating-root">
     <v-card-title>{{ question }}</v-card-title>
-    <v-stepper
-      :items="['Rating', 'Comments']"
-    >
-      <v-stepper-item>
-        <div class="rating-icon-row">
-          <slot
-            v-for="rating in Object.keys(ratingIcons)"
-            :rating="rating"
-          >
-            <v-hover
-              :key="rating"
-            >
-              <template #default="{ isHovering, props }: { isHovering: boolean | null, props: Record<string, unknown> }">
-                <FontAwesomeIcon
-                  v-bind="props"
-                  :size="iconSize"
-                  :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
-                  :icon="ratingIcons[rating as UserExperienceRating][0]"
-                  :color="(isHovering || rating === currentRating) ? ratingIcons[rating as UserExperienceRating][1]: baseColor"
-                  @click="currentRating = rating as UserExperienceRating"
-                >
-                </FontAwesomeIcon>
-              </template>
-            </v-hover>
-          </slot>
-        </div>
-      </v-stepper-item>
-      <v-stepper-item>
-        <div class="rating-icon-row">
-          <slot
-            v-for="rating in Object.keys(ratingIcons)"
-            :rating="rating"
-          >
-          </slot>
-        </div>
-        <VTextarea
-          v-model="comments"
-          class="comments-box"
-          :placeholder="commentPlaceholder"
-          auto-grow
-          max-rows="4"
-          density="compact"
-          width="75%"
+    <v-card-text>
+      <div class="rating-icon-row">
+        <slot
+          v-for="rating in Object.keys(ratingIcons)"
+          :rating="rating"
         >
-        </VTextarea>
-        <v-btn
-          @click="handleRatingSubmission"
-          width="fit-content"
-          color="success"
+          <v-hover
+            :key="rating"
+          >
+            <template #default="{ isHovering, props }: { isHovering: boolean | null, props: Record<string, unknown> }">
+              <FontAwesomeIcon
+                v-bind="props"
+                :size="iconSize"
+                :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
+                :icon="ratingIcons[rating as UserExperienceRating][0]"
+                :color="(isHovering || rating === currentRating) ? ratingIcons[rating as UserExperienceRating][1]: baseColor"
+                @click="currentRating = rating as UserExperienceRating"
+              >
+              </FontAwesomeIcon>
+            </template>
+          </v-hover>
+        </slot>
+      </div>
+      <v-expand-transition>
+        <v-form
+          v-show="showComments"
+          @submit.prevent="emit('finish')"
         >
-          Submit
-        </v-btn>
-      </v-stepper-item>
-    </v-stepper>
-
+          <VTextarea
+            v-model="comments"
+            class="comments-box text-body-2"
+            :placeholder="commentPlaceholder"
+            auto-grow
+            max-rows="4"
+            density="compact"
+            width="100%"
+          >
+          </VTextarea>
+          <v-btn
+            type="submit"
+            width="fit-content"
+            color="success"
+          >
+           Finish 
+          </v-btn>
+        </v-form>
+      </v-expand-transition>
+    </v-card-text>
     <notifications group="rating-submission" position="center bottom" classes="rating-notification"/>
   </v-card>
 </template>
 
 <script setup lang="ts">
 /* eslint-disable @typescript-eslint/naming-convention */
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { useTheme } from "vuetify";
 import type { UserExperienceProps } from "../types";
 import { DEFAULT_RATING_COLORS, type UserExperienceRating, submitUserExperienceRating } from "../utils";
@@ -76,7 +69,7 @@ import {
   faFaceFrown,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { VCard, VStepper, VTextarea } from "vuetify/components";
+import { VCard, VExpandTransition, VTextarea } from "vuetify/components";
 
 const { current: currentTheme } = useTheme();
 
@@ -85,12 +78,14 @@ const props = withDefaults(defineProps<UserExperienceProps>(), {
   question: "How would you rate your experience?",
   commentPlaceholder: "Tell us any comments you have about this story",
   submitter: submitUserExperienceRating,
+  askForComments: true,
   iconSize: "5x",
 });
 
 const emit = defineEmits<{
-  (event: "empty"): void;
-  (event: "submit", response: Response | null): void;
+  (event: "comments", comments: string): void;
+  (event: "rating", rating: UserExperienceRating): void;
+  (event: "finish"): void;
 }>();
 
 library.add(faFaceGrinStars);
@@ -112,23 +107,22 @@ const ratingIcons: Record<UserExperienceRating, [string, string]> = {
 const currentRating = ref<UserExperienceRating | null>(null);
 const baseColor = computed(() => props.baseColor ?? (currentTheme.value.dark ? 'white' : 'black'));
 const comments = ref<string | null>(null);
+const showComments = ref(false);
 
-async function handleRatingSubmission() {
-  if (!(currentRating.value || comments.value)) {
-    emit("empty");
-    return;
+watch(currentRating, (rating: UserExperienceRating | null) => {
+  if (rating) {
+    if (props.askForComments) {
+      showComments.value = true; 
+    }
+    emit("rating", rating);
   }
-  props.submitter({
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    story_name: props.story,
-    uuid: props.uuid,
-    comments: comments.value ?? undefined,
-    rating: currentRating.value ?? undefined,
-  }, props.apiKey)
-    .then((response: Response | null) => {
-      emit("submit", response);
-    });
-}
+});
+
+watch(comments, (text: string | null) => {
+  if (text) {
+    emit("comments", text);
+  }
+});
 </script>
 
 <style lang="less">
@@ -144,6 +138,7 @@ async function handleRatingSubmission() {
   display: flex;
   flex-direction: row;
   gap: 10px;
+  padding: 20px;
 }
 
 .rating {
@@ -167,5 +162,9 @@ async function handleRatingSubmission() {
   &.error {
     background-color: #b30000;
   }
+}
+
+.comments-box {
+  width: 75%;
 }
 </style>

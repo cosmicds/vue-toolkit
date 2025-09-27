@@ -397,12 +397,8 @@ export interface ShareButtonProps {
 }
 
 export interface UserExperienceProps {
-  /** The CosmicDS API key to pass into the submitter */
-  apiKey: string;
-  /** The UUID to pass into the submitter */
-  uuid: string;
-  /** The story name to pass into the submitter */
-  story: string;
+  /** Whether or not we want to ask for comments */
+  askForComments?: boolean;
   /** The question to ask the user */
   question?: string;
   /** Placeholder text to use for comments */
@@ -413,6 +409,4 @@ export interface UserExperienceProps {
   ratingColors?: string[];
   /** The size to use for icons. Can be ignored if not using default slot content. */
   iconSize?: string;
-  /** The function that submits the data to the server */
-  submitter: (info: UserExperienceSubmissionInfo, apiKey: string) => Promise<Response | null>;
 }
