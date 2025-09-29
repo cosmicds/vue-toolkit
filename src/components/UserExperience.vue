@@ -50,6 +50,9 @@
       </v-expand-transition>
     </v-card-text>
     <notifications group="rating-submission" position="center bottom" classes="rating-notification"/>
+    <template #actions v-if="$slots.footer">
+      <slot name="footer"></slot>
+    </template>
   </v-card>
 </template>
 
@@ -58,7 +61,7 @@
 import { computed, ref, watch } from "vue";
 import { useTheme } from "vuetify";
 import type { UserExperienceProps } from "../types";
-import { DEFAULT_RATING_COLORS, type UserExperienceRating, submitUserExperienceRating } from "../utils";
+import { DEFAULT_RATING_COLORS, type UserExperienceRating } from "../utils";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -76,8 +79,7 @@ const { current: currentTheme } = useTheme();
 const props = withDefaults(defineProps<UserExperienceProps>(), {
   ratingColors: () => DEFAULT_RATING_COLORS,
   question: "How would you rate your experience?",
-  commentPlaceholder: "Tell us any comments you have about this story",
-  submitter: submitUserExperienceRating,
+  commentPlaceholder: "Please tell us more if you like",
   askForComments: true,
   iconSize: "5x",
 });
@@ -99,7 +101,6 @@ const ratingIcons: Record<UserExperienceRating, [string, string]> = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   "very_bad": ["fa-face-frown", "red"],
   "poor": ["fa-face-frown-open", "orange"],
-  "medium": ["fa-face-meh", "goldenrod"],
   "good": ["fa-face-smile", "lightgreen"],
   "excellent": ["fa-face-grin-stars", "green"],
 };

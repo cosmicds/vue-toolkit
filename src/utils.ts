@@ -57,8 +57,8 @@ export function filterInPlace<T>(array: T[], condition: (t: T) => boolean) {
   array.length = j;
 }
 
-export type UserExperienceRating = "very_bad" | "poor" | "medium" | "good" | "excellent";
-export const DEFAULT_RATING_COLORS = ["red", "orange", "yellow", "lightgreen", "green"];
+export type UserExperienceRating = "very_bad" | "poor" | "good" | "excellent";
+export const DEFAULT_RATING_COLORS = ["red", "orange", "lightgreen", "green"];
 
 export interface UserExperienceSubmissionInfo {
   // eslint-disable-next-line @typescript-eslint/naming-convention
