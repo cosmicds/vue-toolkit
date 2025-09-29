@@ -50,7 +50,6 @@ onMounted(() => {
 });
 
 function setupAnimation() {
-  console.log("Setting up animation");
   const element = root.value;
   if (!element) { return; }
   const popupAnimation = element.animate([

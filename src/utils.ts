@@ -121,7 +121,6 @@ export function createBounceKeyframes(props: BounceAnimationProperties): Keyfram
 export function createBounceAnimation(element: HTMLElement, props: BounceAnimationProperties): Animation {
   const keyframes = createBounceKeyframes(props);
   const totalDuration = props.bounceDuration + props.betweenBouncesDuration;
-  console.log(props);
   const animation = element.animate(keyframes, {
     duration: totalDuration,
     iterations: props.bounceCount
