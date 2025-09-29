@@ -40,35 +40,20 @@ export const Primary: Story = {
   }
 };
 
-function emptyHandler() {
-  notify({
-    group: "rating-submission",
-    type: "error",
-    text: "You cannot submit an empty response",
-    duration: 4500,
-  });
-}
+const showHook = ref(true);
+const showExperience = ref(false);
 
 function submitter(info: UserExperienceSubmissionInfo, apiKey: string): Promise<Response | null> {
   return submitUserExperienceRating(info, apiKey, `${API_BASE_URL}/storybook/user-experience`);
 }
 
-const showHook = ref(true);
-const showExperience = ref(false);
-function submitResponseHandler(response: Response | null) {
-  const success = response?.status === 200;
-  const type = success ? "success" : "error";
-  const text = success ?
-    "Your feedback was submitted successfully!" :
-    "There was an issue submitting your feedback";
+function submitHandler() {
   notify({
     group: "rating-submission",
-    type,
-    text,
+    type: "success",
+    text: "Successful feedback message!",
     duration: 4500,
-    closeOnClick: false,
   });
-  showExperience.value = false;
 }
 
 export const WithUserExperience: Story = {
@@ -92,8 +77,7 @@ export const WithUserExperience: Story = {
             v-show="showExperience" 
             style="position: absolute; bottom: 10px;"
             v-bind="args"
-            @submit="submitResponseHandler"
-            @empty="emptyHandler"
+            @submit="submitHandler"
           >
           </UserExperience>
           <notifications group="rating-submission" position="center bottom" classes="rating-notification"/>
@@ -102,10 +86,9 @@ export const WithUserExperience: Story = {
       setup() {
         return {
           args,
-          emptyHandler,
           showHook,
           showExperience,
-          submitResponseHandler,
+          submitHandler,
         };
       }
     };

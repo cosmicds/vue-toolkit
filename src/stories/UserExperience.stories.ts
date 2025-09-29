@@ -15,17 +15,17 @@ type Story = StoryObj<typeof UserExperience>;
 
 import { notify } from "@kyvg/vue3-notification";
 
+function submitHandler() {
+  notify({
+    group: "rating-submission",
+    type: "success",
+    text: "Successful feedback message!",
+    duration: 4500,
+  });
+}
+
 export const Primary: Story = {
   render: (args: UserExperienceProps) => {
-
-    function submitHandler() {
-      notify({
-        group: "rating-submission",
-        type: "success",
-        text: "Successful feedback message!",
-        duration: 4500,
-      });
-    }
 
     return {
       components: { UserExperience },
