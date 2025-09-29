@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { CircleMarkerOptions, TileLayerOptions } from "leaflet";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { MapBoxFeatureCollection } from "./mapbox";
-import { UserExperienceSubmissionInfo } from "./utils";
 
 /** The type of the WWT engine Pinia store */
 export type WWTEngineStore = ReturnType<typeof engineStore>;
