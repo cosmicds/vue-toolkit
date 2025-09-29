@@ -56,7 +56,7 @@
       </v-expand-transition>
     </v-card-text>
     <notifications group="rating-submission" position="center bottom" classes="rating-notification"/>
-    <template #actions v-if="$slots.footer">
+    <template #actions>
       <slot name="footer"></slot>
     </template>
   </v-card>
@@ -64,7 +64,7 @@
 
 <script setup lang="ts">
 /* eslint-disable @typescript-eslint/naming-convention */
-import { computed, ref, watch } from "vue";
+import { computed, ref, watch, useSlots } from "vue";
 import { useTheme } from "vuetify";
 import type { UserExperienceProps } from "../types";
 import { DEFAULT_RATING_COLORS, type UserExperienceRating } from "../utils";
@@ -96,6 +96,9 @@ const emit = defineEmits<{
   (event: "rating", rating: UserExperienceRating): void;
   (event: "finish"): void;
 }>();
+
+const slots = useSlots();
+const showFooter = computed(() => !!slots.footer);
 
 library.add(faFaceGrinStars);
 library.add(faFaceSmile);
