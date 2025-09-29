@@ -2,6 +2,7 @@
   <v-card
     class="rating-root"
     :color="color"
+    :style="css"
   >
     <v-card-title>{{ question }}</v-card-title>
     <v-card-text>
@@ -100,6 +101,10 @@ const emit = defineEmits<{
 const slots = useSlots();
 const showFooter = computed(() => !!slots.footer);
 
+const css = computed(() => ({
+  "--footer-visible": showFooter.value ? "visible" : "none",
+}));
+
 library.add(faFaceGrinStars);
 library.add(faFaceSmile);
 library.add(faFaceMeh);
@@ -179,5 +184,9 @@ watch(comments, (text: string | null) => {
 
 .comments-box {
   width: 75%;
+}
+
+.v-card-actions {
+  display: var(--footer-visible);
 }
 </style>
