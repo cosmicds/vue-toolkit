@@ -408,4 +408,6 @@ export interface UserExperienceProps {
   ratingColors?: string[];
   /** The size to use for icons. Can be ignored if not using default slot content. */
   iconSize?: string;
+  /** The color of the component card */
+  color?: string;
 }

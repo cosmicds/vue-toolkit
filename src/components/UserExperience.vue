@@ -1,28 +1,34 @@
 <template>
-  <v-card class="rating-root">
+  <v-card
+    class="rating-root"
+    :color="color"
+  >
     <v-card-title>{{ question }}</v-card-title>
     <v-card-text>
       <div class="rating-icon-row">
-        <slot
-          v-for="rating in Object.keys(ratingIcons)"
-          :rating="rating"
+        <template
+          v-for="rating in ratings"
         >
-          <v-hover
-            :key="rating"
+          <slot
+            :rating="rating"
           >
-            <template #default="{ isHovering, props }: { isHovering: boolean | null, props: Record<string, unknown> }">
-              <FontAwesomeIcon
-                v-bind="props"
-                :size="iconSize"
-                :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
-                :icon="ratingIcons[rating as UserExperienceRating][0]"
-                :color="(isHovering || rating === currentRating) ? ratingIcons[rating as UserExperienceRating][1]: baseColor"
-                @click="currentRating = rating as UserExperienceRating"
-              >
-              </FontAwesomeIcon>
-            </template>
-          </v-hover>
-        </slot>
+            <v-hover
+              :key="rating"
+            >
+              <template #default="{ isHovering, props }: { isHovering: boolean | null, props: Record<string, unknown> }">
+                <FontAwesomeIcon
+                  v-bind="props"
+                  :size="iconSize"
+                  :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
+                  :icon="ratingIcons[rating as UserExperienceRating][0]"
+                  :color="(isHovering || rating === currentRating) ? ratingIcons[rating as UserExperienceRating][1]: baseColor"
+                  @click="currentRating = rating as UserExperienceRating"
+                >
+                </FontAwesomeIcon>
+              </template>
+            </v-hover>
+          </slot>
+        </template>
       </div>
       <v-expand-transition>
         <v-form
@@ -82,6 +88,7 @@ const props = withDefaults(defineProps<UserExperienceProps>(), {
   commentPlaceholder: "Please tell us more if you like",
   askForComments: true,
   iconSize: "5x",
+  color: "surface",
 });
 
 const emit = defineEmits<{
@@ -104,6 +111,8 @@ const ratingIcons: Record<UserExperienceRating, [string, string]> = {
   "good": ["fa-face-smile", "lightgreen"],
   "excellent": ["fa-face-grin-stars", "green"],
 };
+
+const ratings = Object.keys(ratingIcons) as UserExperienceRating[];
 
 const currentRating = ref<UserExperienceRating | null>(null);
 const baseColor = computed(() => props.baseColor ?? (currentTheme.value.dark ? 'white' : 'black'));

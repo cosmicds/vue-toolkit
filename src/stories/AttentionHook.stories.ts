@@ -100,6 +100,7 @@ export const WithUserExperience: Story = {
     betweenBouncesDuration: 1000,
     bounceCount: Infinity,
     popupTime: 500,
+    color: "surface",
 
     baseColor: "black",
     apiKey: process.env.VUE_APP_CDS_API_KEY,
