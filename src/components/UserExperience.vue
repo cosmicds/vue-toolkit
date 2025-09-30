@@ -4,39 +4,50 @@
     :color="color"
     :style="css"
   >
-    <v-card-title>{{ question }}</v-card-title>
-    <v-card-text>
-      <div class="rating-icon-row">
-        <template
-          v-for="rating in ratings"
-        >
-          <slot
-            :rating="rating"
-          >
-            <v-hover
-              :key="rating"
-            >
-              <template #default="{ isHovering, props }: { isHovering: boolean | null, props: Record<string, unknown> }">
-                <FontAwesomeIcon
-                  v-bind="props"
-                  :size="iconSize"
-                  :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
-                  :icon="ratingIcons[rating as UserExperienceRating][0]"
-                  :color="(isHovering || rating === currentRating) ? ratingIcons[rating as UserExperienceRating][1]: baseColor"
-                  @click="currentRating = rating as UserExperienceRating"
-                >
-                </FontAwesomeIcon>
-              </template>
-            </v-hover>
-          </slot>
-        </template>
+    <template #title>
+      <div class="rating-title">
+        <span>{{ question }}</span>
+        <v-spacer></v-spacer>
+        <v-btn
+          density="compact"
+          class="close-button"
+          icon="mdi-close"
+          @click="emit('dismiss', currentRating, comments)"
+        ></v-btn>
       </div>
-      <v-expand-transition>
-        <v-form
-          v-show="showComments"
-          @submit.prevent="emit('finish')"
-        >
+    </template>
+    <v-card-text>
+      <v-form
+        @submit.prevent="emit('finish', currentRating, comments)"
+      >
+        <div class="rating-icon-row">
+          <template
+            v-for="rating in ratings"
+          >
+            <slot
+              :rating="rating"
+            >
+              <v-hover
+                :key="rating"
+              >
+                <template #default="{ isHovering, props }: { isHovering: boolean | null, props: Record<string, unknown> }">
+                  <FontAwesomeIcon
+                    v-bind="props"
+                    :size="iconSize"
+                    :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
+                    :icon="ratingIcons[rating as UserExperienceRating][0]"
+                    :color="(isHovering || rating === currentRating) ? ratingIcons[rating as UserExperienceRating][1]: baseColor"
+                    @click="currentRating = rating as UserExperienceRating"
+                  >
+                  </FontAwesomeIcon>
+                </template>
+              </v-hover>
+            </slot>
+          </template>
+        </div>
+        <v-expand-transition>
           <VTextarea
+            v-if="showComments"
             v-model="comments"
             class="comments-box text-body-2"
             :placeholder="commentPlaceholder"
@@ -44,17 +55,21 @@
             max-rows="4"
             density="compact"
             width="100%"
+            @keydown.stop
           >
           </VTextarea>
+        </v-expand-transition>
+        <v-expand-transition>
           <v-btn
+            v-if="currentRating || showComments"
             type="submit"
             width="fit-content"
             color="success"
           >
-           Finish 
+            Submit 
           </v-btn>
-        </v-form>
       </v-expand-transition>
+      </v-form>
     </v-card-text>
     <notifications group="rating-submission" position="center bottom" classes="rating-notification"/>
     <template #actions>
@@ -67,8 +82,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { computed, ref, watch, useSlots } from "vue";
 import { useTheme } from "vuetify";
-import type { UserExperienceProps } from "../types";
 import { DEFAULT_RATING_COLORS, type UserExperienceRating } from "../utils";
+import { UserExperienceProps } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -93,9 +108,9 @@ const props = withDefaults(defineProps<UserExperienceProps>(), {
 });
 
 const emit = defineEmits<{
-  (event: "comments", comments: string): void;
-  (event: "rating", rating: UserExperienceRating): void;
-  (event: "finish"): void;
+  (event: "rating", rating: UserExperienceRating | null): void;
+  (event: "finish", rating: UserExperienceRating | null, comments: string | null): void;
+  (event: "dismiss", rating: UserExperienceRating | null, comments: string | null): void;
 }>();
 
 const slots = useSlots();
@@ -135,12 +150,6 @@ watch(currentRating, (rating: UserExperienceRating | null) => {
     emit("rating", rating);
   }
 });
-
-watch(comments, (text: string | null) => {
-  if (text) {
-    emit("comments", text);
-  }
-});
 </script>
 
 <style lang="less">
@@ -157,6 +166,7 @@ watch(comments, (text: string | null) => {
   flex-direction: row;
   gap: 10px;
   padding: 20px;
+  justify-content: center;
 }
 
 .rating {
@@ -189,4 +199,23 @@ watch(comments, (text: string | null) => {
 .v-card-actions {
   display: var(--footer-visible);
 }
+
+.close-button {
+  display: inline;
+}
+
+.v-card-text {
+  width: 100%;
+}
+
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.rating-title {
+  padding: 5px 10px;
+}
 </style>
+
