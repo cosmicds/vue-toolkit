@@ -160,7 +160,7 @@ function handleTouchEnd() {
   
   &.disabled-tooltip .v-overlay__content {
     color: rgb(156, 156, 156); // fallback grey color for disabled state
-    color: color-mix(in hsl, currentColor, rgb(var(--v-theme-surface-variant)) 50%);
+    color: color-mix(in hsl, currentColor, rgb(var(--v-theme-on-surface-variant)) 80%);
   }
 }
 </style>
