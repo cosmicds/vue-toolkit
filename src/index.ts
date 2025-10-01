@@ -10,6 +10,7 @@ import { useWWTKeyboardControls } from "./composables/wwtKeyboard";
 import AttentionHook from "./components/AttentionHook.vue";
 import CreditLogos from "./components/CreditLogos.vue";
 import DateTimePicker from "./components/DateTimePicker.vue";
+import FolderView from "./components/FolderView.vue";
 import FundingAcknowledgement from "./components/FundingAcknowledgement.vue";
 import Gallery from "./components/Gallery.vue";
 import GeolocationButton from "./components/GeolocationButton.vue";
@@ -41,6 +42,7 @@ export {
   AttentionHook,
   CreditLogos,
   DateTimePicker,
+  FolderView,
   FundingAcknowledgement,
   Gallery,
   GeolocationButton,

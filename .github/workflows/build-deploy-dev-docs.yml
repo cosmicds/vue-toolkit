@@ -36,6 +36,7 @@ jobs:
         run: yarn build-storybook 
         env:
           VUE_APP_MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
+          VUE_APP_CDS_API_KEY: ${{ secrets.CDS_API_KEY }}
 
       - name: Rename docs folder to dev
         run: mv docs dev

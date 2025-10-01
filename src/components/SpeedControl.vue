@@ -94,7 +94,7 @@
       ></icon-button>
 
       <v-dialog
-        v-if="!useInline"
+        v-if="!useInline && !hideMoreControls"
         v-model="playbackVisible"
         :scrim="false"
         location="top"
@@ -230,6 +230,7 @@ const props = withDefaults(defineProps<SpeedControlProps>(), {
   rateDelta: 10,
   useInline: false,
   modelValue: false,
+  hideMoreControls: false,
 });
 
 const minSpeed = 1;

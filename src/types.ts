@@ -1,5 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { CircleMarkerOptions, TileLayerOptions } from "leaflet";
+import { Folder } from "@wwtelescope/engine";
+import { Thumbnail } from "@wwtelescope/engine-types";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { MapBoxFeatureCollection } from "./mapbox";
 
@@ -162,6 +164,8 @@ export interface IconButtonProps {
   faSize?: SizeType;
   /** The size of the MDI icon. Should be a valid CSS size */
   mdSize?: string;
+  /** Disable the button and prevent actions from running: Default is false */
+  disabled?: boolean;
 }
 
 
@@ -317,6 +321,8 @@ export interface SpeedControlProps {
   showStatus?: boolean;
   /** The factor by which to adjust the WWT speed when speeding up or down */ 
   rateDelta?: number;
+  /** Whether or not to display the additional speed controls */
+  hideMoreControls?: boolean;
 }
 
 /** An async function taking an input string and returning a collection of MapBox Features */
@@ -411,3 +417,38 @@ export interface UserExperienceProps {
   /** The color of the component card */
   color?: string;
 }
+
+export interface FolderViewProps {
+  /** The root folder of the tree to display in the view. One of either this or `rootUrl` must be specified */
+  rootFolder?: Folder;
+  /** A URL for the root folder of the tree to display in the view. One of either this or `rootFolder` must be specified */
+  rootUrl?: string;
+  /** Specifies the orientation of the folder view */
+  orientation: "row" | "column";
+  /** The gap between folder view items. Any CSS flex gap size is valid. */
+  gap?: string;
+  /** The color of the folder view background. Should be a valid CSS color */
+  backgroundColor?: string;
+  /** The color of the thumbnail view background. Should be a valid CSS color */
+  thumbnailColor?: string;
+  /** The color marking the currently highlighted item. Should be a valid CSS color */
+  highlightColor?: string;
+  /** The color of item name text. Should be a valid CSS color */
+  textColor?: string;
+  /** Whether the folder view should start expanded or not. */
+  startExpanded?: boolean;
+  /** Whether to select the first non-folder item automatically on when the component is mounted. */
+  selectFirst?: boolean;
+  /** The URL of an image to use as a default thumbnail, for items that don't have one. */
+  defaultThumbnail?: string;
+  /**
+  * If true, subfolders are only loaded when they are first visited.
+  * If false, the entire folder tree is loaded right away.
+  * */
+  lazy?: boolean;
+  /** A predicate for filtering which folder items are displayed. Items to be displayed should return true. */
+  filter?: (item: Thumbnail) => boolean;
+}
+
+export type ItemSelectionType = "click" | "dblclick" | "keyup" | "folder";
+
