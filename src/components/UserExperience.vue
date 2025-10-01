@@ -31,7 +31,7 @@
                 :key="rating"
               >
                 <template #default="{ isHovering, props }: { isHovering: boolean | null, props: Record<string, unknown> }">
-                  <FontAwesomeIcon
+                  <font-awesome-icon
                     v-bind="props"
                     :size="iconSize"
                     :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
@@ -39,14 +39,14 @@
                     :color="(isHovering || rating === currentRating) ? ratingIcons[rating][1]: baseColor"
                     @click="currentRating = rating"
                   >
-                  </FontAwesomeIcon>
+                  </font-awesome-icon>
                 </template>
               </v-hover>
             </slot>
           </template>
         </div>
         <v-expand-transition>
-          <VTextarea
+          <v-textarea
             v-if="showComments"
             v-model="comments"
             class="comments-box text-body-2"
@@ -57,7 +57,7 @@
             width="100%"
             @keydown.stop
           >
-          </VTextarea>
+          </v-textarea>
         </v-expand-transition>
         <v-expand-transition>
           <v-btn
@@ -83,6 +83,8 @@ import { MiniDSBase } from "..";
 import { DEFAULT_RATING_COLORS, type UserExperienceRating } from "../utils";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
+import { VTextarea, VExpandTransition, VCard, VForm, VSpacer, VCardText, VBtn, VHover } from "vuetify/components";
+
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faFaceGrinStars,
@@ -102,8 +104,17 @@ library.add(faFaceFrown);
 export default defineComponent({
   extends: MiniDSBase,
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  components: { FontAwesomeIcon },
+  components: {
+    'font-awesome-icon': FontAwesomeIcon,
+    'v-textarea': VTextarea,
+    'v-expand-transition': VExpandTransition,
+    'v-form': VForm,
+    'v-card': VCard,
+    'v-spacer': VSpacer,
+    'v-card-text': VCardText,
+    'v-btn': VBtn,
+    'v-hover': VHover,
+  },
 
   props: {
     ratingColors: {
