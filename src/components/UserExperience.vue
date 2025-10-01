@@ -71,7 +71,6 @@
       </v-expand-transition>
       </v-form>
     </v-card-text>
-    <notifications group="rating-submission" position="center bottom" classes="rating-notification"/>
     <template #actions>
       <slot name="footer"></slot>
     </template>
