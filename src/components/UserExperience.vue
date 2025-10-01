@@ -35,9 +35,9 @@
                     v-bind="props"
                     :size="iconSize"
                     :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
-                    :icon="ratingIcons[rating as UserExperienceRating][0]"
-                    :color="(isHovering || rating === currentRating) ? ratingIcons[rating as UserExperienceRating][1]: baseColor"
-                    @click="currentRating = rating as UserExperienceRating"
+                    :icon="ratingIcons[rating][0]"
+                    :color="(isHovering || rating === currentRating) ? ratingIcons[rating][1]: baseColor"
+                    @click="currentRating = rating"
                   >
                   </FontAwesomeIcon>
                 </template>
