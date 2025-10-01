@@ -203,12 +203,13 @@ watch(currentRating, (rating: UserExperienceRating | null) => {
   display: inline;
 }
 
-.v-card-text {
+.rating-title {
   width: 100%;
+  text-align: center;
 }
 
 .close-button {
-  position: absolute;
+  position: absolute !important;
   top: 5px;
   right: 5px;
 }
