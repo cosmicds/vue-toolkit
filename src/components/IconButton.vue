@@ -7,6 +7,7 @@
     :open-on-hover="tooltipOnHover"
     :offset="tooltipOffset"
     :disabled="!tooltipText || !showTooltip"
+    :class="['icon-button-v-tooltip', disabled ? 'disabled-tooltip' : '']"
   >
     <template v-slot:activator="{ props }: { props: Record<string,any> }">
       <div
@@ -19,6 +20,7 @@
         @touchend="handleTouchEnd"
         :style="cssVars"
         tabindex="0"
+        :aria-disabled="disabled"
       >
         <slot name="button">
           <font-awesome-icon
@@ -64,7 +66,8 @@ const props = withDefaults(defineProps<IconButtonProps>(), {
   tooltipOffset: 0,
   showTooltip: true,
   faSize: "lg",
-  mdSize: "1.25em"
+  mdSize: "1.25em",
+  disabled: false,
 });
 
 const emit = defineEmits<{
@@ -107,6 +110,9 @@ function updateValue() {
 }
 
 function handleAction() {
+  if (props.disabled) {
+    return;
+  }
   updateValue();
   emit('activate');
 }
@@ -151,6 +157,18 @@ function handleTouchEnd() {
   &.active {
     color: var(--active-color);
     border-color: var(--active-color);
+  }
+  
+  &[aria-disabled="true"]:hover {
+    cursor: not-allowed;
+  }
+}
+
+.icon-button-v-tooltip {
+  
+  &.disabled-tooltip .v-overlay__content {
+    color: rgb(156, 156, 156); // fallback grey color for disabled state
+    color: color-mix(in hsl, currentColor, rgb(var(--v-theme-on-surface-variant)) 80%);
   }
 }
 </style>
