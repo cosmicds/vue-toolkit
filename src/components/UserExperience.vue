@@ -94,7 +94,7 @@ import {
   faFaceFrown,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { VCard, VExpandTransition, VTextarea } from "vuetify/components";
+import { VTextarea, VExpandTransition, VCard, VForm, VSpacer, VCardText, VBtn, VHover } from "vuetify/components";
 
 const { current: currentTheme } = useTheme();
 
