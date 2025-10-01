@@ -7,6 +7,7 @@ import { usePlaybackControl } from "./composables/playbackControl";
 import { useWindowShape, WindowShape } from "./composables/windowShape";
 import { useWWTKeyboardControls } from "./composables/wwtKeyboard";
 
+import AttentionHook from "./components/AttentionHook.vue";
 import CreditLogos from "./components/CreditLogos.vue";
 import DateTimePicker from "./components/DateTimePicker.vue";
 import FolderView from "./components/FolderView.vue";
@@ -20,6 +21,7 @@ import PlaybackControl from "./components/PlaybackControl.vue";
 import ShareButton from "./components/ShareButton.vue";
 import SpeedControl from "./components/SpeedControl.vue";
 import TapToInput from "./components/TapToInput.vue";
+import UserExperience from "./components/UserExperience.vue";
 import WwtHud from "./components/WwtHud.vue";
 
 export {
@@ -37,6 +39,7 @@ export {
   useWindowShape,
   useWWTKeyboardControls,
 
+  AttentionHook,
   CreditLogos,
   DateTimePicker,
   FolderView,
@@ -50,6 +53,7 @@ export {
   ShareButton,
   SpeedControl,
   TapToInput,
+  UserExperience,
   WwtHud,
 };
 

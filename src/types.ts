@@ -401,6 +401,23 @@ export interface ShareButtonProps {
   ariaLabel?: string;
 }
 
+export interface UserExperienceProps {
+  /** Whether or not we want to ask for comments */
+  askForComments?: boolean;
+  /** The question to ask the user */
+  question?: string;
+  /** Placeholder text to use for comments */
+  commentPlaceholder?: string;
+  /** The base color to use for icons. Can be ignored if not using default slot content. */
+  baseColor?: string;
+  /** The colors to use for hovered/selected rating icons. Can be ignored if not using default slot content. */
+  ratingColors?: string[];
+  /** The size to use for icons. Can be ignored if not using default slot content. */
+  iconSize?: string;
+  /** The color of the component card */
+  color?: string;
+}
+
 export interface FolderViewProps {
   /** The root folder of the tree to display in the view. One of either this or `rootUrl` must be specified */
   rootFolder?: Folder;
@@ -434,3 +451,4 @@ export interface FolderViewProps {
 }
 
 export type ItemSelectionType = "click" | "dblclick" | "keyup" | "folder";
+
