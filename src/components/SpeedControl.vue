@@ -75,7 +75,7 @@
 
       <icon-button 
         id="reset"
-        :fa-icon="'rotate'"
+        fa-icon="house"
         fa-size="1x"
         @activate="
           () => {
@@ -202,7 +202,7 @@ import { computed, ref, watch } from 'vue';
 import { useDisplay } from 'vuetify';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlay, faPause, faAnglesDown, faAnglesUp, faRotate, faTimes, faGaugeHigh } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPause, faAnglesDown, faAnglesUp, faHouse, faTimes, faGaugeHigh } from "@fortawesome/free-solid-svg-icons";
 
 import { usePlaybackControl } from "../composables/playbackControl";
 import { supportsTouchscreen } from "../utils";
@@ -217,9 +217,9 @@ import '@mdi/font/css/materialdesignicons.css';
 library.add(faAnglesDown);
 library.add(faAnglesUp);
 library.add(faGaugeHigh);
+library.add(faHouse);
 library.add(faPause);
 library.add(faPlay);
-library.add(faRotate);
 library.add(faTimes);
 
 const props = withDefaults(defineProps<SpeedControlProps>(), {
