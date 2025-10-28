@@ -303,6 +303,14 @@ export interface PlaybackControlProps {
   hidePlayButton?: boolean;
 }
 
+export type SpeedControlAction = 
+  "reverse" |
+  "playPause" |
+  "slowDown" |
+  "speedUp" |
+  "reset" |
+  "moreControls";
+
 /** Interface describing props for the speed control component */
 export interface SpeedControlProps {
   /** The WWT engine store to use for the HUD. Required */
@@ -323,6 +331,10 @@ export interface SpeedControlProps {
   rateDelta?: number;
   /** Whether or not to display the additional speed controls */
   hideMoreControls?: boolean;
+  /** The icons to use for the control buttons */
+  icons?: Record<SpeedControlAction, string>;
+  /** Whether certain control buttons should be disabled */
+  disabled?: Record<SpeedControlAction, boolean>;
 }
 
 /** An async function taking an input string and returning a collection of MapBox Features */

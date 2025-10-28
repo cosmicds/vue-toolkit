@@ -6,13 +6,14 @@
           reverseRate();
           emit('update:reverse', playbackRate < 0);
         }"
+        :disabled="disabled?.reverse"
         :md-icon="playbackRate < 0 ? 'mdi-step-forward-2' : 'mdi-step-backward-2'"
         :color="color"
         :focus-color="color"
         :tooltip-text="playbackRate < 0 ? 'Play time forward' : 'Play time backwards'"
         tooltip-location="top"
         tooltip-offset="5px"
-        :show-tooltip="!mobile"
+        :show-tooltip="!(mobile || disabled?.reverse)"
         md-size="18"
       >
       </icon-button>
@@ -27,12 +28,13 @@
             emit('update:modelValue', timePlaying);
           }
         "
+        :disabled="disabled?.playPause"
         :color="color"
         :focus-color="color"
         tooltip-text="Play/Pause"
         tooltip-location="top"
         tooltip-offset="5px"
-        :show-tooltip="!mobile"
+        :show-tooltip="!(mobile || disabled?.playPause)"
       ></icon-button>
       
       <icon-button 
@@ -46,12 +48,13 @@
             emit('slow-down', playbackRate);
           }
         "
+        :disabled="disabled?.slowDown"
         :color="color"
         :focus-color="color"
         :tooltip-text="`Slow down ${rateDelta}x`"
         tooltip-location="top"
         tooltip-offset="5px"
-        :show-tooltip="!mobile"
+        :show-tooltip="!(mobile || disabled?.slowDown)"
       ></icon-button>
       
       <icon-button 
@@ -65,17 +68,18 @@
             emit('speed-up', playbackRate);
           }
         "
+        :disabled="disabled?.speedUp"
         :color="color"
         :focus-color="color"
         :tooltip-text="`Speed up ${rateDelta}x`"
         tooltip-location="top"
         tooltip-offset="5px"
-        :show-tooltip="!mobile"
+        :show-tooltip="!(mobile || disabled?.speedUp)"
       ></icon-button>
 
       <icon-button 
         id="reset"
-        fa-icon="house"
+        :fa-icon="resetIcon"
         fa-size="1x"
         @activate="
           () => {
@@ -85,12 +89,13 @@
             emit('reset');
           }
         "
+        :disabled="disabled?.reset"
         :color="color"
         :focus-color="color"
         tooltip-text="Reset"
         tooltip-location="top"
         tooltip-offset="5px"
-        :show-tooltip="!mobile"
+        :show-tooltip="!(mobile || disabled?.reset)"
       ></icon-button>
 
       <v-dialog
@@ -112,6 +117,7 @@
                 playbackVisible = !playbackVisible;
               }
             "
+            :disabled="disabled?.moreControls"
             :fa-icon="playbackVisible ? 'times' : 'gauge-high'"
             fa-size="1x"
             :color="color"
@@ -119,7 +125,7 @@
             tooltip-text="More Speed Controls"
             tooltip-location="top"
             tooltip-offset="5px"
-            :show-tooltip="!mobile"
+            :show-tooltip="!(mobile || disabled?.moreControls)"
           ></icon-button>
         </template>
         <playback-control
@@ -231,6 +237,7 @@ const props = withDefaults(defineProps<SpeedControlProps>(), {
   useInline: false,
   modelValue: false,
   hideMoreControls: false,
+  resetIcon: "house",
 });
 
 const minSpeed = 1;
