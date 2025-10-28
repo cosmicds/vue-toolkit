@@ -20,7 +20,7 @@
       
       <icon-button 
         id="play-pause-icon"
-        :fa-icon="!timePlaying ? 'play' : 'pause'"
+        :fa-icon="timePlaying ? (icons?.pause ?? 'pause') : (icons?.play ?? 'play')"
         fa-size="1x"
         @activate="
           () => {
@@ -39,7 +39,7 @@
       
       <icon-button 
         id="slow-down"
-        :fa-icon="'angles-down'"
+        :fa-icon="icons?.slowDown ?? 'angles-down'"
         fa-size="1x"
         @activate="
           () => {
@@ -59,7 +59,7 @@
       
       <icon-button 
         id="speed-up"
-        :fa-icon="'angles-up'"
+        :fa-icon="icons?.speedUp ?? 'angles-up'"
         fa-size="1x"
         @activate="
           () => {
@@ -79,7 +79,7 @@
 
       <icon-button 
         id="reset"
-        :fa-icon="resetIcon"
+        :fa-icon="icons?.reset ?? 'house'"
         fa-size="1x"
         @activate="
           () => {
@@ -237,7 +237,6 @@ const props = withDefaults(defineProps<SpeedControlProps>(), {
   useInline: false,
   modelValue: false,
   hideMoreControls: false,
-  resetIcon: "house",
 });
 
 const minSpeed = 1;

@@ -311,6 +311,8 @@ export type SpeedControlAction =
   "reset" |
   "moreControls";
 
+export type SpeedControlIcon = Exclude<SpeedControlAction, "playPause"> | "play" | "pause";
+
 /** Interface describing props for the speed control component */
 export interface SpeedControlProps {
   /** The WWT engine store to use for the HUD. Required */
@@ -332,7 +334,7 @@ export interface SpeedControlProps {
   /** Whether or not to display the additional speed controls */
   hideMoreControls?: boolean;
   /** The icons to use for the control buttons */
-  icons?: Record<SpeedControlAction, string>;
+  icons?: Record<SpeedControlIcon, string>;
   /** Whether certain control buttons should be disabled */
   disabled?: Record<SpeedControlAction, boolean>;
 }
