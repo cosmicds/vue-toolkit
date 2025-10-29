@@ -130,7 +130,7 @@ export type FontAwesomeSizeType = FontAwesomeIconProps["size"];
 export interface IconButtonProps {
   /** Whether or not the icon button is active. Only makes sense in cases where one wants the button to have an on/off state */
   modelValue?: boolean;
-  /** The name of the FontAwesome or MDI icon to use. */
+  /** The name of the FontAwesome or MDI icon to use. MDI icons should be specified with their `mdi-` prefix */
   icon: string;
   /** The primary color of the button. Sets the icon and border colors. Default is white */
   color?: string;
@@ -273,6 +273,9 @@ export interface WwtHUDProps {
   store: WWTEngineStore;
 }
 
+export type PlaybackControlAction = "reverse" | "playPause" | "slider";
+export type PlaybackControlIcon = "play" | "pause" | "playForward" | "playBackward";
+
 /** Interface describing props for the playback control component */
 export interface PlaybackControlProps {
   /** The WWT playback rate */
@@ -297,6 +300,10 @@ export interface PlaybackControlProps {
   showCloseButton?: boolean;
   /** Whether to hide the play button */
   hidePlayButton?: boolean;
+  /** The icons to use for the control buttons */
+  icons?: Record<PlaybackControlIcon, string>;
+  /** Whether certain control buttons should be disabled */
+  disabled?: Record<PlaybackControlAction, boolean>;
 }
 
 export type SpeedControlAction = 
@@ -331,9 +338,9 @@ export interface SpeedControlProps {
   /** Whether or not to display the additional speed controls */
   hideMoreControls?: boolean;
   /** The icons to use for the control buttons */
-  icons?: Record<SpeedControlIcon, string>;
+  icons?: Record<SpeedControlIcon | PlaybackControlIcon, string>;
   /** Whether certain control buttons should be disabled */
-  disabled?: Record<SpeedControlAction, boolean>;
+  disabled?: Record<SpeedControlAction | PlaybackControlAction, boolean>;
 }
 
 /** An async function taking an input string and returning a collection of MapBox Features */

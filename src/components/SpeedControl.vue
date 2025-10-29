@@ -142,6 +142,8 @@
             timePlaying = !$event;
             emit('update:modelValue', !$event);
           "
+          :disabled="disabled"
+          :icons="icons"
           :max-power="Math.log10(maxSpeed)"
           :max="Math.log10(maxSpeed) + 1"
           :color="color"
@@ -182,6 +184,8 @@
             playbackRate = $event;
             emit('set-rate', $event);
           "
+          :disabled="disabled"
+          :icons="icons"
           :paused="!timePlaying"
           @paused="timePlaying = !$event"
           :max-power="Math.log10(maxSpeed)"
