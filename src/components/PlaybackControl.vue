@@ -8,7 +8,7 @@
     
     <div v-if="!inline || inlineButton && !hidePlayButton" id="playback-play-pause-button">
       <icon-button
-        :md-icon="isPaused ? 'mdi-play' : 'mdi-pause'"
+        :icon="isPaused ? 'mdi-play' : 'mdi-pause'"
         @activate="isPaused = !isPaused"
         :color="color"
         :focus-color="color"
@@ -21,7 +21,7 @@
       <div v-if="!inline || inlineButton" id="playback-reverse-time">
         <icon-button
           @activate="reverseTime = !reverseTime"
-          :md-icon="reverseTime ? 'mdi-step-forward-2' : 'mdi-step-backward-2'"
+          :icon="reverseTime ? 'mdi-step-forward-2' : 'mdi-step-backward-2'"
           :color="color"
           :focus-color="color"
           tooltip-text="Forward/Reverse"

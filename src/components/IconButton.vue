@@ -30,7 +30,7 @@
             :class="['fa-icon', icon]"
           ></font-awesome-icon>
           <v-icon
-            v-if="icon"
+            v-else
             :size="size"
             :class="['md-icon', icon]"
           >{{ icon }}

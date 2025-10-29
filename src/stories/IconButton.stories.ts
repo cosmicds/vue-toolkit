@@ -35,8 +35,7 @@ export const Primary: Story = {
   ],
   args: {
     modelValue: false,
-    faIcon: "book-open",
-    mdIcon: null,
+    icon: "book-open",
     color: "white",
     focusColor: "red",
     activeColor: "green",
@@ -49,8 +48,7 @@ export const Primary: Story = {
     tooltipOnFocus: false,
     tooltipOnHover: true,
     showTooltip: true,
-    faSize: "lg",
-    mdSize: "100px",
+    size: "lg",
     disabled: false,
   }
 };
