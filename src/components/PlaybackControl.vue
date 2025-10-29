@@ -244,6 +244,10 @@ function options(value: number): { style: { left: string } } {
     border: 1px solid var(--color);
     background-color: black;
     color: var(--color);
+
+    &:hover {
+      cursor: pointer;
+    }
   }
     
   // #playback-close-button {
