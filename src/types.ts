@@ -124,16 +124,14 @@ export interface GeolocationButtonProps {
   */ 
 export type FontAwesomeIconProps = InstanceType<typeof FontAwesomeIcon>["$props"];
 /** A type describing the size options for a FontAwesome icon */
-export type SizeType = FontAwesomeIconProps["size"];
+export type FontAwesomeSizeType = FontAwesomeIconProps["size"];
 
 /** An interface describing props for the icon button */
 export interface IconButtonProps {
   /** Whether or not the icon button is active. Only makes sense in cases where one wants the button to have an on/off state */
   modelValue?: boolean;
-  /** The name of the FontAwesome icon to use. It's assumed that only one of this and `mdIcon` will be used */
-  faIcon?: string;
-  /** The name of the MID icon to use. It's assumed that only one of this and `faIcon` will be used */
-  mdIcon?: string;
+  /** The name of the FontAwesome or MDI icon to use. */
+  icon: string;
   /** The primary color of the button. Sets the icon and border colors. Default is white */
   color?: string;
   /** The color of the button when focused. Default is white */
@@ -160,10 +158,8 @@ export interface IconButtonProps {
   tooltipOffset?: string | number;
   /** Whether to show the tooltip when appropriate. Default is true */
   showTooltip?: boolean;
-  /** The size of the FontAwesome icon */
-  faSize?: SizeType;
-  /** The size of the MDI icon. Should be a valid CSS size */
-  mdSize?: string;
+  /** The size of the icon */
+  size?: string;
   /** Disable the button and prevent actions from running: Default is false */
   disabled?: boolean;
 }
@@ -311,7 +307,8 @@ export type SpeedControlAction =
   "reset" |
   "moreControls";
 
-export type SpeedControlIcon = Exclude<SpeedControlAction, "playPause"> | "play" | "pause";
+export type SpeedControlIcon = Exclude<SpeedControlAction, "playPause" | "reverse">
+  | "play" | "pause" | "playForward" | "playBackward";
 
 /** Interface describing props for the speed control component */
 export interface SpeedControlProps {

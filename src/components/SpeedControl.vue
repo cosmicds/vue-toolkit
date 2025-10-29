@@ -7,21 +7,21 @@
           emit('update:reverse', playbackRate < 0);
         }"
         :disabled="disabled?.reverse"
-        :md-icon="playbackRate < 0 ? 'mdi-step-forward-2' : 'mdi-step-backward-2'"
+        :icon="playbackRate < 0 ? (icons?.playForward ?? 'mdi-step-forward-2') : (icons?.playBackward ?? 'mdi-step-backward-2')"
         :color="color"
         :focus-color="color"
         :tooltip-text="playbackRate < 0 ? 'Play time forward' : 'Play time backwards'"
         tooltip-location="top"
         tooltip-offset="5px"
         :show-tooltip="!(mobile || disabled?.reverse)"
-        md-size="18"
+        size="18"
       >
       </icon-button>
       
       <icon-button 
         id="play-pause-icon"
-        :fa-icon="timePlaying ? (icons?.pause ?? 'pause') : (icons?.play ?? 'play')"
-        fa-size="1x"
+        :icon="timePlaying ? (icons?.pause ?? 'pause') : (icons?.play ?? 'play')"
+        size="1x"
         @activate="
           () => {
             timePlaying = !timePlaying;
@@ -39,8 +39,8 @@
       
       <icon-button 
         id="slow-down"
-        :fa-icon="icons?.slowDown ?? 'angles-down'"
-        fa-size="1x"
+        :icon="icons?.slowDown ?? 'angles-down'"
+        size="1x"
         @activate="
           () => {
             decreaseRate();
@@ -59,8 +59,8 @@
       
       <icon-button 
         id="speed-up"
-        :fa-icon="icons?.speedUp ?? 'angles-up'"
-        fa-size="1x"
+        :icon="icons?.speedUp ?? 'angles-up'"
+        size="1x"
         @activate="
           () => {
             increaseRate();
@@ -79,8 +79,8 @@
 
       <icon-button 
         id="reset"
-        :fa-icon="icons?.reset ?? 'house'"
-        fa-size="1x"
+        :icon="icons?.reset ?? 'house'"
+        size="1x"
         @activate="
           () => {
             playbackRate = defaultRate;
@@ -118,8 +118,8 @@
               }
             "
             :disabled="disabled?.moreControls"
-            :fa-icon="playbackVisible ? 'times' : (icons?.moreControls ?? 'gauge-high')"
-            fa-size="1x"
+            :icon="playbackVisible ? 'times' : (icons?.moreControls ?? 'gauge-high')"
+            size="1x"
             :color="color"
             :focus-color="color"
             tooltip-text="More Speed Controls"
@@ -163,13 +163,13 @@
               allowClickOutside = false; // prevent onClickOutside from hiding it.
             }
           "
-          :fa-icon="playbackVisible ? 'times' : 'gauge-high'"
+          :icon="playbackVisible ? 'times' : 'gauge-high'"
           :color="color"
           :focus-color="color"
           tooltip-text="Time Controls"
           tooltip-location="top"
           tooltip-offset="5px"
-          faSize="1x"
+          size="1x"
           :show-tooltip="!mobile"
         ></icon-button>
 
