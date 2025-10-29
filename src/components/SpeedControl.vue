@@ -118,7 +118,7 @@
               }
             "
             :disabled="disabled?.moreControls"
-            :fa-icon="playbackVisible ? 'times' : 'gauge-high'"
+            :fa-icon="playbackVisible ? 'times' : (icons?.moreControls ?? 'gauge-high')"
             fa-size="1x"
             :color="color"
             :focus-color="color"
