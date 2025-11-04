@@ -24,16 +24,16 @@
       >
         <slot name="button">
           <font-awesome-icon
-            v-if="faIcon"
-            :icon="faIcon"
-            :size="faSize"
-            :class="['fa-icon', faIcon]"
+            v-if="iconType === 'fa'"
+            :icon="icon"
+            :size="size"
+            :class="['fa-icon', icon]"
           ></font-awesome-icon>
           <v-icon
-            v-if="mdIcon"
-            :size="mdSize"
-            :class="['md-icon', mdIcon]"
-          >{{ `mdi-${mdIcon}` }}
+            v-else
+            :size="size"
+            :class="['md-icon', icon]"
+          >{{ icon }}
         </v-icon>
         </slot>
       </div>
@@ -65,10 +65,9 @@ const props = withDefaults(defineProps<IconButtonProps>(), {
   tooltipOnHover: true,
   tooltipOffset: 0,
   showTooltip: true,
-  faSize: "lg",
-  mdSize: "1.25em",
   disabled: false,
 });
+console.log(props);
 
 const emit = defineEmits<{
   /** Fired whenever the modelValue of the button changes. If no modelValue is assigned, this will not fire */
@@ -81,6 +80,8 @@ defineSlots<{
   /** Allows configuration of the button content, which by default is simply the button icon */
   button(): VNode[];
 }>();
+
+const iconType = computed(() => props.icon.startsWith("mdi-") ? "mdi" : "fa");
 
 
 type TimeoutType = ReturnType<typeof setTimeout>;

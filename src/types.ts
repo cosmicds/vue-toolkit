@@ -124,16 +124,14 @@ export interface GeolocationButtonProps {
   */ 
 export type FontAwesomeIconProps = InstanceType<typeof FontAwesomeIcon>["$props"];
 /** A type describing the size options for a FontAwesome icon */
-export type SizeType = FontAwesomeIconProps["size"];
+export type FontAwesomeSizeType = FontAwesomeIconProps["size"];
 
 /** An interface describing props for the icon button */
 export interface IconButtonProps {
   /** Whether or not the icon button is active. Only makes sense in cases where one wants the button to have an on/off state */
   modelValue?: boolean;
-  /** The name of the FontAwesome icon to use. It's assumed that only one of this and `mdIcon` will be used */
-  faIcon?: string;
-  /** The name of the MID icon to use. It's assumed that only one of this and `faIcon` will be used */
-  mdIcon?: string;
+  /** The name of the FontAwesome or MDI icon to use. MDI icons should be specified with their `mdi-` prefix */
+  icon: string;
   /** The primary color of the button. Sets the icon and border colors. Default is white */
   color?: string;
   /** The color of the button when focused. Default is white */
@@ -160,10 +158,8 @@ export interface IconButtonProps {
   tooltipOffset?: string | number;
   /** Whether to show the tooltip when appropriate. Default is true */
   showTooltip?: boolean;
-  /** The size of the FontAwesome icon */
-  faSize?: SizeType;
-  /** The size of the MDI icon. Should be a valid CSS size */
-  mdSize?: string;
+  /** The size of the icon */
+  size?: string;
   /** Disable the button and prevent actions from running: Default is false */
   disabled?: boolean;
 }
@@ -277,6 +273,9 @@ export interface WwtHUDProps {
   store: WWTEngineStore;
 }
 
+export type PlaybackControlAction = "reverse" | "playPause" | "slider";
+export type PlaybackControlIcon = "play" | "pause" | "playForward" | "playBackward";
+
 /** Interface describing props for the playback control component */
 export interface PlaybackControlProps {
   /** The WWT playback rate */
@@ -301,7 +300,22 @@ export interface PlaybackControlProps {
   showCloseButton?: boolean;
   /** Whether to hide the play button */
   hidePlayButton?: boolean;
+  /** The icons to use for the control buttons */
+  icons?: Record<PlaybackControlIcon, string>;
+  /** Whether certain control buttons should be disabled */
+  disabled?: Record<PlaybackControlAction, boolean>;
 }
+
+export type SpeedControlAction = 
+  "reverse" |
+  "playPause" |
+  "slowDown" |
+  "speedUp" |
+  "reset" |
+  "moreControls";
+
+export type SpeedControlIcon = Exclude<SpeedControlAction, "playPause" | "reverse">
+  | "play" | "pause" | "playForward" | "playBackward";
 
 /** Interface describing props for the speed control component */
 export interface SpeedControlProps {
@@ -323,6 +337,10 @@ export interface SpeedControlProps {
   rateDelta?: number;
   /** Whether or not to display the additional speed controls */
   hideMoreControls?: boolean;
+  /** The icons to use for the control buttons */
+  icons?: Record<SpeedControlIcon | PlaybackControlIcon, string>;
+  /** Whether certain control buttons should be disabled */
+  disabled?: Record<SpeedControlAction | PlaybackControlAction, boolean>;
 }
 
 /** An async function taking an input string and returning a collection of MapBox Features */

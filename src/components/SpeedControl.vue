@@ -6,39 +6,41 @@
           reverseRate();
           emit('update:reverse', playbackRate < 0);
         }"
-        :md-icon="playbackRate < 0 ? 'mdi-step-forward-2' : 'mdi-step-backward-2'"
+        :disabled="disabled?.reverse"
+        :icon="playbackRate < 0 ? (icons?.playForward ?? 'mdi-step-forward-2') : (icons?.playBackward ?? 'mdi-step-backward-2')"
         :color="color"
         :focus-color="color"
         :tooltip-text="playbackRate < 0 ? 'Play time forward' : 'Play time backwards'"
         tooltip-location="top"
         tooltip-offset="5px"
-        :show-tooltip="!mobile"
-        md-size="18"
+        :show-tooltip="!(mobile || disabled?.reverse)"
+        size="18"
       >
       </icon-button>
       
       <icon-button 
         id="play-pause-icon"
-        :fa-icon="!timePlaying ? 'play' : 'pause'"
-        fa-size="1x"
+        :icon="timePlaying ? (icons?.pause ?? 'pause') : (icons?.play ?? 'play')"
+        size="1x"
         @activate="
           () => {
             timePlaying = !timePlaying;
             emit('update:modelValue', timePlaying);
           }
         "
+        :disabled="disabled?.playPause"
         :color="color"
         :focus-color="color"
         tooltip-text="Play/Pause"
         tooltip-location="top"
         tooltip-offset="5px"
-        :show-tooltip="!mobile"
+        :show-tooltip="!(mobile || disabled?.playPause)"
       ></icon-button>
       
       <icon-button 
         id="slow-down"
-        :fa-icon="'angles-down'"
-        fa-size="1x"
+        :icon="icons?.slowDown ?? 'angles-down'"
+        size="1x"
         @activate="
           () => {
             decreaseRate();
@@ -46,18 +48,19 @@
             emit('slow-down', playbackRate);
           }
         "
+        :disabled="disabled?.slowDown"
         :color="color"
         :focus-color="color"
         :tooltip-text="`Slow down ${rateDelta}x`"
         tooltip-location="top"
         tooltip-offset="5px"
-        :show-tooltip="!mobile"
+        :show-tooltip="!(mobile || disabled?.slowDown)"
       ></icon-button>
       
       <icon-button 
         id="speed-up"
-        :fa-icon="'angles-up'"
-        fa-size="1x"
+        :icon="icons?.speedUp ?? 'angles-up'"
+        size="1x"
         @activate="
           () => {
             increaseRate();
@@ -65,18 +68,19 @@
             emit('speed-up', playbackRate);
           }
         "
+        :disabled="disabled?.speedUp"
         :color="color"
         :focus-color="color"
         :tooltip-text="`Speed up ${rateDelta}x`"
         tooltip-location="top"
         tooltip-offset="5px"
-        :show-tooltip="!mobile"
+        :show-tooltip="!(mobile || disabled?.speedUp)"
       ></icon-button>
 
       <icon-button 
         id="reset"
-        :fa-icon="'rotate'"
-        fa-size="1x"
+        :icon="icons?.reset ?? 'house'"
+        size="1x"
         @activate="
           () => {
             playbackRate = defaultRate;
@@ -85,12 +89,13 @@
             emit('reset');
           }
         "
+        :disabled="disabled?.reset"
         :color="color"
         :focus-color="color"
         tooltip-text="Reset"
         tooltip-location="top"
         tooltip-offset="5px"
-        :show-tooltip="!mobile"
+        :show-tooltip="!(mobile || disabled?.reset)"
       ></icon-button>
 
       <v-dialog
@@ -112,14 +117,15 @@
                 playbackVisible = !playbackVisible;
               }
             "
-            :fa-icon="playbackVisible ? 'times' : 'gauge-high'"
-            fa-size="1x"
+            :disabled="disabled?.moreControls"
+            :icon="playbackVisible ? 'times' : (icons?.moreControls ?? 'gauge-high')"
+            size="1x"
             :color="color"
             :focus-color="color"
             tooltip-text="More Speed Controls"
             tooltip-location="top"
             tooltip-offset="5px"
-            :show-tooltip="!mobile"
+            :show-tooltip="!(mobile || disabled?.moreControls)"
           ></icon-button>
         </template>
         <playback-control
@@ -136,6 +142,8 @@
             timePlaying = !$event;
             emit('update:modelValue', !$event);
           "
+          :disabled="disabled"
+          :icons="icons"
           :max-power="Math.log10(maxSpeed)"
           :max="Math.log10(maxSpeed) + 1"
           :color="color"
@@ -157,13 +165,13 @@
               allowClickOutside = false; // prevent onClickOutside from hiding it.
             }
           "
-          :fa-icon="playbackVisible ? 'times' : 'gauge-high'"
+          :icon="playbackVisible ? 'times' : 'gauge-high'"
           :color="color"
           :focus-color="color"
           tooltip-text="Time Controls"
           tooltip-location="top"
           tooltip-offset="5px"
-          faSize="1x"
+          size="1x"
           :show-tooltip="!mobile"
         ></icon-button>
 
@@ -176,6 +184,8 @@
             playbackRate = $event;
             emit('set-rate', $event);
           "
+          :disabled="disabled"
+          :icons="icons"
           :paused="!timePlaying"
           @paused="timePlaying = !$event"
           :max-power="Math.log10(maxSpeed)"
@@ -202,7 +212,7 @@ import { computed, ref, watch } from 'vue';
 import { useDisplay } from 'vuetify';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlay, faPause, faAnglesDown, faAnglesUp, faRotate, faTimes, faGaugeHigh } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPause, faAnglesDown, faAnglesUp, faHouse, faTimes, faGaugeHigh } from "@fortawesome/free-solid-svg-icons";
 
 import { usePlaybackControl } from "../composables/playbackControl";
 import { supportsTouchscreen } from "../utils";
@@ -217,9 +227,9 @@ import '@mdi/font/css/materialdesignicons.css';
 library.add(faAnglesDown);
 library.add(faAnglesUp);
 library.add(faGaugeHigh);
+library.add(faHouse);
 library.add(faPause);
 library.add(faPlay);
-library.add(faRotate);
 library.add(faTimes);
 
 const props = withDefaults(defineProps<SpeedControlProps>(), {

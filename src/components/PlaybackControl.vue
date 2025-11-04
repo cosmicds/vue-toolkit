@@ -8,26 +8,28 @@
     
     <div v-if="!inline || inlineButton && !hidePlayButton" id="playback-play-pause-button">
       <icon-button
-        :md-icon="isPaused ? 'mdi-play' : 'mdi-pause'"
+        :icon="isPaused ? (icons?.play ?? 'mdi-play') : (icons?.pause ?? 'mdi-pause')"
         @activate="isPaused = !isPaused"
         :color="color"
         :focus-color="color"
+        :disabled="disabled?.playPause"
         tooltip-text="Play/Pause"
         tooltip-location="top"
         tooltip-offset="5px"
-        md-size="18"
+        size="18"
       ></icon-button>
 
       <div v-if="!inline || inlineButton" id="playback-reverse-time">
         <icon-button
           @activate="reverseTime = !reverseTime"
-          :md-icon="reverseTime ? 'mdi-step-forward-2' : 'mdi-step-backward-2'"
+          :icon="reverseTime ? (icons?.playForward ?? 'mdi-step-forward-2') : (icons?.playBackward ?? 'mdi-step-backward-2')"
           :color="color"
           :focus-color="color"
+          :disabled="disabled?.reverse"
           tooltip-text="Forward/Reverse"
           tooltip-location="top"
           tooltip-offset="5px"
-          md-size="18"
+          size="18"
         >
         </icon-button>
         <span id="reverse-button-text">{{ reverseTime ? 'Forward' : 'Reverse' }}</span>
@@ -49,6 +51,7 @@
         :max="max ?? index[index.length - 1]"
         :min="min ?? index[0]"
         :thumb-size="16"
+        :disabled="disabled?.slider"
         color="white"
         track-color="white"
         track-fill-color="white"
@@ -244,6 +247,10 @@ function options(value: number): { style: { left: string } } {
     border: 1px solid var(--color);
     background-color: black;
     color: var(--color);
+
+    &:hover {
+      cursor: pointer;
+    }
   }
     
   // #playback-close-button {
