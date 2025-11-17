@@ -1,5 +1,6 @@
 <template>
   <v-card
+    id="cds-user-experience"
     class="rating-root"
     :color="color"
     :style="css"
@@ -152,70 +153,73 @@ watch(currentRating, (rating: UserExperienceRating | null) => {
 </script>
 
 <style lang="less">
-.rating-root {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  padding: 5px;
-}
 
-.rating-icon-row {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  padding: 20px;
-  justify-content: center;
-}
-
-.rating {
-  transition: color 0.1s;
-}
-
-.selected {
-  border-radius: 50%;
-  box-shadow: 0 0 0 5px silver;
-}
-
-.rating-notification {
-  border-radius: 5px;
-  font-size: calc(1.1 * var(--default-font-size));
-  padding: 1em;
-  color: white;
-
-  &.success {
-    background-color: #9a009a;
+#cds-user-experience {
+  .rating-root {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 5px;
   }
-  &.error {
-    background-color: #b30000;
+
+  .rating-icon-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 20px;
+    justify-content: center;
   }
-}
 
-.comments-box {
-  width: 75%;
-}
+  .rating {
+    transition: color 0.1s;
+  }
 
-.v-card-actions {
-  display: var(--footer-visible);
-}
+  .selected {
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px silver;
+  }
 
-.close-button {
-  display: inline;
-}
+  .rating-notification {
+    border-radius: 5px;
+    font-size: calc(1.1 * var(--default-font-size));
+    padding: 1em;
+    color: white;
 
-.rating-title {
-  width: 100%;
-  text-align: center;
-}
+    &.success {
+      background-color: #9a009a;
+    }
+    &.error {
+      background-color: #b30000;
+    }
+  }
 
-.close-button {
-  position: absolute !important;
-  top: 5px;
-  right: 5px;
-}
+  .comments-box {
+    width: 75%;
+  }
 
-.rating-title {
-  padding: 5px 10px;
+  .v-card-actions {
+    display: var(--footer-visible);
+  }
+
+  .close-button {
+    display: inline;
+  }
+
+  .rating-title {
+    width: 100%;
+    text-align: center;
+  }
+
+  .close-button {
+    position: absolute !important;
+    top: 5px;
+    right: 5px;
+  }
+
+  .rating-title {
+    padding: 5px 10px;
+  }
 }
 </style>
 
