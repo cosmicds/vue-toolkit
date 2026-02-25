@@ -39,8 +39,8 @@ export function blurActiveElement() {
   * Filter an array in place (as opposed to .filter, which creates a new array).
   * Modified from https://stackoverflow.com/a/37319954
   *
-  * @param array - The array to filter
-  * @param condition - The filtering condition. Elements for which this returns true are retained
+  * @param array The array to filter
+  * @param condition The filtering condition. Elements for which this returns true are retained
   * @template T
   */
 export function filterInPlace<T>(array: T[], condition: (t: T) => boolean) {
@@ -55,6 +55,19 @@ export function filterInPlace<T>(array: T[], condition: (t: T) => boolean) {
   }
 
   array.length = j;
+}
+
+/**
+  * Determine whether a given WebGL major version is supported.
+  *
+  * @param version The WebGL major version
+  * @returns Whether the specified WebGL version is enabled on the current browser
+  */
+export function isWebGLEnabled(version: 1 | 2 = 2): boolean {
+  const canvas = document.createElement("canvas");
+  const contextType = version == 1 ? "webgl" : "webgl2";
+  const context = canvas.getContext(contextType);
+  return context instanceof (version == 1 ? WebGLRenderingContext : WebGL2RenderingContext);
 }
 
 export type UserExperienceRating = "very_bad" | "poor" | "good" | "excellent";
