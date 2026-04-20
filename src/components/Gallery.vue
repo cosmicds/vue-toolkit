@@ -107,7 +107,6 @@ defineSlots<{
   closed(props: GalleryProps): VNode[];
 }>();
 
-const store = engineStore();
 const open = ref(false);
 let places = reactive<Place[]>([]);
 const selectedPlace = ref<Place | null>(null);
@@ -123,7 +122,7 @@ const cssVars = computed(() => {
 });
 
 onBeforeMount(() => {
-  store.waitForReady().then(async () => {
+  props.store.waitForReady().then(async () => {
     places = await placesFromWtml(props.wtmlUrl);
   });
 });
@@ -148,7 +147,7 @@ function extractPlaces(folder: Folder): Place[] {
 }
 
 async function placesFromWtml(wtmlUrl: string): Promise<Place[]> {
-  return store.loadImageCollection({
+  return props.store.loadImageCollection({
     url: wtmlUrl,
     loadChildFolders: true
   }).then((folder) => extractPlaces(folder));
