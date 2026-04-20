@@ -149,7 +149,7 @@ async function placesFromWtml(wtmlUrl: string): Promise<Place[]> {
   return props.store.loadImageCollection({
     url: wtmlUrl,
     loadChildFolders: true
-  }).then((folder) => extractPlaces(folder));
+  }).then((folder: Folder) => extractPlaces(folder));
 }
 
 function selectPlace(place: Place) {
