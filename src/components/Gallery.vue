@@ -70,7 +70,6 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed, watch, onBeforeMount, toRaw, type VNode } from "vue";
-import { engineStore } from "@wwtelescope/engine-pinia";
 import { Folder, Imageset, Place } from "@wwtelescope/engine";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
