@@ -24,13 +24,13 @@ export const Primary: Story = {
         <div style="width: 1000px; height: 500px; position: relative;">
           <WwtHud v-bind="args" :store="store" />
           <WWTComponent
-            :wwtNamespace="storybook"
+            wwtNamespace="storybook"
           />
         </div>
       `,
       setup() {
         return { args, store };
-      }
+      },
     };
   },
   args: {

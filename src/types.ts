@@ -73,6 +73,8 @@ export interface GalleryProps {
   previewIndex?: number;
   /** The text to show when the gallery is closed. Default is 'Image Gallery' */
   closedText?: string;
+  /** The WWT engine store to use for the HUD. Required */
+  store: WWTEngineStore;
 }
 
 /* Geolocation button */
