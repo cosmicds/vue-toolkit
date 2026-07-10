@@ -23,5 +23,21 @@ export const Primary: Story = {
     }
   }),
   args: {
+    color: "black",
+    size: "medium",
+    density: "comfortable",
+    elevation: "2",
+    hideButton: false,
+    showTextLabel: false,
+    showCoords: false,
+    showTextProgress: false,
+    showProgressCircle: true,
+    useTextButton: false,
+    progressCircleSize: 12,
+    label: "My Location",
+    id: "geolocation-button",
+    trueIcon: "mdi-crosshairs-gps",
+    falseIcon: "mdi-crosshairs",
+    showPermissions: false,
   }
 };
