@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { Meta, StoryObj } from "@storybook/vue3";
-import { GeolocationButton, GeolocationButtonProps } from "..";
+import { ref } from "vue";
+import { GeolocationButton, GeolocationButtonProps, PositionCoords } from "..";
 
 import "./stories.css";
 
@@ -15,13 +16,36 @@ export default meta;
 type Story = StoryObj<typeof GeolocationButton>;
 
 export const Primary: Story = {
-  render: (args: GeolocationButtonProps) => ({
-    components: { GeolocationButton },
-    template: `<GeolocationButton v-bind="args" />`,
-    setup() {
-      return { args };
-    }
-  }),
+  render: (args: GeolocationButtonProps) => {
+
+    const geolocation = ref<PositionCoords | null>(null);
+    const permission = ref<string | null>(null);
+    return {
+      components: { GeolocationButton },
+      template: `
+        <div style="width: 900px; height: 500px; display: flex; flex-direction: column; gap: 10px;">
+          <div>
+            <GeolocationButton
+              v-bind="args"
+              @permission="perm => permission = perm"
+              @geolocation="location => geolocation = location"
+              @error="error => alert(error)"
+            />
+          </div>
+          <div v-if="permission != null">Permission: {{ permission }}</div>
+          <div v-if="geolocation != null">
+            <p><strong>Location</strong></p>
+            <p>Longitude: {{ geolocation.longitude }}</p>
+            <p>Latitude: {{ geolocation.latitude }}</p>
+            <p>Accuracy: {{ geolocation.accuracy }}</p>
+          </div>
+        </div>
+      `,
+      setup() {
+        return { args, geolocation, permission };
+      }
+    };
+  },
   args: {
     color: "black",
     size: "medium",
