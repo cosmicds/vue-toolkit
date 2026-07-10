@@ -20,6 +20,9 @@ export const Primary: Story = {
 
     const geolocation = ref<PositionCoords | null>(null);
     const permission = ref<string | null>(null);
+    function showError(error: Error) {
+      alert(error.message);
+    }
     return {
       components: { GeolocationButton },
       template: `
@@ -29,7 +32,7 @@ export const Primary: Story = {
               v-bind="args"
               @permission="perm => permission = perm"
               @geolocation="location => geolocation = location"
-              @error="error => alert(error)"
+              @error="showError"
             />
           </div>
           <div v-if="permission != null">Permission: {{ permission }}</div>
@@ -42,7 +45,7 @@ export const Primary: Story = {
         </div>
       `,
       setup() {
-        return { args, geolocation, permission };
+        return { args, geolocation, permission, showError };
       }
     };
   },
