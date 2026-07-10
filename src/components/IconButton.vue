@@ -22,6 +22,7 @@
         tabindex="0"
         :aria-disabled="disabled"
         :aria-label="ariaLabel"
+        :aria-pressed="modelValue != null ? (modelValue ? 'true' : 'false') : null"
         role="button"
       >
         <slot name="button">
