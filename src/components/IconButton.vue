@@ -22,6 +22,7 @@
         tabindex="0"
         :aria-disabled="disabled"
         :aria-label="ariaLabel"
+        role="button"
       >
         <slot name="button">
           <font-awesome-icon
