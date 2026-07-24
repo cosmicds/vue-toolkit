@@ -17,7 +17,7 @@ import {
 } from "@wwtelescope/engine";
 import { Classification, SolarSystemObjects } from "@wwtelescope/engine-types";
 import type { HorizonOptions, SkyEclipseInfo, SkyOptions } from "./types";
-import { D2R, R2D } from "@cosmicds/vue-toolkit";
+import { D2R, R2D, R2H } from "./utils";
 
 export const sunPlace = new Place();
 sunPlace.set_names(["Sun"]);
@@ -54,8 +54,9 @@ export function drawHorizon(renderContext: RenderContext, options?: HorizonOptio
       Coordinates.fromLatLng(0, (i + 1) * delta),
     ];
     points = points.map(point => {
-      const raDecRad = Coordinates.horizonToEquatorial(point, SpaceTimeController.get_location(), now);
-      return Coordinates.raDecTo3d(R2D * raDecRad.raRad / 15, R2D * raDecRad.decRad);
+      const raDecRad = Coordinates.horizonToEquitorial(point, SpaceTimeController.get_location(), now);
+      console.log(raDecRad);
+      return Coordinates.raDecTo3d(R2H * raDecRad.raRad, R2D * raDecRad.decRad);
     });
     triangleList.addSubdividedTriangles(...points, color, new wwtlib.Dates(0, 1), 2);
   }
@@ -68,8 +69,9 @@ export function drawSky(renderContext: RenderContext, options?: SkyOptions) {
   const triangleList = new wwtlib.TriangleList();
   const color = Color.load(options?.color ?? "#4190ED");
 
+  top.coordinates = Coordinates;
   const sunCoordinates = Coordinates.fromRaDec(sunPlace.get_RA(), sunPlace.get_dec());
-  const sunAltAz = Coordinates.equatorialToHorizontal(
+  const sunAltAz = Coordinates.equitorialToHorizon(
                       sunCoordinates,
                       SpaceTimeController.get_location(),
                       SpaceTimeController.get_now());
@@ -84,10 +86,12 @@ export function drawSky(renderContext: RenderContext, options?: SkyOptions) {
       Coordinates.fromLatLng(0, (i + 1) * delta),
       Coordinates.fromLatLng(90, i * delta),
     ];
+    top.basePoints = points;
     points = points.map(point => {
-      const raDecRad = Coordinates.horizonToEquatorial(point, SpaceTimeController.get_location(), now);
-      return Coordinates.raDecTo3d(R2D * raDecRad.raRad / 15, R2D * raDecRad.decRad);
+      const raDecRad = Coordinates.horizonToEquitorial(point, SpaceTimeController.get_location(), now);
+      return Coordinates.raDecTo3d(R2H * raDecRad.raRad, R2D * raDecRad.decRad);
     });
+    top.points = points;
     triangleList.addSubdividedTriangles(...points, color, new wwtlib.Dates(0, 1), 2);
   }
   triangleList.draw(renderContext, 1, true);
