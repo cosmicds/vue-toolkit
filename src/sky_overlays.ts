@@ -16,7 +16,7 @@ import {
   WWTControl,
 } from "@wwtelescope/engine";
 import { Classification, SolarSystemObjects } from "@wwtelescope/engine-types";
-import type { HorizonSkyOptions, SkyOpacityEclipseParams } from "./types";
+import type { HorizonOptions, SkyEclipseInfo, SkyOptions } from "./types";
 import { D2R, R2D } from "@cosmicds/vue-toolkit";
 
 export const sunPlace = new Place();
@@ -26,7 +26,7 @@ sunPlace.set_target(SolarSystemObjects.sun);
 sunPlace.set_zoomLevel(20);
 
 
-export function skyOpacityForSunAlt(sunAltRad: number, options?: SkyOpacityEclipseParams): number {
+export function skyOpacityForSunAlt(sunAltRad: number, options?: SkyEclipseInfo): number {
   const civilTwilight = -6 * D2R;
   const astronomicalTwilight = 3 * civilTwilight;
   
@@ -39,12 +39,12 @@ export function skyOpacityForSunAlt(sunAltRad: number, options?: SkyOpacityEclip
   return opacity;
 }
 
-export function drawHorizon(renderContext: RenderContext, options: HorizonSkyOptions) {
+export function drawHorizon(renderContext: RenderContext, options?: HorizonOptions) {
   const n = 6;
   const delta = 2 * R2D * Math.PI / n;
   const triangleList = new wwtlib.TriangleList();
-  const color = Color.load(options.color);
-  color.a = Math.round(255 * options.opacity ?? 1);
+  const color = Color.load(options?.color ?? "#01362C");
+  color.a = Math.round(255 * options?.opacity ?? 1);
 
   const now = SpaceTimeController.get_now();
   for (let i = 0; i < n; i++) {
@@ -62,11 +62,11 @@ export function drawHorizon(renderContext: RenderContext, options: HorizonSkyOpt
   triangleList.draw(renderContext, 1, true);
 };
 
-export function drawSky(renderContext: RenderContext, options: HorizonSkyOptions) {
+export function drawSky(renderContext: RenderContext, options?: SkyOptions) {
   const n = 6;
   const delta = 2 * Math.PI / n;
   const triangleList = new wwtlib.TriangleList();
-  const color = Color.load(options.color);
+  const color = Color.load(options?.color ?? "#4190ED");
 
   const sunCoordinates = Coordinates.fromRaDec(sunPlace.get_RA(), sunPlace.get_dec());
   const sunAltAz = Coordinates.equatorialToHorizontal(
@@ -74,7 +74,7 @@ export function drawSky(renderContext: RenderContext, options: HorizonSkyOptions
                       SpaceTimeController.get_location(),
                       SpaceTimeController.get_now());
 
-  const opacity = options.opacity ?? skyOpacityForSunAlt(sunAltAz.get_alt() * D2R);
+  const opacity = options?.opacity ?? skyOpacityForSunAlt(sunAltAz.get_alt() * D2R, options?.eclipseInfo);
   color.a = Math.round(255 * opacity);
   WWTControl.scriptInterface.setForegroundOpacity((1 - opacity) * 100);
   const now = SpaceTimeController.get_now();
