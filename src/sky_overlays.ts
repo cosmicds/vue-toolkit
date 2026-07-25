@@ -17,7 +17,7 @@ import {
 } from "@wwtelescope/engine";
 import { Classification, SolarSystemObjects } from "@wwtelescope/engine-types";
 import type { HorizonOptions, SkyEclipseInfo, SkyOptions } from "./types";
-import { D2R, R2D, R2H } from "./utils";
+import { D2R, R2D } from "./utils";
 
 export const sunPlace = new Place();
 sunPlace.set_names(["Sun"]);
@@ -55,8 +55,7 @@ export function drawHorizon(renderContext: RenderContext, options?: HorizonOptio
     ];
     points = points.map(point => {
       const raDecRad = Coordinates.horizonToEquitorial(point, SpaceTimeController.get_location(), now);
-      console.log(raDecRad);
-      return Coordinates.raDecTo3d(R2H * raDecRad.raRad, R2D * raDecRad.decRad);
+      return Coordinates.raDecTo3d(raDecRad.get_RA(), raDecRad.get_dec());
     });
     triangleList.addSubdividedTriangles(...points, color, new wwtlib.Dates(0, 1), 2);
   }
@@ -65,7 +64,7 @@ export function drawHorizon(renderContext: RenderContext, options?: HorizonOptio
 
 export function drawSky(renderContext: RenderContext, options?: SkyOptions) {
   const n = 6;
-  const delta = 2 * Math.PI / n;
+  const delta = 2 * R2D * Math.PI / n;
   const triangleList = new wwtlib.TriangleList();
   const color = Color.load(options?.color ?? "#4190ED");
 
@@ -89,7 +88,7 @@ export function drawSky(renderContext: RenderContext, options?: SkyOptions) {
     top.basePoints = points;
     points = points.map(point => {
       const raDecRad = Coordinates.horizonToEquitorial(point, SpaceTimeController.get_location(), now);
-      return Coordinates.raDecTo3d(R2H * raDecRad.raRad, R2D * raDecRad.decRad);
+      return Coordinates.raDecTo3d(raDecRad.get_RA(), raDecRad.get_dec());
     });
     top.points = points;
     triangleList.addSubdividedTriangles(...points, color, new wwtlib.Dates(0, 1), 2);
