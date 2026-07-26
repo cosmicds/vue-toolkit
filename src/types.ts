@@ -472,3 +472,32 @@ export interface FolderViewProps {
 
 export type ItemSelectionType = "click" | "dblclick" | "keyup" | "folder";
 
+export interface HorizonOptions {
+  /** The color of the horizon/sky */
+  color?: string;
+
+  /** The opacity of the horizon/sky */
+  opacity?: number;
+}
+
+export interface SkyOptions {
+  /** The color of the horizon/sky */
+  color?: string;
+
+  /** The opacity of the horizon/sky */
+  opacity?: number;
+
+  /** Options related to the the current eclipse status */
+  eclipseInfo?: SkyEclipseInfo;
+}
+
+export interface SkyEclipseInfo {
+  /** The current fraction of the sun that is eclipsed */
+  fractionEclipsed: number;
+
+  /** Whether the current location is in the relevant path of totality */
+  inTotality: boolean;
+
+  /** Whether the current location is in an eclipse at the current time */
+  inEclipse: boolean;
+}
