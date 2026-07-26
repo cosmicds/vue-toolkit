@@ -1,0 +1,599 @@
+/*!
+ * pinia v2.1.7
+ * (c) 2023 Eduardo San Martin Morote
+ * @license MIT
+ */
+
+/*! #__NO_SIDE_EFFECTS__ */
+
+/*! ../astrocalc/elliptical.js */
+
+/*! ../baseplanets.js */
+
+/*! ../baseutil.js */
+
+/*! ../blend_state.js */
+
+/*! ../camera_parameters.js */
+
+/*! ../color.js */
+
+/*! ../constellation_filter.js */
+
+/*! ../coordinates.js */
+
+/*! ../data_globals.js */
+
+/*! ../double3d.js */
+
+/*! ../graphics/gl_buffers.js */
+
+/*! ../graphics/primitives3d.js */
+
+/*! ../graphics/shaders.js */
+
+/*! ../graphics/sprite2d.js */
+
+/*! ../graphics/tessellator.js */
+
+/*! ../graphics/texture.js */
+
+/*! ../graphics/webgl_constants.js */
+
+/*! ../grids.js */
+
+/*! ../imageset.js */
+
+/*! ../interfaces.js */
+
+/*! ../layers/fits_image_js.js */
+
+/*! ../layers/imageset_layer.js */
+
+/*! ../layers/layer.js */
+
+/*! ../layers/layer_manager.js */
+
+/*! ../layers/reference_frame.js */
+
+/*! ../place.js */
+
+/*! ../planets.js */
+
+/*! ../render_globals.js */
+
+/*! ../settings.js */
+
+/*! ../space_time_controller.js */
+
+/*! ../ss.js */
+
+/*! ../tours/tour_player.js */
+
+/*! ../tours/tour_stop.js */
+
+/*! ../typesystem.js */
+
+/*! ../ui_tools.js */
+
+/*! ../url_helpers.js */
+
+/*! ../util.js */
+
+/*! ../utilities/binary_reader.js */
+
+/*! ../utilities/bitmap.js */
+
+/*! ../utilities/color_picker.js */
+
+/*! ../utilities/context_menu_strip.js */
+
+/*! ../utilities/dialog.js */
+
+/*! ../utilities/histogram.js */
+
+/*! ../utilities/simple_input.js */
+
+/*! ../utilities/xml_text_writer.js */
+
+/*! ../utils/common */
+
+/*! ../view_mover.js */
+
+/*! ../web_file.js */
+
+/*! ./aberration.js */
+
+/*! ./adler32 */
+
+/*! ./annotation.js */
+
+/*! ./astrocalc.js */
+
+/*! ./astrocalc/aberration.js */
+
+/*! ./astrocalc/angular_separation.js */
+
+/*! ./astrocalc/coordinate_transformation.js */
+
+/*! ./astrocalc/date.js */
+
+/*! ./astrocalc/dynamical_time.js */
+
+/*! ./astrocalc/earth.js */
+
+/*! ./astrocalc/ecliptical_elements.js */
+
+/*! ./astrocalc/elements_planetary_orbit.js */
+
+/*! ./astrocalc/elliptical.js */
+
+/*! ./astrocalc/equation_of_time.js */
+
+/*! ./astrocalc/fk5.js */
+
+/*! ./astrocalc/galilean_moons.js */
+
+/*! ./astrocalc/globe.js */
+
+/*! ./astrocalc/illuminated_fraction.js */
+
+/*! ./astrocalc/interpolate.js */
+
+/*! ./astrocalc/jupiter.js */
+
+/*! ./astrocalc/kepler.js */
+
+/*! ./astrocalc/mars.js */
+
+/*! ./astrocalc/mercury.js */
+
+/*! ./astrocalc/moon.js */
+
+/*! ./astrocalc/moon_illuminated_fraction.js */
+
+/*! ./astrocalc/moon_nodes.js */
+
+/*! ./astrocalc/moon_perigee_apogee.js */
+
+/*! ./astrocalc/moon_phases.js */
+
+/*! ./astrocalc/neptune.js */
+
+/*! ./astrocalc/nutation.js */
+
+/*! ./astrocalc/parallax.js */
+
+/*! ./astrocalc/physical_jupiter.js */
+
+/*! ./astrocalc/physical_mars.js */
+
+/*! ./astrocalc/physical_sun.js */
+
+/*! ./astrocalc/pluto.js */
+
+/*! ./astrocalc/precession.js */
+
+/*! ./astrocalc/rise_transit_set.js */
+
+/*! ./astrocalc/saturn.js */
+
+/*! ./astrocalc/saturn_rings.js */
+
+/*! ./astrocalc/sidereal.js */
+
+/*! ./astrocalc/stellar_magnitudes.js */
+
+/*! ./astrocalc/sun.js */
+
+/*! ./astrocalc/uranus.js */
+
+/*! ./astrocalc/venus.js */
+
+/*! ./baseplanets.js */
+
+/*! ./baseutil.js */
+
+/*! ./blend_state.js */
+
+/*! ./camera_parameters.js */
+
+/*! ./color.js */
+
+/*! ./color_map_container.js */
+
+/*! ./common */
+
+/*! ./constellation_filter.js */
+
+/*! ./constellations.js */
+
+/*! ./coordinate_transformation.js */
+
+/*! ./coordinates.js */
+
+/*! ./crc32 */
+
+/*! ./data_globals.js */
+
+/*! ./date.js */
+
+/*! ./double3d.js */
+
+/*! ./dynamical_time.js */
+
+/*! ./earth.js */
+
+/*! ./elements_planetary_orbit.js */
+
+/*! ./elliptical.js */
+
+/*! ./equirectangular_tile.js */
+
+/*! ./fast_math.js */
+
+/*! ./file_cabinet.js */
+
+/*! ./fits_image.js */
+
+/*! ./fits_image_js.js */
+
+/*! ./fits_properties.js */
+
+/*! ./fk5.js */
+
+/*! ./folder.js */
+
+/*! ./folder_browser.js */
+
+/*! ./folder_up.js */
+
+/*! ./fxyf.js */
+
+/*! ./gl_buffers.js */
+
+/*! ./globe.js */
+
+/*! ./graphics/gl_buffers.js */
+
+/*! ./graphics/primitives3d.js */
+
+/*! ./graphics/shaders.js */
+
+/*! ./graphics/sprite2d.js */
+
+/*! ./graphics/tessellator.js */
+
+/*! ./graphics/texture.js */
+
+/*! ./graphics/webgl_constants.js */
+
+/*! ./great_circle_route_layer.js */
+
+/*! ./grid_layer.js */
+
+/*! ./grids.js */
+
+/*! ./healpix_tables.js */
+
+/*! ./healpix_tile.js */
+
+/*! ./healpix_utils.js */
+
+/*! ./hips_properties.js */
+
+/*! ./hploc.js */
+
+/*! ./illuminated_fraction.js */
+
+/*! ./imageset.js */
+
+/*! ./imageset_layer.js */
+
+/*! ./inffast */
+
+/*! ./inftrees */
+
+/*! ./interfaces.js */
+
+/*! ./interpolate.js */
+
+/*! ./iss_layer.js */
+
+/*! ./jupiter.js */
+
+/*! ./kepler.js */
+
+/*! ./kepler_vertex.js */
+
+/*! ./layer.js */
+
+/*! ./layer_manager.js */
+
+/*! ./layer_ui.js */
+
+/*! ./layers/color_map_container.js */
+
+/*! ./layers/fits_image.js */
+
+/*! ./layers/fits_image_js.js */
+
+/*! ./layers/fits_image_tile.js */
+
+/*! ./layers/from_xml.js */
+
+/*! ./layers/great_circle_route_layer.js */
+
+/*! ./layers/grid_layer.js */
+
+/*! ./layers/imageset_layer.js */
+
+/*! ./layers/iss_layer.js */
+
+/*! ./layers/layer.js */
+
+/*! ./layers/layer_manager.js */
+
+/*! ./layers/layer_ui.js */
+
+/*! ./layers/manager_dialogs.js */
+
+/*! ./layers/object3d.js */
+
+/*! ./layers/orbit.js */
+
+/*! ./layers/orbit_layer.js */
+
+/*! ./layers/reference_frame.js */
+
+/*! ./layers/spreadsheet_layer.js */
+
+/*! ./layers/table.js */
+
+/*! ./layers/time_series_layer.js */
+
+/*! ./layers/vo_table.js */
+
+/*! ./layers/vo_table_layer.js */
+
+/*! ./layers/wcs_image.js */
+
+/*! ./lib/deflate */
+
+/*! ./lib/inflate */
+
+/*! ./lib/utils/common */
+
+/*! ./lib/zlib/constants */
+
+/*! ./mars.js */
+
+/*! ./mercator_tile.js */
+
+/*! ./mercury.js */
+
+/*! ./messages */
+
+/*! ./minor_planets.js */
+
+/*! ./moon_illuminated_fraction.js */
+
+/*! ./neptune.js */
+
+/*! ./nutation.js */
+
+/*! ./object3d.js */
+
+/*! ./orbit.js */
+
+/*! ./orbit_layer.js */
+
+/*! ./overlay.js */
+
+/*! ./parse.js */
+
+/*! ./place.js */
+
+/*! ./planets.js */
+
+/*! ./planets_3d.js */
+
+/*! ./plot_tile.js */
+
+/*! ./pluto.js */
+
+/*! ./pointing.js */
+
+/*! ./reference_frame.js */
+
+/*! ./regex.js */
+
+/*! ./render_context.js */
+
+/*! ./render_globals.js */
+
+/*! ./render_triangle.js */
+
+/*! ./saturn.js */
+
+/*! ./script_interface.js */
+
+/*! ./selection.js */
+
+/*! ./settings.js */
+
+/*! ./sha1.js */
+
+/*! ./shaders.js */
+
+/*! ./sidereal.js */
+
+/*! ./sky_image_tile.js */
+
+/*! ./sky_text.js */
+
+/*! ./space_time_controller.js */
+
+/*! ./spreadsheet_layer.js */
+
+/*! ./ss.js */
+
+/*! ./star.js */
+
+/*! ./stringify.js */
+
+/*! ./sun.js */
+
+/*! ./table.js */
+
+/*! ./tangent_tile.js */
+
+/*! ./text_object.js */
+
+/*! ./texture.js */
+
+/*! ./tile.js */
+
+/*! ./tile_cache.js */
+
+/*! ./toast_tile.js */
+
+/*! ./tour.js */
+
+/*! ./tour_editor.js */
+
+/*! ./tour_player.js */
+
+/*! ./tour_stop.js */
+
+/*! ./tours/file_cabinet.js */
+
+/*! ./tours/overlay.js */
+
+/*! ./tours/selection.js */
+
+/*! ./tours/text_object.js */
+
+/*! ./tours/tour_document.js */
+
+/*! ./tours/tour_edit.js */
+
+/*! ./tours/tour_editor.js */
+
+/*! ./tours/tour_player.js */
+
+/*! ./tours/tour_stop.js */
+
+/*! ./tours/undo.js */
+
+/*! ./trees */
+
+/*! ./triangle.js */
+
+/*! ./typesystem.js */
+
+/*! ./ui_tools.js */
+
+/*! ./undo.js */
+
+/*! ./uranus.js */
+
+/*! ./url_helpers.js */
+
+/*! ./util.js */
+
+/*! ./utilities/binary_reader.js */
+
+/*! ./utilities/bitmap.js */
+
+/*! ./utilities/color_picker.js */
+
+/*! ./utilities/context_menu_strip.js */
+
+/*! ./utilities/dialog.js */
+
+/*! ./utilities/histogram.js */
+
+/*! ./utilities/simple_input.js */
+
+/*! ./utilities/xml_text_writer.js */
+
+/*! ./utils/common */
+
+/*! ./utils/strings */
+
+/*! ./v35.js */
+
+/*! ./validate.js */
+
+/*! ./venus.js */
+
+/*! ./video_output_type.js */
+
+/*! ./view_mover.js */
+
+/*! ./viz_layer.js */
+
+/*! ./vo_table.js */
+
+/*! ./vo_table_layer.js */
+
+/*! ./wcs_image.js */
+
+/*! ./web_file.js */
+
+/*! ./webgl_constants.js */
+
+/*! ./wtml.js */
+
+/*! ./wwt_control.js */
+
+/*! ./zlib/constants */
+
+/*! ./zlib/deflate */
+
+/*! ./zlib/gzheader */
+
+/*! ./zlib/inflate */
+
+/*! ./zlib/messages */
+
+/*! ./zlib/zstream */
+
+/*! Script# Runtime
+ * Designed and licensed for use and distribution with Script#-generated scripts.
+ * Copyright (c) 2012, Nikhil Kothari, and the Script# Project.
+ * More information at http://scriptsharp.com
+ */
+
+/*! pako */
+
+/*! uuid */
+
+/*!**********************!*\
+  !*** ./esm/index.js ***!
+  \**********************/
+
+/**
+ * WCAG 3.0 APCA perceptual contrast algorithm from https://github.com/Myndex/SAPC-APCA
+ * @licence https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
+ * @see https://www.w3.org/WAI/GL/task-forces/silver/wiki/Visual_Contrast_of_Text_Subgroup
+ */
+
+/**
+* @vue/runtime-core v3.5.13
+* (c) 2018-present Yuxi (Evan) You and Vue contributors
+* @license MIT
+**/
+
+/**
+* @vue/runtime-dom v3.5.13
+* (c) 2018-present Yuxi (Evan) You and Vue contributors
+* @license MIT
+**/
+
+/**
+* @vue/shared v3.5.13
+* (c) 2018-present Yuxi (Evan) You and Vue contributors
+* @license MIT
+**/
