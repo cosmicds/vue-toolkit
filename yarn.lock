@@ -704,6 +704,7 @@ __metadata:
     prismjs: ^1.30.0
     pug: ^3.0.3
     screenfull: ^6.0.2
+    shepherd.js: ^15.2.2
     storybook: ^8.6.17
     storybook-css-modules-preset: ^1.1.1
     storybook-dark-mode: ^4.0.1
@@ -714,10 +715,14 @@ __metadata:
     typescript: ^4.9.4
     vue: ^3.4
     vue-loader: ^17.4.2
+    vue-shepherd: ^6.0.0
     vue-template-compiler: ^2.7.14
     vuetify: ^3.3.3
     webpack: ^5.105.1
     webpack-dev-middleware: ^5.3.4
+  peerDependencies:
+    shepherd.js: "*"
+    vue-shepherd: "*"
   languageName: unknown
   linkType: soft
 
@@ -942,6 +947,32 @@ __metadata:
   version: 8.57.1
   resolution: "@eslint/js@npm:8.57.1"
   checksum: 2afb77454c06e8316793d2e8e79a0154854d35e6782a1217da274ca60b5044d2c69d6091155234ed0551a1e408f86f09dd4ece02752c59568fa403e60611e880
+  languageName: node
+  linkType: hard
+
+"@floating-ui/core@npm:^1.8.0":
+  version: 1.8.0
+  resolution: "@floating-ui/core@npm:1.8.0"
+  dependencies:
+    "@floating-ui/utils": ^0.2.12
+  checksum: 491c7573ba88242a2814f7461080abac59c63322b336ad5386b40c66a4633c115b4da1e2b9d3ffd4c64081cdf81c5f23a47aac1afa6ff1e58c17cff1595b6dd5
+  languageName: node
+  linkType: hard
+
+"@floating-ui/dom@npm:^1.7.5":
+  version: 1.8.0
+  resolution: "@floating-ui/dom@npm:1.8.0"
+  dependencies:
+    "@floating-ui/core": ^1.8.0
+    "@floating-ui/utils": ^0.2.12
+  checksum: 6c9676b040a7bd358e6b2cf4bcf661efc08e51118856ac17955c247c88ea164e1741f061e848b9ca1eacd5591709e013b46bd35bbfe6f80acca276a2a0bd41d2
+  languageName: node
+  linkType: hard
+
+"@floating-ui/utils@npm:^0.2.12":
+  version: 0.2.12
+  resolution: "@floating-ui/utils@npm:0.2.12"
+  checksum: c2cf16da4f755c025d12802a923a80aefe076e5686afb60a431970c7a4402cc9fb6723d20f6da0d431d6b01395d1a8cdd4e16da920cca18a1e07c06ad98c0593
   languageName: node
   linkType: hard
 
@@ -4799,6 +4830,13 @@ __metadata:
   version: 0.1.4
   resolution: "deep-is@npm:0.1.4"
   checksum: edb65dd0d7d1b9c40b2f50219aef30e116cedd6fc79290e740972c132c09106d2e80aa0bc8826673dd5a00222d4179c84b36a790eef63a4c4bca75a37ef90804
+  languageName: node
+  linkType: hard
+
+"deepmerge-ts@npm:^7.1.5":
+  version: 7.1.5
+  resolution: "deepmerge-ts@npm:7.1.5"
+  checksum: 9a05828a026f43c30aab71a3e8a023f96bdd19fd5ef9cb4ce0c0ade3b28784da34e82b7ca04051fbb58f6e003c1672808391c89a362e0636c6541ae081c116b6
   languageName: node
   linkType: hard
 
@@ -10391,6 +10429,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"shepherd.js@npm:^15.0.0, shepherd.js@npm:^15.2.2":
+  version: 15.2.2
+  resolution: "shepherd.js@npm:15.2.2"
+  dependencies:
+    "@floating-ui/dom": ^1.7.5
+    deepmerge-ts: ^7.1.5
+  checksum: 84ea7f70a6bb985d0e225a4d8da6be6f61564db7bbc145153bf159a18d6ee58522e5382f78b7fea3e0a2f81071c9b3f107bc99126bcc4463e19932782b192779
+  languageName: node
+  linkType: hard
+
 "shiki@npm:^0.14.7":
   version: 0.14.7
   resolution: "shiki@npm:0.14.7"
@@ -11830,6 +11878,17 @@ __metadata:
     vue:
       optional: true
   checksum: 2b5a15858e085cd4dce8787cb6f2296706f0acb0953b866b502937a5c193b153399bcc4f7a638c2976fbb54b9eaea8523aee096272550e68b65aed8480c0ecb3
+  languageName: node
+  linkType: hard
+
+"vue-shepherd@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "vue-shepherd@npm:6.0.0"
+  dependencies:
+    shepherd.js: ^15.0.0
+  peerDependencies:
+    vue: ">=3.0.0"
+  checksum: 9f881846453ebe7bd57c2565e4d363eff16d49eaf66202cd585c721ba8129da7536fa746a6effcae98efa8ccadf094c8184fcb38893cb7129d66ca9b8fce17b1
   languageName: node
   linkType: hard
 
