@@ -1,4 +1,6 @@
-import type { Step, StepOptionsButton, Tour, TourOptions } from "shepherd.js";
+import { watch, type Ref } from "vue";
+import type { Step, StepOptions, StepOptionsButton, Tour, TourOptions } from "shepherd.js";
+import { useShepherd } from "vue-shepherd";
 
 export const backButton: StepOptionsButton = {
   action() { return this.back(); },
@@ -33,10 +35,27 @@ export function createBackButton(options: DirectionalButtonOptions): StepOptions
 
 export function createNextButton(options: DirectionalButtonOptions): StepOptionsButton {
   return {
-    action() { return this.back(); },
+    action() { return this.next(); },
     classes: options?.classes ?? "shepherd-button-next",
     text: options?.text ?? "Back",
   };
+}
+
+function _setProgressDotsAfterDisabled(step: Step) {
+  const tour = step.tour;
+  const element = step.getElement();
+  const dots = element?.querySelectorAll(".shepherd-progress-dots");
+  if (!dots) { return; }
+  const stepIndex = tour.steps.indexOf(step);
+  if (stepIndex > -1) {
+    dots.forEach((dot, index) => {
+      if (index > stepIndex) {
+        dot.setAttribute("disabled", "");
+      } else {
+        dot.removeAttribute("disabled");
+      }
+    });
+  }
 }
 
 export function addProgressDots(step: Step) {
@@ -52,6 +71,9 @@ export function addProgressDots(step: Step) {
   const dotsContainer = document.createElement("div");
   dotsContainer.classList.add("shepherd-progress-dots");
   const currentIndex = tour.steps.indexOf(step);
+
+  const maxStepReached = getMaxStepReached(tour);
+  const hasAnyGated = getGatedSteps(tour).size > 0;
   tour.steps.forEach((_step, index) => {
     const dot = document.createElement("div");
     dot.classList.add("shepherd-progress-dot");
@@ -61,13 +83,17 @@ export function addProgressDots(step: Step) {
     dot.setAttribute("role", "button");
     dot.setAttribute("tabindex", "0");
     dot.setAttribute("aria-label", `Go to step ${index + 1}`);
-    const goToStep = () => tour.show(index);
-    dot.addEventListener("click", goToStep);
-    dot.addEventListener("keyup", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        goToStep();
-      }
-    });
+    if (hasAnyGated && index > maxStepReached) {
+      dot.setAttribute("disabled", "");
+    } else {
+      const goToStep = () => tour.show(index);
+      dot.addEventListener("click", goToStep);
+      dot.addEventListener("keyup", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          goToStep();
+        }
+      });
+    }
     dotsContainer.appendChild(dot);
   });
   footer.appendChild(dotsContainer);
@@ -134,6 +160,64 @@ export function defaultStepShow(step: Step) {
   useMdiCloseIcon(step);
 }
 
+function getGatedSteps(tour: Tour): Set<number> {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error We're manipulating the tour object here
+  return (tour.gatedSteps = tour.gatedSteps ?? new Set()) as Set<number>;
+}
+
+function setStepGated(tour: Tour, stepIndex: number, gated: boolean) {
+  const gatedSteps = getGatedSteps(tour);
+  if (gated) {
+    gatedSteps.add(stepIndex);
+  } else {
+    gatedSteps.delete(stepIndex);
+  }
+}
+
+function getMaxStepReached(tour: Tour): number {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error We're manipulating the tour object here
+  return tour.maxStepReached ?? 0;
+}
+
+function setMaxStepReached(tour: Tour, maxStep: number) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error We're manipulating the tour object here
+  return tour.maxStepReached = maxStep;
+}
+
+export type CosmicDSStepOptions = StepOptions & {
+  allowNext?: Ref<boolean>;
+};
+
+function onAllowNextChange(tour: Tour, allow: boolean) {
+  const step = tour.currentStep;
+  const element = step?.getElement();
+  if (!(step && element)) { return; }
+
+  const nextButton = element.querySelector(".shepherd-button-next");
+  if (nextButton) {
+    if (allow) {
+      nextButton.removeAttribute("disabled");
+    } else {
+      nextButton.setAttribute("disabled", "");
+    }
+  }
+}
+
+export function addStep(tour: Tour, options: CosmicDSStepOptions) {
+  const allowNext = options.allowNext;
+  if (allowNext != null) {
+    watch(allowNext, (allow: boolean) => onAllowNextChange(tour, allow));
+
+    if (!allowNext.value) {
+      setStepGated(tour, tour.steps.length, true);  // The new step will be added at the end
+    }
+  }
+  tour.addStep(options);
+}
+
 export const DEFAULT_TOUR_OPTIONS: TourOptions = {
   useModalOverlay: true,
   defaultStepOptions: {
@@ -148,3 +232,19 @@ export const DEFAULT_TOUR_OPTIONS: TourOptions = {
     }
   },
 };
+
+export function createTour(options: TourOptions) {
+  const tour: Tour = useShepherd({
+    ...DEFAULT_TOUR_OPTIONS,
+    ...options,
+  });
+
+  tour.on("show", (event: { step: Step }) => {
+    const newStep = event.step;
+    if (!newStep) { return; }
+    const newIndex = tour.steps.indexOf(newStep);
+    setMaxStepReached(tour, newIndex);
+  });
+
+  return tour;
+}
