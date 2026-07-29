@@ -27,30 +27,30 @@ export const Primary: Story = {
 
     addStep(tour.value, {
       title: "Step 1",
-      attachTo: { element: () => document.getElementById("p1"), on: "top" },
-      text: "Here's the first step!",
+      attachTo: { element: () => document.getElementById("i1"), on: "top" },
+      text: "Here's the first item!",
     });
 
     addStep(tour.value, {
       title: "Step 2",
-      attachTo: { element: () => { const el = document.getElementById("p2"); console.log(el); return el; }, on: "left" },
-      text: "Here's the second step!",
+      attachTo: { element: () => { const el = document.getElementById("i2"); console.log(el); return el; }, on: "left" },
+      text: "Here's the second item!",
     });
 
     addStep(tour.value, {
       title: "Step 3",
-      attachTo: { element: () => document.getElementById("p3"), on: "bottom" },
-      text: "We created a new element for the third step!",
+      attachTo: { element: () => document.getElementById("i3"), on: "bottom" },
+      text: "We created a new item for this step!",
       beforeShowPromise: function() {
         return new Promise<void>(resolve => {
-          let p3 = document.getElementById("p3");
-          if (!p3) {
-            p3 = document.createElement("p");
-            p3.id = "p3";
-            p3.style.width = "fit-content";
-            p3.innerHTML = "Item 3";
+          let i3 = document.getElementById("i3");
+          if (!i3) {
+            i3 = document.createElement("li");
+            i3.id = "i3";
+            i3.style.width = "fit-content";
+            i3.innerHTML = "Item 3";
             const container = document.getElementById("items");
-            container?.appendChild(p3);
+            container?.appendChild(i3);
           }
           resolve();
         });
@@ -69,9 +69,12 @@ export const Primary: Story = {
             button = document.createElement("button");
             button.id = "tour-button";
             button.style.width = "fit-content";
+            button.style.backgroundColor = "crimson";
+            button.style.margin = "5px";
             button.innerHTML = "Click the button!";
             button.onclick = () => { flag.value = true; };
-            const container = document.getElementById("items");
+            const container = document.getElementById("root");
+            console.log(container);
             container?.appendChild(button);
           }
           resolve();
@@ -82,14 +85,14 @@ export const Primary: Story = {
 
     return {
       template: `
-        <div class="tours-items">
+        <div id="root">
           <div>
             <button @click="tour.start()">Start the tour!</button>
           </div>
-          <div id="items" style="display: flex; flex-direction: column; gap: 5px;">
-            <p id="p1" style="width: fit-content">Item 1</p>
-            <p id="p2" style="width: fit-content">Item 2</p>
-          </div>
+          <ul id="items">
+            <li id="i1" style="width: fit-content">Item 1</li>
+            <li id="i2" style="width: fit-content">Item 2</li>
+          </ul>
         </div>
       `,
       setup() {
