@@ -61,7 +61,7 @@ export function addProgressDots(step: Step) {
     dot.setAttribute("tabindex", "0");
     dot.setAttribute("aria-label", `Go to step ${index + 1}`);
     if (hasAnyGated && index > maxStepReached) {
-      dot.setAttribute("disabled", "");
+      dot.classList.add("disabled");
     } else {
       const goToStep = () => tour.show(index);
       dot.addEventListener("click", goToStep);
