@@ -4,6 +4,13 @@ import { useShepherd } from "vue-shepherd";
 
 import "shepherd.js/dist/css/shepherd.css";
 
+interface TourInfo {
+  maxStepReached?: number;
+  gatedSteps?: Set<number>;
+}
+
+const GLOBAL_TOUR_INFO: Record<string, TourInfo> = {};
+
 export interface DirectionalButtonOptions {
   classes?: string;
   text?: string;
@@ -26,23 +33,6 @@ export function createNextButton(options?: DirectionalButtonOptions): StepOption
     text: options?.text ?? "Next",
     disabled: options?.disabled ?? false,
   };
-}
-
-function _setProgressDotsAfterDisabled(step: Step) {
-  const tour = step.tour;
-  const element = step.getElement();
-  const dots = element?.querySelectorAll(".shepherd-progress-dots");
-  if (!dots) { return; }
-  const stepIndex = tour.steps.indexOf(step);
-  if (stepIndex > -1) {
-    dots.forEach((dot, index) => {
-      if (index > stepIndex) {
-        dot.setAttribute("disabled", "");
-      } else {
-        dot.removeAttribute("disabled");
-      }
-    });
-  }
 }
 
 export function addProgressDots(step: Step) {
@@ -148,17 +138,28 @@ export function defaultStepShow(step: Step) {
 }
 
 function getGatedSteps(tour: Tour): Set<number> {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error We're manipulating the tour object here
-  return (tour.gatedSteps = tour.gatedSteps ?? new Set()) as Set<number>;
+  const id = tour.id;
+  if (id === undefined) { throw new Error("Tour is missing an ID field!"); }
+  const info = GLOBAL_TOUR_INFO[id];
+  if (info == undefined) {
+    const gatedSteps = new Set<number>();
+    GLOBAL_TOUR_INFO[id] = { gatedSteps };
+    return gatedSteps;
+  } else {
+    if (info.gatedSteps == undefined) {
+      info.gatedSteps = new Set<number>();
+    }
+    return info.gatedSteps;
+  }
 }
 
 function setStepGated(tour: Tour, stepIndex: number, gated: boolean) {
-  const gatedSteps = getGatedSteps(tour);
+  if (tour.id === undefined) { throw new Error("Tour is missing an ID field!"); }
+  const steps = getGatedSteps(tour);
   if (gated) {
-    gatedSteps.add(stepIndex);
+    steps.add(stepIndex);
   } else {
-    gatedSteps.delete(stepIndex);
+    steps.delete(stepIndex);
   }
 }
 
@@ -181,15 +182,20 @@ function setNextEnabled(step: Step, enabled: boolean) {
 }
 
 function getMaxStepReached(tour: Tour): number {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error We're manipulating the tour object here
-  return tour.maxStepReached ?? 0;
+  const id = tour.id;
+  if (id === undefined) { throw new Error("Tour is missing an ID field!"); }
+  return GLOBAL_TOUR_INFO[id]?.maxStepReached ?? 0;
 }
 
 function setMaxStepReached(tour: Tour, maxStep: number) {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error We're manipulating the tour object here
-  return tour.maxStepReached = maxStep;
+  const id = tour.id;
+  if (id === undefined) { throw new Error("Tour is missing an ID field!"); }
+  const info = GLOBAL_TOUR_INFO[id];
+  if (info == undefined) {
+    GLOBAL_TOUR_INFO[id] = { maxStepReached: maxStep };
+  } else {
+    info.maxStepReached = maxStep;
+  }
 }
 
 export type CosmicDSStepOptions = StepOptions & {
@@ -222,7 +228,6 @@ export function addStep(tour: Tour, options: CosmicDSStepOptions) {
     }
   }
 
-  console.log(options);
   tour.addStep(options);
 }
 
