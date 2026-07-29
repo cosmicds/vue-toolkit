@@ -80,7 +80,6 @@ export const Primary: Story = {
             button.innerHTML = "Click the button!";
             button.onclick = () => { flag.value = true; };
             const container = document.getElementById("root");
-            console.log(container);
             container?.appendChild(button);
           }
           resolve();
