@@ -2,7 +2,7 @@
 
 import { ref } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3";
-import { addStep, createTour } from "../tours";
+import { addStep, createNextButton, createTour } from "../tours";
 
 import "./stories.css";
 import "./tours.css";
@@ -22,18 +22,24 @@ export const Primary: Story = {
     
     document.documentElement.style.setProperty("--cosmicds-shepherd-accent-color", "crimson");
 
-    const tour = ref(createTour({ useModalOverlay: false }));
+    const tour = ref(createTour({
+      // Skip the modal overlay in the story
+      // Storybook puts the story content into an iframe
+      // and Shepherd doesn't really know how to handle that
+      useModalOverlay: false,
+    }));
     const flag = ref(false);
 
     addStep(tour.value, {
       title: "Step 1",
       attachTo: { element: () => document.getElementById("i1"), on: "top" },
       text: "Here's the first item!",
+      buttons: [createNextButton()],
     });
 
     addStep(tour.value, {
       title: "Step 2",
-      attachTo: { element: () => { const el = document.getElementById("i2"); console.log(el); return el; }, on: "left" },
+      attachTo: { element: () => document.getElementById("i2"), on: "left" },
       text: "Here's the second item!",
     });
 
