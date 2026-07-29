@@ -11,7 +11,7 @@ interface TourInfo {
 
 const GLOBAL_TOUR_INFO: Record<string, TourInfo> = {};
 
-export interface DirectionalButtonOptions {
+export interface CosmicDSDirectionalButtonOptions {
   classes?: string;
   text?: string;
   disabled?: boolean | (() => boolean);
@@ -26,7 +26,7 @@ export type CosmicDSTourOptions = TourOptions & {
   progress?: CosmicDSTourProgressOption;
 };
 
-export function createBackButton(options?: DirectionalButtonOptions): StepOptionsButton {
+export function createBackButton(options?: CosmicDSDirectionalButtonOptions): StepOptionsButton {
   return {
     action() { return this.back(); },
     classes: options?.classes ?? "shepherd-button-back",
@@ -35,7 +35,7 @@ export function createBackButton(options?: DirectionalButtonOptions): StepOption
   };
 }
 
-export function createNextButton(options?: DirectionalButtonOptions): StepOptionsButton {
+export function createNextButton(options?: CosmicDSDirectionalButtonOptions): StepOptionsButton {
   return {
     action() { return this.next(); },
     classes: options?.classes ?? "shepherd-button-next",
