@@ -20,6 +20,7 @@ export const Primary: Story = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   render: (args: any) => {
     
+    document.documentElement.style.setProperty("--cosmicds-shepherd-background-color", "rgb(34, 36, 37)");
     document.documentElement.style.setProperty("--cosmicds-shepherd-accent-color", "crimson");
 
     const tour = ref(createTour({
