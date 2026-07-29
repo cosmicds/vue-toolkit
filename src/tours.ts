@@ -2,6 +2,8 @@ import { watch, type Ref } from "vue";
 import type { Step, StepOptions, StepOptionsButton, Tour, TourOptions } from "shepherd.js";
 import { useShepherd } from "vue-shepherd";
 
+import "shepherd.js/dist/css/shepherd.css";
+
 export interface DirectionalButtonOptions {
   classes?: string;
   text?: string;
@@ -18,7 +20,6 @@ export function createBackButton(options?: DirectionalButtonOptions): StepOption
 }
 
 export function createNextButton(options?: DirectionalButtonOptions): StepOptionsButton {
-  console.log(options?.disabled ?? false);
   return {
     action() { return this.next(); },
     classes: options?.classes ?? "shepherd-button-next",
@@ -217,7 +218,7 @@ export function addStep(tour: Tour, options: CosmicDSStepOptions) {
         nextButton.disabled = !allowNext.value;
       }
     } else {
-      options.buttons = [createBackButton(), createNextButton({ disabled: () => !allowNext.value })];
+      options.buttons = [createBackButton(), createNextButton({ disabled: () => { console.log("HERE", !allowNext.value); return !allowNext.value } })];
     }
   }
 

@@ -1,0 +1,11 @@
+button {
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.tours-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
