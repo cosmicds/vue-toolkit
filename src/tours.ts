@@ -17,6 +17,15 @@ export interface DirectionalButtonOptions {
   disabled?: boolean | (() => boolean);
 }
 
+export type CosmicDSStepOptions = StepOptions & {
+  allowNext?: Ref<boolean>;
+};
+
+export type CosmicDSTourProgressOption = "dots" | "bar" | "none";
+export type CosmicDSTourOptions = TourOptions & {
+  progress?: CosmicDSTourProgressOption;
+};
+
 export function createBackButton(options?: DirectionalButtonOptions): StepOptionsButton {
   return {
     action() { return this.back(); },
@@ -92,7 +101,6 @@ export function addProgressBar(step: Step) {
   progress.setAttribute("aria-label", `On step ${index + 1} of ${tour.steps.length}`);
   const percent = 100 * (index + 1) / tour.steps.length;
   progress.style.width = `${percent}%`;
-  progress.style.backgroundColor = "#068ede";
   progressContainer.appendChild(progress);
   if (footer) {
     content?.insertBefore(progressContainer, footer);
@@ -130,11 +138,6 @@ export function addImage(step: Step, src: URL) {
   img.style.border = "1px solid rgba(255, 255, 255, 0.35)";
   img.style.borderRadius = "4px";
   textContainer.appendChild(img);
-}
-
-export function defaultStepShow(step: Step) {
-  addProgressDots(step);
-  useMdiCloseIcon(step);
 }
 
 function getGatedSteps(tour: Tour): Set<number> {
@@ -198,10 +201,6 @@ function setMaxStepReached(tour: Tour, maxStep: number) {
   }
 }
 
-export type CosmicDSStepOptions = StepOptions & {
-  allowNext?: Ref<boolean>;
-};
-
 function onAllowNextChange(tour: Tour, allow: boolean) {
   if (tour.currentStep) {
     setNextEnabled(tour.currentStep, allow);
@@ -224,31 +223,47 @@ export function addStep(tour: Tour, options: CosmicDSStepOptions) {
         nextButton.disabled = !allowNext.value;
       }
     } else {
-      options.buttons = [createBackButton(), createNextButton({ disabled: () => { console.log("HERE", !allowNext.value); return !allowNext.value } })];
+      options.buttons = [createBackButton(), createNextButton({ disabled: () => !allowNext.value })];
     }
   }
 
   tour.addStep(options);
 }
 
-export const DEFAULT_TOUR_OPTIONS: TourOptions = {
-  useModalOverlay: true,
-  defaultStepOptions: {
-    buttons: [createBackButton(), createNextButton()],
-    cancelIcon: {
-      enabled: true,
-    },
-    when: {
-      show() {
-        defaultStepShow(this as Step);
-      },
-    }
-  },
-};
+export function createTour(options?: CosmicDSTourOptions) {
 
-export function createTour(options?: TourOptions) {
+  const progress = options?.progress ?? "dots";
+  const progressFunction = (function (progress: CosmicDSTourProgressOption) {
+    switch (progress) {
+    case "dots":
+      return addProgressDots;
+    case "bar":
+      return addProgressBar;
+    case "none":
+      return null;
+    }
+  })(progress);
+
+  const defaultOptions = {
+    useModalOverlay: true,
+    defaultStepOptions: {
+      buttons: [createBackButton(), createNextButton()],
+      cancelIcon: {
+        enabled: true,
+      },
+      when: {
+        show() {
+          if (progressFunction) {
+            progressFunction(this as Step);
+          }
+          useMdiCloseIcon(this as Step);
+        },
+      }
+    },
+  };
+
   const tour: Tour = useShepherd({
-    ...DEFAULT_TOUR_OPTIONS,
+    ...defaultOptions,
     ...(options ?? {}),
   });
 
@@ -256,7 +271,7 @@ export function createTour(options?: TourOptions) {
     const newStep = event.step;
     if (!newStep) { return; }
     const newIndex = tour.steps.indexOf(newStep);
-    setMaxStepReached(tour, newIndex);
+    setMaxStepReached(tour, Math.max(newIndex, getMaxStepReached(tour)));
   });
 
   return tour;
