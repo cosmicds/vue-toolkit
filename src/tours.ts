@@ -2,42 +2,28 @@ import { watch, type Ref } from "vue";
 import type { Step, StepOptions, StepOptionsButton, Tour, TourOptions } from "shepherd.js";
 import { useShepherd } from "vue-shepherd";
 
-export const backButton: StepOptionsButton = {
-  action() { return this.back(); },
-  classes: "shepherd-button-back",
-  text: "Back",
-};
-
-export const nextButton: StepOptionsButton = {
-  action() { return this.next(); },
-  classes: "shepherd-button-next",
-  text: "Next",
-};
-
-export const endButton: StepOptionsButton = {
-  action() { return this.next(); },
-  classes: "shepherd-button-next",
-  text: "Finish",
-};
-
 export interface DirectionalButtonOptions {
   classes?: string;
   text?: string;
+  disabled?: boolean | (() => boolean);
 }
 
-export function createBackButton(options: DirectionalButtonOptions): StepOptionsButton {
+export function createBackButton(options?: DirectionalButtonOptions): StepOptionsButton {
   return {
     action() { return this.back(); },
     classes: options?.classes ?? "shepherd-button-back",
     text: options?.text ?? "Back",
+    disabled: options?.disabled ?? false,
   };
 }
 
-export function createNextButton(options: DirectionalButtonOptions): StepOptionsButton {
+export function createNextButton(options?: DirectionalButtonOptions): StepOptionsButton {
+  console.log(options?.disabled ?? false);
   return {
     action() { return this.next(); },
     classes: options?.classes ?? "shepherd-button-next",
-    text: options?.text ?? "Back",
+    text: options?.text ?? "Next",
+    disabled: options?.disabled ?? false,
   };
 }
 
@@ -175,6 +161,24 @@ function setStepGated(tour: Tour, stepIndex: number, gated: boolean) {
   }
 }
 
+function setDisabled(element: HTMLElement, disabled: boolean) {
+  if (disabled) {
+    element.setAttribute("disabled", "");
+  } else {
+    element.removeAttribute("disabled");
+  }
+}
+
+function setNextEnabled(step: Step, enabled: boolean) {
+  const element = step?.getElement();
+  if (!(step && element)) { return; }
+
+  const nextButton = element.querySelector(".shepherd-button-next") as HTMLElement;
+  if (nextButton) {
+    setDisabled(nextButton, !enabled);
+  }
+}
+
 function getMaxStepReached(tour: Tour): number {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error We're manipulating the tour object here
@@ -192,17 +196,8 @@ export type CosmicDSStepOptions = StepOptions & {
 };
 
 function onAllowNextChange(tour: Tour, allow: boolean) {
-  const step = tour.currentStep;
-  const element = step?.getElement();
-  if (!(step && element)) { return; }
-
-  const nextButton = element.querySelector(".shepherd-button-next");
-  if (nextButton) {
-    if (allow) {
-      nextButton.removeAttribute("disabled");
-    } else {
-      nextButton.setAttribute("disabled", "");
-    }
+  if (tour.currentStep) {
+    setNextEnabled(tour.currentStep, allow);
   }
 }
 
@@ -214,14 +209,26 @@ export function addStep(tour: Tour, options: CosmicDSStepOptions) {
     if (!allowNext.value) {
       setStepGated(tour, tour.steps.length, true);  // The new step will be added at the end
     }
+
+    const buttons = options.buttons;
+    if (buttons) {
+      const nextButton = buttons.find(button => button.classes?.includes("shepherd-button-next"));
+      if (nextButton) {
+        nextButton.disabled = !allowNext.value;
+      }
+    } else {
+      options.buttons = [createBackButton(), createNextButton({ disabled: () => !allowNext.value })];
+    }
   }
+
+  console.log(options);
   tour.addStep(options);
 }
 
 export const DEFAULT_TOUR_OPTIONS: TourOptions = {
   useModalOverlay: true,
   defaultStepOptions: {
-    buttons: [backButton, nextButton],
+    buttons: [createBackButton(), createNextButton()],
     cancelIcon: {
       enabled: true,
     },
@@ -233,10 +240,10 @@ export const DEFAULT_TOUR_OPTIONS: TourOptions = {
   },
 };
 
-export function createTour(options: TourOptions) {
+export function createTour(options?: TourOptions) {
   const tour: Tour = useShepherd({
     ...DEFAULT_TOUR_OPTIONS,
-    ...options,
+    ...(options ?? {}),
   });
 
   tour.on("show", (event: { step: Step }) => {
