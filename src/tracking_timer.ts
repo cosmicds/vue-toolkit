@@ -46,6 +46,6 @@ export function createTrackingTimer(options: CreateTrackingTimerOptions) {
     getStartTime,
     getTotalTime,
     reset,
-  }
+  };
 
 }
