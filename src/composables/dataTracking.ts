@@ -10,6 +10,13 @@ export interface DataTrackingOptions {
   getData: () => Record<string, unknown>;
 }
 
+/**
+ * A composable that encapsulates the general behavior needed for data tracking.
+ * All the story that needs to use this has to do is provide functions for:
+ * - Obtaining the current tracking data based on its state
+ * - Resetting the tracking data
+ * This composable will handle all of the server requests
+ */
 export function useDataTracking(options: DataTrackingOptions) {
 
   const apiUrl = options.apiUrl ?? "https://api.cosmicds.cfa.harvard.edu";
