@@ -8,6 +8,7 @@ export interface DataTrackingOptions {
   storyPath: string;
   resetData: () => void;
   getData: () => Record<string, unknown>;
+  updateIntervalMs?: number;
 }
 
 /**
@@ -105,11 +106,17 @@ export function useDataTracking(options: DataTrackingOptions) {
   
   window.addEventListener("visibilitychange", visibilityChangeListener);
 
+  let updateInterval: ReturnType<typeof setInterval> | null = null;
+  if (options.updateIntervalMs != undefined) {
+    updateInterval = setInterval(updateUserData, options.updateIntervalMs);
+  }
+
   return {
     responseOptOut,
     userID,
     createUserEntry,
     updateUserData,
     visibilityChangeListener,
+    updateInterval,
   };
 }
