@@ -48,6 +48,7 @@ import { computed, ref, useAttrs, type VNode } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { VIcon } from "vuetify/components/VIcon";
 import { VTooltip } from "vuetify/components/VTooltip";
+import { v4 } from "uuid";
 
 import { IconButtonProps } from "../types";
 
@@ -103,7 +104,8 @@ const cssVars = computed(() => {
 const buttonID = computed(() => {
   const attrs = useAttrs();
   const id = attrs['id'];
-  return id ? `${id}-button`: null;
+  const prefix = id ?? v4();
+  return `${prefix}-button`;
 });
 
 function updateValue() {

@@ -1,9 +1,11 @@
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { CircleMarkerOptions, TileLayerOptions } from "leaflet";
-import { Folder } from "@wwtelescope/engine";
-import { Thumbnail } from "@wwtelescope/engine-types";
+import type { ExtractPublicPropTypes } from "vue";
+import type { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import type { CircleMarkerOptions, TileLayerOptions } from "leaflet";
+import type { Folder } from "@wwtelescope/engine";
+import type { Thumbnail } from "@wwtelescope/engine-types";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { MapBoxFeatureCollection } from "./mapbox";
+import { VTooltip } from "vuetify/components";
 
 /** The type of the WWT engine Pinia store */
 export type WWTEngineStore = ReturnType<typeof engineStore>;
@@ -149,7 +151,7 @@ export interface IconButtonProps {
   /** The tooltip text for the button. If not specified, tooltip will not be shown */
   tooltipText?: string;
   /** The location of the tooltip. Default is start */
-  tooltipLocation?: string;
+  tooltipLocation?: ExtractPublicPropTypes<typeof VTooltip>["location"];
   /** Whether to show the tooltip when the button is clicked. Default is false */
   tooltipOnClick?: boolean;
   /** Whether to show the tooltip when the button is focused. Default is false */
@@ -161,7 +163,7 @@ export interface IconButtonProps {
   /** Whether to show the tooltip when appropriate. Default is true */
   showTooltip?: boolean;
   /** The size of the icon */
-  size?: string;
+  size?: FontAwesomeIconProps["size"];
   /** Disable the button and prevent actions from running: Default is false */
   disabled?: boolean;
 }

@@ -29,7 +29,13 @@ export default defineConfig({
       formats: ["es", "cjs"],
     },
     rollupOptions: {
-      external: ["vue", "pinia", "@wwtelescope/engine"],
+      external: [
+        "vue", 
+        "pinia", 
+        "@wwtelescope/engine",
+        /\.stories\.(ts|tsx|js|jsx)$/,
+        /\.storybook\//
+      ],
       output: {
         globals: {
           vue: "Vue",

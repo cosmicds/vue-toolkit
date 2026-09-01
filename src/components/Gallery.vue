@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watch, onBeforeMount, toRaw, type VNode } from "vue";
+import { ref, reactive, computed, watch, onBeforeMount, inject, toRaw, type VNode } from "vue";
 import { Folder, Imageset, Place } from "@wwtelescope/engine";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -103,13 +103,17 @@ const emit = defineEmits<{
 
 defineSlots<{
   /** A slot allowing customization of what is shown when the gallery is closed. This slot has access to the component's list of places and selected place(s).*/
-  closed(props: GalleryProps): VNode[];
+  closed(props: {
+    places: Place[],
+    selectedPlace: Place | null,
+    selectedPlaces: Place[],
+  }): VNode[];
 }>();
 
 const open = ref(false);
-let places = reactive<Place[]>([]);
+const places = ref<Place[]>([]);
 const selectedPlace = ref<Place | null>(null);
-let selectedPlaces = reactive<Place[]>([]);
+const selectedPlaces = ref<Place[]>([]);
 
 const cssVars = computed(() => {
   return {
@@ -122,7 +126,7 @@ const cssVars = computed(() => {
 
 onBeforeMount(() => {
   props.store.waitForReady().then(async () => {
-    places = await placesFromWtml(props.wtmlUrl);
+    places.value = await placesFromWtml(props.wtmlUrl);
   });
 });
 
