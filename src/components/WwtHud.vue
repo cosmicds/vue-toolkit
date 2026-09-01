@@ -38,7 +38,7 @@ import { computed, type VNode } from "vue";
 import { Settings } from "@wwtelescope/engine";
 import { storeToRefs } from "pinia";
 
-import { WwtHUDProps } from "../types";
+import {  WwtHUDProps } from "../types";
 
 
 const R2D = 180 / Math.PI;
@@ -78,6 +78,10 @@ const {
   foregroundOpacity,
   backgroundImageset,
   foregroundImageset,
+// JC: I don't know exactly why Pinia is made about the typing here
+// TODO: Figure it out!
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 } = storeToRefs(props.store);
 
 const cssVars = computed(() => {

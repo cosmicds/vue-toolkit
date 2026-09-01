@@ -10,6 +10,7 @@ import { VIcon, VTooltip } from "vuetify/components";
 /** The type of the WWT engine Pinia store */
 export type WWTEngineStore = ReturnType<typeof engineStore>;
 
+
 /* Funding acknowledgement */
 
 /** Interface describing props for the funding acknowledgement component */
@@ -128,7 +129,9 @@ export interface GeolocationButtonProps {
   */ 
 export type FontAwesomeIconProps = InstanceType<typeof FontAwesomeIcon>["$props"];
 /** A type describing the size options for a FontAwesome icon */
-export type FontAwesomeSizeType = FontAwesomeIconProps["size"];
+export type FontAwesomeIconSize = FontAwesomeIconProps["size"];
+/** A type describing the size options for a Vuetify v-icon */
+export type VIconSize = ExtractPublicPropTypes<VIcon>["size"];
 
 /** An interface describing props for the icon button */
 export interface IconButtonProps {
@@ -163,7 +166,7 @@ export interface IconButtonProps {
   /** Whether to show the tooltip when appropriate. Default is true */
   showTooltip?: boolean;
   /** The size of the icon */
-  size?: FontAwesomeIconProps["size"] | ExtractPublicPropTypes<typeof VIcon>["size"];
+  size?: FontAwesomeIconSize | VIconSize;
   /** Disable the button and prevent actions from running: Default is false */
   disabled?: boolean;
 }
@@ -363,7 +366,7 @@ export interface LocationSearchProps {
   /** Whether to use the "small-screen" layout */
   small?: boolean;
   /** The size of the activator button's icon. Should be a valid FontAwesome icon size */
-  buttonSize?: FontAwesomeIconProps["size"];
+  buttonSize?: FontAwesomeIconSize;
   /** The background color of the search box. Should be a valid CSS color */
   bgColor?: string;
 }
@@ -435,7 +438,7 @@ export interface UserExperienceProps {
   /** The colors to use for hovered/selected rating icons. Can be ignored if not using default slot content. */
   ratingColors?: string[];
   /** The size to use for icons. Can be ignored if not using default slot content. */
-  iconSize?: string;
+  iconSize?: FontAwesomeIconSize;
   /** The color of the component card */
   color?: string;
 }
