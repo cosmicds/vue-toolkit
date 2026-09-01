@@ -1,10 +1,14 @@
-import { BackgroundImageset, skyBackgroundImagesets } from "./background";
-import { KeyPressInfo, KeyboardControlSettings } from "./keyboard";
+import type { BackgroundImageset } from "./background";
+import { skyBackgroundImagesets } from "./background";
+
+import type { KeyPressInfo, KeyboardControlSettings } from "./keyboard";
 
 import { useFullscreen } from "./composables/fullscreen";
-import { useGeolocation, PositionCoords } from "./composables/geolocation";
+import type { PositionCoords } from "./composables/geolocation";
+import { useGeolocation } from "./composables/geolocation";
 import { usePlaybackControl } from "./composables/playbackControl";
-import { useWindowShape, WindowShape } from "./composables/windowShape";
+import type { WindowShape } from "./composables/windowShape";
+import { useWindowShape } from "./composables/windowShape";
 import { useWWTKeyboardControls } from "./composables/wwtKeyboard";
 
 import AttentionHook from "./components/AttentionHook.vue";
@@ -24,13 +28,15 @@ import TapToInput from "./components/TapToInput.vue";
 import UserExperience from "./components/UserExperience.vue";
 import WwtHud from "./components/WwtHud.vue";
 
-export {
+export type {
   BackgroundImageset,
   KeyPressInfo,
   KeyboardControlSettings,
   PositionCoords,
   WindowShape,
+};
 
+export {
   skyBackgroundImagesets,
 
   useGeolocation,

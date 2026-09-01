@@ -103,7 +103,7 @@ export const WithUserExperience: Story = {
     color: "surface",
 
     baseColor: "black",
-    apiKey: process.env.VUE_APP_CDS_API_KEY,
+    apiKey: import.meta.env.VITE_CDS_API_KEY,
     story: "storybook",
 
     // We don't need these responses, so just use the same UUID for everyone

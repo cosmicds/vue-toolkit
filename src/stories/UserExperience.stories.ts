@@ -53,7 +53,7 @@ export const Primary: Story = {
   },
   args: {
     baseColor: "black",
-    apiKey: process.env.VUE_APP_CDS_API_KEY,
+    apiKey: import.meta.env.VITE_CDS_API_KEY,
     story: "storybook",
   }
 };
