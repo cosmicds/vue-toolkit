@@ -5,7 +5,7 @@ import type { Folder } from "@wwtelescope/engine";
 import type { Thumbnail } from "@wwtelescope/engine-types";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { MapBoxFeatureCollection } from "./mapbox";
-import { VTooltip } from "vuetify/components";
+import { VIcon, VTooltip } from "vuetify/components";
 
 /** The type of the WWT engine Pinia store */
 export type WWTEngineStore = ReturnType<typeof engineStore>;
@@ -163,7 +163,7 @@ export interface IconButtonProps {
   /** Whether to show the tooltip when appropriate. Default is true */
   showTooltip?: boolean;
   /** The size of the icon */
-  size?: FontAwesomeIconProps["size"];
+  size?: FontAwesomeIconProps["size"] | ExtractPublicPropTypes<typeof VIcon>["size"];
   /** Disable the button and prevent actions from running: Default is false */
   disabled?: boolean;
 }
@@ -266,7 +266,7 @@ export interface WwtHUDProps {
   /** Define an offset for the HUD. Default is `{ x: 0.5, y: 0.5 }` */
   offsetCenter?: { x: number; y: number };
   /** Other variables to include in the HUD display. Default is `{}` */
-  otherVariables?: Object;  // eslint-disable-line @typescript-eslint/ban-types
+  otherVariables?: object;
   /** The font size of the HUD text. Should be a valid CSS value for `font-size` */
   fontSize?: string;
   /** Background color for the HUD. Should be a valid CSS color. Default is `rgba(0, 0, 0, 0.5)` */

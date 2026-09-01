@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watch, onBeforeMount, inject, toRaw, type VNode } from "vue";
+import { ref, computed, watch, onBeforeMount, toRaw, type VNode } from "vue";
 import { Folder, Imageset, Place } from "@wwtelescope/engine";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -161,12 +161,12 @@ function selectPlace(place: Place) {
     // if we're already selected, deselect
     if (selectedPlace.value === place) {
       emit("deselect", place);
-      selectedPlaces.splice(0);
+      selectedPlaces.value.splice(0);
       selectedPlace.value = null;
       return;
     } else {
-      selectedPlaces.forEach(p => emit("deselect", p));
-      selectedPlaces = [place];
+      selectedPlaces.value.forEach(p => emit("deselect", p));
+      selectedPlaces.value = [place];
       selectedPlace.value = place;
       return;
     }
@@ -174,16 +174,16 @@ function selectPlace(place: Place) {
 
   // for multi-select
   // if we're already selected, deselect
-  if (selectedPlaces.includes(place)) {
+  if (selectedPlaces.value.includes(place)) {
     emit("deselect", place);
     selectedPlace.value = null;
-    selectedPlaces.splice(selectedPlaces.indexOf(place), 1);
+    selectedPlaces.value.splice(selectedPlaces.value.indexOf(place), 1);
   } else {
     selectedPlace.value = place;
     if (props.singleSelect) {
-      filterInPlace(selectedPlaces, (p) => p === place); 
+      filterInPlace(selectedPlaces.value, (p) => p === place); 
     } else {
-      selectedPlaces.push(place);
+      selectedPlaces.value.push(place);
     }
   }
 
@@ -193,7 +193,7 @@ watch(selectedPlace, (place) => {
   if (place === null) { return; }
   emit("select", toRaw(place));
   if (props.singleSelect) {
-    emit("listAllSelected", toRaw(selectedPlaces));
+    emit("listAllSelected", toRaw(selectedPlaces.value));
   }
 });
 </script>

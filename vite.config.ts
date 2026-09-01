@@ -11,6 +11,13 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
       include: ["src/**/*.ts", "src/**/*.vue"],
+      exclude: [
+        "**/*.stories.ts",
+        "**/*.stories.tsx",
+        "**/*.stories.js",
+        "**/*.stories.jsx",
+        ".storybook/**/*",
+      ],
     }),
     viteStaticCopy({
       targets: [{ src: "src/assets/*", dest: "assets" }],
