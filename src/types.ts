@@ -363,7 +363,7 @@ export interface LocationSearchProps {
   /** Whether to use the "small-screen" layout */
   small?: boolean;
   /** The size of the activator button's icon. Should be a valid FontAwesome icon size */
-  buttonSize?: string;
+  buttonSize?: FontAwesomeIconProps["size"];
   /** The background color of the search box. Should be a valid CSS color */
   bgColor?: string;
 }

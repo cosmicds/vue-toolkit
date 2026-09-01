@@ -26,6 +26,8 @@
       :menu="menuOpen"
       @update:menu="menuOpen = $event"
     >
+    <!-- TODO: Find out how to get the correct slot typing here -->
+    <!-- @vue-ignore -->
     <template v-slot:append>
       <font-awesome-icon
         class="geocoding-search-icon"

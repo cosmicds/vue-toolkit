@@ -2,7 +2,7 @@
   <div id="enclosing-playback-container" :style="cssVars">
     
     <!-- add a close box -->
-    <div v-if="(inline && inlineButton) || showCloseButton" id="playback-close-button" @click="$emit('close')">
+    <div v-if="(inline && inlineButton) || showCloseButton" id="playback-close-button" @click="emit('closed')">
         <v-icon :color="color" size="18">mdi-close</v-icon>
     </div>
     
@@ -90,6 +90,7 @@ const props = withDefaults(defineProps<PlaybackControlProps>(), {
 });
 
 const emit = defineEmits<{
+  (event: "closed"): void;
   (event: "paused", paused: boolean): void
   (event: "update:modelValue", rate: number): void
 }>();

@@ -26,12 +26,12 @@
           <font-awesome-icon
             v-if="iconType === 'fa'"
             :icon="icon"
-            :size="size"
+            :size="size as FontAwesomeIconProps['size']"
             :class="['fa-icon', icon]"
           ></font-awesome-icon>
           <v-icon
             v-else
-            :size="size"
+              :size="size as ExtractPublicPropTypes<VIcon>['size']"
             :class="['md-icon', icon]"
           >{{ icon }}
         </v-icon>
@@ -44,8 +44,8 @@
 
 
 <script setup lang="ts">
-import { computed, ref, useAttrs, type VNode } from "vue";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { computed, ExtractPublicPropTypes, ref, useAttrs, type VNode } from "vue";
+import { FontAwesomeIcon, FontAwesomeIconProps } from "@fortawesome/vue-fontawesome";
 import { VIcon } from "vuetify/components/VIcon";
 import { VTooltip } from "vuetify/components/VTooltip";
 import { v4 } from "uuid";
