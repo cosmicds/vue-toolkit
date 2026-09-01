@@ -95,7 +95,7 @@ export async function submitUserExperienceRating(
     body.comments = info.comments;
   }
   if (info.rating) {
-    body.rating == info.rating;
+    body.rating = info.rating;
   }
   const destination = url ?? `${API_BASE_URL}/stories/user-experience`;
   return fetch(destination, {
