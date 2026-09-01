@@ -390,7 +390,7 @@ export interface DateTimePickerProps {
   accentColor?: string;
   /** Whether to show debugging information */
   debug?: boolean;
-  /** Whether to use AM/PM (as opposed ot 24-hour time) */
+  /** Whether to use AM/PM (as opposed to 24-hour time) */
   useAmPm?: boolean;
   /** Whether or not the time is editable via text boxes */
   editableTime?: boolean;
