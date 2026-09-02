@@ -18,7 +18,7 @@ export default defineConfig([
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
 
-  ...pluginVue.configs['flat/essential'],
+  ...pluginVue.configs['flat/recommended'],
 
   ...pluginStorybook.configs['flat/recommended'],
 

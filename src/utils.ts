@@ -104,7 +104,6 @@ export async function submitUserExperienceRating(
     headers: {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       "Authorization": apiKey,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       "Content-Type": "application/json",
     },
   })

@@ -34,7 +34,6 @@
     "@typescript-eslint/parser": "^6.19.0",
     "@vitejs/plugin-vue": "^6.0.8",
     "@vue/compiler-sfc": "^3.4.25",
-    "@vue/eslint-config-typescript": "^12.0.0",
     "@wdns/vue-code-block": "^2.3.5",
     "css-loader": "^7.1.1",
     "eslint": "^10.9.1",
@@ -60,6 +59,7 @@
     "vite-plugin-checker": "^0.14.5",
     "vite-plugin-dts": "^5.1.0",
     "vite-plugin-static-copy": "^4.1.1",
+    "vue-eslint-parser": "^10.4.1",
     "vue-template-compiler": "^2.7.14",
     "vue-tsc": "^3.3.11"
   },
