@@ -38,7 +38,7 @@
 
     <p>
       to emphasize that JWST can see in the infrared, outside the range of human vision. This isn't bad, but we wanted the text, and in
-      particular the bit about infrared, to pop a bit more. To do this, head down to the <code><style></code> section of the code
+      particular the bit about infrared, to pop a bit more. To do this, head down to the <code>&lt;style&gt;</code> section of the code
       and add the following bit of code <em>inside</em> of the <code>#splash-screen</code> block:
     </p>
     <CodeBlock :code="splashScreenTitleStyling" lang="css"/>
