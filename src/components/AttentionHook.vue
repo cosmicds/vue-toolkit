@@ -75,7 +75,7 @@ const emit = defineEmits<{
 }>();
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 .attention-hook {
   position: absolute;
   bottom: 0;

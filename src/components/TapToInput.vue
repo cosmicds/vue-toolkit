@@ -143,7 +143,7 @@ watch(pseudoValue, (newValue, oldValue) => {
 
 </script>
 
-<style>
+<style scoped>
 /* Chrome, Safari, Edge, Opera */
 input.tti__input::-webkit-outer-spin-button,
 input.tti__input::-webkit-inner-spin-button

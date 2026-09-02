@@ -72,7 +72,7 @@ const cssVars = computed(() => {
 });
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 #icons-container {
   pointer-events: auto;
 

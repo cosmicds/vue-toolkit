@@ -136,7 +136,7 @@ function handleTouchEnd() {
 }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 .icon-wrapper {
   color: var(--color);
   border-color: var(--color);

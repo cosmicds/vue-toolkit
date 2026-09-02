@@ -325,7 +325,7 @@ function onClickOutside() {
 }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 
 :root {
   --default-font-size: clamp(0.7rem, min(1.7vh, 1.7vw), 1.1rem);

@@ -150,7 +150,7 @@ watch(currentRating, (rating: UserExperienceRating | null) => {
 });
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 
 #cds-user-experience {
   .rating-root {

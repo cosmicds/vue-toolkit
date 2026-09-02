@@ -148,7 +148,7 @@ watch(geolocation, (location) => {
 });
 </script>
 
-<style>
+<style scoped>
 .geolocation-button {
   pointer-events: auto;
 }

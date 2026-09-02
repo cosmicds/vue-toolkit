@@ -222,7 +222,7 @@ function options(value: number): { style: { left: string } } {
 }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 #enclosing-playback-container {
   // modify the Vuetify slider properties
   contain: layout;

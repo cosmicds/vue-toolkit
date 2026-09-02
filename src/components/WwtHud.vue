@@ -125,7 +125,7 @@ const wwtLocation = computed(() => {
 });
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 #wwt-hud {
   position: absolute;
   top: var(--hud-top);

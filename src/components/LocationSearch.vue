@@ -189,7 +189,7 @@ watch(searchItem, function(item: string | MapBoxFeature | null) {
 });
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 
 // https://vue-loader.vuejs.org/guide/scoped-css.html#deep-selectors
 .forward-geocoding-container {

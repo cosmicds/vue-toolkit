@@ -80,7 +80,7 @@ function share() {
 }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 .share-button {
   z-index: 1000;
   padding-inline: 5px;

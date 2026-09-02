@@ -458,7 +458,7 @@ watch(() => props.modelValue, (date) => {
 
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@500&display=swap');
 
 .dtp__container {
