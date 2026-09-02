@@ -4,7 +4,7 @@ import { wwtPinia } from "@wwtelescope/engine-pinia";
 import { createVuetify } from 'vuetify';
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
-import 'vuetify/styles';
+import "vuetify/styles";
 import "@mdi/font/css/materialdesignicons.css";
 
 import Notifications from "@kyvg/vue3-notification";

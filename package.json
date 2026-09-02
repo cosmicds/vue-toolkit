@@ -24,8 +24,6 @@
     "@eslint/js": "^10.0.1",
     "@storybook/addon-docs": "^10.5.10",
     "@storybook/addon-links": "^10.5.10",
-    "@storybook/blocks": "^8.0.9",
-    "@storybook/test": "^8.0.9",
     "@storybook/vue3": "^10.5.10",
     "@storybook/vue3-vite": "^10.5.10",
     "@stylistic/eslint-plugin": "^5.10.0",
