@@ -14,7 +14,7 @@
     <code-block
       code="git clone https://github.com/cosmicds/vue-ds-template.git <your-story-name>"
     />
-    <p>where &lt;your-story-name&gt; is the name of your story. Next, we have a setup script that you can run to help rename relevant pieces of the story and update some metadata in the story HTML:</p>
+    <p>where <your-story-name> is the name of your story. Next, we have a setup script that you can run to help rename relevant pieces of the story and update some metadata in the story HTML:</p>
 
     <code-block
       :code="['cd <your-story-name>', 'scripts/setup.sh <your-story-name>']"

@@ -232,7 +232,7 @@
       >
         <button 
           name="set-am" 
-          :class="[&quot;dtp__ampm-button&quot;, &quot;dtp__ampm-am&quot;, { &quot;dtp__ampm-active&quot;: isAm }]" 
+          :class="['dtp__ampm-button', 'dtp__ampm-am', { 'dtp__ampm-active': isAm }]" 
           aria-label="Set AM" 
           @click="isAm = true"
         >
@@ -240,7 +240,7 @@
         </button>
         <button 
           name="set-pm" 
-          :class="[&quot;dtp__ampm-button&quot;, &quot;dtp__ampm-pm&quot;, { &quot;dtp__ampm-active&quot;: !isAm }]" 
+          :class="['dtp__ampm-button', 'dtp__ampm-pm', { 'dtp__ampm-active': !isAm }]" 
           aria-label="Set PM" 
           @click="isAm = false"
         >
