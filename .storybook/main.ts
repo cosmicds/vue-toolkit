@@ -24,10 +24,6 @@ const config: StorybookConfig = {
 
   framework: vueOptions,
 
-  docs: {
-    docsMode: true,
-  },
-
   viteFinal: async (config) => {
     return mergeConfig(config, {
     });
