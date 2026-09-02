@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Meta, StoryObj } from "@storybook/vue3";
+import { Meta, StoryObj } from "@storybook/vue3-vite";
 import CreatingTheProject from "./CreatingTheProject.vue";
 import CreateSplashScreen from "./CreateSplashScreen.vue";
 import SettingUpLayers from "./SettingUpLayers.vue";

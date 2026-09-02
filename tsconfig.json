@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
+    "moduleResolution": "bundler",
     "composite": true,
     "strict": true,
     "declaration": true,
@@ -28,5 +29,5 @@
   "include": [
     "./src/**/*.ts",
     "./src/**/*.vue"
-  ],
+  ]
 }

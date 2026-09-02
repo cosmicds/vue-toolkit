@@ -1,4 +1,4 @@
-import { setup, type Preview } from "@storybook/vue3";
+import { setup, type Preview } from "@storybook/vue3-vite";
 import { wwtPinia } from "@wwtelescope/engine-pinia";
 
 import { createVuetify } from 'vuetify';
