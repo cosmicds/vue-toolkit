@@ -1,5 +1,7 @@
 import type { StorybookConfig } from "@storybook/vue3-webpack5";
 
+const path = require("path");
+
 const vueOptions: StorybookConfig["framework"] = {
   name: "@storybook/vue3-webpack5",
   options: {
@@ -33,6 +35,7 @@ const config: StorybookConfig = {
       test: /\.less/,
       sideEffects: true,
       use: ["style-loader", "css-loader", "less-loader"],
+      include: path.resolve(__dirname, '../'),
     });
     config.module?.rules?.push({
       test: /\.md/,
