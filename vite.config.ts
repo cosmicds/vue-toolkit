@@ -21,6 +21,7 @@ export default defineConfig({
     }),
     checker({
       eslint: {
+        useFlatConfig: true,
         lintCommand: 'eslint "./src/**/*.{js,jsx,ts,tsx}"',
       }
     }),
