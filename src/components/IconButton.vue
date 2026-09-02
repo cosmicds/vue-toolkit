@@ -44,7 +44,7 @@
 
 
 <script setup lang="ts">
-import { computed, ExtractPublicPropTypes, ref, useAttrs, type VNode } from "vue";
+import { computed, ref, useAttrs, type VNode } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { VIcon } from "vuetify/components/VIcon";
 import { VTooltip } from "vuetify/components/VTooltip";
