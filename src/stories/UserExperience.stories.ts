@@ -13,7 +13,8 @@ const meta: Meta<typeof UserExperience> = {
 export default meta;
 type Story = StoryObj<typeof UserExperience>;
 
-import { notify } from "@kyvg/vue3-notification";
+import { useNotification } from "@kyvg/vue3-notification";
+const { notify } = useNotification();
 
 function submitHandler() {
   notify({
@@ -38,7 +39,6 @@ export const Primary: Story = {
           <notifications
             group="rating-submission"
             position="center bottom"
-            classes="rating-notification"
             :max="3"
           />
         </div>

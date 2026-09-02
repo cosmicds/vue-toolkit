@@ -26,6 +26,15 @@ const config: StorybookConfig = {
 
   viteFinal: async (config) => {
     return mergeConfig(config, {
+      resolve: {
+        conditions: [
+          "import",
+          "module",
+          "browser",
+          "development",
+          "production",
+        ],
+      },
     });
   }
 };
