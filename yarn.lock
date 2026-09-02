@@ -130,6 +130,7 @@ __metadata:
     eslint: "npm:^10.9.1"
     eslint-plugin-storybook: "npm:^10.5.10"
     eslint-plugin-vue: "npm:^10.10.0"
+    globals: "npm:^17.12.0"
     html-loader: "npm:^5.1.0"
     jiti: "npm:^2.7.0"
     leaflet: "npm:^1.9.4"
@@ -3269,6 +3270,13 @@ __metadata:
   version: 0.4.1
   resolution: "glob-to-regexp@npm:0.4.1"
   checksum: 10/9009529195a955c40d7b9690794aeff5ba665cc38f1519e111c58bb54366fd0c106bde80acf97ba4e533208eb53422c83b136611a54c5fefb1edd8dc267cb62e
+  languageName: node
+  linkType: hard
+
+"globals@npm:^17.12.0":
+  version: 17.12.0
+  resolution: "globals@npm:17.12.0"
+  checksum: 10/833291560517dbb510c6d12359ba87eb8b8f282e9775b0474c6e19e0bea043b61f6b52732d4b1bb275888d1813564e40653e0d5faccef3083dc603cfbf0a3271
   languageName: node
   linkType: hard
 
