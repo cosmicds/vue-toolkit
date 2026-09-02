@@ -1,5 +1,5 @@
 import type { ExtractPublicPropTypes } from "vue";
-import type { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import type { FontAwesomeIconProps } from "@fortawesome/vue-fontawesome";
 import type { CircleMarkerOptions, TileLayerOptions } from "leaflet";
 import type { Folder } from "@wwtelescope/engine";
 import type { Thumbnail } from "@wwtelescope/engine-types";
@@ -123,11 +123,6 @@ export interface GeolocationButtonProps {
 
 /* Icon button */
 
-/**
-  * A type describing the props of a FontAwesome icon
-  * We need to do this because FontAwesome doesn't export the prop types
-  */ 
-export type FontAwesomeIconProps = InstanceType<typeof FontAwesomeIcon>["$props"];
 /** A type describing the size options for a FontAwesome icon */
 export type FontAwesomeIconSize = FontAwesomeIconProps["size"];
 /** A type describing the size options for a Vuetify v-icon */
