@@ -1,7 +1,7 @@
 <template>
   <nav
-    class="fv-root"
     v-if="items !== null"
+    class="fv-root"
     :style="cssVars"
     aria-role="navigation"
     aria-label="Folder View"
@@ -13,7 +13,7 @@
         name="header"
         :expanded="expanded"
         :toggle-expanded="toggleExpanded"
-      ></slot>
+      />
     </div>
     <div
       v-show="expanded"
@@ -31,20 +31,23 @@
           :select-item="selectItem"
         >
           <div
-            :class="['fv-item-content', lastSelectedItem === item ? 'selected' : '']"
             :key="item.get_name()"
+            :class="['fv-item-content', lastSelectedItem === item ? 'selected' : '']"
             :title="item.get_name()"
-            @click="() => selectItem(item, 'click')"
-            @dblclick="() => selectItem(item, 'dblclick')"
-            @keydown.enter="() => selectItem(item, 'keyup')"
             tabindex="0"
             role="button"
             :aria-label="item.get_name()"
             :aria-selected="lastSelectedItem === item"
+            @click="() => selectItem(item, 'click')"
+            @dblclick="() => selectItem(item, 'dblclick')"
+            @keydown.enter="() => selectItem(item, 'keyup')"
           >
-            <img :src="item.get_thumbnailUrl() ?? defaultThumbnail" :alt="item.get_name()" />
+            <img
+              :src="item.get_thumbnailUrl() ?? defaultThumbnail"
+              :alt="item.get_name()"
+            >
             <label class="fv-item-name">
-              {{item.get_name()}}
+              {{ item.get_name() }}
             </label>
             <FontAwesomeIcon
               v-if="item instanceof Folder"

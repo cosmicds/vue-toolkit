@@ -1,39 +1,41 @@
 <template>
   <div
-    :class="['gallery-root', {'open': open}]">
-    <div class="just-holding-events"
-        @click="open = true"
-        @keyup.enter="open = true"
-        tabindex="0"
-    >
-    <slot
-      name="closed"
-      v-if="!open"
-      :places="places"
-      :selected-place="selectedPlace"
-      :selected-places="selectedPlaces"
-    >
-      <div
-        class="default-activator blurred"
-        @click="open = true"
-        @keyup.enter="open = true"
-      >
-        <span
-          class="default-activator-title noselect"
-        >
-          {{ closedText }}
-        </span>
-        <img
-          class="noselect"
-          :src="places[previewIndex] ? (getImageset(places[previewIndex])?.get_thumbnailUrl() ?? '') : ''"
-          />
-      </div>
-    </slot>
-  </div>
+    :class="['gallery-root', {'open': open}]"
+  >
     <div
+      class="just-holding-events"
+      tabindex="0"
+      @click="open = true"
+      @keyup.enter="open = true"
+    >
+      <slot
+        v-if="!open"
+        name="closed"
+        :places="places"
+        :selected-place="selectedPlace"
+        :selected-places="selectedPlaces"
+      >
+        <div
+          class="default-activator blurred"
+          @click="open = true"
+          @keyup.enter="open = true"
+        >
+          <span
+            class="default-activator-title noselect"
+          >
+            {{ closedText }}
+          </span>
+          <img
+            class="noselect"
+            :src="places[previewIndex] ? (getImageset(places[previewIndex])?.get_thumbnailUrl() ?? '') : ''"
+          >
+        </div>
+      </slot>
+    </div>
+    <div
+      v-if="open"
       :style="cssVars"
       class="gallery blurred"
-      v-if="open"
     >
       <div
         class="gallery-header"
@@ -43,10 +45,10 @@
           class="gallery-close"
           icon="times"
           size="lg"
+          tabindex="0"
           @click="open = false"
           @keyup.enter="open = false"
-          tabindex="0"
-        ></font-awesome-icon>
+        />
       </div>
       <div
         class="gallery-content"
@@ -60,7 +62,7 @@
           <img
             class="noselect"
             :src="getImageset(place)?.get_thumbnailUrl() ?? ''"
-          />
+          >
           <span class="place-name noselect">{{ place.get_name() }}</span>
         </div>
       </div>

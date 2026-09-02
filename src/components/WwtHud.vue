@@ -21,16 +21,17 @@
         User defined vars 
       </h3>
       <!-- loop over otherVariable keys -->
-      <p v-for="(value, key) in otherVariables" :key="key">
+      <p
+        v-for="(value, key) in otherVariables"
+        :key="key"
+      >
         {{ key }}: {{ value }}
       </p>
       
       <!-- a default slot for whatever -->
-      <slot :store="store"></slot>
-      
+      <slot :store="store" />
     </div>
   </div>
-  
 </template>
 
 <script setup lang="ts">

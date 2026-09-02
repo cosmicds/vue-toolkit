@@ -9,18 +9,18 @@
     :disabled="!tooltipText || !showTooltip"
     :class="['icon-button-v-tooltip', disabled ? 'disabled-tooltip' : '']"
   >
-    <template v-slot:activator="{ props }: { props: Record<string,any> }">
+    <template #activator="{ props: tooltipProps }: { props: Record<string,any> }">
       <div
-        v-bind="props"
+        v-bind="tooltipProps"
         :id="buttonID"
         :class="['icon-wrapper', {'active': modelValue}]"
+        :style="cssVars"
+        tabindex="0"
+        :aria-disabled="disabled"
         @click="handleAction"
         @keyup.enter="handleAction"
         @touchstart="handleTouchStart"
         @touchend="handleTouchEnd"
-        :style="cssVars"
-        tabindex="0"
-        :aria-disabled="disabled"
       >
         <slot name="button">
           <font-awesome-icon
@@ -28,13 +28,14 @@
             :icon="icon"
             :size="size as FontAwesomeIconSize"
             :class="['fa-icon', icon]"
-          ></font-awesome-icon>
+          />
           <v-icon
             v-else
-              :size="size as VIconSize"
+            :size="size as VIconSize"
             :class="['md-icon', icon]"
-          >{{ icon }}
-        </v-icon>
+          >
+            {{ icon }}
+          </v-icon>
         </slot>
       </div>
     </template>

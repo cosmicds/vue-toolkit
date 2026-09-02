@@ -1,5 +1,5 @@
 <template>
-  <div class="map-container"></div>
+  <div class="map-container" />
 </template>
 
 <script setup lang="ts">

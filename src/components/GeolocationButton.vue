@@ -1,5 +1,8 @@
 <template>
-  <span :id="`geolocation-wrapper-${id}`" class="geolocation">
+  <span
+    :id="`geolocation-wrapper-${id}`"
+    class="geolocation"
+  >
     <span v-if="showPermissions">Geolocation {{ permissions }} </span>
     <span v-if="showPermissions">location {{ geolocation }} </span>
     <span v-if="showPermissions">counter {{ counter }} </span>
@@ -14,8 +17,8 @@
       :icon="useTextButton ? undefined : icon"
       :prepend-icon="useTextButton ? icon : undefined"
       :color="error ? 'red' : color"
-      @click="getLocation" 
-      :text="useTextButton ? label : undefined"
+      :text="useTextButton ? label : undefined" 
+      @click="getLocation"
     />
 
 
@@ -26,21 +29,30 @@
         :width="2"
         :color="color"
         indeterminate
-      ></v-progress-circular> 
+      /> 
       <span v-if="showTextProgress">Fetching location</span>
     </span>
 
     <span v-if="(showTextProgress ) && loaded">
-      <span v-if="showTextProgress"><v-icon size="small" icon="mdi-check-circle-outline"></v-icon> Using your location</span>
+      <span v-if="showTextProgress"><v-icon
+        size="small"
+        icon="mdi-check-circle-outline"
+      /> Using your location</span>
     </span>
 
-    <span class="geolocation-text" v-if="showTextLabel && !useTextButton">
+    <span
+      v-if="showTextLabel && !useTextButton"
+      class="geolocation-text"
+    >
       <slot>
-      {{ label }}
+        {{ label }}
       </slot>
     </span>
     
-    <span class="geolocation-coords" v-if="showCoords">
+    <span
+      v-if="showCoords"
+      class="geolocation-coords"
+    >
       <p>Latitude: {{ geolocation?.latitude }}</p>
       <p>Longitude: {{ geolocation?.longitude }}</p>
     </span>

@@ -2,10 +2,6 @@
   <div id="speed-control">
     <div id="speed-buttons">
       <icon-button
-        @activate="() => {
-          reverseRate();
-          emit('update:reverse', playbackRate < 0);
-        }"
         :disabled="disabled?.reverse"
         :icon="playbackRate < 0 ? (icons?.playForward ?? 'mdi-step-forward-2') : (icons?.playBackward ?? 'mdi-step-backward-2')"
         :color="color"
@@ -15,19 +11,16 @@
         tooltip-offset="5px"
         :show-tooltip="!(mobile || disabled?.reverse)"
         size="18"
-      >
-      </icon-button>
+        @activate="() => {
+          reverseRate();
+          emit('update:reverse', playbackRate < 0);
+        }"
+      />
       
       <icon-button 
         id="play-pause-icon"
         :icon="timePlaying ? (icons?.pause ?? 'pause') : (icons?.play ?? 'play')"
         size="1x"
-        @activate="
-          () => {
-            timePlaying = !timePlaying;
-            emit('update:modelValue', timePlaying);
-          }
-        "
         :disabled="disabled?.playPause"
         :color="color"
         :focus-color="color"
@@ -35,19 +28,18 @@
         tooltip-location="top"
         tooltip-offset="5px"
         :show-tooltip="!(mobile || disabled?.playPause)"
-      ></icon-button>
+        @activate="
+          () => {
+            timePlaying = !timePlaying;
+            emit('update:modelValue', timePlaying);
+          }
+        "
+      />
       
       <icon-button 
         id="slow-down"
         :icon="icons?.slowDown ?? 'angles-down'"
         size="1x"
-        @activate="
-          () => {
-            decreaseRate();
-            timePlaying = true;
-            emit('slow-down', playbackRate);
-          }
-        "
         :disabled="disabled?.slowDown"
         :color="color"
         :focus-color="color"
@@ -55,19 +47,19 @@
         tooltip-location="top"
         tooltip-offset="5px"
         :show-tooltip="!(mobile || disabled?.slowDown)"
-      ></icon-button>
+        @activate="
+          () => {
+            decreaseRate();
+            timePlaying = true;
+            emit('slow-down', playbackRate);
+          }
+        "
+      />
       
       <icon-button 
         id="speed-up"
         :icon="icons?.speedUp ?? 'angles-up'"
         size="1x"
-        @activate="
-          () => {
-            increaseRate();
-            timePlaying = true;
-            emit('speed-up', playbackRate);
-          }
-        "
         :disabled="disabled?.speedUp"
         :color="color"
         :focus-color="color"
@@ -75,12 +67,26 @@
         tooltip-location="top"
         tooltip-offset="5px"
         :show-tooltip="!(mobile || disabled?.speedUp)"
-      ></icon-button>
+        @activate="
+          () => {
+            increaseRate();
+            timePlaying = true;
+            emit('speed-up', playbackRate);
+          }
+        "
+      />
 
       <icon-button 
         id="reset"
         :icon="icons?.reset ?? 'house'"
         size="1x"
+        :disabled="disabled?.reset"
+        :color="color"
+        :focus-color="color"
+        tooltip-text="Reset"
+        tooltip-location="top"
+        tooltip-offset="5px"
+        :show-tooltip="!(mobile || disabled?.reset)"
         @activate="
           () => {
             playbackRate = defaultRate;
@@ -89,14 +95,7 @@
             emit('reset');
           }
         "
-        :disabled="disabled?.reset"
-        :color="color"
-        :focus-color="color"
-        tooltip-text="Reset"
-        tooltip-location="top"
-        tooltip-offset="5px"
-        :show-tooltip="!(mobile || disabled?.reset)"
-      ></icon-button>
+      />
 
       <v-dialog
         v-if="!useInline && !hideMoreControls"
@@ -109,14 +108,9 @@
         no-click-animation
         :retain-focus="false"
       >
-        <template v-slot:activator>
+        <template #activator>
           <icon-button
             id="speed-control-icon"
-            @activate="
-              () => {
-                playbackVisible = !playbackVisible;
-              }
-            "
             :disabled="disabled?.moreControls"
             :icon="playbackVisible ? 'times' : (icons?.moreControls ?? 'gauge-high')"
             size="1x"
@@ -126,22 +120,18 @@
             tooltip-location="top"
             tooltip-offset="5px"
             :show-tooltip="!(mobile || disabled?.moreControls)"
-          ></icon-button>
+            @activate="
+              () => {
+                playbackVisible = !playbackVisible;
+              }
+            "
+          />
         </template>
         <playback-control
-          class="desktop-playback-control"
           v-if="playbackVisible"
+          class="desktop-playback-control"
           :model-value="playbackRate"
-          @update:modelValue="
-            forceRate = false;
-            playbackRate = $event;
-            emit('set-rate', $event);
-          "
           :paused="!timePlaying"
-          @paused="
-            timePlaying = !$event;
-            emit('update:modelValue', !$event);
-          "
           :disabled="disabled"
           :icons="icons"
           :max-power="Math.log10(maxSpeed)"
@@ -149,6 +139,15 @@
           :color="color"
           :inline="false"
           show-close-button
+          @update:model-value="
+            forceRate = false;
+            playbackRate = $event;
+            emit('set-rate', $event);
+          "
+          @paused="
+            timePlaying = !$event;
+            emit('update:modelValue', !$event);
+          "
           @close="
             () => {
               playbackVisible = false;
@@ -156,15 +155,12 @@
           "
         />
       </v-dialog>
-      <div v-if="useInline" id="inline-speed-control">
+      <div
+        v-if="useInline"
+        id="inline-speed-control"
+      >
         <icon-button
           id="speed-control-icon"
-          @activate="
-            () => {
-              playbackVisible = !playbackVisible;
-              allowClickOutside = false; // prevent onClickOutside from hiding it.
-            }
-          "
           :icon="playbackVisible ? 'times' : 'gauge-high'"
           :color="color"
           :focus-color="color"
@@ -173,27 +169,33 @@
           tooltip-offset="5px"
           size="1x"
           :show-tooltip="!mobile"
-        ></icon-button>
+          @activate="
+            () => {
+              playbackVisible = !playbackVisible;
+              allowClickOutside = false; // prevent onClickOutside from hiding it.
+            }
+          "
+        />
 
         <playback-control
-          class="mobile-playback-control"
           v-show="playbackVisible"
+          v-click-outside="onClickOutside"
+          class="mobile-playback-control"
           :model-value="playbackRate"
-          @update:modelValue="
-            forceRate = false;
-            playbackRate = $event;
-            emit('set-rate', $event);
-          "
           :disabled="disabled"
           :icons="icons"
           :paused="!timePlaying"
-          @paused="timePlaying = !$event"
           :max-power="Math.log10(maxSpeed)"
           :max="Math.log10(maxSpeed) + 1"
           :color="color"
           :inline="true"
           inline-button
-          v-click-outside="onClickOutside"
+          @update:model-value="
+            forceRate = false;
+            playbackRate = $event;
+            emit('set-rate', $event);
+          "
+          @paused="timePlaying = !$event"
           @close="
             () => {
               playbackVisible = false;
@@ -203,7 +205,12 @@
       </div>
     </div>
     
-    <div v-if="showStatus" id="speed-text">{{ Math.round(playbackRate) }}x {{ timePlaying ? '' : '(Paused)'  }}</div>
+    <div
+      v-if="showStatus"
+      id="speed-text"
+    >
+      {{ Math.round(playbackRate) }}x {{ timePlaying ? '' : '(Paused)' }}
+    </div>
   </div>
 </template>
 

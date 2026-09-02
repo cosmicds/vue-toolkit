@@ -1,16 +1,15 @@
 <template>
   <div
-    class="attention-hook"
     v-show="visible"
     ref="hook"
+    class="attention-hook"
   >
     <slot>
       <font-awesome-icon
         icon="chevron-up"
         class="attention-hook-icon"
         @click="emit('open')"
-      >
-      </font-awesome-icon>
+      />
     </slot>
   </div>
 </template>

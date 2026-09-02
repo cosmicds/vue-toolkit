@@ -1,24 +1,24 @@
 <!-- Input/Display with up down arrow above and below -->
 <template>
-    <span 
-      v-if="!editing || !props.editable"
-      @click="editing = !editing"
-      ref="display"
-      class="tti__display"
-      >{{ pad(pseudoValue) }}
-    </span>
-    <input 
-      v-else
-      type="number" 
-      :min="minValue"
-      :max="maxValue"
-      :step="stepValue"
-      :value="pseudoValue" 
-      @change="setValue"
-      @blur="blurred"
-      ref="input"
-      class="tti__input"
-      />
+  <span 
+    v-if="!editing || !props.editable"
+    ref="display"
+    class="tti__display"
+    @click="editing = !editing"
+  >{{ pad(pseudoValue) }}
+  </span>
+  <input 
+    v-else
+    ref="input" 
+    type="number"
+    :min="minValue"
+    :max="maxValue"
+    :step="stepValue" 
+    :value="pseudoValue"
+    class="tti__input"
+    @change="setValue"
+    @blur="blurred"
+  >
 </template>
 
 <script setup lang="ts">
