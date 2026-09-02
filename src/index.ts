@@ -28,7 +28,7 @@ import TapToInput from "./components/TapToInput.vue";
 import UserExperience from "./components/UserExperience.vue";
 import WwtHud from "./components/WwtHud.vue";
 
-export type {
+export {
   BackgroundImageset,
   KeyPressInfo,
   KeyboardControlSettings,
