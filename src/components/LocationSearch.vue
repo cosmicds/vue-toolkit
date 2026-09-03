@@ -5,8 +5,9 @@
   >
     <v-combobox
       v-show="searchOpen"
-      :class="['forward-geocoding-input', locationJustUpdated ? 'geocode-success' : '', small ? 'forward-geocoding-input-small' : '']"
+      ref="searchInput"
       v-model="searchItem"
+      :class="['forward-geocoding-input', locationJustUpdated ? 'geocode-success' : '', small ? 'forward-geocoding-input-small' : '']"
       :items="searchResults ? searchResults.features : []"
       :item-title="itemText"
       :bg-color="bgColor"
@@ -15,35 +16,36 @@
       hide-details
       solo
       :color="accentColor"
+      :error-messages="searchErrorMessage"
+      :menu="menuOpen"
       @input="() => {}"
       @keydown.enter="performForwardGeocodingSearch"
       @keydown.esc="searchResults = null"
       @keydown.stop
-      :error-messages="searchErrorMessage"
       @click:append="focusCombobox"
       @update:focused="onFocusChange($event)"
-      ref="searchInput"
-      :menu="menuOpen"
       @update:menu="menuOpen = $event"
     >
-    <template v-slot:append>
-      <font-awesome-icon
-        class="geocoding-search-icon"
-        icon="magnifying-glass"
-        :size="searchOpen ? 'xl' : buttonSize"
-        color="gray"
-        @click="toggleSearch"
-      ></font-awesome-icon>
-    </template>
-  </v-combobox>
-  <font-awesome-icon
+      <!-- TODO: Find out how to get the correct slot typing here -->
+      <!-- @vue-ignore -->
+      <template #append>
+        <font-awesome-icon
+          class="geocoding-search-icon"
+          icon="magnifying-glass"
+          :size="searchOpen ? 'xl' : buttonSize"
+          color="gray"
+          @click="toggleSearch"
+        />
+      </template>
+    </v-combobox>
+    <font-awesome-icon
       v-show="!searchOpen && !stayOpen"
       class="geocoding-search-icon"
       icon="magnifying-glass"
       :size="searchOpen ? 'xl' : buttonSize"
       color="gray"
       @click.prevent="toggleSearch"
-    ></font-awesome-icon>
+    />
   </div>
 </template> 
 
@@ -187,7 +189,7 @@ watch(searchItem, function(item: string | MapBoxFeature | null) {
 });
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 
 // https://vue-loader.vuejs.org/guide/scoped-css.html#deep-selectors
 .forward-geocoding-container {

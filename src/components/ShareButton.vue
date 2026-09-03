@@ -1,21 +1,25 @@
 <template>
-
-  <v-tooltip :disabled="!tooltip" :text="tooltipText">
-    <template v-slot:activator="{ props }: { props: Record<string,any> }">
+  <v-tooltip
+    :disabled="!tooltip"
+    :text="tooltipText"
+  >
+    <template #activator="{ props: tooltipProps }: { props: Record<string,any> }">
       <v-btn
         :id="id"
         :aria-label="ariaLabel"
         class="share-button"
         icon
-        @click="share"
-        @keyup.enter="share"
-        v-bind="props"
+        v-bind="tooltipProps"
         :color="buttonColor"
         :elevation="elevation"
         :size="size"
         :rounded="rounded"
+        @click="share"
+        @keyup.enter="share"
       > 
-        <v-icon :color="iconColor">mdi-share-variant</v-icon>
+        <v-icon :color="iconColor">
+          mdi-share-variant
+        </v-icon>
       </v-btn>
       <v-snackbar 
         v-if="!tooltip || alert"
@@ -30,8 +34,7 @@
         min-width="0px"
         transition="slide-y-transition"
         close-on-content-click
-        >
-      </v-snackbar>
+      />
     </template>
   </v-tooltip>
 </template>
@@ -77,7 +80,7 @@ function share() {
 }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 .share-button {
   z-index: 1000;
   padding-inline: 5px;

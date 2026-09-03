@@ -1,16 +1,15 @@
 <template>
   <div
-    class="attention-hook"
     v-show="visible"
     ref="hook"
+    class="attention-hook"
   >
     <slot>
       <font-awesome-icon
         icon="chevron-up"
         class="attention-hook-icon"
         @click="emit('open')"
-      >
-      </font-awesome-icon>
+      />
     </slot>
   </div>
 </template>
@@ -76,7 +75,7 @@ const emit = defineEmits<{
 }>();
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 .attention-hook {
   position: absolute;
   bottom: 0;

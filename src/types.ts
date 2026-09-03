@@ -1,12 +1,15 @@
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { CircleMarkerOptions, TileLayerOptions } from "leaflet";
-import { Folder } from "@wwtelescope/engine";
-import { Thumbnail } from "@wwtelescope/engine-types";
+import type { ExtractPublicPropTypes } from "vue";
+import type { FontAwesomeIconProps } from "@fortawesome/vue-fontawesome";
+import type { CircleMarkerOptions, TileLayerOptions } from "leaflet";
+import type { Folder } from "@wwtelescope/engine";
+import type { Thumbnail } from "@wwtelescope/engine-types";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { MapBoxFeatureCollection } from "./mapbox";
+import { VIcon, VTooltip } from "vuetify/components";
 
 /** The type of the WWT engine Pinia store */
 export type WWTEngineStore = ReturnType<typeof engineStore>;
+
 
 /* Funding acknowledgement */
 
@@ -120,13 +123,10 @@ export interface GeolocationButtonProps {
 
 /* Icon button */
 
-/**
-  * A type describing the props of a FontAwesome icon
-  * We need to do this because FontAwesome doesn't export the prop types
-  */ 
-export type FontAwesomeIconProps = InstanceType<typeof FontAwesomeIcon>["$props"];
 /** A type describing the size options for a FontAwesome icon */
-export type FontAwesomeSizeType = FontAwesomeIconProps["size"];
+export type FontAwesomeIconSize = FontAwesomeIconProps["size"];
+/** A type describing the size options for a Vuetify v-icon */
+export type VIconSize = ExtractPublicPropTypes<VIcon>["size"];
 
 /** An interface describing props for the icon button */
 export interface IconButtonProps {
@@ -149,7 +149,7 @@ export interface IconButtonProps {
   /** The tooltip text for the button. If not specified, tooltip will not be shown */
   tooltipText?: string;
   /** The location of the tooltip. Default is start */
-  tooltipLocation?: string;
+  tooltipLocation?: ExtractPublicPropTypes<typeof VTooltip>["location"];
   /** Whether to show the tooltip when the button is clicked. Default is false */
   tooltipOnClick?: boolean;
   /** Whether to show the tooltip when the button is focused. Default is false */
@@ -161,7 +161,7 @@ export interface IconButtonProps {
   /** Whether to show the tooltip when appropriate. Default is true */
   showTooltip?: boolean;
   /** The size of the icon */
-  size?: string;
+  size?: FontAwesomeIconSize | VIconSize;
   /** Disable the button and prevent actions from running: Default is false */
   disabled?: boolean;
 }
@@ -264,7 +264,7 @@ export interface WwtHUDProps {
   /** Define an offset for the HUD. Default is `{ x: 0.5, y: 0.5 }` */
   offsetCenter?: { x: number; y: number };
   /** Other variables to include in the HUD display. Default is `{}` */
-  otherVariables?: Object;  // eslint-disable-line @typescript-eslint/ban-types
+  otherVariables?: object;
   /** The font size of the HUD text. Should be a valid CSS value for `font-size` */
   fontSize?: string;
   /** Background color for the HUD. Should be a valid CSS color. Default is `rgba(0, 0, 0, 0.5)` */
@@ -361,7 +361,7 @@ export interface LocationSearchProps {
   /** Whether to use the "small-screen" layout */
   small?: boolean;
   /** The size of the activator button's icon. Should be a valid FontAwesome icon size */
-  buttonSize?: string;
+  buttonSize?: FontAwesomeIconSize;
   /** The background color of the search box. Should be a valid CSS color */
   bgColor?: string;
 }
@@ -433,7 +433,7 @@ export interface UserExperienceProps {
   /** The colors to use for hovered/selected rating icons. Can be ignored if not using default slot content. */
   ratingColors?: string[];
   /** The size to use for icons. Can be ignored if not using default slot content. */
-  iconSize?: string;
+  iconSize?: FontAwesomeIconSize;
   /** The color of the component card */
   color?: string;
 }

@@ -9,32 +9,33 @@
     :disabled="!tooltipText || !showTooltip"
     :class="['icon-button-v-tooltip', disabled ? 'disabled-tooltip' : '']"
   >
-    <template v-slot:activator="{ props }: { props: Record<string,any> }">
+    <template #activator="{ props: tooltipProps }: { props: Record<string,any> }">
       <div
-        v-bind="props"
+        v-bind="tooltipProps"
         :id="buttonID"
         :class="['icon-wrapper', {'active': modelValue}]"
+        :style="cssVars"
+        tabindex="0"
+        :aria-disabled="disabled"
         @click="handleAction"
         @keyup.enter="handleAction"
         @touchstart="handleTouchStart"
         @touchend="handleTouchEnd"
-        :style="cssVars"
-        tabindex="0"
-        :aria-disabled="disabled"
       >
         <slot name="button">
           <font-awesome-icon
             v-if="iconType === 'fa'"
             :icon="icon"
-            :size="size"
+            :size="size as FontAwesomeIconSize"
             :class="['fa-icon', icon]"
-          ></font-awesome-icon>
+          />
           <v-icon
             v-else
-            :size="size"
+            :size="size as VIconSize"
             :class="['md-icon', icon]"
-          >{{ icon }}
-        </v-icon>
+          >
+            {{ icon }}
+          </v-icon>
         </slot>
       </div>
     </template>
@@ -48,8 +49,9 @@ import { computed, ref, useAttrs, type VNode } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { VIcon } from "vuetify/components/VIcon";
 import { VTooltip } from "vuetify/components/VTooltip";
+import { v4 } from "uuid";
 
-import { IconButtonProps } from "../types";
+import { FontAwesomeIconSize, IconButtonProps, VIconSize } from "../types";
 
 
 const props = withDefaults(defineProps<IconButtonProps>(), {
@@ -103,7 +105,8 @@ const cssVars = computed(() => {
 const buttonID = computed(() => {
   const attrs = useAttrs();
   const id = attrs['id'];
-  return id ? `${id}-button`: null;
+  const prefix = id ?? v4();
+  return `${prefix}-button`;
 });
 
 function updateValue() {
@@ -133,7 +136,7 @@ function handleTouchEnd() {
 }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 .icon-wrapper {
   color: var(--color);
   border-color: var(--color);

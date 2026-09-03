@@ -1,39 +1,41 @@
 <template>
   <div
-    :class="['gallery-root', {'open': open}]">
-    <div class="just-holding-events"
-        @click="open = true"
-        @keyup.enter="open = true"
-        tabindex="0"
-    >
-    <slot
-      name="closed"
-      v-if="!open"
-      :places="places"
-      :selected-place="selectedPlace"
-      :selected-places="selectedPlaces"
-    >
-      <div
-        class="default-activator blurred"
-        @click="open = true"
-        @keyup.enter="open = true"
-      >
-        <span
-          class="default-activator-title noselect"
-        >
-          {{ closedText }}
-        </span>
-        <img
-          class="noselect"
-          :src="places[previewIndex] ? (getImageset(places[previewIndex])?.get_thumbnailUrl() ?? '') : ''"
-          />
-      </div>
-    </slot>
-  </div>
+    :class="['gallery-root', {'open': open}]"
+  >
     <div
+      class="just-holding-events"
+      tabindex="0"
+      @click="open = true"
+      @keyup.enter="open = true"
+    >
+      <slot
+        v-if="!open"
+        name="closed"
+        :places="places"
+        :selected-place="selectedPlace"
+        :selected-places="selectedPlaces"
+      >
+        <div
+          class="default-activator blurred"
+          @click="open = true"
+          @keyup.enter="open = true"
+        >
+          <span
+            class="default-activator-title noselect"
+          >
+            {{ closedText }}
+          </span>
+          <img
+            class="noselect"
+            :src="places[previewIndex] ? (getImageset(places[previewIndex])?.get_thumbnailUrl() ?? '') : ''"
+          >
+        </div>
+      </slot>
+    </div>
+    <div
+      v-if="open"
       :style="cssVars"
       class="gallery blurred"
-      v-if="open"
     >
       <div
         class="gallery-header"
@@ -43,10 +45,10 @@
           class="gallery-close"
           icon="times"
           size="lg"
+          tabindex="0"
           @click="open = false"
           @keyup.enter="open = false"
-          tabindex="0"
-        ></font-awesome-icon>
+        />
       </div>
       <div
         class="gallery-content"
@@ -60,7 +62,7 @@
           <img
             class="noselect"
             :src="getImageset(place)?.get_thumbnailUrl() ?? ''"
-          />
+          >
           <span class="place-name noselect">{{ place.get_name() }}</span>
         </div>
       </div>
@@ -69,7 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watch, onBeforeMount, toRaw, type VNode } from "vue";
+import { ref, computed, watch, onBeforeMount, toRaw, type VNode } from "vue";
 import { Folder, Imageset, Place } from "@wwtelescope/engine";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -103,13 +105,17 @@ const emit = defineEmits<{
 
 defineSlots<{
   /** A slot allowing customization of what is shown when the gallery is closed. This slot has access to the component's list of places and selected place(s).*/
-  closed(props: GalleryProps): VNode[];
+  closed(props: {
+    places: Place[],
+    selectedPlace: Place | null,
+    selectedPlaces: Place[],
+  }): VNode[];
 }>();
 
 const open = ref(false);
-let places = reactive<Place[]>([]);
+const places = ref<Place[]>([]);
 const selectedPlace = ref<Place | null>(null);
-let selectedPlaces = reactive<Place[]>([]);
+const selectedPlaces = ref<Place[]>([]);
 
 const cssVars = computed(() => {
   return {
@@ -122,7 +128,7 @@ const cssVars = computed(() => {
 
 onBeforeMount(() => {
   props.store.waitForReady().then(async () => {
-    places = await placesFromWtml(props.wtmlUrl);
+    places.value = await placesFromWtml(props.wtmlUrl);
   });
 });
 
@@ -157,12 +163,12 @@ function selectPlace(place: Place) {
     // if we're already selected, deselect
     if (selectedPlace.value === place) {
       emit("deselect", place);
-      selectedPlaces.splice(0);
+      selectedPlaces.value.splice(0);
       selectedPlace.value = null;
       return;
     } else {
-      selectedPlaces.forEach(p => emit("deselect", p));
-      selectedPlaces = [place];
+      selectedPlaces.value.forEach(p => emit("deselect", p));
+      selectedPlaces.value = [place];
       selectedPlace.value = place;
       return;
     }
@@ -170,16 +176,16 @@ function selectPlace(place: Place) {
 
   // for multi-select
   // if we're already selected, deselect
-  if (selectedPlaces.includes(place)) {
+  if (selectedPlaces.value.includes(place)) {
     emit("deselect", place);
     selectedPlace.value = null;
-    selectedPlaces.splice(selectedPlaces.indexOf(place), 1);
+    selectedPlaces.value.splice(selectedPlaces.value.indexOf(place), 1);
   } else {
     selectedPlace.value = place;
     if (props.singleSelect) {
-      filterInPlace(selectedPlaces, (p) => p === place); 
+      filterInPlace(selectedPlaces.value, (p) => p === place); 
     } else {
-      selectedPlaces.push(place);
+      selectedPlaces.value.push(place);
     }
   }
 
@@ -189,12 +195,12 @@ watch(selectedPlace, (place) => {
   if (place === null) { return; }
   emit("select", toRaw(place));
   if (props.singleSelect) {
-    emit("listAllSelected", toRaw(selectedPlaces));
+    emit("listAllSelected", toRaw(selectedPlaces.value));
   }
 });
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 .gallery-root {
   transition-property: height, width;
   transition: 0.5s ease-out;

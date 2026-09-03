@@ -1,10 +1,13 @@
 <template>
-  <div id="logo-credits" :style="cssVars">
+  <div
+    id="logo-credits"
+    :style="cssVars"
+  >
     <div id="icons-container">
       <a
         v-for="logo in logos"
-        v-bind:key="logo.href"
         :id="logo.name ? logo.name : undefined"
+        :key="logo.href"
         :href="logo.href"
         target="_blank"
         rel="noopener noreferrer"
@@ -13,7 +16,7 @@
         <img
           :alt="logo.alt"
           :src="logo.src"
-        />
+        >
       </a>
     </div>
   </div>
@@ -69,7 +72,7 @@ const cssVars = computed(() => {
 });
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 #icons-container {
   pointer-events: auto;
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Meta, StoryObj } from "@storybook/vue3";
+import { Meta, StoryObj } from "@storybook/vue3-vite";
 import { AttentionHook, submitUserExperienceRating, UserExperience, UserExperienceSubmissionInfo, API_BASE_URL } from "..";
 import { ref } from "vue";
 import { notify } from "@kyvg/vue3-notification";
@@ -103,7 +103,7 @@ export const WithUserExperience: Story = {
     color: "surface",
 
     baseColor: "black",
-    apiKey: process.env.VUE_APP_CDS_API_KEY,
+    apiKey: import.meta.env.VITE_CDS_API_KEY,
     story: "storybook",
 
     // We don't need these responses, so just use the same UUID for everyone

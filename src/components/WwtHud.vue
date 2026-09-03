@@ -21,16 +21,17 @@
         User defined vars 
       </h3>
       <!-- loop over otherVariable keys -->
-      <p v-for="(value, key) in otherVariables" :key="key">
+      <p
+        v-for="(value, key) in otherVariables"
+        :key="key"
+      >
         {{ key }}: {{ value }}
       </p>
       
       <!-- a default slot for whatever -->
-      <slot :store="store"></slot>
-      
+      <slot :store="store" />
     </div>
   </div>
-  
 </template>
 
 <script setup lang="ts">
@@ -38,7 +39,7 @@ import { computed, type VNode } from "vue";
 import { Settings } from "@wwtelescope/engine";
 import { storeToRefs } from "pinia";
 
-import { WwtHUDProps } from "../types";
+import {  WwtHUDProps } from "../types";
 
 
 const R2D = 180 / Math.PI;
@@ -78,6 +79,10 @@ const {
   foregroundOpacity,
   backgroundImageset,
   foregroundImageset,
+// JC: I don't know exactly why Pinia is made about the typing here
+// TODO: Figure it out!
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 } = storeToRefs(props.store);
 
 const cssVars = computed(() => {
@@ -120,7 +125,7 @@ const wwtLocation = computed(() => {
 });
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 #wwt-hud {
   position: absolute;
   top: var(--hud-top);

@@ -1,56 +1,42 @@
-import type { StorybookConfig } from "@storybook/vue3-webpack5";
+import type { StorybookConfig } from "@storybook/vue3-vite";
+import { mergeConfig } from "vite";
 
 const vueOptions: StorybookConfig["framework"] = {
-  name: "@storybook/vue3-webpack5",
+  name: "@storybook/vue3-vite",
   options: {
     docgen: "vue-component-meta",
-  }
-}
+  },
+};
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+
   addons: [
-    "@storybook/addon-webpack5-compiler-swc",
     "@storybook/addon-links",
-    "@storybook/addon-essentials",
     "@chromatic-com/storybook",
-    "@storybook/addon-interactions",
     "storybook-dark-mode",
+    "@storybook/addon-docs"
   ],
+
   staticDirs: [
     "../src/stories/assets",
   ],
+
   framework: vueOptions,
-  docs: {
-    autodocs: "tag",
-  },
-  env: (config) => ({
-    ...config,
-    VUE_APP_MAPBOX_ACCESS_TOKEN: process.env.VUE_APP_MAPBOX_ACCESS_TOKEN ?? "",
-  }),
-  webpackFinal: async (config) => {
-    config.module?.rules?.push({
-      test: /\.less/,
-      sideEffects: true,
-      use: ["style-loader", "css-loader", "less-loader"],
-    });
-    config.module?.rules?.push({
-      test: /\.md/,
-      use: ["markdown-loader"]
-    });
 
-    // Remove existing mdx rule if any (but should be none)
-    // config.module?.rules = config.module?.rules?.filter((f) => f && f != false && f?.test?.toString() !== '/\\.mdx$/')
-
-    config.module?.rules?.push({
-      test: /\.mdx$/,
-      use: ['@mdx-js/loader'],
+  viteFinal: async (config) => {
+    return mergeConfig(config, {
+      resolve: {
+        conditions: [
+          "import",
+          "module",
+          "browser",
+          "development",
+          "production",
+        ],
+      },
     });
-    config.module?.rules?.push({
-      test: /\.html/,
-      use: ["html-loader"],
-    });
-    return config;
-  },
+  }
 };
+
 export default config;

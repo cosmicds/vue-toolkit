@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Meta, StoryObj } from "@storybook/vue3";
+import { Meta, StoryObj } from "@storybook/vue3-vite";
 import { UserExperienceProps } from "../types";
 import { UserExperience } from "..";
 
@@ -13,7 +13,8 @@ const meta: Meta<typeof UserExperience> = {
 export default meta;
 type Story = StoryObj<typeof UserExperience>;
 
-import { notify } from "@kyvg/vue3-notification";
+import { useNotification } from "@kyvg/vue3-notification";
+const { notify } = useNotification();
 
 function submitHandler() {
   notify({
@@ -38,7 +39,6 @@ export const Primary: Story = {
           <notifications
             group="rating-submission"
             position="center bottom"
-            classes="rating-notification"
             :max="3"
           />
         </div>
@@ -53,7 +53,7 @@ export const Primary: Story = {
   },
   args: {
     baseColor: "black",
-    apiKey: process.env.VUE_APP_CDS_API_KEY,
+    apiKey: import.meta.env.VITE_CDS_API_KEY,
     story: "storybook",
   }
 };

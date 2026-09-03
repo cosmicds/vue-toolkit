@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Meta, StoryContext, StoryObj } from "@storybook/vue3";
+import { Meta, StoryContext, StoryObj } from "@storybook/vue3-vite";
 import { FolderView, FolderViewProps } from "..";
 import { Folder, FolderUp, Place } from "@wwtelescope/engine";
 import { Thumbnail } from "@wwtelescope/engine-types";
