@@ -21,6 +21,9 @@
         :style="cssVars"
         tabindex="0"
         :aria-disabled="disabled"
+        :aria-label="ariaLabel"
+        :aria-pressed="modelValue != null ? (modelValue ? 'true' : 'false') : null"
+        role="button"
       >
         <slot name="button">
           <font-awesome-icon
@@ -67,7 +70,6 @@ const props = withDefaults(defineProps<IconButtonProps>(), {
   showTooltip: true,
   disabled: false,
 });
-console.log(props);
 
 const emit = defineEmits<{
   /** Fired whenever the modelValue of the button changes. If no modelValue is assigned, this will not fire */
