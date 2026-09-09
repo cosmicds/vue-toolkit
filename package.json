@@ -75,7 +75,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vue-tsc --noEmit && vite build",
     "clean": "rimraf dist",
     "docs": "typedoc --plugin typedoc-plugin-markdown",
     "typecheck": "vue-tsc --noEmit",
