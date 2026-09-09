@@ -95,7 +95,7 @@ export async function submitUserExperienceRating(
     body.comments = info.comments;
   }
   if (info.rating) {
-    body.rating == info.rating;
+    body.rating = info.rating;
   }
   const destination = url ?? `${API_BASE_URL}/stories/user-experience`;
   return fetch(destination, {
@@ -104,7 +104,6 @@ export async function submitUserExperienceRating(
     headers: {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       "Authorization": apiKey,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       "Content-Type": "application/json",
     },
   })

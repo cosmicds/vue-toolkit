@@ -8,13 +8,13 @@
     <template #title>
       <div class="rating-title">
         <span>{{ question }}</span>
-        <v-spacer></v-spacer>
+        <v-spacer />
         <v-btn
           density="compact"
           class="close-button"
           icon="mdi-close"
           @click="emit('dismiss', currentRating, comments)"
-        ></v-btn>
+        />
       </div>
     </template>
     <v-card-text>
@@ -31,16 +31,15 @@
               <v-hover
                 :key="rating"
               >
-                <template #default="{ isHovering, props }: { isHovering: boolean | null, props: Record<string, unknown> }">
+                <template #default="{ isHovering, props: tooltipProps }: { isHovering: boolean | null, props: Record<string, unknown> }">
                   <FontAwesomeIcon
-                    v-bind="props"
+                    v-bind="tooltipProps"
                     :size="iconSize"
                     :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
                     :icon="ratingIcons[rating as UserExperienceRating][0]"
                     :color="(isHovering || rating === currentRating) ? ratingIcons[rating as UserExperienceRating][1]: baseColor"
                     @click="currentRating = rating as UserExperienceRating"
-                  >
-                  </FontAwesomeIcon>
+                  />
                 </template>
               </v-hover>
             </slot>
@@ -57,8 +56,7 @@
             density="compact"
             width="100%"
             @keydown.stop
-          >
-          </VTextarea>
+          />
         </v-expand-transition>
         <v-expand-transition>
           <v-btn
@@ -69,11 +67,11 @@
           >
             Submit 
           </v-btn>
-      </v-expand-transition>
+        </v-expand-transition>
       </v-form>
     </v-card-text>
     <template #actions>
-      <slot name="footer"></slot>
+      <slot name="footer" />
     </template>
   </v-card>
 </template>
@@ -128,7 +126,7 @@ library.add(faFaceFrown);
 
 
 const ratingIcons: Record<UserExperienceRating, [string, string]> = {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+   
   "very_bad": ["fa-face-frown", "red"],
   "poor": ["fa-face-frown-open", "orange"],
   "good": ["fa-face-smile", "lightgreen"],
@@ -152,7 +150,7 @@ watch(currentRating, (rating: UserExperienceRating | null) => {
 });
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 
 #cds-user-experience {
   .rating-root {

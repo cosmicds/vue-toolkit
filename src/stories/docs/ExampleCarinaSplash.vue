@@ -18,37 +18,37 @@
       lang="html"
       theme="atom-one-dark"
       :code="`
-        &lt;v-overlay
-          :model-value=&quot;showSplashScreen&quot;
+        <v-overlay
+          :model-value='showSplashScreen'
           absolute
-          opacity=&quot;0.6&quot;
-          :style=&quot;cssVars&quot;
-          id=&quot;splash-overlay&quot;
-        &gt;
-          &lt;div
-            id=&quot;splash-screen&quot;
-            v-click-outside=&quot;closeSplashScreen&quot;
-            :style=&quot;cssVars&quot;
-          &gt;
-            &lt;font-awesome-icon
-              id=&quot;close-splash-button&quot;
-              @click=&quot;closeSplashScreen&quot;
-              @keyup.enter=&quot;closeSplashScreen&quot;
-              icon=&quot;xmark&quot;
-              tabindex=&quot;0&quot;
-            /&gt;
-            &lt;div id=&quot;splash-screen-text&quot;&gt;
-              &lt;p&gt;Splash Screen Content&lt;/p&gt;
-            &lt;/div&gt;
-            &lt;div id=&quot;splash-screen-acknowledgements&quot; class=&quot;small&quot;&gt;
-              This Data Story is brought to you by &lt;a href=&quot;https://www.cosmicds.cfa.harvard.edu/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Cosmic Data Stories&lt;/a&gt; and &lt;a href=&quot;https://www.worldwidetelescope.org/home/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;WorldWide Telescope&lt;/a&gt;.
+          opacity='0.6'
+          :style='cssVars'
+          id='splash-overlay'
+        >
+          <div
+            id='splash-screen'
+            v-click-outside='closeSplashScreen'
+            :style='cssVars'
+          >
+            <font-awesome-icon
+              id='close-splash-button'
+              @click='closeSplashScreen'
+              @keyup.enter='closeSplashScreen'
+              icon='xmark'
+              tabindex='0'
+            />
+            <div id='splash-screen-text'>
+              <p>Splash Screen Content</p>
+            </div>
+            <div id='splash-screen-acknowledgements' class='small'>
+              This Data Story is brought to you by <a href='https://www.cosmicds.cfa.harvard.edu/' target='_blank' rel='noopener noreferrer'>Cosmic Data Stories</a> and <a href='https://www.worldwidetelescope.org/home/' target='_blank' rel='noopener noreferrer'>WorldWide Telescope</a>.
               
-              &lt;div id=&quot;splash-screen-logos&quot;&gt;
-                &lt;credit-logos logo-size=&quot;5vmin&quot;/&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-      &lt;/v-overlay&gt;
+              <div id='splash-screen-logos'>
+                <credit-logos logo-size='5vmin'/>
+              </div>
+            </div>
+          </div>
+      </v-overlay>
       `"
     >
     </VCodeBlock>
