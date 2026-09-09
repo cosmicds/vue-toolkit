@@ -38,6 +38,7 @@ export default defineConfig({
         "vue", 
         "pinia", 
         "@wwtelescope/engine",
+        "@wwtelescope/engine-pinia",
         /\.stories\.(ts|tsx|js|jsx)$/,
         /\.storybook\//
       ],
