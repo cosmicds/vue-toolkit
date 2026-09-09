@@ -1,6 +1,6 @@
 {
   "name": "@cosmicds/vue-toolkit",
-  "browser": "dist/index.umd.js",
+  "browser": "dist/vue-toolkit.umd.js",
   "dependencies": {
     "@capacitor/core": "^5.7.4",
     "@capacitor/geolocation": "^5.0.7",
@@ -68,7 +68,7 @@
     "dist/*",
     "src/*"
   ],
-  "main": "./dist/vue-toolkit.common.js",
+  "main": "./dist/vue-toolkit.cjs.js",
   "module": "dist/vue-toolkit.es.js",
   "packageManager": "yarn@4.5.3",
   "publicConfig": {

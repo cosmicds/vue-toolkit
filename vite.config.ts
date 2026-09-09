@@ -31,7 +31,7 @@ export default defineConfig({
       entry: resolve(__dirname, "src/index.ts"),
       name: "VueToolkit",
       fileName: (format) => `vue-toolkit.${format}.js`,
-      formats: ["es", "cjs"],
+      formats: ["es", "cjs", "umd"],
     },
     rollupOptions: {
       external: [
