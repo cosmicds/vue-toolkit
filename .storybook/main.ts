@@ -19,7 +19,7 @@ const config: StorybookConfig = {
   ],
 
   staticDirs: [
-    "../src/stories/assets",
+    { from: "../src/stories/assets", to: "/assets" },
   ],
 
   framework: vueOptions,
