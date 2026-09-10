@@ -1,34 +1,33 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "module": "esnext",
+    "moduleResolution": "bundler",
     "composite": true,
     "strict": true,
     "declaration": true,
     "jsx": "preserve",
     "importHelpers": true,
-    "downlevelIteration": true,
-    "moduleResolution": "node",
     "experimentalDecorators": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "baseUrl": ".",
     "outDir": "dist",
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ],
       "tslib": ["../node_modules/tslib/tslib.d.ts"]
     },
     "lib": [
       "dom",
       "dom.iterable",
-      "es6"
+      "es2017"
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.vue"
+    "./src/**/*.ts",
+    "./src/**/*.vue"
   ]
 }

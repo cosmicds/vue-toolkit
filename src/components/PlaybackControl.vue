@@ -1,15 +1,28 @@
 <template>
-  <div id="enclosing-playback-container" :style="cssVars">
-    
+  <div
+    id="enclosing-playback-container"
+    :style="cssVars"
+  >
     <!-- add a close box -->
-    <div v-if="(inline && inlineButton) || showCloseButton" id="playback-close-button" @click="$emit('close')">
-        <v-icon :color="color" size="18">mdi-close</v-icon>
+    <div
+      v-if="(inline && inlineButton) || showCloseButton"
+      id="playback-close-button"
+      @click="emit('closed')"
+    >
+      <v-icon
+        :color="color"
+        size="18"
+      >
+        mdi-close
+      </v-icon>
     </div>
     
-    <div v-if="!inline || inlineButton && !hidePlayButton" id="playback-play-pause-button">
+    <div
+      v-if="!inline || inlineButton && !hidePlayButton"
+      id="playback-play-pause-button"
+    >
       <icon-button
         :icon="isPaused ? (icons?.play ?? 'mdi-play') : (icons?.pause ?? 'mdi-pause')"
-        @activate="isPaused = !isPaused"
         :color="color"
         :focus-color="color"
         :disabled="disabled?.playPause"
@@ -17,11 +30,14 @@
         tooltip-location="top"
         tooltip-offset="5px"
         size="18"
-      ></icon-button>
+        @activate="isPaused = !isPaused"
+      />
 
-      <div v-if="!inline || inlineButton" id="playback-reverse-time">
+      <div
+        v-if="!inline || inlineButton"
+        id="playback-reverse-time"
+      >
         <icon-button
-          @activate="reverseTime = !reverseTime"
           :icon="reverseTime ? (icons?.playForward ?? 'mdi-step-forward-2') : (icons?.playBackward ?? 'mdi-step-backward-2')"
           :color="color"
           :focus-color="color"
@@ -30,24 +46,28 @@
           tooltip-location="top"
           tooltip-offset="5px"
           size="18"
-        >
-        </icon-button>
+          @activate="reverseTime = !reverseTime"
+        />
         <span id="reverse-button-text">{{ reverseTime ? 'Forward' : 'Reverse' }}</span>
       </div>
     </div>
     
     <div id="playback-slider-container">
-      
       <div id="tick-container">
-        <div v-for="val in index" :key="val" v-bind="options(val)" class="tick">
+        <div
+          v-for="val in index"
+          :key="val"
+          v-bind="options(val)"
+          class="tick"
+        >
           <span class="tick-label"> {{ valueToMark(val) }} </span>
         </div>
       </div>
       
       <v-slider
         ref="slider"
-        hide-details
         v-model="value"
+        hide-details
         :max="max ?? index[index.length - 1]"
         :min="min ?? index[0]"
         :thumb-size="16"
@@ -60,10 +80,8 @@
         :step="step"
         show-ticks="always"
         :ticks="marks"
-        >
-      </v-slider>
+      />
     </div>
-
   </div>
 </template>
 
@@ -90,6 +108,7 @@ const props = withDefaults(defineProps<PlaybackControlProps>(), {
 });
 
 const emit = defineEmits<{
+  (event: "closed"): void;
   (event: "paused", paused: boolean): void
   (event: "update:modelValue", rate: number): void
 }>();
@@ -203,7 +222,7 @@ function options(value: number): { style: { left: string } } {
 }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 #enclosing-playback-container {
   // modify the Vuetify slider properties
   contain: layout;

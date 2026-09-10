@@ -2,7 +2,7 @@
 
 import { drawHorizon, drawSky } from "../sky_overlays";
 import { ref } from "vue";
-import { Meta, StoryObj } from "@storybook/vue3";
+import { Meta, StoryObj } from "@storybook/vue3-vite";
 import { Color, Grids, RenderContext,  WWTControl } from "@wwtelescope/engine";
 import { engineStore, WWTComponent } from "@wwtelescope/engine-pinia";
 

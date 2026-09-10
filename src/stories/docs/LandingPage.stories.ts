@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Meta, StoryObj } from "@storybook/vue3";
-import LandingPage from "./landing-page.html";
+import { Meta, StoryObj } from "@storybook/vue3-vite";
+import LandingPage from "./landing-page.html?raw";
 import "./docs.css";
 
 const meta: Meta = {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Meta, StoryObj } from "@storybook/vue3";
-import { AttentionHook, submitUserExperienceRating, UserExperience, UserExperienceSubmissionInfo, API_BASE_URL } from "..";
+import { Meta, StoryObj } from "@storybook/vue3-vite";
+import { AttentionHook, UserExperience } from "..";
 import { ref } from "vue";
 import { notify } from "@kyvg/vue3-notification";
 
@@ -42,10 +42,6 @@ export const Primary: Story = {
 
 const showHook = ref(true);
 const showExperience = ref(false);
-
-function submitter(info: UserExperienceSubmissionInfo, apiKey: string): Promise<Response | null> {
-  return submitUserExperienceRating(info, apiKey, `${API_BASE_URL}/storybook/user-experience`);
-}
 
 function submitHandler() {
   notify({
@@ -100,14 +96,5 @@ export const WithUserExperience: Story = {
     betweenBouncesDuration: 1000,
     bounceCount: Infinity,
     popupTime: 500,
-    color: "surface",
-
-    baseColor: "black",
-    apiKey: process.env.VUE_APP_CDS_API_KEY,
-    story: "storybook",
-
-    // We don't need these responses, so just use the same UUID for everyone
-    uuid: "42274bf4-4228-4cb0-951b-18cbce176189",
-    submitter,
   }
 };

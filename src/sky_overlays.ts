@@ -44,7 +44,7 @@ export function drawHorizon(renderContext: RenderContext, options?: HorizonOptio
   const delta = 2 * R2D * Math.PI / n;
   const triangleList = new wwtlib.TriangleList();
   const color = Color.load(options?.color ?? "#01362C");
-  color.a = Math.round(255 * options?.opacity ?? 1);
+  color.a = Math.round(255 * (options?.opacity ?? 1));
 
   const now = SpaceTimeController.get_now();
   for (let i = 0; i < n; i++) {
@@ -68,7 +68,6 @@ export function drawSky(renderContext: RenderContext, options?: SkyOptions) {
   const triangleList = new wwtlib.TriangleList();
   const color = Color.load(options?.color ?? "#4190ED");
 
-  top.coordinates = Coordinates;
   const sunCoordinates = Coordinates.fromRaDec(sunPlace.get_RA(), sunPlace.get_dec());
   const sunAltAz = Coordinates.equitorialToHorizon(
                       sunCoordinates,

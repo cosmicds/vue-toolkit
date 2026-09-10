@@ -25,7 +25,7 @@ const cssVars = computed(() => {
 });
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 #funding-acknowledgment {
   color: var(--color);
   background-color: var(--background-color);
