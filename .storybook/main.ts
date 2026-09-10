@@ -1,8 +1,6 @@
 import type { StorybookConfig } from "@storybook/vue3-vite";
 import { mergeConfig } from "vite";
 
-const path = require("path");
-
 const vueOptions: StorybookConfig["framework"] = {
   name: "@storybook/vue3-vite",
   options: {
