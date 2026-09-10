@@ -1,5 +1,5 @@
 <template>
-  <div class="map-container"></div>
+  <div class="map-container" />
 </template>
 
 <script setup lang="ts">
@@ -294,7 +294,7 @@ function locationToLatLng(location: LocationDeg): L.LatLngExpression {
 }
 </script>
 
-<style>
+<style scoped>
 .map-container {
   pointer-events: auto;
 }

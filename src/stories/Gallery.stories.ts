@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Meta, StoryObj } from "@storybook/vue3";
+import { Meta, StoryObj } from "@storybook/vue3-vite";
 import { Gallery, GalleryProps } from "..";
 import { engineStore, WWTComponent } from "@wwtelescope/engine-pinia";
 

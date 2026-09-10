@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Meta, StoryObj } from "@storybook/vue3";
+import { Meta, StoryObj } from "@storybook/vue3-vite";
 import { ref } from "vue";
 import { LocationSearchProps, LocationSearch, geocodingInfoForSearch, textForMapboxFeature } from "..";
 
@@ -40,7 +40,7 @@ export const Primary: Story = {
     };
   },
   args: {
-    searchProvider: (searchText: string) => geocodingInfoForSearch(searchText, { access_token: process.env.VUE_APP_MAPBOX_ACCESS_TOKEN ?? "" }),
+    searchProvider: (searchText: string) => geocodingInfoForSearch(searchText, { access_token: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN ?? "" }),
     stayOpen: true,
     accentColor: "orange",
     bgColor: "black",

@@ -1,18 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Meta, StoryContext, StoryObj } from "@storybook/vue3";
+import { Meta, StoryObj } from "@storybook/vue3-vite";
 import { FolderView, FolderViewProps } from "..";
 import { Folder, FolderUp, Place } from "@wwtelescope/engine";
 import { Thumbnail } from "@wwtelescope/engine-types";
 import { engineStore, WWTComponent } from "@wwtelescope/engine-pinia";
 
 import "./stories.css";
-
-interface LoadedData {
-  loaded: {
-    folder: Folder;
-  }
-}
 
 const meta: Meta<typeof FolderView> = {
   component: FolderView,
@@ -22,11 +16,10 @@ const meta: Meta<typeof FolderView> = {
 
 export default meta;
 type Story = StoryObj<typeof FolderView>;
-type Context = StoryContext<LoadedData>;
 
 
 export const Primary: Story = {
-  render: (args: FolderViewProps, _context: Context) => {
+  render: (args: FolderViewProps) => {
     const store = engineStore();
     return {
       components: { FolderView, WWTComponent },
@@ -39,7 +32,7 @@ export const Primary: Story = {
             />
           </div>
           <WWTComponent
-            :wwtNamespace="storybook"
+            wwtNamespace="storybook"
           />
         </div>
       `, 

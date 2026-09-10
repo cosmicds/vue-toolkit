@@ -12,7 +12,7 @@
 import { VCodeBlock } from "@wdns/vue-code-block";
 
 interface Props {
-  code: string;
+  code: string | string[];
   lang?: string;
 }
 
