@@ -15,15 +15,15 @@
         :id="buttonID"
         :class="['icon-wrapper', {'active': modelValue}]"
         :style="cssVars"
+        :aria-disabled="disabled"
+        :aria-label="ariaLabel"
+        :aria-pressed="modelValue != null ? (modelValue ? 'true' : 'false') : undefined"
         tabindex="0"
+        role="button"
         @click="handleAction"
         @keyup.enter="handleAction"
         @touchstart="handleTouchStart"
         @touchend="handleTouchEnd"
-        :aria-disabled="disabled"
-        :aria-label="ariaLabel"
-        :aria-pressed="modelValue != null ? (modelValue ? 'true' : 'false') : null"
-        role="button"
       >
         <slot name="button">
           <font-awesome-icon

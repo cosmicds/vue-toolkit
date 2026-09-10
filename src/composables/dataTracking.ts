@@ -61,7 +61,6 @@ export function useDataTracking(options: DataTrackingOptions) {
 
     const existsResponse = await fetch(`${storyDataUrl}/${userID}`, {
       method: "GET",
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       headers,
     });
     const content = await existsResponse.json();
