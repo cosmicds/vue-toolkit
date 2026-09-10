@@ -26,6 +26,10 @@
       "es2017"
     ]
   },
+  "vueCompilerOptions": {
+      "fallthroughAttributes": true,
+      "htmlAttributes": []
+  },
   "include": [
     "./src/**/*.ts",
     "./src/**/*.vue"
