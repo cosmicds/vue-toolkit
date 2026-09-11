@@ -1,58 +1,62 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
 import dts from "vite-plugin-dts";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { resolve } from "path";
 import checker from "vite-plugin-checker";
 
-export default defineConfig({
-  define: {
-    "process.env": process.env,
-  },
-  plugins: [
-    vue(),
-    dts({
-      insertTypesEntry: true,
-      include: ["src/**/*.ts", "src/**/*.vue"],
-      exclude: [
-        ".storybook/**/*",
-        "src/stories/**"
-      ],
-    }),
-    viteStaticCopy({
-      targets: [{ src: "src/assets/*", dest: "assets" }],
-    }),
-    checker({
-      eslint: {
-        useFlatConfig: true,
-        lintCommand: 'eslint "./src/**/*.{js,jsx,ts,tsx}"',
-      }
-    }),
-  ],
-  build: {
-    lib: {
-      entry: resolve(__dirname, "src/index.ts"),
-      name: "VueToolkit",
-      fileName: (format) => `vue-toolkit.${format}.js`,
-      formats: ["es", "cjs", "umd"],
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
+  return {
+    define: {
+      "process.env.ES_BUILD": "true",
+      "process.env": JSON.stringify(env),
     },
-    rollupOptions: {
-      external: [
-        "vue", 
-        "pinia", 
-        "@wwtelescope/engine",
-        "@wwtelescope/engine-pinia",
-        /\.stories\.(ts|tsx|js|jsx)$/,
-        /\.storybook\//
-      ],
-      output: {
-        globals: {
-          vue: "Vue",
-          pinia: "pinia",
-          "@wwtelescope/engine": "wwtlib",
+    plugins: [
+      vue(),
+      dts({
+        insertTypesEntry: true,
+        include: ["src/**/*.ts", "src/**/*.vue"],
+        exclude: [
+          ".storybook/**/*",
+          "src/stories/**"
+        ],
+      }),
+      viteStaticCopy({
+        targets: [{ src: "src/assets/*", dest: "assets" }],
+      }),
+      checker({
+        eslint: {
+          useFlatConfig: true,
+          lintCommand: 'eslint "./src/**/*.{js,jsx,ts,tsx}"',
+        }
+      }),
+    ],
+    build: {
+      lib: {
+        entry: resolve(__dirname, "src/index.ts"),
+        name: "VueToolkit",
+        fileName: (format) => `vue-toolkit.${format}.js`,
+        formats: ["es", "cjs", "umd"],
+      },
+      rollupOptions: {
+        external: [
+          "vue", 
+          "pinia", 
+          "@wwtelescope/engine",
+          "@wwtelescope/engine-pinia",
+          /\.stories\.(ts|tsx|js|jsx)$/,
+          /\.storybook\//
+        ],
+        output: {
+          globals: {
+            vue: "Vue",
+            pinia: "pinia",
+            "@wwtelescope/engine": "wwtlib",
+          },
         },
       },
+      sourcemap: "inline",
     },
-    sourcemap: "inline",
-  },
+  };
 });
