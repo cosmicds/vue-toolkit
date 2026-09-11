@@ -1,5 +1,4 @@
 import { UserExperienceRating } from '../utils';
-import { UserExperienceProps } from '../types';
 declare var __VLS_35: {
     rating: UserExperienceRating;
 }, __VLS_77: {};
@@ -8,11 +7,27 @@ type __VLS_Slots = {} & {
 } & {
     footer?: (props: typeof __VLS_77) => any;
 };
-declare const __VLS_base: import('vue').DefineComponent<UserExperienceProps, {}, {}, {}, {}, import('vue').ComponentOptionsMixin, import('vue').ComponentOptionsMixin, {} & {
+declare const __VLS_base: import('vue').DefineComponent<{
+    askForComments?: boolean;
+    question?: string;
+    commentPlaceholder?: string;
+    baseColor?: string;
+    ratingColors?: string[];
+    iconSize?: import('..').FontAwesomeIconSize;
+    color?: string;
+}, {}, {}, {}, {}, import('vue').ComponentOptionsMixin, import('vue').ComponentOptionsMixin, {} & {
     rating: (rating: UserExperienceRating | null) => any;
     finish: (rating: UserExperienceRating | null, comments: string | null) => any;
     dismiss: (rating: UserExperienceRating | null, comments: string | null) => any;
-}, string, import('vue').PublicProps, Readonly<UserExperienceProps> & Readonly<{
+}, string, import('vue').PublicProps, Readonly<{
+    askForComments?: boolean;
+    question?: string;
+    commentPlaceholder?: string;
+    baseColor?: string;
+    ratingColors?: string[];
+    iconSize?: import('..').FontAwesomeIconSize;
+    color?: string;
+}> & Readonly<{
     onRating?: ((rating: UserExperienceRating | null) => any) | undefined;
     onFinish?: ((rating: UserExperienceRating | null, comments: string | null) => any) | undefined;
     onDismiss?: ((rating: UserExperienceRating | null, comments: string | null) => any) | undefined;

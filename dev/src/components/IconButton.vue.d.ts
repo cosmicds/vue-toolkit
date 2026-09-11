@@ -1,14 +1,52 @@
 import { VNode } from 'vue';
 import { VTooltip } from 'vuetify/components/VTooltip';
-import { IconButtonProps } from '../types';
+import { FontAwesomeIconSize, VIconSize } from '../types';
 type __VLS_Slots = {
     /** Allows configuration of the button content, which by default is simply the button icon */
     button(): VNode[];
 };
-declare const __VLS_base: import('vue').DefineComponent<IconButtonProps, {}, {}, {}, {}, import('vue').ComponentOptionsMixin, import('vue').ComponentOptionsMixin, {} & {
+declare const __VLS_base: import('vue').DefineComponent<{
+    modelValue?: boolean;
+    icon: string;
+    ariaLabel: string;
+    color?: string;
+    focusColor?: string;
+    activeColor?: string;
+    backgroundColor?: string;
+    border?: boolean;
+    longPressTimeMs?: number;
+    tooltipText?: string;
+    tooltipLocation?: import('vue').ExtractPublicPropTypes<typeof VTooltip>["location"];
+    tooltipOnClick?: boolean;
+    tooltipOnFocus?: boolean;
+    tooltipOnHover?: boolean;
+    tooltipOffset?: string | number;
+    showTooltip?: boolean;
+    size?: FontAwesomeIconSize | VIconSize;
+    disabled?: boolean;
+}, {}, {}, {}, {}, import('vue').ComponentOptionsMixin, import('vue').ComponentOptionsMixin, {} & {
     "update:modelValue": (active: boolean) => any;
     activate: () => any;
-}, string, import('vue').PublicProps, Readonly<IconButtonProps> & Readonly<{
+}, string, import('vue').PublicProps, Readonly<{
+    modelValue?: boolean;
+    icon: string;
+    ariaLabel: string;
+    color?: string;
+    focusColor?: string;
+    activeColor?: string;
+    backgroundColor?: string;
+    border?: boolean;
+    longPressTimeMs?: number;
+    tooltipText?: string;
+    tooltipLocation?: import('vue').ExtractPublicPropTypes<typeof VTooltip>["location"];
+    tooltipOnClick?: boolean;
+    tooltipOnFocus?: boolean;
+    tooltipOnHover?: boolean;
+    tooltipOffset?: string | number;
+    showTooltip?: boolean;
+    size?: FontAwesomeIconSize | VIconSize;
+    disabled?: boolean;
+}> & Readonly<{
     "onUpdate:modelValue"?: ((active: boolean) => any) | undefined;
     onActivate?: (() => any) | undefined;
 }>, {
