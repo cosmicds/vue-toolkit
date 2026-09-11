@@ -1,1 +1,0 @@
-import"./react-C21x__mS.js";import{at as e,ot as t}from"./DocsRenderer-JROSPFPF-TPPHCTgg.js";t();export{e as createCopyToClipboardFunction};

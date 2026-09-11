@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{Ot as t,U as n}from"./iframe-CrqoIeJO.js";import{D as r,t as i}from"./src-BuFFhN8t.js";var a,o,s;function c(){return(c=e((()=>{i(),n(),a={component:r,tags:[`autodocs`],title:`Vue Toolkit/Components/Datetime Picker`},o={render:e=>{let n=t(new Date);return{components:{DateTimePicker:r},template:`
+import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{Ot as t,U as n}from"./iframe-BKTmZW5n.js";import{D as r,t as i}from"./src-boYG4x6h.js";var a,o,s;function c(){return(c=e((()=>{i(),n(),a={component:r,tags:[`autodocs`],title:`Vue Toolkit/Components/Datetime Picker`},o={render:e=>{let n=t(new Date);return{components:{DateTimePicker:r},template:`
         <div style="width: 900px; height: 400px">
           <DateTimePicker
             v-bind="args"
