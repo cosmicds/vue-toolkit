@@ -6,6 +6,9 @@ import { resolve } from "path";
 import checker from "vite-plugin-checker";
 
 export default defineConfig({
+  define: {
+    "process.env": process.env,
+  },
   plugins: [
     vue(),
     dts({
