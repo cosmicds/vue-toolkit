@@ -36,6 +36,7 @@ export const Primary: Story = {
   args: {
     modelValue: false,
     icon: "book-open",
+    ariaLabel: "Information",
     color: "white",
     focusColor: "red",
     activeColor: "green",
