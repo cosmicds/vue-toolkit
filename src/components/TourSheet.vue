@@ -42,7 +42,7 @@
         <div class="tour-text-controls">
           <v-btn
             :class="{ 
-              'tour-back-button-hidden': step === 0 && !showBackOnFirstStep,
+              'tour-back-button-hidden': stepIndex === 0 && !showBackOnFirstStep,
               'px-2': smallSize,
               'mr-1': smallSize,
             }"
@@ -63,7 +63,7 @@
           >
             <template #item="{index}">
               <button
-                :class="['tour-dot', { 'tour-dot-active': index === step }]"
+                :class="['tour-dot', { 'tour-dot-active': index === stepIndex }]"
                 @click="() => goToStep(index)"
               >
                 ⬤
@@ -72,7 +72,7 @@
           </v-breadcrumbs>
           <v-spacer v-else />
           <v-btn
-            v-if="step < length - (showNextOnLastStep ? 0 : 1)"
+            v-if="stepIndex < steps.length - (showNextOnLastStep ? 0 : 1)"
             :class="{ 
               'px-2': smallSize,
               'ml-1': smallSize
@@ -92,35 +92,11 @@
 </template>
 
 <script setup lang="ts" generic="T extends import('../composables/tour').BaseTourStepContent">
-import { Tour } from '@/composables/tour';
 import { simpleMarkdownParse } from "../utils";
 import { computed } from 'vue';
+import { TourSheetProps } from '@/types';
 
-const props = withDefaults(defineProps<{
-  tour: Tour<T>;
-  smallSize: boolean,
-  /** the step dots. off once the tour is done stepping */
-  showBreadcrumbs?: boolean,
-  showNextOnLastStep?: boolean,
-  showBackOnFirstStep?: boolean,
-  nextText?: string,
-  backText?: string,
-  disableNext?: boolean,
-  disablePrevious?: boolean,
-  /** a close icon in the corner. off where the caller supplies its own */
-  showClose?: boolean,
-  /**
-   * the Back/Next row. Off for callers that only want the box -- an empty
-   * `controls` slot won't do it, since a slot rendering nothing falls back to
-   * its default content
-   */
-  showControls?: boolean,
-  accentColor?: string;
-  borderColor?: string;
-  backgroundColor?: string;
-  textColor?: string;
-  fontSize?: string;
-}>(), {
+const props = withDefaults(defineProps<TourSheetProps<T>>(), {
   showBreadcrumbs: true,
   showNextOnLastStep: false,
   showBackOnFirstStep: false,
@@ -137,7 +113,7 @@ const props = withDefaults(defineProps<{
   fontSize: "1 rem",
 });
 
-const { step, stepContent, length, steps } = props.tour;
+const { stepIndex, stepContent, steps } = props.tour;
 
 const cssVars = computed(() => ({
   "--accent-color": props.accentColor, 

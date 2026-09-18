@@ -149,3 +149,7 @@ export function simpleMarkdownParse(text: string): string {
   const italicReplaced = boldReplaced.replace(italicPattern, '<em>$1</em>');
   return italicReplaced;
 }
+
+export function clamp(value: number, minValue: number, maxValue: number): number {
+  return Math.min(maxValue, Math.max(minValue, value));
+}

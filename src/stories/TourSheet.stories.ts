@@ -10,7 +10,9 @@ interface StepContent extends BaseTourStepContent {
   otherProperty: string;
 };
 
-const meta: Meta = {
+const meta: Meta<typeof TourSheet> = {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore Work around issue with generic component
   component: TourSheet,
   tags: ["autodocs"],
   title: "Vue Toolkit/Components/Tour Sheet",
@@ -25,6 +27,7 @@ export const Primary: Story = {
     const tour = useTour<StepContent>({
       steps: [
         {
+          id: "andromeda",
           title: "Andromeda Galaxy",
           text: ["Here is the Andromeda Galaxy", "It's the closest galaxy to the Milky Way!"],
           setup: async () => {
@@ -37,6 +40,7 @@ export const Primary: Story = {
           otherProperty: "andromeda",
         },
         {
+          id: "crab",
           title: "Crab Nebula",
           text: ["Here's the Crab Nebula!"],
           setup: async () => {
@@ -49,6 +53,7 @@ export const Primary: Story = {
           otherProperty: "crab",
         },
         {
+          id: "milky-way",
           title: "Milky Way",
           text: ["Here's the Milky Way", "That's where we live!"],
           setup: async () => {
@@ -61,6 +66,7 @@ export const Primary: Story = {
           otherProperty: "milky way",
         },
         {
+          id: "end",
           title: "The End",
           text: ["That's all folks!"],
           otherProperty: "end",

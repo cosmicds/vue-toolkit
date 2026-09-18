@@ -1,8 +1,10 @@
-import { Ref, ref, watch } from "vue";
+import { computed, Ref, ref, watch } from "vue";
+import { clamp } from "..";
 
 type TourStepSetupFunction = (step: number, oldStep?: number) => Promise<void>;
 
 export interface BaseTourStepContent {
+  id: string;
   title: string;
   text: string[];
   instaText?: string;
@@ -16,7 +18,8 @@ export interface UseTourOptions<T extends BaseTourStepContent> {
 }
 
 export interface Tour<T extends BaseTourStepContent> {
-  step: Ref<number>;
+  stepID: Ref<string>;
+  stepIndex: Ref<number>;
   steps: T[];
   length: number;
   stepContent: Ref<T>;
@@ -25,28 +28,46 @@ export interface Tour<T extends BaseTourStepContent> {
   previous: () => Promise<void>;
 };
 
-function clamp(value: number, minValue: number, maxValue: number): number {
-  return Math.min(maxValue, Math.max(minValue, value));
-}
-
 export function useTour<T extends BaseTourStepContent>(options: UseTourOptions<T>) {
-  const stepNumber = clamp(options.initialStep ?? 0, 0, options.steps.length - 1);
-  const step = ref(stepNumber);
-  const initialContent: T = options.steps[step.value];
+  const steps = options.steps;
+  const stepNumber = clamp(options.initialStep ?? 0, 0, steps.length - 1);
+  const stepIndex = ref(stepNumber);
+  const initialContent: T = steps[stepIndex.value];
   const stepContent = ref(initialContent) as Ref<T>;
 
+  const stepID = computed({
+    get(): string {
+      return steps[stepIndex.value].id;
+    },
+    set(id: string) {
+      const index = steps.findIndex(s => s.id === id);
+      if (index > -1) {
+        stepIndex.value = index;
+      } else {
+        console.warn(`No step found with ID ${id}`);
+      }
+    }
+  });
 
-  async function goToStep(newStep: number) {
-    return updateStep(newStep, step.value, false);
+  async function goToStep(newStep: number | string, force=false) {
+    if (typeof newStep === "number") {
+      return updateStep(newStep, stepIndex.value, force);
+    } else {
+      const index = steps.findIndex(s => s.id === newStep);
+      if (index > -1) {
+        return updateStep(index, stepIndex.value, force);
+      }
+      console.warn(`No step found with ID ${newStep}`);
+    }
   }
 
-  async function updateStep(newStep: number, oldStep?: number, force?: boolean) {
-    const clampedNew = clamp(newStep, 0, options.steps.length - 1);
+  async function updateStep(newStep: number, oldStep?: number, force=false) {
+    const clampedNew = clamp(newStep, 0, steps.length - 1);
     if (clampedNew === oldStep  && !force) {
       return;
     }
 
-    const newStepContent = options.steps[clampedNew];
+    const newStepContent = steps[clampedNew];
     const setup = newStepContent.setup;
     if (setup) {
       if (newStepContent.awaitSetup ?? true) {
@@ -55,28 +76,28 @@ export function useTour<T extends BaseTourStepContent>(options: UseTourOptions<T
         setup(clampedNew, oldStep);
       }
     }
-    step.value = newStep;
+    stepIndex.value = newStep;
     stepContent.value = newStepContent;
   }
 
-  updateStep(step.value, step.value, true);
+  updateStep(stepIndex.value, stepIndex.value, true);
 
-  watch(step, (newStep: number, oldStep: number) => {
+  watch(stepIndex, (newStep: number, oldStep: number) => {
     updateStep(newStep, oldStep, false);
   });
 
   async function next() {
-    step.value += 1;
+    stepIndex.value += 1;
   }
 
   async function previous() {
-    step.value -= 1;
+    stepIndex.value -= 1;
   }
 
   return {
-    steps: options.steps,
-    step,
-    length: options.steps.length,
+    steps,
+    stepIndex,
+    stepID,
     stepContent,
     goToStep,
     previous,
