@@ -103,7 +103,6 @@ import { simpleMarkdownParse } from '@/utils';
 const props = withDefaults(defineProps<{
   tour: Tour<T>;
   smallSize: boolean,
-  step: number,
   /** the step dots. off once the tour is done stepping */
   showBreadcrumbs?: boolean,
   showNextOnLastStep?: boolean,
