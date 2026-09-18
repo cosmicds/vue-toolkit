@@ -1,5 +1,6 @@
 <template>
   <div
+    :style="cssVars"
     :class="['tour-sheet', 'tour-text', 'selected-info', smallSize ? 'selected-info-tall' : '', 'info-box']"
   >
     <!-- outside .selected-info-scroll so it stays in the corner rather than
@@ -15,7 +16,7 @@
     <!-- fill either slot to replace the step's own content, so callers can put
      something else in this box without passing it all in as props -->
     <div class="selected-info-scroll">
-      <slot>
+      <slot :step="stepContent">
         <div
           v-if="stepContent"
           class="selected-info-tour"
@@ -33,7 +34,11 @@
       </slot>
     </div>
     <template v-if="showControls">
-      <slot name="controls">
+      <slot 
+        name="controls"
+        :step="stepContent"
+        :props="props"
+      >
         <div class="tour-text-controls">
           <v-btn
             :class="{ 
@@ -43,22 +48,13 @@
             }"
             variant="flat"
             :density="smallSize ? 'compact' : 'default'"
-            color="#502752"
+            :color="accentColor"
             :disabled="disablePrevious"
             @click="previous"
           >
             {{ backText }}
           </v-btn>
 
-          <!-- <v-btn
-          variant="flat"
-          color="#502752"
-          size="small"
-          rounded="lg"
-          @click="emit('leave')"
-        >
-          Leave Tour
-        </v-btn> -->
           <v-breadcrumbs
             v-if="showBreadcrumbs"
             class="tour-dots"
@@ -68,7 +64,7 @@
             <template #item="{index}">
               <button
                 :class="['tour-dot', { 'tour-dot-active': index === step }]"
-                @click="goToStep"
+                @click="() => goToStep(index)"
               >
                 ⬤
               </button>
@@ -82,7 +78,7 @@
               'ml-1': smallSize
             }"
             variant="flat"
-            color="#502752"
+            :color="accentColor"
             :density="smallSize ? 'compact' : 'default'"
             :disabled="disableNext"
             @click="next"
@@ -98,6 +94,7 @@
 <script setup lang="ts" generic="T extends import('../composables/tour').BaseTourStepContent">
 import { Tour } from '@/composables/tour';
 import { simpleMarkdownParse } from "../utils";
+import { computed } from 'vue';
 
 const props = withDefaults(defineProps<{
   tour: Tour<T>;
@@ -118,6 +115,11 @@ const props = withDefaults(defineProps<{
    * its default content
    */
   showControls?: boolean,
+  accentColor?: string;
+  borderColor?: string;
+  backgroundColor?: string;
+  textColor?: string;
+  fontSize?: string;
 }>(), {
   showBreadcrumbs: true,
   showNextOnLastStep: false,
@@ -128,11 +130,23 @@ const props = withDefaults(defineProps<{
   disablePrevious: false,
   showClose: false,
   showControls: true,
+  accentColor: "white",
+  borderColor: "white",
+  backgroundColor: "rgba(10, 5, 21, 0.7)",
+  textColor: "white",
+  fontSize: "1 rem",
 });
 
 const { step, stepContent, length, steps } = props.tour;
 
-// const emit = defineEmits(['previous', 'next', 'leave',]);
+const cssVars = computed(() => ({
+  "--accent-color": props.accentColor, 
+  "--border-color": props.borderColor,
+  "--background-color": props.backgroundColor,
+  "--text-color": props.textColor,
+  "--font-size": props.fontSize,
+}));
+
 const emit = defineEmits<{
   (e: 'previous' | 'next' | 'leave' | 'close'): void;
   (e: 'step', index: number): void;
@@ -161,22 +175,6 @@ p {
   margin-top: 0.5rem;
 }
 
-// Sizes text off the box's own dimensions (--container-width/-height, set per
-// layout on #side-drawer-tour-sheet in RomanFov.vue) instead of the raw
-// viewport, so it scales with how much room TourSheet actually has rather than
-// the whole screen. Averages width and height rather than picking either
-// extreme: the large-portrait column is narrow but full height, the portrait
-// bottom panel is wide but short, and the landscape box is narrow and short --
-// sizing off only the generous dimension overflows the tight one, and off only
-// the tight one looks needlessly small.
-.tour-text {
-  font-size: clamp(
-    1rem,
-    calc(0.025 * (var(--container-width) + var(--container-height))),
-    1.5rem
-  );
-}
-
 .tour-text p {
   line-height: 1.3;
   margin-top: 0.5em;
@@ -189,23 +187,22 @@ p {
 // the floating box is capped at ~50vh, so a step with a full paragraph needs
 // tighter spacing to fit. A landscape phone gets a full-height drawer instead
 // and has no such pressure, hence keying on the overlay rather than landscape.
-#app.app-tour-sheet-overlay #tour-text p {
+.tour-text p {
   margin-top: 0.65em;
 }
 
-#tour-text {
+.tour-text {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
   min-height: 0;
-  height: auto;
   overflow-y: auto;
 }
 
 .info-box {
-  font-size: calc(1.5 * var(--default-font-size));
-  color: white;
-  background: rgba(10, 5, 21, 0.7);
+  font-size: var(--font-size);
+  color: var(--text-color);
+  background: var(--background-color);
   border: 2px solid;
   border-radius: 5px;
   padding: 0.5rem;
