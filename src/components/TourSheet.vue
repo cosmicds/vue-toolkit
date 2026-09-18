@@ -1,7 +1,6 @@
 <template>
   <div
-    id="tour-text"
-    :class="['selected-info', smallSize ? 'selected-info-tall' : '', 'info-box']"
+    :class="['tour-sheet', 'tour-text', 'selected-info', smallSize ? 'selected-info-tall' : '', 'info-box']"
   >
     <!-- outside .selected-info-scroll so it stays in the corner rather than
          scrolling away with the step's text -->
@@ -98,7 +97,7 @@
 
 <script setup lang="ts" generic="T extends import('../composables/tour').BaseTourStepContent">
 import { Tour } from '@/composables/tour';
-import { simpleMarkdownParse } from '@/utils';
+import { simpleMarkdownParse } from "../utils";
 
 const props = withDefaults(defineProps<{
   tour: Tour<T>;
@@ -170,7 +169,7 @@ p {
 // bottom panel is wide but short, and the landscape box is narrow and short --
 // sizing off only the generous dimension overflows the tight one, and off only
 // the tight one looks needlessly small.
-#tour-text {
+.tour-text {
   font-size: clamp(
     1rem,
     calc(0.025 * (var(--container-width) + var(--container-height))),
@@ -178,12 +177,12 @@ p {
   );
 }
 
-#tour-text p {
+.tour-text p {
   line-height: 1.3;
   margin-top: 0.5em;
 }
 
-#tour-text h3 {
+.tour-text h3 {
   line-height: 1.3;
 }
 
@@ -213,18 +212,6 @@ p {
   margin: 0.25rem;
   pointer-events: auto;
   border-color: var(--border-color);
-  // width: 100%;
-  height: calc(100% - 0.5rem);
-}
-
-// Copied from rubin-first-look. Positions the floating tour text against
-// #wwt-overlay, in the corner the place cards vacate during a tour.
-// Sizing lives on #tour-text; this is just the box itself.
-.selected-info {
-  position: relative;
-  padding: 10px;
-  // max-width: 30%;
-  align-items: flex-start;
 }
 
 // anchors to .selected-info above; sits over the step title's right end,
@@ -323,7 +310,7 @@ p {
 // the floating box is the short one, so its buttons shrink to leave the step's
 // text as much of it as possible. The drawer layouts are roomier and keep the
 // default button size.
-#app.app-tour-sheet-overlay .tour-text-controls .v-btn {
+.tour-text-controls .v-btn {
   --v-btn-size: 0.75rem;
   --v-btn-height: 28px;
   font-size: var(--v-btn-size);
@@ -334,5 +321,4 @@ p {
 .selected-info-tour {
   padding: 0.2em;
 }
-
 </style>

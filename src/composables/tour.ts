@@ -1,4 +1,4 @@
-import { Ref, ref } from "vue";
+import { Ref, ref, watch } from "vue";
 
 type TourStepSetupFunction = (step: number, oldStep?: number) => Promise<void>;
 
@@ -17,6 +17,7 @@ export interface UseTourOptions<T extends BaseTourStepContent> {
 
 export interface Tour<T extends BaseTourStepContent> {
   step: Ref<number>;
+  steps: T[];
   length: number;
   stepContent: Ref<T>;
   goToStep: (step: number) => Promise<void>;
@@ -34,9 +35,14 @@ export function useTour<T extends BaseTourStepContent>(options: UseTourOptions<T
   const initialContent: T = options.steps[step.value];
   const stepContent = ref(initialContent) as Ref<T>;
 
+
   async function goToStep(newStep: number) {
+    return updateStep(newStep, step.value, false);
+  }
+
+  async function updateStep(newStep: number, oldStep?: number, force?: boolean) {
     const clampedNew = clamp(newStep, 0, options.steps.length - 1);
-    if (clampedNew === step.value) {
+    if (clampedNew === oldStep  && !force) {
       return;
     }
 
@@ -44,21 +50,27 @@ export function useTour<T extends BaseTourStepContent>(options: UseTourOptions<T
     const setup = newStepContent.setup;
     if (setup) {
       if (newStepContent.awaitSetup ?? true) {
-        await setup(clampedNew, step.value);
+        await setup(clampedNew, oldStep);
       } else {
-        setup(clampedNew, step.value);
+        setup(clampedNew, oldStep);
       }
     }
     step.value = newStep;
     stepContent.value = newStepContent;
   }
 
+  updateStep(step.value, step.value, true);
+
+  watch(step, (newStep: number, oldStep: number) => {
+    updateStep(newStep, oldStep, false);
+  });
+
   async function next() {
-    goToStep(step.value + 1);
+    step.value += 1;
   }
 
   async function previous() {
-    goToStep(step.value - 1);
+    step.value -= 1;
   }
 
   return {
