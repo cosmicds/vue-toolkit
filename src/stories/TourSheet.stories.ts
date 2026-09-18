@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Meta, StoryObj } from "@storybook/vue3-vite";
 import { engineStore, WWTComponent } from "@wwtelescope/engine-pinia";
-import { BaseTourStepContent, TourSheet, useTour } from "..";
+import { BaseTourStepContent, D2R, TourSheet, useTour } from "..";
 
 import "./stories.css";
 import "./toursheet.css";
@@ -25,19 +25,45 @@ export const Primary: Story = {
     const tour = useTour<StepContent>({
       steps: [
         {
-          title: "Step 1",
-          text: ["Here is some info about step 1", "Something else interesting"],
+          title: "Andromeda Galaxy",
+          text: ["Here is the Andromeda Galaxy", "It's the closest galaxy to the Milky Way!"],
           setup: async () => {
-            store.gotoRADecZoom({
-              raRad: 0, decRad: 0, zoomDeg: 360, instant: false,
+            store.waitForReady().then(() => {
+              store.gotoRADecZoom({
+                raRad: 10.68471 * D2R, decRad: 41.26917 * D2R, zoomDeg: 10, instant: true,
+              });
             });
           },
-          otherProperty: "something",
+          otherProperty: "andromeda",
         },
         {
-          title: "Step 2",
-          text: ["Here's the relevant info for step 2!"],
-          otherProperty: "something else",
+          title: "Crab Nebula",
+          text: ["Here's the Crab Nebula!"],
+          setup: async () => {
+            store.waitForReady().then(() => {
+              store.gotoRADecZoom({
+                raRad: 83.6331 * D2R, decRad: 22.0145 * D2R, zoomDeg: 1, instant: true,
+              });
+            });
+          },
+          otherProperty: "crab",
+        },
+        {
+          title: "Milky Way",
+          text: ["Here's the Milky Way", "That's where we live!"],
+          setup: async () => {
+            store.waitForReady().then(() => {
+              store.gotoRADecZoom({
+                raRad: 266.416833 * D2R, decRad: -29.007806 * D2R, zoomDeg: 360, instant: true,
+              });
+            });
+          },
+          otherProperty: "milky way",
+        },
+        {
+          title: "The End",
+          text: ["That's all folks!"],
+          otherProperty: "end",
         }
       ],
     });
@@ -45,7 +71,10 @@ export const Primary: Story = {
       components: { TourSheet, WWTComponent },
       template: `
         <div style="width: 800; height: 600px; position: relative;">
-          <TourSheet v-bind="args" :tour="tour" />
+          <TourSheet
+            v-bind="args" 
+            :tour="tour" 
+          />
           <WWTComponent
             wwtNamespace="storybook"
           />
@@ -58,5 +87,7 @@ export const Primary: Story = {
   },
   args: {
     smallSize: false,
+    accentColor: "#b22222",
+    borderColor: "gray",
   },
 };
