@@ -32,8 +32,7 @@ export function useTour<T extends BaseTourStepContent>(options: UseTourOptions<T
   const steps = options.steps;
   const stepNumber = clamp(options.initialStep ?? 0, 0, steps.length - 1);
   const stepIndex = ref(stepNumber);
-  const initialContent: T = steps[stepIndex.value];
-  const stepContent = ref(initialContent) as Ref<T>;
+  const stepContent = computed(() => steps[stepIndex.value]);
 
   const stepID = computed({
     get(): string {
@@ -77,7 +76,6 @@ export function useTour<T extends BaseTourStepContent>(options: UseTourOptions<T
       }
     }
     stepIndex.value = newStep;
-    stepContent.value = newStepContent;
   }
 
   updateStep(stepIndex.value, stepIndex.value, true);
