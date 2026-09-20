@@ -25,6 +25,7 @@
     "@floating-ui/dom": "^1.8.0",
     "@storybook/addon-docs": "^10.5.10",
     "@storybook/addon-links": "^10.5.10",
+    "@storybook/test": "8.6.15",
     "@storybook/vue3": "^10.5.10",
     "@storybook/vue3-vite": "^10.5.10",
     "@stylistic/eslint-plugin": "^5.10.0",
