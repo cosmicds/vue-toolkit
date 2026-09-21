@@ -170,9 +170,6 @@ function handleTouchEnd() {
   &[disabled] {
     color: var(--disabled-color);
     border: none;
-  }
-  
-  &[aria-disabled="true"]:hover {
     cursor: not-allowed;
   }
 }

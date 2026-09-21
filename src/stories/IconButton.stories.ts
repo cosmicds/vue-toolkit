@@ -22,6 +22,26 @@ const meta: Meta<typeof IconButton> = {
 export default meta;
 type Story = StoryObj<typeof IconButton>;
 
+const defaultArgs = {
+  modelValue: false,
+  icon: "book-open",
+  ariaLabel: "Information",
+  color: "white",
+  focusColor: "red",
+  activeColor: "green",
+  backgroundColor: "#040404",
+  border: true,
+  longPressTimeMs: 500,
+  tooltipText: "Tooltip",
+  tooltipLocation: "start",
+  tooltipOnClick: false,
+  tooltipOnFocus: false,
+  tooltipOnHover: true,
+  showTooltip: true,
+  size: "lg",
+  disabled: false,
+};
+
 export const Primary: Story = {
   render: (args: IconButtonProps) => ({
     components: { IconButton },
@@ -35,69 +55,87 @@ export const Primary: Story = {
       return { template: `<div style="width: 50px"><story /></div>` };
     }
   ],
-  args: {
-    modelValue: false,
-    icon: "book-open",
-    ariaLabel: "Information",
-    color: "white",
-    focusColor: "red",
-    activeColor: "green",
-    backgroundColor: "#040404",
-    border: true,
-    longPressTimeMs: 500,
-    tooltipText: "Tooltip",
-    tooltipLocation: "start",
-    tooltipOnClick: false,
-    tooltipOnFocus: false,
-    tooltipOnHover: true,
-    showTooltip: true,
-    size: "lg",
-    disabled: false,
-  },
+  args: defaultArgs,
   play: async ({ args, canvasElement }) => {
-    args.disabled = false;
-    args.modelValue = false;
+    // Ensure that we're starting with the default conditions.
+    // On the Storybook page, the status may have changed
+    Object.assign(args, defaultArgs);
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button");
+    const button = await canvas.findByRole("button");
     await userEvent.hover(button);
     const tooltip = document.querySelector(".v-tooltip");
     const tooltipContent = tooltip.querySelector(".v-overlay__content");
-    let buttonStyle = window.getComputedStyle(button);
-    expect(tooltipContent).toBeVisible();
-    expect(tooltipContent).toHaveTextContent(args.tooltipText);
 
-    // await userEvent.unhover(button);
-    // await waitFor(() => {
-    //   expect(tooltipContent).not.toBeVisible();
-    // });
+    const tooltipVisible = () => {
+      expect(tooltipContent).toBeVisible();
+      expect(tooltipContent).toHaveTextContent(args.tooltipText);
+    };
 
-    // await userEvent.click(button);
-    // buttonStyle = window.getComputedStyle(button);
-    // expect(buttonStyle.color).toBe(styleColor(args.focusColor));
+    const tooltipNotVisible = () => {
+      expect(tooltipContent).not.toBeVisible();
+    };
+
+    tooltipVisible();
+
+    // NB: Don't use `styleColor` inside of the `waitFor` block
+    // as it uses the DOM to determine the color, and thus will cause a failing
+    // `waitFor` to hang forever
+    const baseColor = styleColor(args.color);
+    const focusColor = styleColor(args.focusColor);
+    const activeColor = styleColor(args.activeColor);
+    const buttonColor = () => window.getComputedStyle(button).color;
+    const buttonCursor = () => window.getComputedStyle(button).cursor;
+
+    await userEvent.unhover(button);
+    await waitFor(tooltipNotVisible);
+
+    await userEvent.click(button);
+    expect(buttonColor()).toBe(focusColor);
+    tooltipVisible();
+
+    button.blur();
+    args.tooltipOnHover = false;
+    await userEvent.hover(button);
+    expect(tooltipNotVisible);
+
+    args.tooltipOnClick = true;
+    await userEvent.click(button);
+    expect(tooltipVisible);
+
+    args.tooltipOnClick = false;
+    args.tooltipOnFocus = true;
+    button.blur();
+    button.focus();
+    expect(tooltipVisible);
+
+    args.tooltipOnFocus = false;
+    button.blur();
+    await userEvent.click(button);
+    expect(tooltipNotVisible);
+    await userEvent.hover(button);
+    expect(tooltipNotVisible);
+    await userEvent.unhover(button);
 
     args.modelValue = true;
     await waitFor(() => {
-      buttonStyle = window.getComputedStyle(button);
-      expect(buttonStyle.color).toBe(styleColor(args.activeColor));
+      expect(buttonColor()).toBe(activeColor);
     });
     
     args.modelValue = false;
+    button.blur();
     await waitFor(() => {
-      buttonStyle = window.getComputedStyle(button);
-      expect(buttonStyle.color).toBe(styleColor(args.color));
+      expect(buttonColor()).toBe(baseColor);
     });
 
     args.disabled = true;
     await userEvent.hover(button);
-    await waitFor(async () => {
-      buttonStyle = window.getComputedStyle(button);
-      expect(buttonStyle.cursor).toBe("not-allowed");
+    await waitFor(() => {
+      expect(buttonCursor()).toBe("not-allowed");
     });
 
     args.disabled = false;
     await waitFor(() => {
-      buttonStyle = window.getComputedStyle(button);
-      expect(buttonStyle.cursor).toBe("pointer");
+      expect(buttonCursor()).toBe("pointer");
     });
   },
 };
