@@ -43,3 +43,9 @@ jobs:
         env:
           VITE_MAPBOX_ACCESS_TOKEN: test
 
+      - name: Install Chromium via Playwright
+        run: yarn playwright install chromium
+
+      - name: Run Storybook Tests
+        run: yarn test-storybook
+
