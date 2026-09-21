@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Meta, StoryObj } from "@storybook/vue3-vite";
+import { Meta, StoryContext, StoryObj } from "@storybook/vue3-vite";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconButtonProps } from "../types";
 import { IconButton } from "..";
@@ -21,6 +21,7 @@ const meta: Meta<typeof IconButton> = {
 
 export default meta;
 type Story = StoryObj<typeof IconButton>;
+type Args = Story["args"];
 
 const defaultArgs = {
   modelValue: false,
@@ -56,14 +57,18 @@ export const Primary: Story = {
     }
   ],
   args: defaultArgs,
-  play: async ({ args, canvasElement }) => {
+  play: async (context: StoryContext<Args>) => {
     // Ensure that we're starting with the default conditions.
     // On the Storybook page, the status may have changed
-    Object.assign(args, defaultArgs);
+    Object.assign(context.args, defaultArgs);
+    const args = context.args as Args & (typeof defaultArgs);
+    const canvasElement = context.canvasElement;
     const canvas = within(canvasElement);
     const button = await canvas.findByRole("button");
     await userEvent.hover(button);
-    const tooltip = document.querySelector(".v-tooltip");
+    let tooltip = document.querySelector(".v-tooltip");
+    expect(tooltip).not.toBeInstanceOf(HTMLElement);
+    tooltip = tooltip as HTMLElement;
     const tooltipContent = tooltip.querySelector(".v-overlay__content");
 
     const tooltipVisible = () => {
