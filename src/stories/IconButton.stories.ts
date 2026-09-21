@@ -67,7 +67,7 @@ export const Primary: Story = {
     const button = await canvas.findByRole("button");
     await userEvent.hover(button);
     let tooltip = document.querySelector(".v-tooltip");
-    expect(tooltip).not.toBeInstanceOf(HTMLElement);
+    expect(tooltip).toBeInstanceOf(HTMLElement);
     tooltip = tooltip as HTMLElement;
     const tooltipContent = tooltip.querySelector(".v-overlay__content");
 
