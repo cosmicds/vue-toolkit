@@ -39,7 +39,7 @@ jobs:
           VITE_CDS_API_KEY: ${{ secrets.CDS_API_KEY }}
 
       - name: Install browsers using Playwright
-        run: yarn playwright install
+        run: yarn playwright install --with-deps
 
       - name: Run Storybook Tests
         run: yarn test-storybook
