@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{i as t,r as n}from"./iframe-BKTmZW5n.js";import{i as r,t as i}from"./src-boYG4x6h.js";function a(){s({group:`rating-submission`,type:`success`,text:`Successful feedback message!`,duration:4500})}var o,s,c,l;function u(){return(u=e((()=>{i(),n(),o={component:r,tags:[`autodocs`],title:`Vue Toolkit/Components/User Experience`},{notify:s}=t(),c={render:e=>({components:{UserExperience:r},template:`
+import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{i as t,r as n}from"./iframe-CJMc2dwZ.js";import{i as r,t as i}from"./src-DkA5kPPk.js";function a(){s({group:`rating-submission`,type:`success`,text:`Successful feedback message!`,duration:4500})}var o,s,c,l;function u(){return(u=e((()=>{i(),n(),o={component:r,tags:[`autodocs`],title:`Vue Toolkit/Components/User Experience`},{notify:s}=t(),c={render:e=>({components:{UserExperience:r},template:`
         <div>
           <UserExperience
             v-bind="args"

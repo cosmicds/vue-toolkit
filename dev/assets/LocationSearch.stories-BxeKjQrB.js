@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{Ot as t,U as n}from"./iframe-BKTmZW5n.js";import{f as r,g as i,m as a,t as o}from"./src-boYG4x6h.js";import"./stories-CbXhWL14.js";var s,c,l;function u(){return(u=e((()=>{n(),o(),s={component:r,tags:[`autodocs`],title:`Vue Toolkit/Components/Location Search`},c={render:e=>{let n=t(!0);return{components:{LocationSearch:r},template:`
+import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{Ot as t,U as n}from"./iframe-CJMc2dwZ.js";import{f as r,g as i,m as a,t as o}from"./src-DkA5kPPk.js";import"./stories-CbXhWL14.js";var s,c,l;function u(){return(u=e((()=>{n(),o(),s={component:r,tags:[`autodocs`],title:`Vue Toolkit/Components/Location Search`},c={render:e=>{let n=t(!0);return{components:{LocationSearch:r},template:`
         <div style="width: 900px; height: 400px">
           <LocationSearch
             v-bind="args"
