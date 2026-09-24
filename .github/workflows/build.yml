@@ -43,3 +43,9 @@ jobs:
         env:
           VITE_MAPBOX_ACCESS_TOKEN: test
 
+      - name: Install browsers using Playwright
+        run: yarn playwright install --with-deps
+
+      - name: Run Storybook Tests
+        run: yarn test-storybook
+

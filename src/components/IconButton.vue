@@ -13,11 +13,12 @@
       <div
         v-bind="tooltipProps"
         :id="buttonID"
-        :class="['icon-wrapper', {'active': modelValue}]"
+        :class="['icon-wrapper', {'active': modelValue}, {'disabled': disabled}]"
         :style="cssVars"
         :aria-disabled="disabled"
         :aria-label="ariaLabel"
         :aria-pressed="modelValue != null ? (modelValue ? 'true' : 'false') : undefined"
+        :disabled="disabled ? '' : undefined"
         tabindex="0"
         role="button"
         @click="handleAction"
@@ -100,6 +101,7 @@ const cssVars = computed(() => {
     "--background-color": props.backgroundColor,
     "--focus-color": props.focusColor,
     "--active-color": props.activeColor,
+    "--disabled-color": "rgba(255, 255, 255, 0.38)",
     "--border": props.border ? "1px solid var(--color)" : "none",
   };
 });
@@ -164,8 +166,10 @@ function handleTouchEnd() {
     color: var(--active-color);
     border-color: var(--active-color);
   }
-  
-  &[aria-disabled="true"]:hover {
+
+  &[disabled] {
+    color: var(--disabled-color);
+    border: none;
     cursor: not-allowed;
   }
 }
