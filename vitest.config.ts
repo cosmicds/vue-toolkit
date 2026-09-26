@@ -24,7 +24,6 @@ export default defineConfig(env => {
                 "src/**/**.test.ts",
               ],
               environment: "jsdom",
-              setupFiles: ["./unit.setup.ts"],
             },
           },
           {

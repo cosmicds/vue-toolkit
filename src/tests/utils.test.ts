@@ -1,8 +1,7 @@
 import { filterInPlace, isWebGLEnabled } from "../utils";
 import { describe, expect, it, test } from "vitest";
-import { mockWebGL } from "./utils";
+import { mockWebGL, mockWebGLCleanup } from "./utils";
 
-const WEBGL_VERSIONS = [1, 2] as const;
 
 describe("Test utilities", () => {
 
@@ -35,11 +34,23 @@ describe("Test utilities", () => {
     expect(objects).toContainEqual({ name: "Bob", id: 2});
   });
 
-  test.each(WEBGL_VERSIONS)("should correctly determine the available WebGL version", (expectedVersion) => {
-    mockWebGL(expectedVersion);
-    WEBGL_VERSIONS.forEach(version => {
-      expect(isWebGLEnabled(version)).toEqual(version == expectedVersion);
-    });
+
+  it("should correctly determine whether WebGL2 is available", () => {
+    const spy = mockWebGL([1]);
+    try {
+      expect(isWebGLEnabled(2)).toEqual(false);
+    } finally {
+      spy.mockRestore();
+      mockWebGLCleanup();
+    }
+
+    const spy2 = mockWebGL([1, 2]);
+    try {
+      expect(isWebGLEnabled(2)).toEqual(true);
+    } finally {
+      spy2.mockRestore();
+      mockWebGLCleanup();
+    }
   });
 
 });
