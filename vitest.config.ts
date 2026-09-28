@@ -5,7 +5,6 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import viteConfig from "./vite.config";
-import { setupMaster } from "node:cluster";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
