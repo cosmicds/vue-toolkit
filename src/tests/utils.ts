@@ -1,4 +1,5 @@
 import { vi } from "vitest";
+import { createApp, type App } from "vue";
 
 /**
  * Mock out WebGL contexts
@@ -39,4 +40,18 @@ export function mockWebGLCleanup() {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   delete globalThis.WebGLRenderingContext; delete globalThis.WebGL2RenderingContext;
+}
+
+export function withSetup<T>(composable: () => T): [T, App] {
+  let result!: T;
+
+  const app = createApp({
+    setup() {
+      result = composable()
+      return () => {};
+    }
+  });
+
+  app.mount(document.createElement("div"));
+  return [result, app];
 }
