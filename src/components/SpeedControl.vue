@@ -235,9 +235,6 @@ import { SpeedControlProps } from "../types";
 import { VDialog } from 'vuetify/lib/components/index.mjs';
 import { IconButton, PlaybackControl } from '..';
 
-import 'vuetify/styles';
-import '@mdi/font/css/materialdesignicons.css';
-
 library.add(faAnglesDown);
 library.add(faAnglesUp);
 library.add(faGaugeHigh);
