@@ -113,9 +113,9 @@ __metadata:
     "@chromatic-com/storybook": "npm:^5.3.0"
     "@eslint/js": "npm:^10.0.1"
     "@floating-ui/dom": "npm:^1.8.0"
-    "@fortawesome/fontawesome-svg-core": "npm:^6.5.1"
-    "@fortawesome/free-solid-svg-icons": "npm:^6.5.1"
-    "@fortawesome/vue-fontawesome": "npm:^3.0.6"
+    "@fortawesome/fontawesome-svg-core": "npm:^7.2.0"
+    "@fortawesome/free-solid-svg-icons": "npm:^7.2.0"
+    "@fortawesome/vue-fontawesome": "npm:^3.1.3"
     "@kyvg/vue3-notification": "npm:^2.9.1"
     "@mdi/font": "npm:^7.4.47"
     "@storybook/addon-docs": "npm:^10.5.10"
@@ -522,32 +522,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-common-types@npm:6.7.2":
-  version: 6.7.2
-  resolution: "@fortawesome/fontawesome-common-types@npm:6.7.2"
-  checksum: 10/3c2e938afe6f5939bd63181faaec7b062902d9ed970c75d6becb1fd8e5ca0ed937e7d1513bd7ae545da407d0682039e50730cdb3136b58656128838ea2c58ac0
+"@fortawesome/fontawesome-common-types@npm:7.3.1":
+  version: 7.3.1
+  resolution: "@fortawesome/fontawesome-common-types@npm:7.3.1"
+  checksum: 10/95f48fd99fd3d7806b6786213196f6629cf9562cd6d92c6560df6182a82c91bbcee15c4a51776b85bb675a2170c03d98fc59f213be98171ac1981ed9b54d8965
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-svg-core@npm:^6.5.1":
-  version: 6.7.2
-  resolution: "@fortawesome/fontawesome-svg-core@npm:6.7.2"
+"@fortawesome/fontawesome-svg-core@npm:^7.2.0":
+  version: 7.3.1
+  resolution: "@fortawesome/fontawesome-svg-core@npm:7.3.1"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
-  checksum: 10/a3767631329aaa8c1bfafc9470718628533ceb42365774cd0c121477e0f3125f3cce4c2447058deee2874829ce11aa7a3fe183b0000bad81cf5ed0449c8470ef
+    "@fortawesome/fontawesome-common-types": "npm:7.3.1"
+  checksum: 10/cb79848909fd7dfc55785090fb798055fc3ef42fd04ef66660050f07bcd2d4448e64fd7f315198757dba41d84213e728cab28bb85ff7766829a6f5951044fd3b
   languageName: node
   linkType: hard
 
-"@fortawesome/free-solid-svg-icons@npm:^6.5.1":
-  version: 6.7.2
-  resolution: "@fortawesome/free-solid-svg-icons@npm:6.7.2"
+"@fortawesome/free-solid-svg-icons@npm:^7.2.0":
+  version: 7.3.1
+  resolution: "@fortawesome/free-solid-svg-icons@npm:7.3.1"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
-  checksum: 10/efcd90cd5d333995ff4012a9d77a8b23523e246fa418524edf08bb6af8b14db2ee0b08ee5f7460a86474d352af06e1a2581cc827ee3706e9c0e92e178b50e27f
+    "@fortawesome/fontawesome-common-types": "npm:7.3.1"
+  checksum: 10/5d827a943f4e18aaf3bf3ae328d6c0f600a4869f6d30c33210be3646312612c1d81cb6a945d7ba0fe69e39b31e68633013cfea63dea91dd0ab304b55e9fcd593
   languageName: node
   linkType: hard
 
-"@fortawesome/vue-fontawesome@npm:^3.0.6":
+"@fortawesome/vue-fontawesome@npm:^3.1.3":
   version: 3.3.3
   resolution: "@fortawesome/vue-fontawesome@npm:3.3.3"
   peerDependencies:
@@ -2236,7 +2236,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/devtools-api@npm:^6.5.0, @vue/devtools-api@npm:^6.6.3":
+"@vue/devtools-api@npm:^6.6.3":
   version: 6.6.4
   resolution: "@vue/devtools-api@npm:6.6.4"
   checksum: 10/0fca4912b6ae0185b9375f5d113d417984077db0681c74cf39eb8522eb82c27f662a72e1ae3e0d79e105fdd0a99a7cbd65ed111465d238f60cce10922e02a812
@@ -2355,55 +2355,50 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wwtelescope/astro@npm:>=0.1.0, @wwtelescope/astro@npm:>=0.2.2":
-  version: 0.3.3
-  resolution: "@wwtelescope/astro@npm:0.3.3"
-  checksum: 10/b1ad6656ab9a209f56563b1afe8dca103c748f3db838f7f98915ba8da7c158bfe051ab3e13593bbde4f26894bfeaba813e0b8ca3bc0680f632b31be6a9c45eb5
+"@wwtelescope/astro@portal:../../wwt-webgl-engine/astro::locator=%40cosmicds%2Fvue-toolkit%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@wwtelescope/astro@portal:../../wwt-webgl-engine/astro::locator=%40cosmicds%2Fvue-toolkit%40workspace%3A."
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@wwtelescope/engine-helpers@npm:>=0.18.0":
-  version: 0.18.0
-  resolution: "@wwtelescope/engine-helpers@npm:0.18.0"
+"@wwtelescope/engine-helpers@portal:../../wwt-webgl-engine/engine-helpers::locator=%40cosmicds%2Fvue-toolkit%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@wwtelescope/engine-helpers@portal:../../wwt-webgl-engine/engine-helpers::locator=%40cosmicds%2Fvue-toolkit%40workspace%3A."
   dependencies:
-    "@wwtelescope/astro": "npm:>=0.1.0"
-    "@wwtelescope/engine": "npm:^7.36.0"
-    "@wwtelescope/engine-types": "npm:>=0.6.0"
-  checksum: 10/d65ef5e7385a879194993073158c7f52b6d6181922570c74e80f283b3585305aabdd63e2e17a0b3b2d67371cc7a690d28feef27850aac90f8ce5b033868f010e
+    "@wwtelescope/astro": "workspace:0.0.0-dev.0"
+    "@wwtelescope/engine": "workspace:0.0.0-dev.0"
+    "@wwtelescope/engine-types": "workspace:0.0.0-dev.0"
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@wwtelescope/engine-pinia@npm:>=0.15.0 <1.0.0":
-  version: 0.16.0
-  resolution: "@wwtelescope/engine-pinia@npm:0.16.0"
+"@wwtelescope/engine-pinia@portal:../../wwt-webgl-engine/engine-pinia::locator=%40cosmicds%2Fvue-toolkit%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@wwtelescope/engine-pinia@portal:../../wwt-webgl-engine/engine-pinia::locator=%40cosmicds%2Fvue-toolkit%40workspace%3A."
   dependencies:
-    "@wwtelescope/astro": "npm:>=0.2.2"
-    "@wwtelescope/engine": "npm:^7.40.0"
-    "@wwtelescope/engine-helpers": "npm:>=0.18.0"
-    "@wwtelescope/engine-types": "npm:>=0.6.3"
+    "@wwtelescope/astro": "workspace:0.0.0-dev.0"
+    "@wwtelescope/engine": "workspace:0.0.0-dev.0"
+    "@wwtelescope/engine-helpers": "workspace:0.0.0-dev.0"
+    "@wwtelescope/engine-types": "workspace:0.0.0-dev.0"
     pinia: "npm:^2.0.22"
     vue: "npm:^3"
-  checksum: 10/78fd69c8f9445f0c45878c5b716a599b2d9ff53d54fbc850319a85035b899dae1c90f3c2e9418518ea52e3f1211833f8b6f41cb8e8fec834840971a398f6b479
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@wwtelescope/engine-types@npm:>=0.6.0, @wwtelescope/engine-types@npm:>=0.6.3":
-  version: 0.9.0
-  resolution: "@wwtelescope/engine-types@npm:0.9.0"
-  checksum: 10/04fd8798a936188620e8f3cbb1d9410705ce82e63b4f53a3f3dfb24fbbc875eebf3233f0f0199005722e9ad75d7862d78287c13956a09dc5daa417801f105abf
+"@wwtelescope/engine-types@portal:../../wwt-webgl-engine/engine-types::locator=%40cosmicds%2Fvue-toolkit%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@wwtelescope/engine-types@portal:../../wwt-webgl-engine/engine-types::locator=%40cosmicds%2Fvue-toolkit%40workspace%3A."
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@wwtelescope/engine@npm:^7.36.0, @wwtelescope/engine@npm:^7.39.0, @wwtelescope/engine@npm:^7.40.0":
-  version: 7.40.0
-  resolution: "@wwtelescope/engine@npm:7.40.0"
+"@wwtelescope/engine@portal:../../wwt-webgl-engine/engine::locator=%40cosmicds%2Fvue-toolkit%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@wwtelescope/engine@portal:../../wwt-webgl-engine/engine::locator=%40cosmicds%2Fvue-toolkit%40workspace%3A."
   dependencies:
-    "@wwtelescope/engine-types": "npm:>=0.6.0"
+    "@wwtelescope/engine-types": "workspace:0.0.0-dev.0"
     pako: "npm:^1.0.11"
     uuid: "npm:^14.0.0"
-  checksum: 10/f6ab0ee50e93a71264dd302770e6f27ac8bf26abf2ba5a7111e4f580c82f31dc797e32ad6d1151d85213340d7546df87d5ec999fc8a6bcbbcce23004db813895
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "abbrev@npm:^5.0.0":
   version: 5.0.0
@@ -4981,7 +4976,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pinia@npm:^2.0.22":
+"pinia@npm:^2.3.1":
   version: 2.3.1
   resolution: "pinia@npm:2.3.1"
   dependencies:
@@ -4994,25 +4989,6 @@ __metadata:
     typescript:
       optional: true
   checksum: 10/2c490c7252ca66921d46ae1bbbb1aa0daa2b531b5bb1c59dc99611e5ac3db2755e51d8919bccb51a87682de0afda9aea8ebb3412e65f8f2c92cf038c08abb7eb
-  languageName: node
-  linkType: hard
-
-"pinia@npm:~2.1.7":
-  version: 2.1.7
-  resolution: "pinia@npm:2.1.7"
-  dependencies:
-    "@vue/devtools-api": "npm:^6.5.0"
-    vue-demi: "npm:>=0.14.5"
-  peerDependencies:
-    "@vue/composition-api": ^1.4.0
-    typescript: ">=4.4.4"
-    vue: ^2.6.14 || ^3.3.0
-  peerDependenciesMeta:
-    "@vue/composition-api":
-      optional: true
-    typescript:
-      optional: true
-  checksum: 10/e8426e01b127610c96069ae04a68a57569596611816f24d2baa50a03cb2bf773c5b794280063cce53501ad6ad75e419bfd9dc7b45c05014f78fb0b3421dbb7b0
   languageName: node
   linkType: hard
 
@@ -6507,7 +6483,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-demi@npm:>=0.14.5, vue-demi@npm:^0.14.10":
+"vue-demi@npm:^0.14.10":
   version: 0.14.10
   resolution: "vue-demi@npm:0.14.10"
   peerDependencies:
