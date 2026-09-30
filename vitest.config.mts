@@ -2,7 +2,7 @@ import { defineConfig, mergeConfig } from "vitest/config";
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
 import { playwright } from "@vitest/browser-playwright";
 
-import viteConfig from "./vite.config";
+import viteConfig from "./vite.config.mts";
 
 export default defineConfig(env => {
   const base = viteConfig(env);
