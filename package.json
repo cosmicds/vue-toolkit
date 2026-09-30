@@ -79,14 +79,6 @@
   "main": "./dist/vue-toolkit.cjs.js",
   "module": "dist/vue-toolkit.es.js",
   "packageManager": "yarn@4.5.3",
-  "resolutions": {
-    "pinia": "^2.3.1",
-    "@wwtelescope/engine": "portal:../../wwt-webgl-engine/engine",
-    "@wwtelescope/engine-pinia": "portal:../../wwt-webgl-engine/engine-pinia",
-    "@wwtelescope/engine-types": "portal:../../wwt-webgl-engine/engine-types",
-    "@wwtelescope/engine-helpers": "portal:../../wwt-webgl-engine/engine-helpers",
-    "@wwtelescope/astro": "portal:../../wwt-webgl-engine/astro"
-  },
   "publicConfig": {
     "access": "public"
   },
