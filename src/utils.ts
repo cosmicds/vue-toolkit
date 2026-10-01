@@ -50,8 +50,8 @@ export function filterInPlace<T>(array: T[], condition: (t: T) => boolean) {
     const value = array[i];
     if (condition(value)) {
       array[j++] = value;
-      i++;
     }
+    i++;
   }
 
   array.length = j;
@@ -138,4 +138,18 @@ export function createBounceAnimation(element: HTMLElement, props: BounceAnimati
     iterations: props.bounceCount
   });
   return animation;
+}
+
+export function simpleMarkdownParse(text: string): string {
+  // get ** wrapped text and replace with <strong> tags
+  const boldPattern = /\*\*(.*?)\*\*/g;
+  const boldReplaced = text.replace(boldPattern, '<strong>$1</strong>');
+  // get * wrapped text and replace with <em> tags
+  const italicPattern = /\*(.*?)\*/g;
+  const italicReplaced = boldReplaced.replace(italicPattern, '<em>$1</em>');
+  return italicReplaced;
+}
+
+export function clamp(value: number, minValue: number, maxValue: number): number {
+  return Math.min(maxValue, Math.max(minValue, value));
 }

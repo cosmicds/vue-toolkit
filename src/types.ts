@@ -5,6 +5,7 @@ import type { Folder } from "@wwtelescope/engine";
 import type { Thumbnail } from "@wwtelescope/engine-types";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { MapBoxFeatureCollection } from "./mapbox";
+import type { BaseTourStepContent, Tour } from "./composables/tour";
 import { VIcon, VTooltip } from "vuetify/components";
 
 /** The type of the WWT engine Pinia store */
@@ -470,6 +471,46 @@ export interface FolderViewProps {
   lazy?: boolean;
   /** A predicate for filtering which folder items are displayed. Items to be displayed should return true. */
   filter?: (item: Thumbnail) => boolean;
+}
+
+export interface TourSheetProps<T extends BaseTourStepContent> {
+  /** The tour object to use in the component. */
+  tour: Tour<T>;
+  /** Whether to apply small-size classes to the component. */
+  smallSize: boolean,
+  /** Whether to show the tour step dots. */
+  showBreadcrumbs?: boolean,
+  /** Whether to show the next button on the last tour step. */
+  showNextOnLastStep?: boolean,
+  /** Whether to show the back button on the first tour step. */
+  showBackOnFirstStep?: boolean,
+  /** The text to use for the "Next" buttons */
+  nextText?: string,
+  /** The text to use for the "Back" buttons */
+  backText?: string,
+  /** If true, the next button is disabled. */
+  disableNext?: boolean,
+  /** If true, the previous button is disabled. */
+  disablePrevious?: boolean,
+  /** Whether to show the close icon in the corner*/
+  showClose?: boolean,
+  /**
+   * Whether to show the Back/Next row. 
+   * Set to off for callers to only show the box - 
+   * `controls` slot won't do it, since a slot rendering nothing falls back to
+   * its default content
+   */
+  showControls?: boolean,
+  /** The color to use for the buttons and active dot. Should be a valid CSS color. */
+  accentColor?: string;
+  /** The color to use for the border. Should be a valid CSS color */
+  borderColor?: string;
+  /** The color to use for the card background. Should be a valid CSS color. */
+  backgroundColor?: string;
+  /** The color to use for the text. Should be a valid CSS color. */
+  textColor?: string;
+  /** The size to use for the font. Should be a valid CSS font size. */
+  fontSize?: string;
 }
 
 export type ItemSelectionType = "click" | "dblclick" | "keyup" | "folder";
