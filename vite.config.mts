@@ -45,6 +45,7 @@ export default defineConfig(({ mode }) => {
           "pinia", 
           "@wwtelescope/engine",
           "@wwtelescope/engine-pinia",
+          /^vuetify(\/.*)?$/,
           /\.stories\.(ts|tsx|js|jsx)$/,
           /\.storybook\//
         ],
