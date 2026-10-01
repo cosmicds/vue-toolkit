@@ -50,8 +50,8 @@ export function filterInPlace<T>(array: T[], condition: (t: T) => boolean) {
     const value = array[i];
     if (condition(value)) {
       array[j++] = value;
-      i++;
     }
+    i++;
   }
 
   array.length = j;
