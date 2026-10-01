@@ -13,7 +13,7 @@
       <div
         v-bind="tooltipProps"
         :id="buttonID"
-        :class="['icon-wrapper', {'active': modelValue}, {'disabled': disabled}]"
+        :class="['icon-wrapper', {'active': modelValue}, attrs.class, {'disabled': disabled}]"
         :style="cssVars"
         :aria-disabled="disabled"
         :aria-label="ariaLabel"
@@ -27,18 +27,20 @@
         @touchend="handleTouchEnd"
       >
         <slot name="button">
-          <font-awesome-icon
-            v-if="iconType === 'fa'"
-            :icon="icon"
-            :size="size as FontAwesomeIconSize"
-            :class="['fa-icon', icon]"
-          />
+          <!-- nest the font-awesome-icon so that icon always is the same size -->
           <v-icon
-            v-else
-            :size="size as VIconSize"
-            :class="['md-icon', icon]"
+            :size="cssSize"
+            :class="[`${iconType === 'mdi' ? 'md' : 'fa'}-icon`, icon]"
           >
-            {{ icon }}
+            <font-awesome-icon
+              v-if="iconType === 'fa'"
+              :icon="icon"
+              :class="['fa-icon', icon]"
+              :style="{'width': '1em', 'height': '1em', 'font-size': '1em'}"
+            />
+            <template v-else>
+              {{ icon }}
+            </template>
           </v-icon>
         </slot>
       </div>
@@ -105,12 +107,44 @@ const cssVars = computed(() => {
     "--border": props.border ? "1px solid var(--color)" : "none",
   };
 });
+const attrs = useAttrs();
 
 const buttonID = computed(() => {
-  const attrs = useAttrs();
   const id = attrs['id'];
   const prefix = id ?? v4();
   return `${prefix}-button`;
+});
+
+function isNumber(value: string | number | undefined): value is number {
+  return typeof value === "number" || !isNaN(Number(value));
+}
+
+// https://docs.fontawesome.com/web/style/size
+const FONT_AWESOME_SIZE_MAP = new Map<FontAwesomeIconSize, string>([
+  // relative sizing
+  ["2xs", "0.625em"], ["xs", "0.75em"], ["sm", "0.875em"],
+  ["lg", "1.25em"]  , ["xl", "1.5em"] , ["2xl", "2em"],
+  // absolute sizing
+  ["1x", "1em"], ["2x", "2em"], ["3x", "3em"],
+  ["4x", "4em"], ["5x", "5em"], ["6x", "6em"],
+  ["7x", "7em"], ["8x", "8em"], ["9x", "9em"],
+  ["10x", "10em"],
+]);
+
+function fa2css(size: FontAwesomeIconSize | string | number): VIconSize {
+  // is it one of font-awesome's built in ones.
+  if (FONT_AWESOME_SIZE_MAP.has(size as FontAwesomeIconSize)) {
+    return FONT_AWESOME_SIZE_MAP.get(size as FontAwesomeIconSize) as VIconSize;
+  }
+  
+  if (isNumber(size)) {
+    return `${size}px`;
+  }
+  return size;
+}
+
+const cssSize = computed<VIconSize>(() => {
+  return fa2css(props.size);
 });
 
 function updateValue() {
@@ -166,7 +200,7 @@ function handleTouchEnd() {
     color: var(--active-color);
     border-color: var(--active-color);
   }
-
+  
   &[disabled] {
     color: var(--disabled-color);
     border: none;
@@ -181,4 +215,14 @@ function handleTouchEnd() {
     color: color-mix(in hsl, currentColor, rgb(var(--v-theme-on-surface-variant)) 80%);
   }
 }
+
+// make the md-icon have the same size as the font-awesome-icon
+// v-icon applies it's styles to the i.v-icon element style tag
+// this is targeting the ::before and making the icon 20% larger than it would be
+// it's not perfect but it is closer so that mixed icon types have similarish sizes
+:deep(.v-icon.md-icon::before),
+:slotted(.v-icon.md-icon::before) {
+  font-size: 1.25em;
+}
+
 </style>

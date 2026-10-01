@@ -34,7 +34,7 @@ export default defineConfig(({ mode }) => {
     ],
     build: {
       lib: {
-        entry: resolve(__dirname, "src/index.ts"),
+        entry: resolve(import.meta.dirname, "src/index.ts"),
         name: "VueToolkit",
         fileName: (format) => `vue-toolkit.${format}.js`,
         formats: ["es", "cjs", "umd"],
@@ -45,6 +45,7 @@ export default defineConfig(({ mode }) => {
           "pinia", 
           "@wwtelescope/engine",
           "@wwtelescope/engine-pinia",
+          /^vuetify(\/.*)?$/,
           /\.stories\.(ts|tsx|js|jsx)$/,
           /\.storybook\//
         ],
