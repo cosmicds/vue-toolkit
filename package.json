@@ -78,7 +78,7 @@
   ],
   "main": "./dist/vue-toolkit.cjs.js",
   "module": "dist/vue-toolkit.es.js",
-  "packageManager": "yarn@4.5.3",
+  "packageManager": "yarn@4.12.0",
   "publicConfig": {
     "access": "public"
   },
