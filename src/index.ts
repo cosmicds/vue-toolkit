@@ -7,6 +7,7 @@ import { useFullscreen } from "./composables/fullscreen";
 import type { PositionCoords } from "./composables/geolocation";
 import { useGeolocation } from "./composables/geolocation";
 import { usePlaybackControl } from "./composables/playbackControl";
+import { useTour, type BaseTourStepContent, type Tour } from "./composables/tour";
 import type { WindowShape } from "./composables/windowShape";
 import { useWindowShape } from "./composables/windowShape";
 import { useWWTKeyboardControls } from "./composables/wwtKeyboard";
@@ -25,14 +26,17 @@ import PlaybackControl from "./components/PlaybackControl.vue";
 import ShareButton from "./components/ShareButton.vue";
 import SpeedControl from "./components/SpeedControl.vue";
 import TapToInput from "./components/TapToInput.vue";
+import TourSheet from "./components/TourSheet.vue";
 import UserExperience from "./components/UserExperience.vue";
 import WwtHud from "./components/WwtHud.vue";
 
 export {
   BackgroundImageset,
+  BaseTourStepContent,
   KeyPressInfo,
   KeyboardControlSettings,
   PositionCoords,
+  Tour,
   WindowShape,
 };
 
@@ -42,6 +46,7 @@ export {
   useGeolocation,
   useFullscreen,
   usePlaybackControl,
+  useTour,
   useWindowShape,
   useWWTKeyboardControls,
 
@@ -59,6 +64,7 @@ export {
   ShareButton,
   SpeedControl,
   TapToInput,
+  TourSheet,
   UserExperience,
   WwtHud,
 };
