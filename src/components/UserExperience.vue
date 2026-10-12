@@ -38,6 +38,7 @@
                   <button
                     v-bind="tooltipProps"
                     class="rating-button"
+                    type="button"
                     :aria-label="rating"
                     :aria-pressed="rating === currentRating"
                     @click="setRating(rating)"
