@@ -60,7 +60,7 @@
 import { VFooter, VBtn } from "vuetify/components";
 import CloseButton from "../components/CloseButton.vue";
 
-const showPrivacyDialog = defineModel<boolean>('showPrivacyDialog',{default: false, required: true});
+const showPrivacyDialog = defineModel<boolean>('show',{default: false, required: true});
 const showPrivacyPolicyInfo = defineModel<boolean>('showPrivacyPolicy',{default: false, required: true});
 const responseOptOut = defineModel<boolean | null>('responseOptOut',{default: null, required: true});
 </script>
