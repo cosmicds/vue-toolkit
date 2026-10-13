@@ -78,6 +78,7 @@
 </template>
 
 <script setup lang="ts">
+import { VCard, VCardText, VDivider, VBtnToggle, VBtn } from "vuetify/components";
 import CloseButton from "../components/CloseButton.vue";
 
 const showPrivacyDialog = defineModel<boolean>({default: false, required: true});
