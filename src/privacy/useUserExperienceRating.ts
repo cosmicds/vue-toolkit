@@ -1,5 +1,5 @@
 import { ref, toValue, watch, type Ref, MaybeRef } from "vue";
-import { API_BASE_URL, type UserExperienceRating } from "@cosmicds/vue-toolkit";
+import { API_BASE_URL, type UserExperienceRating } from "../utils";
 import type { UserExperienceSubmission } from "./types";
 
 
@@ -17,10 +17,10 @@ export function useUserExperienceRating(storyPrefix: string, uuid: MaybeRef<stri
   const responseOptOut = options?.responseOptOut ?? ref(null);
 
   const storagePrefix = options?.storagePrefix ?? storyPrefix;
-  const RATING_OPT_OUT_KEY = `${storagePrefix}-rating-optout` as const;
+  const ratingOptOutKey = `${storagePrefix}-rating-optout` as const;
   const storyRatingUrl = `${API_BASE_URL}/${storyPrefix}/user-experience`;
 
-  const storedRatingOptOut = window.localStorage.getItem(RATING_OPT_OUT_KEY);
+  const storedRatingOptOut = window.localStorage.getItem(ratingOptOutKey);
   const parsedRatingOptOut = typeof storedRatingOptOut === "string" ? storedRatingOptOut === "true" : null;
   const ratingOptOut = ref<boolean | null>(responseOptOut.value || parsedRatingOptOut);
 
@@ -58,6 +58,7 @@ export function useUserExperienceRating(storyPrefix: string, uuid: MaybeRef<stri
     const response = await fetch(`${storyRatingUrl}/${toValue(uuid)}`, {
       method: "GET",
       headers: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         Authorization: import.meta.env.VITE_CDS_API_KEY ?? "",
       },
     });
@@ -113,6 +114,7 @@ export function useUserExperienceRating(storyPrefix: string, uuid: MaybeRef<stri
     fetch(storyRatingUrl, {
       method: "PUT",
       headers: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         "Authorization": import.meta.env.VITE_CDS_API_KEY ?? "",
         "Content-Type": "application/json",
       },
@@ -140,7 +142,7 @@ export function useUserExperienceRating(storyPrefix: string, uuid: MaybeRef<stri
 
   watch(ratingOptOut, (optingOut) => {
     if (optingOut === null) return;
-    window.localStorage.setItem(RATING_OPT_OUT_KEY, String(optingOut));
+    window.localStorage.setItem(ratingOptOutKey, String(optingOut));
     if (optingOut) {
       clearRatingTimeout();
     }

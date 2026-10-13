@@ -2,7 +2,6 @@
     <!-- :scrim bound, not scrim="false": the bare attribute passes the string
          "false", which is truthy, so Vuetify dimmed the whole app behind it -->
 <template>
-
   <v-card
     id="data-collection-card"
     density="compact"
@@ -11,18 +10,16 @@
     aria-labelledby="data-collection-notice-text"
     tabindex="-1"
   > 
-    <close-button
+    <CloseButton
       class="dc-close-button"
       label="Close privacy notice"
-      @click="() => {
-        showPrivacyDialog = false;
-      }"
+      @click="showPrivacyDialog = false"
     />
     <v-card-text id="data-collection-notice-text">
       To evaluate usage of this app, <strong>anonymized</strong> data may be collected.
     </v-card-text>
     <v-card-actions>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn
         color="#BDBDBD"
         size="small"
@@ -69,6 +66,7 @@
 </template>
 
 <script setup lang="ts">
+import CloseButton from "../components/CloseButton.vue";
 
 const showPrivacyDialog = defineModel<boolean>('show', {default: false, required: true});
 const showPrivacyPolicyInfo = defineModel<boolean>('showPrivacyPolicy',{default: false, required: true});
@@ -102,6 +100,7 @@ const responseOptOut = defineModel<boolean | null>('responseOptOut',{default: nu
   position: absolute;
   top: 0.5em;
   right: 0.5em;
+  cursor: pointer;
 }
 
 </style>

@@ -22,7 +22,7 @@
           <p>
             We use Google Analytics to collect anonymous site analytics (page views, time on page, etc).
             We do not collect any advertising data. 
-            <br />
+            <br>
             <a
               class="cds-privacy-policy__ga-link"
               href="https://tools.google.com/dlpage/gaoptout?hl=en"
@@ -51,12 +51,16 @@
                 :value="false"
                 color="green"
                 :prepend-icon="!responseOptOut ? 'mdi-check-circle' : ''"
-              >Allow</v-btn>
+              >
+                Allow
+              </v-btn>
               <v-btn
                 :value="true"
                 color="red"
                 :append-icon="responseOptOut ? 'mdi-check-circle' : ''"
-              >Opt-Out</v-btn>
+              >
+                Opt-Out
+              </v-btn>
             </v-btn-toggle>
           </div>
           <p style="text-align: center; font-weight: bold; margin-top: 2em">
@@ -68,14 +72,14 @@
             >Privacy Policy</a>
           </p>
         </div>
-        
       </slot>
     </v-card-text>
-
   </v-card>
 </template>
 
 <script setup lang="ts">
+import CloseButton from "../components/CloseButton.vue";
+
 const showPrivacyDialog = defineModel<boolean>({default: false, required: true});
 const responseOptOut = defineModel<boolean | null>("responseOptOut", {default: null, required: true});
 // for now we are doing nothing with this, 
@@ -103,6 +107,7 @@ const responseOptOut = defineModel<boolean | null>("responseOptOut", {default: n
 .cds-privacy-policy__close-icon {
   margin-top: 0.25em;
   margin-right: 0.25em;
+  cursor: pointer;
 }
 
 .cds-privacy-policy__top-text {
