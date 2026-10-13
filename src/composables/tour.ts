@@ -15,6 +15,8 @@ export interface BaseTourStepContent {
 export interface UseTourOptions<T extends BaseTourStepContent> {
   steps: T[];
   initialStep?: number;
+  /** run the initial step's setup() as soon as the tour is created. Default: false */
+  autostart?: boolean;
 }
 
 export interface Tour<T extends BaseTourStepContent> {
@@ -23,7 +25,7 @@ export interface Tour<T extends BaseTourStepContent> {
   steps: T[];
   length: number;
   stepContent: Ref<T>;
-  goToStep: (step: number) => Promise<void>;
+  goToStep: (step: number, force?: boolean) => Promise<void>;
   next: () => Promise<void>;
   previous: () => Promise<void>;
 };
@@ -79,7 +81,9 @@ export function useTour<T extends BaseTourStepContent>(options: UseTourOptions<T
     stepIndex.value = newStep;
   }
 
-  updateStep(stepIndex.value, stepIndex.value, true);
+  if (options.autostart) {
+    updateStep(stepIndex.value, stepIndex.value, true);
+  }
 
   watch(stepIndex, (newStep: number, oldStep: number) => {
     updateStep(newStep, oldStep, false);
