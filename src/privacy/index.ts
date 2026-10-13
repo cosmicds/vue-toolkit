@@ -1,11 +1,13 @@
 import CDSPrivacyPolicy from "./CDSPrivacyPolicy.vue";
-import DataCollectionOptOut from "./DataCollectionOptOut.vue";
+import DataCollectionOptOutCard from "./DataCollectionOptOutCard.vue";
+import DataCollectionOptOutFooter from "./DataCollectionOptOutFooter.vue";
 import { useCounter, useElapsedTime } from "./useDataCollection";
 import { useUserExperienceRating, type UseUserExperienceRatingOptions } from "./useUserExperienceRating";
 
 export {
   CDSPrivacyPolicy,
-  DataCollectionOptOut,
+  DataCollectionOptOutCard,
+  DataCollectionOptOutFooter,
 
   useCounter,
   useElapsedTime,
