@@ -175,6 +175,16 @@ export interface IconButtonProps {
   activatorProps?: Record<string, unknown>;
 }
 
+/* Close button */
+
+/** An interface describing props for the close button */
+export interface CloseButtonProps {
+  /** ARIA label for the button */
+  label: string;
+  /** The color of the close icon. Can be a theme color name, which will be resolved to its current value */
+  color?: string;
+}
+
 
 /* Location selector */
 

@@ -14,6 +14,7 @@ import { useWWTKeyboardControls } from "./composables/wwtKeyboard";
 import { useDataTracking, type DataTrackingOptions } from "./composables/dataTracking";
 
 import AttentionHook from "./components/AttentionHook.vue";
+import CloseButton from "./components/CloseButton.vue";
 import CreditLogos from "./components/CreditLogos.vue";
 import DateTimePicker from "./components/DateTimePicker.vue";
 import FolderView from "./components/FolderView.vue";
@@ -54,6 +55,7 @@ export {
   DataTrackingOptions,
 
   AttentionHook,
+  CloseButton,
   CreditLogos,
   DateTimePicker,
   FolderView,
