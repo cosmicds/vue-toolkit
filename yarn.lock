@@ -192,8 +192,8 @@ __metadata:
     "@vue/compiler-sfc": "npm:^3.4.25"
     "@vueuse/core": "npm:^13.1.0"
     "@wdns/vue-code-block": "npm:^2.3.5"
-    "@wwtelescope/engine": "npm:^7.39.0"
-    "@wwtelescope/engine-pinia": "npm:>=0.15.0 <1.0.0"
+    "@wwtelescope/engine": "npm:^7.41.0"
+    "@wwtelescope/engine-pinia": "npm:^0.17.0"
     eslint: "npm:^10.9.1"
     eslint-plugin-storybook: "npm:^10.5.10"
     eslint-plugin-vue: "npm:^10.10.0"
@@ -2444,7 +2444,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wwtelescope/engine-pinia@npm:>=0.15.0 <1.0.0":
+"@wwtelescope/engine-pinia@npm:^0.17.0":
   version: 0.17.0
   resolution: "@wwtelescope/engine-pinia@npm:0.17.0"
   dependencies:
@@ -2465,7 +2465,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wwtelescope/engine@npm:^7.39.0, @wwtelescope/engine@npm:^7.41.0":
+"@wwtelescope/engine@npm:^7.41.0":
   version: 7.41.0
   resolution: "@wwtelescope/engine@npm:7.41.0"
   dependencies:
