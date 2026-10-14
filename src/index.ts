@@ -13,6 +13,7 @@ import { useWindowShape } from "./composables/windowShape";
 import { useWWTKeyboardControls } from "./composables/wwtKeyboard";
 
 import AttentionHook from "./components/AttentionHook.vue";
+import CalendarPicker from "./components/CalendarPicker.vue";
 import CreditLogos from "./components/CreditLogos.vue";
 import DateTimePicker from "./components/DateTimePicker.vue";
 import FolderView from "./components/FolderView.vue";
@@ -51,6 +52,7 @@ export {
   useWWTKeyboardControls,
 
   AttentionHook,
+  CalendarPicker,
   CreditLogos,
   DateTimePicker,
   FolderView,

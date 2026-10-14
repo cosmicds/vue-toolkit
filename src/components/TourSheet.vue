@@ -94,7 +94,7 @@
 <script setup lang="ts" generic="T extends import('../composables/tour').BaseTourStepContent">
 import { simpleMarkdownParse } from "../utils";
 import { computed } from 'vue';
-import { TourSheetProps } from '@/types';
+import { TourSheetProps } from "../types";
 
 const props = withDefaults(defineProps<TourSheetProps<T>>(), {
   showBreadcrumbs: true,
