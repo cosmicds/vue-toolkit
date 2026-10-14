@@ -1,4 +1,4 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv, esmExternalRequirePlugin } from "vite";
 import vue from "@vitejs/plugin-vue";
 import dts from "vite-plugin-dts";
 import { viteStaticCopy } from "vite-plugin-static-copy";
@@ -35,6 +35,8 @@ export default defineConfig(({ mode }) => {
           lintCommand: 'eslint "./src/**/*.{js,jsx,ts,tsx}"',
         }
       }),
+      // https://vite.dev/guide/migration#require-calls-for-externalized-modules
+      esmExternalRequirePlugin({ external: ["vuedraggable"] }),
     ],
     build: {
       lib: {
