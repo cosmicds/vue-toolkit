@@ -27,13 +27,13 @@ declare const __VLS_export: import('vue').DefineComponent<{
 }> & Readonly<{
     onShare?: (() => any) | undefined;
 }>, {
-    size: string;
     source: (() => string) | string;
+    size: string;
+    tooltip: boolean;
     rounded: string | number;
     elevation: string | number;
     ariaLabel: string;
     tooltipText: string;
-    tooltip: boolean;
     iconColor: string;
     buttonColor: string;
     alert: boolean;

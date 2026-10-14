@@ -5,6 +5,8 @@ import { Folder } from '@wwtelescope/engine';
 import { Thumbnail } from '@wwtelescope/engine-types';
 import { engineStore } from '@wwtelescope/engine-pinia';
 import { MapBoxFeatureCollection } from './mapbox';
+import { BaseTourStepContent, Tour } from './composables/tour';
+import { RootProps } from '@vuepic/vue-datepicker';
 import { VIcon, VTooltip } from 'vuetify/components';
 /** The type of the WWT engine Pinia store */
 export type WWTEngineStore = ReturnType<typeof engineStore>;
@@ -15,6 +17,9 @@ export interface FundingAcknowledgementProps {
     /** The background color of the acknowledgement */
     backgroundColor?: string;
 }
+export interface CalendarPickerProps extends RootProps {
+}
+export declare const calendarPickerPassthroughDefaults: Partial<Record<keyof RootProps, undefined>>;
 /** Interface describing a logo */
 export interface CreditLogo {
     /** The URL for the logo image */
@@ -36,6 +41,22 @@ export interface CreditLogosProps {
     extraLogos?: CreditLogo[];
     /** Which default logos to use. If not specified, use them all */
     defaultLogos: DefaultCreditLogo[];
+}
+export interface DraggableItemsProps<T> {
+    /** A function returning a suitable name for each item. Used for ARIA labelling */
+    itemName: (item: T) => string;
+    /** A function returning a unique key for each item. Can be the same as the name, if names are unique */
+    itemKey: (item: T) => string;
+    /** A class (or space-separated set of classes) to add to the drag handle of each item */
+    handleClass?: string | null;
+    /** A class (or space-separated set of classes) to add to the overall drag container */
+    containerClass?: string | null;
+    /** A class (or space-separated set of classes) to add to the main container of each row */
+    rowClass?: string | null;
+    /** A class (or space-separated set of classes) to add to the content container of each row */
+    contentClass?: string | null;
+    /** The accent color, used for the border and drag handle of each row. Should be a valid CSS color */
+    accentColor?: string;
 }
 /** Interface describing props for the gallery component */
 export interface GalleryProps {
@@ -420,6 +441,45 @@ export interface FolderViewProps {
     lazy?: boolean;
     /** A predicate for filtering which folder items are displayed. Items to be displayed should return true. */
     filter?: (item: Thumbnail) => boolean;
+}
+export interface TourSheetProps<T extends BaseTourStepContent> {
+    /** The tour object to use in the component. */
+    tour: Tour<T>;
+    /** Whether to apply small-size classes to the component. */
+    smallSize: boolean;
+    /** Whether to show the tour step dots. */
+    showBreadcrumbs?: boolean;
+    /** Whether to show the next button on the last tour step. */
+    showNextOnLastStep?: boolean;
+    /** Whether to show the back button on the first tour step. */
+    showBackOnFirstStep?: boolean;
+    /** The text to use for the "Next" buttons */
+    nextText?: string;
+    /** The text to use for the "Back" buttons */
+    backText?: string;
+    /** If true, the next button is disabled. */
+    disableNext?: boolean;
+    /** If true, the previous button is disabled. */
+    disablePrevious?: boolean;
+    /** Whether to show the close icon in the corner*/
+    showClose?: boolean;
+    /**
+     * Whether to show the Back/Next row.
+     * Set to off for callers to only show the box -
+     * `controls` slot won't do it, since a slot rendering nothing falls back to
+     * its default content
+     */
+    showControls?: boolean;
+    /** The color to use for the buttons and active dot. Should be a valid CSS color. */
+    accentColor?: string;
+    /** The color to use for the border. Should be a valid CSS color */
+    borderColor?: string;
+    /** The color to use for the card background. Should be a valid CSS color. */
+    backgroundColor?: string;
+    /** The color to use for the text. Should be a valid CSS color. */
+    textColor?: string;
+    /** The size to use for the font. Should be a valid CSS font size. */
+    fontSize?: string;
 }
 export type ItemSelectionType = "click" | "dblclick" | "keyup" | "folder";
 export interface HorizonOptions {

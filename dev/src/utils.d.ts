@@ -52,3 +52,5 @@ export interface BounceAnimationProperties {
 }
 export declare function createBounceKeyframes(props: BounceAnimationProperties): Keyframe[];
 export declare function createBounceAnimation(element: HTMLElement, props: BounceAnimationProperties): Animation;
+export declare function simpleMarkdownParse(text: string): string;
+export declare function clamp(value: number, minValue: number, maxValue: number): number;

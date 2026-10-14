@@ -10,7 +10,7 @@ declare const __VLS_export: import('vue').DefineComponent<{
     dir?: string | undefined | undefined;
     draggable?: (boolean | "true" | "false") | undefined;
     enterkeyhint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined | undefined;
-    enterKeyHint?: "search" | "send" | "enter" | "done" | "go" | "next" | "previous" | undefined;
+    enterKeyHint?: "search" | "next" | "previous" | "send" | "enter" | "done" | "go" | undefined;
     hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
     id?: string | undefined | undefined;
     inert?: (boolean | "true" | "false") | undefined;
@@ -55,7 +55,7 @@ declare const __VLS_export: import('vue').DefineComponent<{
     'aria-colindex'?: (string | number) | undefined;
     'aria-colspan'?: (string | number) | undefined;
     'aria-controls'?: string | undefined | undefined;
-    'aria-current'?: "location" | "time" | "page" | (boolean | "true" | "false") | "step" | "date" | undefined;
+    'aria-current'?: "time" | "location" | "page" | (boolean | "true" | "false") | "step" | "date" | undefined;
     'aria-describedby'?: string | undefined | undefined;
     'aria-details'?: string | undefined | undefined;
     'aria-disabled'?: (boolean | "true" | "false") | undefined;
@@ -204,7 +204,7 @@ declare const __VLS_export: import('vue').DefineComponent<{
     dir?: string | undefined | undefined;
     draggable?: (boolean | "true" | "false") | undefined;
     enterkeyhint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined | undefined;
-    enterKeyHint?: "search" | "send" | "enter" | "done" | "go" | "next" | "previous" | undefined;
+    enterKeyHint?: "search" | "next" | "previous" | "send" | "enter" | "done" | "go" | undefined;
     hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
     id?: string | undefined | undefined;
     inert?: (boolean | "true" | "false") | undefined;
@@ -249,7 +249,7 @@ declare const __VLS_export: import('vue').DefineComponent<{
     'aria-colindex'?: (string | number) | undefined;
     'aria-colspan'?: (string | number) | undefined;
     'aria-controls'?: string | undefined | undefined;
-    'aria-current'?: "location" | "time" | "page" | (boolean | "true" | "false") | "step" | "date" | undefined;
+    'aria-current'?: "time" | "location" | "page" | (boolean | "true" | "false") | "step" | "date" | undefined;
     'aria-describedby'?: string | undefined | undefined;
     'aria-details'?: string | undefined | undefined;
     'aria-disabled'?: (boolean | "true" | "false") | undefined;

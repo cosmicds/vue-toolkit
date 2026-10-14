@@ -50,8 +50,8 @@ declare const __VLS_base: import('vue').DefineComponent<{
     "onUpdate:modelValue"?: ((active: boolean) => any) | undefined;
     onActivate?: (() => any) | undefined;
 }>, {
-    color: string;
     disabled: boolean;
+    color: string;
     border: boolean;
     backgroundColor: string;
     activeColor: string;
