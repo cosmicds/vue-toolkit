@@ -14,9 +14,11 @@ import { useWWTKeyboardControls } from "./composables/wwtKeyboard";
 import { useDataTracking, type DataTrackingOptions } from "./composables/dataTracking";
 
 import AttentionHook from "./components/AttentionHook.vue";
+import CalendarPicker from "./components/CalendarPicker.vue";
 import CloseButton from "./components/CloseButton.vue";
 import CreditLogos from "./components/CreditLogos.vue";
 import DateTimePicker from "./components/DateTimePicker.vue";
+import DraggableItems from "./components/DraggableItems.vue";
 import FolderView from "./components/FolderView.vue";
 import FundingAcknowledgement from "./components/FundingAcknowledgement.vue";
 import Gallery from "./components/Gallery.vue";
@@ -55,9 +57,11 @@ export {
   DataTrackingOptions,
 
   AttentionHook,
+  CalendarPicker,
   CloseButton,
   CreditLogos,
   DateTimePicker,
+  DraggableItems,
   FolderView,
   FundingAcknowledgement,
   Gallery,

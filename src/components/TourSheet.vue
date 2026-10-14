@@ -97,7 +97,7 @@ import type { BaseTourStepContent } from '../composables/tour';
 <script setup lang="ts" generic="T extends BaseTourStepContent">
 import { simpleMarkdownParse } from "../utils";
 import { computed } from 'vue';
-import { TourSheetProps } from '../types';
+import { TourSheetProps } from "../types";
 import { VIcon } from 'vuetify/components/VIcon';
 import { VBtn } from 'vuetify/components/VBtn';
 import { VSpacer } from 'vuetify/lib/components/index.mjs';

@@ -190,6 +190,7 @@ __metadata:
     "@vitejs/plugin-vue": "npm:^6.0.9"
     "@vitest/browser-playwright": "npm:^5.0.1"
     "@vue/compiler-sfc": "npm:^3.4.25"
+    "@vuepic/vue-datepicker": "npm:^14.0.0"
     "@vueuse/core": "npm:^13.1.0"
     "@wdns/vue-code-block": "npm:^2.3.5"
     "@wwtelescope/engine": "npm:^7.41.0"
@@ -230,6 +231,7 @@ __metadata:
     vue-shepherd: "npm:^6.0.0"
     vue-template-compiler: "npm:^2.7.14"
     vue-tsc: "npm:^3.3.11"
+    vuedraggable: "npm:^4.1.0"
     vuetify: "npm:^3.3.3"
   peerDependencies:
     "@floating-ui/dom": "*"
@@ -293,6 +295,13 @@ __metadata:
   version: 4.0.2
   resolution: "@csstools/css-tokenizer@npm:4.0.2"
   checksum: 10/d01ac3d39fc699b61221237f11b281f3fe0e1c029581aa6733c894754eef2f6c4b077584acacdd37853ac4573e69d53ecd76db2db4898ed0da2466ae27758923
+  languageName: node
+  linkType: hard
+
+"@date-fns/tz@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "@date-fns/tz@npm:1.5.0"
+  checksum: 10/a629879b1f307429e0a00a92dea71e19f63398ba304ee0f58f4d141d50c3058d678c4095b25962f7e5fda508c70502811dd565e58df99e5632dc16097da184a8
   languageName: node
   linkType: hard
 
@@ -631,7 +640,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@floating-ui/dom@npm:^1.8.0":
+"@floating-ui/dom@npm:^1.7.6, @floating-ui/dom@npm:^1.8.0":
   version: 1.8.0
   resolution: "@floating-ui/dom@npm:1.8.0"
   dependencies:
@@ -641,10 +650,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@floating-ui/utils@npm:^0.2.12":
+"@floating-ui/utils@npm:^0.2.11, @floating-ui/utils@npm:^0.2.12":
   version: 0.2.12
   resolution: "@floating-ui/utils@npm:0.2.12"
   checksum: 10/ec4e176fb22d33d75df752c5acf82dcaacae40ed2d09c1a5015cb4081318fff20260db216678e952344b95f90c6b43214762b69eba7c51556ecd82c35a795cff
+  languageName: node
+  linkType: hard
+
+"@floating-ui/vue@npm:^1.1.11":
+  version: 1.1.11
+  resolution: "@floating-ui/vue@npm:1.1.11"
+  dependencies:
+    "@floating-ui/dom": "npm:^1.7.6"
+    "@floating-ui/utils": "npm:^0.2.11"
+    vue-demi: "npm:>=0.13.0"
+  checksum: 10/d100202910611293361897163c58b0e32ae8b7ce1ae782212355789187490cc1f0241de34960baecf31a645aa216e183a7a621c1a707bf8867380126e24f414d
   languageName: node
   linkType: hard
 
@@ -2378,6 +2398,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vuepic/vue-datepicker@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@vuepic/vue-datepicker@npm:14.0.0"
+  dependencies:
+    "@date-fns/tz": "npm:^1.5.0"
+    "@floating-ui/vue": "npm:^1.1.11"
+    "@vueuse/core": "npm:^14.3.0"
+    date-fns: "npm:^4.4.0"
+  peerDependencies:
+    vue: ">=3.5.0"
+  checksum: 10/ad6c99f8c7912b59d8e090a291a8e58a03e1c57002c40499b8e183d3bebdc5c8a4cd6cd8b0d08cf7454b28be38603e9a4b4d9871fc3dbf4c531daa8cfcacdfa8
+  languageName: node
+  linkType: hard
+
 "@vueuse/core@npm:^13.1.0":
   version: 13.9.0
   resolution: "@vueuse/core@npm:13.9.0"
@@ -2391,10 +2425,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vueuse/core@npm:^14.3.0":
+  version: 14.4.0
+  resolution: "@vueuse/core@npm:14.4.0"
+  dependencies:
+    "@types/web-bluetooth": "npm:^0.0.21"
+    "@vueuse/metadata": "npm:14.4.0"
+    "@vueuse/shared": "npm:14.4.0"
+  peerDependencies:
+    vue: ^3.5.0
+  checksum: 10/51f5fb8a27800e6a16eea55edf5b3600acc6438ad6fe05b7f56650f1d382561be86691c2d59a10f20f5731d7313f8208b98aee0e9b59947972bdc4bd40dcccd2
+  languageName: node
+  linkType: hard
+
 "@vueuse/metadata@npm:13.9.0":
   version: 13.9.0
   resolution: "@vueuse/metadata@npm:13.9.0"
   checksum: 10/6e25ea3fc82bf2964addd25db91272787e0ed3cfb16036a0efd1f3a56c2291186e7ab61ed6776429ab313065b23e37f5c05106f0267584158c04e675897a8a55
+  languageName: node
+  linkType: hard
+
+"@vueuse/metadata@npm:14.4.0":
+  version: 14.4.0
+  resolution: "@vueuse/metadata@npm:14.4.0"
+  checksum: 10/5a9442f85272e724a96e8addb8ba1e80afee29fc7ab871f24367947510d5197e865e9b481e0281d6b8e77d48ded41d73c63c57d9571709c999850e2cffc2c884
   languageName: node
   linkType: hard
 
@@ -2404,6 +2458,15 @@ __metadata:
   peerDependencies:
     vue: ^3.5.0
   checksum: 10/cd7670805a2760b5ccd93855634288dbfdc41014cbeb97f1d47f057301bfa2d056f8eb86eb8b7bbd26c64633d72e4bc8713dec8467a3c21aa31c7eb7a8723440
+  languageName: node
+  linkType: hard
+
+"@vueuse/shared@npm:14.4.0":
+  version: 14.4.0
+  resolution: "@vueuse/shared@npm:14.4.0"
+  peerDependencies:
+    vue: ^3.5.0
+  checksum: 10/f68ae6e5e5f569e82a1002aba9761b0b90eb403f188d505c459df86b453fbf98e99e9634749b318a93d81b5198d42d294b477ae2a986eaa603591916b756096b
   languageName: node
   linkType: hard
 
@@ -2976,6 +3039,13 @@ __metadata:
     whatwg-mimetype: "npm:^5.0.0"
     whatwg-url: "npm:^17.1.2"
   checksum: 10/c3ff7e719fa218546bac31b06540369f2205d9406dd9c77d36b77c696b8f6ab8762b92118beab91cf66929df50e587255405f92efd61c18137e931381c44ea97
+  languageName: node
+  linkType: hard
+
+"date-fns@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "date-fns@npm:4.4.0"
+  checksum: 10/ae702acea42fb8452abe74f6d133c2360de9a14f00985645684b0df9c12280276649e95b52298a4fd7dabcc3b38799eb111107da99320d1cd94ba1d8a3d1c174
   languageName: node
   linkType: hard
 
@@ -5577,6 +5647,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sortablejs@npm:1.14.0":
+  version: 1.14.0
+  resolution: "sortablejs@npm:1.14.0"
+  checksum: 10/434e0caaabfac2b4f48e102cc40e12fd0af7dc99f14838005e6429e92cc190f0ccfb48b0cb8deed8a9b808543f926e2aad26aa89277ee036e5b4ee959ae47f9e
+  languageName: node
+  linkType: hard
+
 "source-map-js@npm:^1.2.1, source-map-js@npm:^1.2.2":
   version: 1.2.2
   resolution: "source-map-js@npm:1.2.2"
@@ -6412,7 +6489,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-demi@npm:^0.14.10":
+"vue-demi@npm:>=0.13.0, vue-demi@npm:^0.14.10":
   version: 0.14.10
   resolution: "vue-demi@npm:0.14.10"
   peerDependencies:
@@ -6525,6 +6602,17 @@ __metadata:
     typescript:
       optional: true
   checksum: 10/a8cebb0eca1d4b779b3bc0544fee6782df74b5c7b2204dc05b8829e4f9b40fd5e4f6c8d86ea32313dda3d0bc3f487b27d4acabb8ae10d0f578bfc1d34a9ea2b2
+  languageName: node
+  linkType: hard
+
+"vuedraggable@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "vuedraggable@npm:4.1.0"
+  dependencies:
+    sortablejs: "npm:1.14.0"
+  peerDependencies:
+    vue: ^3.0.1
+  checksum: 10/87d4faba83ea27c0c262fcdbe7bc9791560079096a5a9d1dc191ebfe0a00f8324d33ebc15272c4067ddc32b1681534d17acafbe73d18c4cb2a8d99f19d86e74b
   languageName: node
   linkType: hard
 

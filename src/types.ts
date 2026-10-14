@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes } from "vue";
+import type { Component, ExtractPublicPropTypes } from "vue";
 import type { FontAwesomeIconProps } from "@fortawesome/vue-fontawesome";
 import type { CircleMarkerOptions, TileLayerOptions } from "leaflet";
 import type { Folder } from "@wwtelescope/engine";
@@ -6,11 +6,28 @@ import type { Thumbnail } from "@wwtelescope/engine-types";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { MapBoxFeatureCollection } from "./mapbox";
 import type { BaseTourStepContent, Tour } from "./composables/tour";
+import { VueDatePicker, type RootProps } from "@vuepic/vue-datepicker";
 import { VIcon, VTooltip } from "vuetify/components";
 
 /** The type of the WWT engine Pinia store */
 export type WWTEngineStore = ReturnType<typeof engineStore>;
 
+/**
+ * For every Boolean-typed prop of `component` whose own default isn't `false`, produce an `undefined` default. 
+ * This disables Vue's boolean casting in a wrapper so unset props reach the wrapped component as absent, not `false`.
+ */
+function booleanPassthroughDefaults<P>(component: Component): Partial<Record<keyof P, undefined>> {
+  const defs = (component as { props?: Record<string, unknown> }).props ?? {};
+  return Object.fromEntries(
+    Object.entries(defs)
+      .filter(([, def]) => {
+        if (!def || typeof def !== "object" || Array.isArray(def)) return false;
+        const { type, default: dflt } = def as { type: unknown, default: unknown };
+        return [type].flat().includes(Boolean) && dflt !== undefined && dflt !== false;
+      })
+      .map(([name]) => [name, undefined]),
+  ) as Partial<Record<keyof P, undefined>>;
+}
 
 /* Funding acknowledgement */
 
@@ -22,6 +39,10 @@ export interface FundingAcknowledgementProps {
   /** The background color of the acknowledgement */
   backgroundColor?: string;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface CalendarPickerProps extends RootProps {};
+export const calendarPickerPassthroughDefaults = booleanPassthroughDefaults<RootProps>(VueDatePicker);
 
 /* Credit logos */
 
@@ -48,6 +69,23 @@ export interface CreditLogosProps {
   extraLogos?: CreditLogo[];
   /** Which default logos to use. If not specified, use them all */
   defaultLogos: DefaultCreditLogo[];
+}
+
+export interface DraggableItemsProps<T> {
+  /** A function returning a suitable name for each item. Used for ARIA labelling */
+  itemName: (item: T) => string;
+  /** A function returning a unique key for each item. Can be the same as the name, if names are unique */
+  itemKey: (item: T) => string;
+  /** A class (or space-separated set of classes) to add to the drag handle of each item */
+  handleClass?: string | null;
+  /** A class (or space-separated set of classes) to add to the overall drag container */
+  containerClass?: string | null;
+  /** A class (or space-separated set of classes) to add to the main container of each row */
+  rowClass?: string | null;
+  /** A class (or space-separated set of classes) to add to the content container of each row */
+  contentClass?: string | null;
+  /** The accent color, used for the border and drag handle of each row. Should be a valid CSS color */
+  accentColor?: string;
 }
 
 /* Gallery */
