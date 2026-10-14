@@ -5,12 +5,12 @@ import { Meta, StoryObj } from "@storybook/vue3-vite";
 import { addStep, createNextButton, createTour } from "../shepherd_tours";
 
 import "./stories.css";
-import "./tours.css";
-import "../styles/tours.less";
+import "./shepherd_tours.css";
+import "../styles/shepherd_tours.less";
 
 const meta: Meta = {
   tags: ["autodocs"],
-  title: "Vue Toolkit/Utilities/Tours",
+  title: "Vue Toolkit/Utilities/ShepherdTours",
 };
 
 export default meta;
