@@ -1,17 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "composite": false,
-    "declaration": true,
     "emitDeclarationOnly": true,
-    "sourceMap": false,
-    "rootDir": ".",
-    "outDir": "dist"
+    "composite": false,
+    "rootDir": "."
   },
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.vue"
-  ],
   "exclude": [
     "./src/stories/**"
   ]
