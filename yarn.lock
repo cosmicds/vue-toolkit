@@ -213,6 +213,7 @@ __metadata:
     vue-shepherd: "npm:^6.0.0"
     vue-template-compiler: "npm:^2.7.14"
     vue-tsc: "npm:^3.3.11"
+    vuedraggable: "npm:^4.1.0"
     vuetify: "npm:^3.3.3"
   peerDependencies:
     "@floating-ui/dom": "*"
@@ -5985,6 +5986,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sortablejs@npm:1.14.0":
+  version: 1.14.0
+  resolution: "sortablejs@npm:1.14.0"
+  checksum: 10/434e0caaabfac2b4f48e102cc40e12fd0af7dc99f14838005e6429e92cc190f0ccfb48b0cb8deed8a9b808543f926e2aad26aa89277ee036e5b4ee959ae47f9e
+  languageName: node
+  linkType: hard
+
 "source-map-js@npm:^1.2.1":
   version: 1.2.1
   resolution: "source-map-js@npm:1.2.1"
@@ -7006,6 +7014,17 @@ __metadata:
     typescript:
       optional: true
   checksum: 10/b6fa07e1535493861aec2ad18f5630d40608f6b94f9616708f5d2a6424f0d54402fc71880ddd413e81478f1c1aa304a18b81b2d7a4c90262ec56214cc8749b72
+  languageName: node
+  linkType: hard
+
+"vuedraggable@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "vuedraggable@npm:4.1.0"
+  dependencies:
+    sortablejs: "npm:1.14.0"
+  peerDependencies:
+    vue: ^3.0.1
+  checksum: 10/87d4faba83ea27c0c262fcdbe7bc9791560079096a5a9d1dc191ebfe0a00f8324d33ebc15272c4067ddc32b1681534d17acafbe73d18c4cb2a8d99f19d86e74b
   languageName: node
   linkType: hard
 

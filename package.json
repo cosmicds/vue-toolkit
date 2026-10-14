@@ -18,6 +18,7 @@
     "screenfull": "^6.0.2",
     "storybook-dark-mode": "^5.0.0",
     "vue": "^3.5.0",
+    "vuedraggable": "^4.1.0",
     "vuetify": "^3.3.3"
   },
   "devDependencies": {

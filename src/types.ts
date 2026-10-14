@@ -71,6 +71,23 @@ export interface CreditLogosProps {
   defaultLogos: DefaultCreditLogo[];
 }
 
+export interface DraggableItemsProps<T> {
+  /** A function returning a suitable name for each item. Used for ARIA labelling */
+  itemName: (item: T) => string;
+  /** A function returning a unique key for each item. Can be the same as the name, if names are unique */
+  itemKey: (item: T) => string;
+  /** A class (or space-separated set of classes) to add to the drag handle of each item */
+  handleClass?: string | null;
+  /** A class (or space-separated set of classes) to add to the overall drag container */
+  containerClass?: string | null;
+  /** A class (or space-separated set of classes) to add to the main container of each row */
+  rowClass?: string | null;
+  /** A class (or space-separated set of classes) to add to the content container of each row */
+  contentClass?: string | null;
+  /** The accent color, used for the border and drag handle of each row. Should be a valid CSS color */
+  accentColor?: string;
+}
+
 /* Gallery */
 
 /** Interface describing props for the gallery component */
