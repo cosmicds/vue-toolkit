@@ -1,6 +1,10 @@
 import { ref, toValue, watch, type Ref, MaybeRef } from "vue";
-import { API_BASE_URL, type UserExperienceRating } from "../utils";
-import type { UserExperienceSubmission } from "./types";
+import { 
+  API_BASE_URL, 
+  type UserExperienceRating, 
+  type UserExperienceSubmissionInfo, 
+  submitUserExperienceRating 
+} from "../utils";
 
 
 export interface UseUserExperienceRatingOptions {
@@ -100,29 +104,23 @@ export function useUserExperienceRating(storyPrefix: string, uuid: MaybeRef<stri
 
   /** sends the rating/comments without closing the prompt, so a rating given before any comments are typed doesn't get lost */
   async function updateUserExperienceInfo(rating: UserExperienceRating | null, comments: string | null) {
-    const body: UserExperienceSubmission = {
+    const info: UserExperienceSubmissionInfo = {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      story_name: storyPrefix,
       uuid: toValue(uuid),
-      question: toValue(question),
+      question: question.value,
     };
     if (rating) {
-      body.rating = rating;
+      info.rating = rating;
     }
     if (comments) {
-      body.comments = comments;
+      info.comments = comments;
     }
-    debugLog("Submitting user experience rating with body:", body);
-    fetch(storyRatingUrl, {
-      method: "PUT",
-      headers: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        "Authorization": import.meta.env.VITE_CDS_API_KEY ?? "",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    })
+    debugLog("Submitting user experience rating with info:", info);
+    return submitUserExperienceRating(info, import.meta.env.VITE_CDS_API_KEY ?? "", storyRatingUrl)
       .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Failed to submit rating: ${response.statusText}`);
+        if (!response || !response.ok) {
+          throw new Error(`Failed to submit rating: ${response?.statusText ?? "No response"}`);
         }
         debugLog("Successfully submitted user experience rating", response);
       })
