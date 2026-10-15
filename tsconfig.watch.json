@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "emitDeclarationOnly": true,
+    "composite": false,
+    "rootDir": "."
+  },
+  "exclude": [
+    "./src/stories/**"
+  ]
+}

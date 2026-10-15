@@ -11,9 +11,11 @@ import { useTour, type BaseTourStepContent, type Tour } from "./composables/tour
 import type { WindowShape } from "./composables/windowShape";
 import { useWindowShape } from "./composables/windowShape";
 import { useWWTKeyboardControls } from "./composables/wwtKeyboard";
+import { useDataTracking, type DataTrackingOptions } from "./composables/dataTracking";
 
 import AttentionHook from "./components/AttentionHook.vue";
 import CalendarPicker from "./components/CalendarPicker.vue";
+import CloseButton from "./components/CloseButton.vue";
 import CreditLogos from "./components/CreditLogos.vue";
 import DateTimePicker from "./components/DateTimePicker.vue";
 import DraggableItems from "./components/DraggableItems.vue";
@@ -51,9 +53,12 @@ export {
   useTour,
   useWindowShape,
   useWWTKeyboardControls,
+  useDataTracking,
+  DataTrackingOptions,
 
   AttentionHook,
   CalendarPicker,
+  CloseButton,
   CreditLogos,
   DateTimePicker,
   DraggableItems,
@@ -74,5 +79,7 @@ export {
 };
 
 export * from "./mapbox";
+export * from "./privacy";
 export * from "./types";
 export * from "./utils";
+export * from "./tracking_timer";

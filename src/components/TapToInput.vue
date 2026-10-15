@@ -1,21 +1,25 @@
 <!-- Input/Display with up down arrow above and below -->
 <template>
-  <span 
+  <button
     v-if="!editing || !props.editable"
     ref="display"
+    type="button"
     class="tti__display"
+    :aria-label="props.ariaLabel"
     @click="editing = !editing"
-  >{{ pad(pseudoValue) }}
-  </span>
-  <input 
+  >
+    {{ pad(pseudoValue) }}
+  </button>
+  <input
     v-else
-    ref="input" 
+    ref="input"
     type="number"
     :min="minValue"
     :max="maxValue"
-    :step="stepValue" 
+    :step="stepValue"
     :value="pseudoValue"
     class="tti__input"
+    :aria-label="props.ariaLabel"
     @change="setValue"
     @blur="blurred"
   >
