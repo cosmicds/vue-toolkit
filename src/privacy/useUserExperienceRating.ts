@@ -14,6 +14,7 @@ export interface UseUserExperienceRatingOptions {
   debug?: boolean;
   /** defaults to the story prefix */
   storagePrefix?: string;
+  mixin?: boolean;
 }
 
 export function useUserExperienceRating(storyPrefix: string, uuid: MaybeRef<string>, options?: UseUserExperienceRatingOptions) {
@@ -22,7 +23,9 @@ export function useUserExperienceRating(storyPrefix: string, uuid: MaybeRef<stri
 
   const storagePrefix = options?.storagePrefix ?? storyPrefix;
   const ratingOptOutKey = `${storagePrefix}-rating-optout` as const;
-  const storyRatingUrl = `${API_BASE_URL}/${storyPrefix}/user-experience`;
+  const storyRatingUrl = (options?.mixin === false) 
+    ? `${API_BASE_URL}/stories/user-experience/${storyPrefix}` 
+    : `${API_BASE_URL}/${storyPrefix}/user-experience`;
 
   const storedRatingOptOut = window.localStorage.getItem(ratingOptOutKey);
   const parsedRatingOptOut = typeof storedRatingOptOut === "string" ? storedRatingOptOut === "true" : null;
