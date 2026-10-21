@@ -561,6 +561,9 @@ export interface HorizonOptions {
 
   /** The opacity of the horizon/sky */
   opacity?: RefOrType<number>;
+
+  /** Whether to show the horizon/sky */
+  show?: RefOrType<boolean>;
 }
 
 export interface SkyOptions extends HorizonOptions {

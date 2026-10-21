@@ -5,6 +5,7 @@
 
 import {
   Annotation,
+  AnnotationBatch,
   Color,
   Coordinates,
   Place,
@@ -14,8 +15,8 @@ import {
 } from "@wwtelescope/engine";
 import { Classification, SolarSystemObjects } from "@wwtelescope/engine-types";
 import type { HorizonOptions, SkyEclipseInfo, SkyOptions, WWTEngineStore } from "../types";
-import { D2R, R2D, value } from "./utils";
-import { isRef, watch, type WatchHandle } from "vue";
+import { D2R, R2D, value } from "../utils";
+import { isRef, onMounted, onUnmounted, watch, type WatchHandle } from "vue";
 
 export const sunPlace = new Place();
 sunPlace.set_names(["Sun"]);
@@ -37,14 +38,21 @@ export function skyOpacityForSunAlt(sunAltRad: number, options?: SkyEclipseInfo)
   return opacity;
 }
 
+interface WWTSkyOverlayData {
+  triangles: Poly[];
+  batch: AnnotationBatch;
+  store: WWTEngineStore;
+}
+
 function setupSkyOverlayWatchers(
+  data: WWTSkyOverlayData,
   options?: HorizonOptions,
 ) {
 
   let unwatchColor: WatchHandle | null = null;
   if (isRef(options?.color)) {
     unwatchColor = watch(options.color, color => {
-      triangles.forEach(triangle => {
+      data.triangles.forEach(triangle => {
         triangle.set_fillColor(color);
         triangle.set_lineColor(color);
       });
@@ -54,8 +62,21 @@ function setupSkyOverlayWatchers(
   let unwatchOpacity: WatchHandle | null = null;
   if (isRef(options?.opacity)) {
     unwatchOpacity = watch(options.opacity, opacity => {
-      triangles.forEach(triangle => {
+      data.triangles.forEach(triangle => {
         triangle.set_opacity(opacity);
+      });
+    });
+  }
+
+  let unwatchShow: WatchHandle | null = null;
+  if (isRef(options?.show)) {
+    unwatchShow = watch(options.show, show => {
+      data.triangles.forEach(triangle => {
+        if (show) {
+          data.store.addAnnotation(triangle, data.batch);
+        } else {
+          data.store.removeAnnotation(triangle, data.batch);
+        }
       });
     });
   }
@@ -63,6 +84,7 @@ function setupSkyOverlayWatchers(
   function cleanup() {
     if (unwatchColor) { unwatchColor(); }
     if (unwatchOpacity) { unwatchOpacity(); }
+    if (unwatchShow) { unwatchShow(); }
   }
 
   return cleanup;
@@ -74,6 +96,7 @@ export function useHorizon(store: WWTEngineStore, options?: HorizonOptions) {
   const delta = 360 / n;
   const batch = store.createHorizontalAnnotationBatch("horizontal");
   const triangles: Poly[] = [];
+  const show = value(options?.show, true);
   for (let i = 0; i < n; i++) {
     const triangle = new Poly();
     triangle.set_fill(true);
@@ -84,15 +107,19 @@ export function useHorizon(store: WWTEngineStore, options?: HorizonOptions) {
     triangle.set_fillColor(color);
     triangle.set_opacity(options?.opacity ?? 1);
     triangles.push(triangle);
-    store.addAnnotation(triangle, batch);
+    if (show) {
+      store.addAnnotation(triangle, batch);
+    }
   }
 
-  const watcherCleanup = setupSkyOverlayWatchers(options); 
+  const watcherCleanup = setupSkyOverlayWatchers({ triangles, store, batch }, options); 
 
   function cleanup() {
-    triangles.forEach(triangle => store.removeAnnotation(triangle));
+    triangles.forEach(triangle => store.removeAnnotation(triangle, batch));
     watcherCleanup();
   }
+
+  // onUnmounted(cleanup);
 
   return {
     annotations: triangles,
@@ -103,9 +130,7 @@ export function useHorizon(store: WWTEngineStore, options?: HorizonOptions) {
 export function useSky(store: WWTEngineStore, options?: SkyOptions) {
   const n = 6;
   const delta = 360 / n;
-
   const color = value(options?.color, "#4190ED");
-  const color = options?.color ?? "#4190ED";
 
   const sunCoordinates = Coordinates.fromRaDec(sunPlace.get_RA(), sunPlace.get_dec());
   const sunAltAz = Coordinates.equitorialToHorizon(
@@ -114,6 +139,7 @@ export function useSky(store: WWTEngineStore, options?: SkyOptions) {
                       SpaceTimeController.get_now());
 
   const opacity = options?.opacity ?? skyOpacityForSunAlt(sunAltAz.get_alt() * D2R, options?.eclipseInfo);
+  const show = value(options?.show, true);
   store.setForegroundOpacity((1 - opacity) * 100);
   const batch = store.createHorizontalAnnotationBatch("horizontal");
   const triangles: Poly[] = [];
@@ -121,21 +147,25 @@ export function useSky(store: WWTEngineStore, options?: SkyOptions) {
     const triangle = new Poly();
     triangle.set_fill(true);
     triangle.addPoint((i + 1) * delta, 0);
-    triangle.addPoint(-i * delta, 90);
     triangle.addPoint(i * delta, 0);
+    triangle.addPoint(-i * delta, 90);
     triangle.set_lineColor(color);
     triangle.set_fillColor(color);
     triangle.set_opacity(options?.opacity ?? 1);
     triangles.push(triangle);
-    store.addAnnotation(triangle, batch);
+    if (show) {
+      store.addAnnotation(triangle, batch);
+    }
   }
 
-  const watcherCleanup = setupSkyOverlayWatchers(options); 
+  const watcherCleanup = setupSkyOverlayWatchers({ triangles, store, batch }, options); 
 
   function cleanup() {
-    triangles.forEach(triangle => store.removeAnnotation(triangle));
+    triangles.forEach(triangle => store.removeAnnotation(triangle, batch));
     watcherCleanup();
   }
+
+  // onUnmounted(cleanup);
 
   return {
     annotations: triangles,

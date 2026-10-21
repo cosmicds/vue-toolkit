@@ -173,8 +173,8 @@ __metadata:
     "@vuepic/vue-datepicker": "npm:^14.0.0"
     "@vueuse/core": "npm:^13.1.0"
     "@wdns/vue-code-block": "npm:^2.3.5"
-    "@wwtelescope/engine": "npm:^7.39.0"
-    "@wwtelescope/engine-pinia": "npm:>=0.16.0 <1.0.0"
+    "@wwtelescope/engine": "npm:^7.41.0"
+    "@wwtelescope/engine-pinia": "npm:>=0.17.0 <1.0.0"
     css-loader: "npm:^7.1.1"
     eslint: "npm:^10.9.1"
     eslint-plugin-storybook: "npm:^10.5.10"
@@ -2572,7 +2572,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wwtelescope/engine-pinia@npm:>=0.16.0 <1.0.0":
+"@wwtelescope/engine-pinia@npm:>=0.17.0 <1.0.0":
   version: 0.17.0
   resolution: "@wwtelescope/engine-pinia@npm:0.17.0"
   dependencies:
@@ -2600,7 +2600,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wwtelescope/engine@npm:^7.36.0, @wwtelescope/engine@npm:^7.39.0":
+"@wwtelescope/engine@npm:^7.36.0":
   version: 7.40.0
   resolution: "@wwtelescope/engine@npm:7.40.0"
   dependencies:
