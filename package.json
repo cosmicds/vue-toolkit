@@ -12,7 +12,7 @@
     "@vuepic/vue-datepicker": "^14.0.0",
     "@vueuse/core": "^13.1.0",
     "@wwtelescope/engine": "^7.39.0",
-    "@wwtelescope/engine-pinia": ">=0.15.0 <1.0.0",
+    "@wwtelescope/engine-pinia": ">=0.16.0 <1.0.0",
     "leaflet": "^1.9.4",
     "pinia": "~2.1.7",
     "screenfull": "^6.0.2",
