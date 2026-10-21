@@ -3,20 +3,17 @@
 
 /* eslint-disable */
 
-
-// We need this import for WWT types that aren't exported
-// from the engine at the JS level
-import * as wwtlib from "@wwtelescope/engine";
 import {
+  Annotation,
   Color,
   Coordinates,
   Place,
-  RenderContext,
+  Poly,
   SpaceTimeController,
   WWTControl,
 } from "@wwtelescope/engine";
 import { Classification, SolarSystemObjects } from "@wwtelescope/engine-types";
-import type { HorizonOptions, SkyEclipseInfo, SkyOptions } from "./types";
+import type { HorizonOptions, SkyEclipseInfo, SkyOptions, WWTEngineStore } from "./types";
 import { D2R, R2D } from "./utils";
 
 export const sunPlace = new Place();
@@ -39,34 +36,39 @@ export function skyOpacityForSunAlt(sunAltRad: number, options?: SkyEclipseInfo)
   return opacity;
 }
 
-export function drawHorizon(renderContext: RenderContext, options?: HorizonOptions) {
+export function addHorizon(store: WWTEngineStore, options?: HorizonOptions) {
+  const color = options?.color ?? "#01362C";
   const n = 6;
-  const delta = 2 * R2D * Math.PI / n;
-  const triangleList = new wwtlib.TriangleList();
-  const color = Color.load(options?.color ?? "#01362C");
-  color.a = Math.round(255 * (options?.opacity ?? 1));
-
-  const now = SpaceTimeController.get_now();
+  const delta = 360 / n;
+  const batch = store.createHorizontalAnnotationBatch("horizontal");
+  const triangles: Poly[] = [];
   for (let i = 0; i < n; i++) {
-    let points: Coordinates[] = [
-      Coordinates.fromLatLng(0, i * delta),
-      Coordinates.fromLatLng(-90, i * delta),
-      Coordinates.fromLatLng(0, (i + 1) * delta),
-    ];
-    points = points.map(point => {
-      const raDecRad = Coordinates.horizonToEquitorial(point, SpaceTimeController.get_location(), now);
-      return Coordinates.raDecTo3d(raDecRad.get_RA(), raDecRad.get_dec());
-    });
-    triangleList.addSubdividedTriangles(...points, color, new wwtlib.Dates(0, 1), 2);
+    const triangle = new Poly();
+    triangle.set_fill(true);
+    triangle.addPoint((i + 1) * delta, 0);
+    triangle.addPoint(-i * delta, -90);
+    triangle.addPoint(i * delta, 0);
+    triangle.set_lineColor(color);
+    triangle.set_fillColor(color);
+    triangle.set_opacity(options?.opacity ?? 1);
+    triangles.push(triangle);
+    store.addAnnotation(triangle, batch);
   }
-  triangleList.draw(renderContext, 1, true);
+
+  function remove() {
+    triangles.forEach(triangle => store.removeAnnotation(triangle));
+  }
+
+  return {
+    annotations: triangles,
+    remove,
+  };
 };
 
-export function drawSky(renderContext: RenderContext, options?: SkyOptions) {
+export function addSky(store: WWTEngineStore, options?: SkyOptions) {
   const n = 6;
-  const delta = 2 * R2D * Math.PI / n;
-  const triangleList = new wwtlib.TriangleList();
-  const color = Color.load(options?.color ?? "#4190ED");
+  const delta = 360 / n;
+  const color = options?.color ?? "#4190ED";
 
   const sunCoordinates = Coordinates.fromRaDec(sunPlace.get_RA(), sunPlace.get_dec());
   const sunAltAz = Coordinates.equitorialToHorizon(
@@ -75,22 +77,28 @@ export function drawSky(renderContext: RenderContext, options?: SkyOptions) {
                       SpaceTimeController.get_now());
 
   const opacity = options?.opacity ?? skyOpacityForSunAlt(sunAltAz.get_alt() * D2R, options?.eclipseInfo);
-  color.a = Math.round(255 * opacity);
-  WWTControl.scriptInterface.setForegroundOpacity((1 - opacity) * 100);
-  const now = SpaceTimeController.get_now();
+  store.setForegroundOpacity((1 - opacity) * 100);
+  const batch = store.createHorizontalAnnotationBatch("horizontal");
+  const triangles: Poly[] = [];
   for (let i = 0; i < n; i++) {
-    let points: Coordinates[] = [
-      Coordinates.fromLatLng(0, i * delta),
-      Coordinates.fromLatLng(0, (i + 1) * delta),
-      Coordinates.fromLatLng(90, i * delta),
-    ];
-    top.basePoints = points;
-    points = points.map(point => {
-      const raDecRad = Coordinates.horizonToEquitorial(point, SpaceTimeController.get_location(), now);
-      return Coordinates.raDecTo3d(raDecRad.get_RA(), raDecRad.get_dec());
-    });
-    top.points = points;
-    triangleList.addSubdividedTriangles(...points, color, new wwtlib.Dates(0, 1), 2);
+    const triangle = new Poly();
+    triangle.set_fill(true);
+    triangle.addPoint((i + 1) * delta, 0);
+    triangle.addPoint(-i * delta, 90);
+    triangle.addPoint(i * delta, 0);
+    triangle.set_lineColor(color);
+    triangle.set_fillColor(color);
+    triangle.set_opacity(options?.opacity ?? 1);
+    triangles.push(triangle);
+    store.addAnnotation(triangle, batch);
   }
-  triangleList.draw(renderContext, 1, true);
+
+  function remove() {
+    triangles.forEach(triangle => store.removeAnnotation(triangle));
+  }
+
+  return {
+    annotations: triangles,
+    remove,
+  };
 };

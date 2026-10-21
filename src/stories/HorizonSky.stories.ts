@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { drawHorizon, drawSky } from "../sky_overlays";
+import { addHorizon, addSky } from "../sky_overlays";
 import { ref } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3-vite";
-import { Color, Grids, RenderContext,  WWTControl } from "@wwtelescope/engine";
+import { Color, Grids, type RenderContext,  WWTControl } from "@wwtelescope/engine";
 import { engineStore, WWTComponent } from "@wwtelescope/engine-pinia";
 
 import "./stories.css";
@@ -55,10 +55,10 @@ export const Primary: Story = {
           store.applySetting(["localHorizonMode", true]);
           store.addFrameCallback(() => {
             if (showSky.value) {
-              drawSky(renderContext);
+              addHorizon(store);
             }
             if (showHorizon.value) {
-              drawHorizon(renderContext);
+              addSky(store);
             }
             if (showGrid.value) {
               Grids.drawAltAzGrid(renderContext, 1, Color.fromName("white"));

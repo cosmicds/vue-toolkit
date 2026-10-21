@@ -561,13 +561,7 @@ export interface HorizonOptions {
   opacity?: number;
 }
 
-export interface SkyOptions {
-  /** The color of the horizon/sky */
-  color?: string;
-
-  /** The opacity of the horizon/sky */
-  opacity?: number;
-
+export interface SkyOptions extends HorizonOptions {
   /** Options related to the the current eclipse status */
   eclipseInfo?: SkyEclipseInfo;
 }
