@@ -1,4 +1,4 @@
-import type { Component, ExtractPublicPropTypes } from "vue";
+import type { Component, ExtractPublicPropTypes, Ref } from "vue";
 import type { FontAwesomeIconProps } from "@fortawesome/vue-fontawesome";
 import type { CircleMarkerOptions, TileLayerOptions } from "leaflet";
 import type { Folder } from "@wwtelescope/engine";
@@ -11,6 +11,8 @@ import { VIcon, VTooltip } from "vuetify/components";
 
 /** The type of the WWT engine Pinia store */
 export type WWTEngineStore = ReturnType<typeof engineStore>;
+
+export type RefOrType<T> = T | Ref<T>;
 
 /**
  * For every Boolean-typed prop of `component` whose own default isn't `false`, produce an `undefined` default. 
@@ -555,10 +557,10 @@ export type ItemSelectionType = "click" | "dblclick" | "keyup" | "folder";
 
 export interface HorizonOptions {
   /** The color of the horizon/sky */
-  color?: string;
+  color?: RefOrType<string>;
 
   /** The opacity of the horizon/sky */
-  opacity?: number;
+  opacity?: RefOrType<number>;
 }
 
 export interface SkyOptions extends HorizonOptions {
@@ -568,11 +570,11 @@ export interface SkyOptions extends HorizonOptions {
 
 export interface SkyEclipseInfo {
   /** The current fraction of the sun that is eclipsed */
-  fractionEclipsed: number;
+  fractionEclipsed: RefOrType<number>;
 
   /** Whether the current location is in the relevant path of totality */
-  inTotality: boolean;
+  inTotality: RefOrType<boolean>;
 
   /** Whether the current location is in an eclipse at the current time */
-  inEclipse: boolean;
+  inEclipse: RefOrType<boolean>;
 }
