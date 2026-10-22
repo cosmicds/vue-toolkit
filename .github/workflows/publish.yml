@@ -43,8 +43,8 @@ jobs:
       - name: Build package
         run: yarn build
 
-      - name: Publish package
-        run: yarn npm publish
+      - name: Stage package on npm
+        run: yarn npm stage publish
 
       - name: Build Storybook
         run: yarn build-storybook
