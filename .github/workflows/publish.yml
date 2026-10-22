@@ -57,7 +57,7 @@ jobs:
         run: yarn build
 
       - name: Stage package on npm
-        run: yarn npm stage publish
+        run: yarn npm publish --staged
 
       - name: Build Storybook
         run: yarn build-storybook
