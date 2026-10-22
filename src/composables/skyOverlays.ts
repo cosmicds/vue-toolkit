@@ -16,6 +16,8 @@ import {
 import { Classification, SolarSystemObjects } from "@wwtelescope/engine-types";
 import type { HorizonOptions, SkyEclipseInfo, SkyOptions, WWTEngineStore } from "../types";
 import { D2R, R2D, value } from "../utils";
+
+import { v4 } from "uuid";
 import { isRef, onMounted, onUnmounted, watch, type WatchHandle } from "vue";
 
 export const sunPlace = new Place();
@@ -94,7 +96,7 @@ export function useHorizon(store: WWTEngineStore, options?: HorizonOptions) {
   const color = value(options?.color, "#01362C");
   const n = 6;
   const delta = 360 / n;
-  const batch = store.createHorizontalAnnotationBatch("horizontal");
+  const batch = store.createHorizontalAnnotationBatch(`${v4()}-horizon`);
   const triangles: Poly[] = [];
   const show = value(options?.show, true);
   for (let i = 0; i < n; i++) {
@@ -141,7 +143,7 @@ export function useSky(store: WWTEngineStore, options?: SkyOptions) {
   const opacity = options?.opacity ?? skyOpacityForSunAlt(sunAltAz.get_alt() * D2R, options?.eclipseInfo);
   const show = value(options?.show, true);
   store.setForegroundOpacity((1 - opacity) * 100);
-  const batch = store.createHorizontalAnnotationBatch("horizontal");
+  const batch = store.createHorizontalAnnotationBatch(`${v4()}-sky`);
   const triangles: Poly[] = [];
   for (let i = 0; i < n; i++) {
     const triangle = new Poly();
