@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{Q as t,Z as n}from"./iframe-CyGI24Jg.js";import{D as r,t as i}from"./src-Croccy9U.js";import"./stories-D9XC7Zl1.js";var a,o,s,c,l;function u(){return(u=e((()=>{i(),a=t(),o=n(),s={component:r,tags:[`autodocs`],title:`Vue Toolkit/Components/Folder View`},c={render:e=>{let t=(0,o.engineStore)();return{components:{FolderView:r,WWTComponent:o.WWTComponent},template:`
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{Q as t,Z as n}from"./iframe-BFp2RWHx.js";import{D as r,t as i}from"./src-D2fAdHgK.js";import"./stories-D9XC7Zl1.js";var a,o,s,c,l;function u(){return(u=e((()=>{i(),a=t(),o=n(),s={component:r,tags:[`autodocs`],title:`Vue Toolkit/Components/Folder View`},c={render:e=>{let t=(0,o.engineStore)();return{components:{FolderView:r,WWTComponent:o.WWTComponent},template:`
         <div style="width: 1000px; height: 500px; position: relative;">
           <div style="height: fit-content;">
             <FolderView
