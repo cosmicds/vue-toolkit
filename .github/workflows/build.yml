@@ -17,6 +17,19 @@ jobs:
           persist-credentials: false
           ref: ${{ github.event.pull_request.head.sha }}
 
+      - name: Use a faster apt mirror
+        run: |
+          MIRROR="http://archive.ubuntu.com/ubuntu"
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            printf '%s\tpriority:1\n' "$MIRROR" | sudo tee /etc/apt/apt-mirrors.txt
+          fi
+          # Fallback for images that hardcode the Azure URL in the sources file
+          sudo sed -i "s|http://azure.archive.ubuntu.com/ubuntu|$MIRROR|g" \
+            /etc/apt/sources.list.d/ubuntu.sources 2>/dev/null || true
+          # Retry flaky downloads instead of failing the job
+          echo 'Acquire::Retries "3";' | sudo tee /etc/apt/apt.conf.d/80-retries
+          sudo apt-get update
+
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
