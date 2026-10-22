@@ -121,12 +121,9 @@ export function useHorizon(store: WWTEngineStore, options?: HorizonOptions) {
     watcherCleanup();
   }
 
-  // onUnmounted(cleanup);
+  onUnmounted(cleanup);
 
-  return {
-    annotations: triangles,
-    cleanup,
-  };
+  return cleanup;
 };
 
 function getSkyOpacity(options?: SkyOptions) {
@@ -181,10 +178,7 @@ export function useSky(store: WWTEngineStore, options?: SkyOptions) {
     watcherCleanup();
   }
 
-  // onUnmounted(cleanup);
+  onUnmounted(cleanup);
 
-  return {
-    annotations: triangles,
-    cleanup,
-  };
+  return cleanup;
 };
