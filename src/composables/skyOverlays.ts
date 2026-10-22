@@ -129,18 +129,22 @@ export function useHorizon(store: WWTEngineStore, options?: HorizonOptions) {
   };
 };
 
-export function useSky(store: WWTEngineStore, options?: SkyOptions) {
-  const n = 6;
-  const delta = 360 / n;
-  const color = value(options?.color, "#4190ED");
-
+function getSkyOpacity(options?: SkyOptions) {
   const sunCoordinates = Coordinates.fromRaDec(sunPlace.get_RA(), sunPlace.get_dec());
   const sunAltAz = Coordinates.equitorialToHorizon(
                       sunCoordinates,
                       SpaceTimeController.get_location(),
                       SpaceTimeController.get_now());
 
-  const opacity = options?.opacity ?? skyOpacityForSunAlt(sunAltAz.get_alt() * D2R, options?.eclipseInfo);
+  return options?.opacity ?? skyOpacityForSunAlt(sunAltAz.get_alt() * D2R, options?.eclipseInfo);
+}
+
+export function useSky(store: WWTEngineStore, options?: SkyOptions) {
+  const n = 6;
+  const delta = 360 / n;
+  const color = value(options?.color, "#4190ED");
+
+  const opacity = getSkyOpacity(options);
   const show = value(options?.show, true);
   store.setForegroundOpacity((1 - opacity) * 100);
   const batch = store.createHorizontalAnnotationBatch(`${v4()}-sky`);
@@ -159,6 +163,16 @@ export function useSky(store: WWTEngineStore, options?: SkyOptions) {
       store.addAnnotation(triangle, batch);
     }
   }
+  
+  let currentOpacity = opacity;
+
+  store.addFrameCallback(() => {
+    const newOpacity = getSkyOpacity(options);
+    if (newOpacity != currentOpacity) {
+      triangles.forEach(triangle => triangle.set_opacity(newOpacity));
+      currentOpacity = newOpacity;
+    }
+  });
 
   const watcherCleanup = setupSkyOverlayWatchers({ triangles, store, batch }, options); 
 
