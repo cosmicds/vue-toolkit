@@ -1,0 +1,1 @@
+import"./react-BWPDF9mI.js";import{Dt as e,It as t}from"./DocsRenderer-JROSPFPF-BX8ToVCs.js";e();export{t as color};
