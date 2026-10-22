@@ -1,3 +1,6 @@
+import { isRef } from "vue";
+import type { RefOrType } from "./types";
+
 /** Degrees -> radians conversion factor */
 export const D2R = Math.PI / 180;
 /** Radians -> degrees conversion factor */
@@ -152,4 +155,9 @@ export function simpleMarkdownParse(text: string): string {
 
 export function clamp(value: number, minValue: number, maxValue: number): number {
   return Math.min(maxValue, Math.max(minValue, value));
+}
+
+export function value<T>(object: RefOrType<T>, defaultValue?: T) {
+  const v = isRef(object) ? object.value : object;
+  return v ?? defaultValue;
 }

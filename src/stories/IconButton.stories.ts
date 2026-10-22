@@ -41,6 +41,7 @@ const defaultArgs = {
   showTooltip: true,
   size: "lg",
   disabled: false,
+  id: "my-id",
 };
 
 export const Primary: Story = {
