@@ -11,6 +11,8 @@ export interface BaseTourStepContent {
 export interface UseTourOptions<T extends BaseTourStepContent> {
     steps: T[];
     initialStep?: number;
+    /** run the initial step's setup() as soon as the tour is created. Default: false */
+    autostart?: boolean;
 }
 export interface Tour<T extends BaseTourStepContent> {
     stepID: Ref<string>;
@@ -18,17 +20,9 @@ export interface Tour<T extends BaseTourStepContent> {
     steps: T[];
     length: number;
     stepContent: Ref<T>;
-    goToStep: (step: number) => Promise<void>;
+    goToStep: (step: number, force?: boolean) => Promise<void>;
     next: () => Promise<void>;
     previous: () => Promise<void>;
 }
-export declare function useTour<T extends BaseTourStepContent>(options: UseTourOptions<T>): {
-    steps: T[];
-    stepIndex: Ref<number, number>;
-    stepID: import('vue').WritableComputedRef<string, string>;
-    stepContent: import('vue').ComputedRef<T>;
-    goToStep: (newStep: number | string, force?: boolean) => Promise<void>;
-    previous: () => Promise<void>;
-    next: () => Promise<void>;
-};
+export declare function useTour<T extends BaseTourStepContent>(options: UseTourOptions<T>): Tour<T>;
 export {};

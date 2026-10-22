@@ -1,11 +1,11 @@
 import { UserExperienceRating } from '../utils';
 declare var __VLS_35: {
     rating: UserExperienceRating;
-}, __VLS_77: {};
+}, __VLS_75: {};
 type __VLS_Slots = {} & {
     default?: (props: typeof __VLS_35) => any;
 } & {
-    footer?: (props: typeof __VLS_77) => any;
+    footer?: (props: typeof __VLS_75) => any;
 };
 declare const __VLS_base: import('vue').DefineComponent<{
     askForComments?: boolean;

@@ -6,7 +6,7 @@ declare const __VLS_export: import('vue').DefineComponent<CalendarPickerProps, {
     onCancel?: (() => any) | undefined;
     onLatest?: ((date: Date | null) => any) | undefined;
 }>, {
-    multiCalendars: boolean | number | string | Partial<import('@vuepic/vue-datepicker').MultiCalendarsConfig>;
+    multiCalendars: string | number | boolean | Partial<import('@vuepic/vue-datepicker').MultiCalendarsConfig>;
     modelValue: string | number | Date | number[] | string[] | Date[] | import('@vuepic/vue-datepicker').TimeModel | import('@vuepic/vue-datepicker').TimeModel[] | import('@vuepic/vue-datepicker').MonthModel | import('@vuepic/vue-datepicker').MonthModel[] | null;
     modelType: string;
     dark: boolean;
@@ -19,7 +19,7 @@ declare const __VLS_export: import('vue').DefineComponent<CalendarPickerProps, {
     disableYearSelect: boolean;
     yearRange: [number, number];
     autoApply: boolean;
-    disabledDates: Date[] | string[] | ((date: Date) => boolean);
+    disabledDates: string[] | Date[] | ((date: Date) => boolean);
     startDate: import('@vuepic/vue-datepicker').DateValue;
     hideOffsetDates: boolean;
     noToday: boolean;
@@ -33,12 +33,12 @@ declare const __VLS_export: import('vue').DefineComponent<CalendarPickerProps, {
     filters: Partial<import('@vuepic/vue-datepicker').FilterConfig>;
     arrowNavigation: boolean;
     highlight: import('@vuepic/vue-datepicker').HighlightFn | Partial<import('@vuepic/vue-datepicker').HighlightConfig>;
-    teleport: boolean | string | HTMLElement;
+    teleport: string | boolean | HTMLElement;
     centered: boolean;
     locale: import('date-fns').Locale;
-    weekStart: string | number | import('@vuepic/vue-datepicker').WeekStart;
+    weekStart: string | number;
     weekNumbers: boolean | import('@vuepic/vue-datepicker').WeekNumbersConfig;
-    dayNames: (() => string[]) | string[];
+    dayNames: string[] | (() => string[]);
     monthPicker: boolean;
     yearPicker: boolean;
     modelAuto: boolean;
@@ -63,7 +63,7 @@ declare const __VLS_export: import('vue').DefineComponent<CalendarPickerProps, {
     sixWeeks: boolean | import('@vuepic/vue-datepicker').SixWeekMode;
     actionRow: Partial<import('@vuepic/vue-datepicker').ActionRowConfig>;
     focusStartDate: boolean;
-    disabledTimes: import('@vuepic/vue-datepicker').DisabledTimesFn | import('@vuepic/vue-datepicker').TimeModel[] | import('@vuepic/vue-datepicker').TimeModel[][];
+    disabledTimes: import('@vuepic/vue-datepicker').TimeModel[] | import('@vuepic/vue-datepicker').DisabledTimesFn | import('@vuepic/vue-datepicker').TimeModel[][];
     calendar: (month: import('@vuepic/vue-datepicker').CalendarWeek[]) => import('@vuepic/vue-datepicker').CalendarWeek[];
     config: Partial<import('@vuepic/vue-datepicker').Config>;
     quarterPicker: boolean;

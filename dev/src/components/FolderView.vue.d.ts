@@ -6,7 +6,7 @@ declare function selectItem(item: Thumbnail, type: ItemSelectionType): void;
 declare var __VLS_1: {
     expanded: boolean;
     toggleExpanded: typeof toggleExpanded;
-}, __VLS_3: {
+}, __VLS_4: {
     item: Thumbnail;
     lastSelectedItem: Thumbnail | null;
     selectItem: typeof selectItem;
@@ -14,7 +14,7 @@ declare var __VLS_1: {
 type __VLS_Slots = {} & {
     header?: (props: typeof __VLS_1) => any;
 } & {
-    item?: (props: typeof __VLS_3) => any;
+    item?: (props: typeof __VLS_4) => any;
 };
 declare const __VLS_base: import('vue').DefineComponent<{
     rootFolder?: Folder;
@@ -48,6 +48,7 @@ declare const __VLS_base: import('vue').DefineComponent<{
     ref_key?: string | undefined | undefined;
     onKeydown?: ((payload: KeyboardEvent) => void) | undefined;
     contextmenu?: string | undefined | undefined;
+    hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
     onCopy?: ((payload: ClipboardEvent) => void) | undefined;
     onCut?: ((payload: ClipboardEvent) => void) | undefined;
     onPaste?: ((payload: ClipboardEvent) => void) | undefined;
@@ -142,8 +143,7 @@ declare const __VLS_base: import('vue').DefineComponent<{
     contenteditable?: (boolean | "true" | "false") | "inherit" | "plaintext-only" | undefined;
     draggable?: (boolean | "true" | "false") | undefined;
     enterkeyhint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined | undefined;
-    enterKeyHint?: "search" | "next" | "previous" | "send" | "enter" | "done" | "go" | undefined;
-    hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
+    enterKeyHint?: "search" | "done" | "next" | "previous" | "send" | "enter" | "go" | undefined;
     inert?: (boolean | "true" | "false") | undefined;
     lang?: string | undefined | undefined;
     spellcheck?: (boolean | "true" | "false") | undefined;
@@ -258,6 +258,7 @@ declare const __VLS_base: import('vue').DefineComponent<{
     ref_key?: string | undefined | undefined;
     onKeydown?: ((payload: KeyboardEvent) => void) | undefined;
     contextmenu?: string | undefined | undefined;
+    hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
     onCopy?: ((payload: ClipboardEvent) => void) | undefined;
     onCut?: ((payload: ClipboardEvent) => void) | undefined;
     onPaste?: ((payload: ClipboardEvent) => void) | undefined;
@@ -352,8 +353,7 @@ declare const __VLS_base: import('vue').DefineComponent<{
     contenteditable?: (boolean | "true" | "false") | "inherit" | "plaintext-only" | undefined;
     draggable?: (boolean | "true" | "false") | undefined;
     enterkeyhint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined | undefined;
-    enterKeyHint?: "search" | "next" | "previous" | "send" | "enter" | "done" | "go" | undefined;
-    hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
+    enterKeyHint?: "search" | "done" | "next" | "previous" | "send" | "enter" | "go" | undefined;
     inert?: (boolean | "true" | "false") | undefined;
     lang?: string | undefined | undefined;
     spellcheck?: (boolean | "true" | "false") | undefined;

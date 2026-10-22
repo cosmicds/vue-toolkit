@@ -13,6 +13,7 @@ declare const __VLS_base: import('vue').DefineComponent<{
     focusColor?: string;
     activeColor?: string;
     backgroundColor?: string;
+    disabledColor?: string;
     border?: boolean;
     longPressTimeMs?: number;
     tooltipText?: string;
@@ -24,6 +25,8 @@ declare const __VLS_base: import('vue').DefineComponent<{
     showTooltip?: boolean;
     size?: FontAwesomeIconSize | VIconSize;
     disabled?: boolean;
+    focusElement?: string;
+    activatorProps?: Record<string, unknown>;
 }, {}, {}, {}, {}, import('vue').ComponentOptionsMixin, import('vue').ComponentOptionsMixin, {} & {
     "update:modelValue": (active: boolean) => any;
     activate: () => any;
@@ -35,6 +38,7 @@ declare const __VLS_base: import('vue').DefineComponent<{
     focusColor?: string;
     activeColor?: string;
     backgroundColor?: string;
+    disabledColor?: string;
     border?: boolean;
     longPressTimeMs?: number;
     tooltipText?: string;
@@ -46,6 +50,8 @@ declare const __VLS_base: import('vue').DefineComponent<{
     showTooltip?: boolean;
     size?: FontAwesomeIconSize | VIconSize;
     disabled?: boolean;
+    focusElement?: string;
+    activatorProps?: Record<string, unknown>;
 }> & Readonly<{
     "onUpdate:modelValue"?: ((active: boolean) => any) | undefined;
     onActivate?: (() => any) | undefined;
@@ -56,8 +62,9 @@ declare const __VLS_base: import('vue').DefineComponent<{
     backgroundColor: string;
     activeColor: string;
     focusColor: string;
+    disabledColor: string;
     longPressTimeMs: number;
-    tooltipLocation: import('vue').ExtractPublicPropTypes<typeof VTooltip>["location"];
+    tooltipLocation: any;
     tooltipOnClick: boolean;
     tooltipOnFocus: boolean;
     tooltipOnHover: boolean;

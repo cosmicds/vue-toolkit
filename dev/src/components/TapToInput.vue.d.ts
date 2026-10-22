@@ -1,5 +1,6 @@
 declare const __VLS_export: import('vue').DefineComponent<{
     modelValue: number;
+    ariaLabel: string;
     editable?: boolean;
     min?: (string | number) | undefined;
     max?: (string | number) | undefined;
@@ -12,7 +13,7 @@ declare const __VLS_export: import('vue').DefineComponent<{
     pattern?: string | undefined | undefined;
     dir?: string | undefined | undefined;
     name?: string | undefined | undefined;
-    type?: import('vue').InputTypeHTMLAttribute | undefined;
+    type?: "submit" | "reset" | "button" | undefined | undefined;
     id?: string | undefined | undefined;
     width?: (string | number) | undefined;
     height?: (string | number) | undefined;
@@ -36,6 +37,7 @@ declare const __VLS_export: import('vue').DefineComponent<{
     ref_key?: string | undefined | undefined;
     onKeydown?: ((payload: KeyboardEvent) => void) | undefined;
     contextmenu?: string | undefined | undefined;
+    hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
     onCopy?: ((payload: ClipboardEvent) => void) | undefined;
     onCut?: ((payload: ClipboardEvent) => void) | undefined;
     onPaste?: ((payload: ClipboardEvent) => void) | undefined;
@@ -133,8 +135,7 @@ declare const __VLS_export: import('vue').DefineComponent<{
     contenteditable?: (boolean | "true" | "false") | "inherit" | "plaintext-only" | undefined;
     draggable?: (boolean | "true" | "false") | undefined;
     enterkeyhint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined | undefined;
-    enterKeyHint?: "search" | "next" | "previous" | "send" | "enter" | "done" | "go" | undefined;
-    hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
+    enterKeyHint?: "search" | "done" | "next" | "previous" | "send" | "enter" | "go" | undefined;
     inert?: (boolean | "true" | "false") | undefined;
     lang?: string | undefined | undefined;
     spellcheck?: (boolean | "true" | "false") | undefined;
@@ -214,17 +215,17 @@ declare const __VLS_export: import('vue').DefineComponent<{
     'aria-valuetext'?: string | undefined | undefined;
     onCancel?: ((payload: Event) => void) | undefined | undefined;
     multiple?: (boolean | "true" | "false") | undefined;
-    src?: string | undefined | undefined;
-    accept?: string | undefined | undefined;
     autofocus?: (boolean | "true" | "false") | undefined;
-    capture?: boolean | "user" | "environment" | undefined | undefined;
-    checked?: any[] | Set<any> | (boolean | "true" | "false") | undefined;
-    crossorigin?: string | undefined | undefined;
     formaction?: string | undefined | undefined;
     formenctype?: string | undefined | undefined;
     formmethod?: string | undefined | undefined;
     formnovalidate?: (boolean | "true" | "false") | undefined;
     formtarget?: string | undefined | undefined;
+    src?: string | undefined | undefined;
+    accept?: string | undefined | undefined;
+    capture?: boolean | "user" | "environment" | undefined | undefined;
+    checked?: any[] | Set<any> | (boolean | "true" | "false") | undefined;
+    crossorigin?: string | undefined | undefined;
     indeterminate?: boolean | undefined | undefined;
     maxlength?: (string | number) | undefined;
     minlength?: (string | number) | undefined;
@@ -232,6 +233,7 @@ declare const __VLS_export: import('vue').DefineComponent<{
     "update:modelValue": (value: number) => any;
 }, string, import('vue').PublicProps, Readonly<{
     modelValue: number;
+    ariaLabel: string;
     editable?: boolean;
     min?: (string | number) | undefined;
     max?: (string | number) | undefined;
@@ -244,7 +246,7 @@ declare const __VLS_export: import('vue').DefineComponent<{
     pattern?: string | undefined | undefined;
     dir?: string | undefined | undefined;
     name?: string | undefined | undefined;
-    type?: import('vue').InputTypeHTMLAttribute | undefined;
+    type?: "submit" | "reset" | "button" | undefined | undefined;
     id?: string | undefined | undefined;
     width?: (string | number) | undefined;
     height?: (string | number) | undefined;
@@ -268,6 +270,7 @@ declare const __VLS_export: import('vue').DefineComponent<{
     ref_key?: string | undefined | undefined;
     onKeydown?: ((payload: KeyboardEvent) => void) | undefined;
     contextmenu?: string | undefined | undefined;
+    hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
     onCopy?: ((payload: ClipboardEvent) => void) | undefined;
     onCut?: ((payload: ClipboardEvent) => void) | undefined;
     onPaste?: ((payload: ClipboardEvent) => void) | undefined;
@@ -365,8 +368,7 @@ declare const __VLS_export: import('vue').DefineComponent<{
     contenteditable?: (boolean | "true" | "false") | "inherit" | "plaintext-only" | undefined;
     draggable?: (boolean | "true" | "false") | undefined;
     enterkeyhint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined | undefined;
-    enterKeyHint?: "search" | "next" | "previous" | "send" | "enter" | "done" | "go" | undefined;
-    hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
+    enterKeyHint?: "search" | "done" | "next" | "previous" | "send" | "enter" | "go" | undefined;
     inert?: (boolean | "true" | "false") | undefined;
     lang?: string | undefined | undefined;
     spellcheck?: (boolean | "true" | "false") | undefined;
@@ -446,17 +448,17 @@ declare const __VLS_export: import('vue').DefineComponent<{
     'aria-valuetext'?: string | undefined | undefined;
     onCancel?: ((payload: Event) => void) | undefined | undefined;
     multiple?: (boolean | "true" | "false") | undefined;
-    src?: string | undefined | undefined;
-    accept?: string | undefined | undefined;
     autofocus?: (boolean | "true" | "false") | undefined;
-    capture?: boolean | "user" | "environment" | undefined | undefined;
-    checked?: any[] | Set<any> | (boolean | "true" | "false") | undefined;
-    crossorigin?: string | undefined | undefined;
     formaction?: string | undefined | undefined;
     formenctype?: string | undefined | undefined;
     formmethod?: string | undefined | undefined;
     formnovalidate?: (boolean | "true" | "false") | undefined;
     formtarget?: string | undefined | undefined;
+    src?: string | undefined | undefined;
+    accept?: string | undefined | undefined;
+    capture?: boolean | "user" | "environment" | undefined | undefined;
+    checked?: any[] | Set<any> | (boolean | "true" | "false") | undefined;
+    crossorigin?: string | undefined | undefined;
     indeterminate?: boolean | undefined | undefined;
     maxlength?: (string | number) | undefined;
     minlength?: (string | number) | undefined;

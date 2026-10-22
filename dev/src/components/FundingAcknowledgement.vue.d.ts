@@ -10,7 +10,7 @@ declare const __VLS_export: import('vue').DefineComponent<{
     dir?: string | undefined | undefined;
     draggable?: (boolean | "true" | "false") | undefined;
     enterkeyhint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined | undefined;
-    enterKeyHint?: "search" | "next" | "previous" | "send" | "enter" | "done" | "go" | undefined;
+    enterKeyHint?: "search" | "done" | "next" | "previous" | "send" | "enter" | "go" | undefined;
     hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
     id?: string | undefined | undefined;
     inert?: (boolean | "true" | "false") | undefined;
@@ -204,7 +204,7 @@ declare const __VLS_export: import('vue').DefineComponent<{
     dir?: string | undefined | undefined;
     draggable?: (boolean | "true" | "false") | undefined;
     enterkeyhint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined | undefined;
-    enterKeyHint?: "search" | "next" | "previous" | "send" | "enter" | "done" | "go" | undefined;
+    enterKeyHint?: "search" | "done" | "next" | "previous" | "send" | "enter" | "go" | undefined;
     hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
     id?: string | undefined | undefined;
     inert?: (boolean | "true" | "false") | undefined;

@@ -1,5 +1,8 @@
 import { TourSheetProps } from '../types';
-declare const __VLS_export: <T extends import('../composables/tour').BaseTourStepContent>(__VLS_props: NonNullable<Awaited<typeof __VLS_setup>>["props"], __VLS_ctx?: __VLS_PrettifyLocal<Pick<NonNullable<Awaited<typeof __VLS_setup>>, "attrs" | "emit" | "slots">>, __VLS_exposed?: NonNullable<Awaited<typeof __VLS_setup>>["expose"], __VLS_setup?: Promise<{
+import { BaseTourStepContent } from '../composables/tour';
+declare const _default: typeof __VLS_export;
+export default _default;
+declare const __VLS_export: <T extends BaseTourStepContent>(__VLS_props: NonNullable<Awaited<typeof __VLS_setup>>["props"], __VLS_ctx?: __VLS_PrettifyLocal<Pick<NonNullable<Awaited<typeof __VLS_setup>>, "attrs" | "emit" | "slots">>, __VLS_exposed?: NonNullable<Awaited<typeof __VLS_setup>>["expose"], __VLS_setup?: Promise<{
     props: import('vue').PublicProps & __VLS_PrettifyLocal<TourSheetProps<T> & {
         onClose?: (() => any) | undefined;
         onNext?: (() => any) | undefined;
@@ -20,8 +23,8 @@ declare const __VLS_export: <T extends import('../composables/tour').BaseTourSte
             step: T;
             props: Readonly<{
                 tour: import('..').Tour<T>;
-                smallSize: boolean;
             }> & {
+                readonly smallSize: boolean;
                 readonly showBreadcrumbs: boolean;
                 readonly showNextOnLastStep: boolean;
                 readonly showBackOnFirstStep: boolean;
@@ -55,8 +58,6 @@ declare const __VLS_export: <T extends import('../composables/tour').BaseTourSte
 }>) => import('vue').VNode & {
     __ctx?: NonNullable<Awaited<typeof __VLS_setup>>;
 };
-declare const _default: typeof __VLS_export;
-export default _default;
 type __VLS_PrettifyLocal<T> = (T extends any ? {
     [K in keyof T]: T[K];
 } : {

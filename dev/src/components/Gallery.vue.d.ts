@@ -1,11 +1,19 @@
 import { VNode } from 'vue';
-import { Place } from '@wwtelescope/engine';
+import { Imageset, Place } from '@wwtelescope/engine';
 type __VLS_Slots = {
     /** A slot allowing customization of what is shown when the gallery is closed. This slot has access to the component's list of places and selected place(s).*/
     closed(props: {
         places: Place[];
         selectedPlace: Place | null;
         selectedPlaces: Place[];
+    }): VNode[];
+    /** A slot for what to display for a single gallery item */
+    preview(props: {
+        place: Place;
+        index: number;
+        imageset: Imageset | null;
+        thumbnailUrl: string;
+        selected: boolean;
     }): VNode[];
 };
 declare const __VLS_base: import('vue').DefineComponent<{
@@ -37,6 +45,7 @@ declare const __VLS_base: import('vue').DefineComponent<{
     ref_key?: string | undefined | undefined;
     onKeydown?: ((payload: KeyboardEvent) => void) | undefined;
     contextmenu?: string | undefined | undefined;
+    hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
     onCopy?: ((payload: ClipboardEvent) => void) | undefined;
     onCut?: ((payload: ClipboardEvent) => void) | undefined;
     onPaste?: ((payload: ClipboardEvent) => void) | undefined;
@@ -131,8 +140,7 @@ declare const __VLS_base: import('vue').DefineComponent<{
     contenteditable?: (boolean | "true" | "false") | "inherit" | "plaintext-only" | undefined;
     draggable?: (boolean | "true" | "false") | undefined;
     enterkeyhint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined | undefined;
-    enterKeyHint?: "search" | "next" | "previous" | "send" | "enter" | "done" | "go" | undefined;
-    hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
+    enterKeyHint?: "search" | "done" | "next" | "previous" | "send" | "enter" | "go" | undefined;
     inert?: (boolean | "true" | "false") | undefined;
     lang?: string | undefined | undefined;
     spellcheck?: (boolean | "true" | "false") | undefined;
@@ -243,6 +251,7 @@ declare const __VLS_base: import('vue').DefineComponent<{
     ref_key?: string | undefined | undefined;
     onKeydown?: ((payload: KeyboardEvent) => void) | undefined;
     contextmenu?: string | undefined | undefined;
+    hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
     onCopy?: ((payload: ClipboardEvent) => void) | undefined;
     onCut?: ((payload: ClipboardEvent) => void) | undefined;
     onPaste?: ((payload: ClipboardEvent) => void) | undefined;
@@ -337,8 +346,7 @@ declare const __VLS_base: import('vue').DefineComponent<{
     contenteditable?: (boolean | "true" | "false") | "inherit" | "plaintext-only" | undefined;
     draggable?: (boolean | "true" | "false") | undefined;
     enterkeyhint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined | undefined;
-    enterKeyHint?: "search" | "next" | "previous" | "send" | "enter" | "done" | "go" | undefined;
-    hidden?: "" | "until-found" | "hidden" | (boolean | "true" | "false") | undefined;
+    enterKeyHint?: "search" | "done" | "next" | "previous" | "send" | "enter" | "go" | undefined;
     inert?: (boolean | "true" | "false") | undefined;
     lang?: string | undefined | undefined;
     spellcheck?: (boolean | "true" | "false") | undefined;
@@ -424,7 +432,7 @@ declare const __VLS_base: import('vue').DefineComponent<{
     title: string;
     width: string;
     maxHeight: string;
-    columns: number | string;
+    columns: string | number;
     selectedColor: string;
     singleSelect: boolean;
     highlightLastOnly: boolean;
