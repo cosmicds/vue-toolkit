@@ -30,5 +30,7 @@ import { default as WwtHud } from './components/WwtHud.vue';
 export { BackgroundImageset, BaseTourStepContent, KeyPressInfo, KeyboardControlSettings, PositionCoords, Tour, WindowShape, };
 export { skyBackgroundImagesets, useGeolocation, useFullscreen, usePlaybackControl, useTour, useWindowShape, useWWTKeyboardControls, useDataTracking, DataTrackingOptions, AttentionHook, CalendarPicker, CloseButton, CreditLogos, DateTimePicker, DraggableItems, FolderView, FundingAcknowledgement, Gallery, GeolocationButton, IconButton, LocationSearch, LocationSelector, PlaybackControl, ShareButton, SpeedControl, TapToInput, TourSheet, UserExperience, WwtHud, };
 export * from './mapbox';
+export * from './privacy';
 export * from './types';
 export * from './utils';
+export * from './tracking_timer';

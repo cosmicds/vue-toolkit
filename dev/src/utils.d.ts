@@ -40,6 +40,7 @@ export declare const DEFAULT_RATING_COLORS: string[];
 export interface UserExperienceSubmissionInfo {
     story_name: string;
     uuid: string;
+    question: string;
     comments?: string;
     rating?: UserExperienceRating;
 }
