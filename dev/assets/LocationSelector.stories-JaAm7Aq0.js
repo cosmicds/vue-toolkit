@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{$ as t,Zt as n}from"./iframe-CxusJfWq.js";import{f as r,t as i}from"./src-4T9LCh-M.js";var a,o,s;function c(){return(c=e((()=>{i(),t(),a={component:r,tags:[`autodocs`],title:`Vue Toolkit/Components/Location Selector`},o={render:e=>{let t=n({latitudeDeg:42.3814,longitudeDeg:-71.1281});return{components:{LocationSelector:r},template:`
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{$ as t,Zt as n}from"./iframe-WnVGl3jD.js";import{f as r,t as i}from"./src-Cyvr6CAA.js";var a,o,s;function c(){return(c=e((()=>{i(),t(),a={component:r,tags:[`autodocs`],title:`Vue Toolkit/Components/Location Selector`},o={render:e=>{let t=n({latitudeDeg:42.3814,longitudeDeg:-71.1281});return{components:{LocationSelector:r},template:`
         <div style="width: 900px; height: 500px">
           <LocationSelector
             style="width: 300px; height: 400px; margin: auto;"
