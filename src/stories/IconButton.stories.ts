@@ -71,16 +71,18 @@ export const Primary: Story = {
     tooltip = tooltip as HTMLElement;
     const tooltipContent = tooltip.querySelector(".v-overlay__content");
 
-    const tooltipVisible = () => {
-      expect(tooltipContent).toBeVisible();
-      expect(tooltipContent).toHaveTextContent(args.tooltipText);
+    const expectTooltipVisible = async () => {
+      return waitFor(() => {
+        expect(tooltipContent).toBeVisible();
+        expect(tooltipContent).toHaveTextContent(args.tooltipText);
+      });
     };
 
-    const tooltipNotVisible = () => {
-      expect(tooltipContent).not.toBeVisible();
+    const expectTooltipNotVisible = async () => {
+      return waitFor(() => expect(tooltipContent).not.toBeVisible());
     };
 
-    tooltipVisible();
+    expectTooltipVisible();
 
     // NB: Don't use `styleColor` inside of the `waitFor` block
     // as it uses the DOM to determine the color, and thus will cause a failing
@@ -92,33 +94,35 @@ export const Primary: Story = {
     const buttonCursor = () => window.getComputedStyle(button).cursor;
 
     await userEvent.unhover(button);
-    await waitFor(tooltipNotVisible);
+    await waitFor(expectTooltipNotVisible);
 
     await userEvent.click(button);
-    expect(buttonColor()).toBe(focusColor);
-    tooltipVisible();
+    await waitFor(() => {
+      expect(buttonColor()).toBe(focusColor);
+    });
+    await expectTooltipVisible();
 
     button.blur();
     args.tooltipOnHover = false;
     await userEvent.hover(button);
-    expect(tooltipNotVisible);
+    await expectTooltipNotVisible();
 
     args.tooltipOnClick = true;
     await userEvent.click(button);
-    expect(tooltipVisible);
+    await expectTooltipVisible();
 
     args.tooltipOnClick = false;
     args.tooltipOnFocus = true;
     button.blur();
     button.focus();
-    expect(tooltipVisible);
+    await expectTooltipVisible();
 
     args.tooltipOnFocus = false;
     button.blur();
     await userEvent.click(button);
-    expect(tooltipNotVisible);
+    await expectTooltipNotVisible();
     await userEvent.hover(button);
-    expect(tooltipNotVisible);
+    await expectTooltipNotVisible();
     await userEvent.unhover(button);
 
     args.modelValue = true;
