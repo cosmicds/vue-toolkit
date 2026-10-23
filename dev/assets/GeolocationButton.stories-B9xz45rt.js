@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{$ as t,Zt as n}from"./iframe-iT-wZlFm.js";import{t as r,x as i}from"./src-Byv8BJ1R.js";import"./stories-D9XC7Zl1.js";var a,o,s;function c(){return(c=e((()=>{t(),r(),a={component:i,tags:[`autodocs`],title:`Vue Toolkit/Components/Geolocation Button`},o={render:e=>{let t=n(null),r=n(null);function a(e){alert(e.message)}return{components:{GeolocationButton:i},template:`
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{$ as t,Zt as n}from"./iframe-DcTlG4Ec.js";import{t as r,x as i}from"./src-B0psjVSU.js";import"./stories-D9XC7Zl1.js";var a,o,s;function c(){return(c=e((()=>{t(),r(),a={component:i,tags:[`autodocs`],title:`Vue Toolkit/Components/Geolocation Button`},o={render:e=>{let t=n(null),r=n(null);function a(e){alert(e.message)}return{components:{GeolocationButton:i},template:`
         <div style="width: 900px; height: 500px; display: flex; flex-direction: column; gap: 10px;">
           <div>
             <GeolocationButton
