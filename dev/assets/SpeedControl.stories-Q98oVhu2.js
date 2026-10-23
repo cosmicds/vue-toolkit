@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{Z as t}from"./iframe-DcTlG4Ec.js";import{c as n,t as r}from"./src-B0psjVSU.js";import"./stories-D9XC7Zl1.js";var i,a,o,s;function c(){return(c=e((()=>{i=t(),r(),a={component:n,tags:[`autodocs`],title:`Vue Toolkit/Components/Speed Control`},o={render:e=>{let t=(0,i.engineStore)();return t.waitForReady().then(()=>{t.applySetting([`localHorizonMode`,!0])}),{components:{SpeedControl:n,WWTComponent:i.WWTComponent},template:`
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{Z as t}from"./iframe-tclbnz1j.js";import{c as n,t as r}from"./src-BL612y-z.js";import"./stories-D9XC7Zl1.js";var i,a,o,s;function c(){return(c=e((()=>{i=t(),r(),a={component:n,tags:[`autodocs`],title:`Vue Toolkit/Components/Speed Control`},o={render:e=>{let t=(0,i.engineStore)();return t.waitForReady().then(()=>{t.applySetting([`localHorizonMode`,!0])}),{components:{SpeedControl:n,WWTComponent:i.WWTComponent},template:`
         <div style="width: 900px; height: 400px">
           <WWTComponent
             :wwtNamespace="storybook"
