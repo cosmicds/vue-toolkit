@@ -1,0 +1,29 @@
+name: Deploy release docs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-release-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch latest release tag
+        id: latest_release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Fetches the latest release tag name for the current repository
+          TAG=$(gh release view --json tagName --template '{{.tagName}}')
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.latest_release.outputs.tag }}
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
