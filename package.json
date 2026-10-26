@@ -73,7 +73,7 @@
     "vue-tsc": "^3.3.11"
   },
   "files": [
-    "dist",
+    "dist"
   ],
   "main": "./dist/vue-toolkit.cjs.js",
   "module": "dist/vue-toolkit.es.js",
