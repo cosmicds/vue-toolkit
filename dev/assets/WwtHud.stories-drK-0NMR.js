@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{Z as t}from"./iframe-Doul_WYB.js";import{n,t as r}from"./src-C9HFPqA_.js";import"./stories-D9XC7Zl1.js";var i,a,o,s;function c(){return(c=e((()=>{i=t(),r(),a={component:n,tags:[`autodocs`],title:`Vue Toolkit/Components/WWT HUD`},o={render:e=>{let t=(0,i.engineStore)();return{components:{WwtHud:n,WWTComponent:i.WWTComponent},template:`
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{Z as t}from"./iframe-B--_cvq_.js";import{n,t as r}from"./src-B67TxRhF.js";import"./stories-D9XC7Zl1.js";var i,a,o,s;function c(){return(c=e((()=>{i=t(),r(),a={component:n,tags:[`autodocs`],title:`Vue Toolkit/Components/WWT HUD`},o={render:e=>{let t=(0,i.engineStore)();return{components:{WwtHud:n,WWTComponent:i.WWTComponent},template:`
         <div style="width: 1000px; height: 500px; position: relative;">
           <WwtHud v-bind="args" :store="store" />
           <WWTComponent
