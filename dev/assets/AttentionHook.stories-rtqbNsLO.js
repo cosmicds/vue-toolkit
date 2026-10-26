@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{$ as t,Zt as n,n as r,r as i}from"./iframe-B--_cvq_.js";import{L as a,i as o,t as s}from"./src-B67TxRhF.js";function c(){r({group:`rating-submission`,type:`success`,text:`Successful feedback message!`,duration:4500})}var l,u,d,f,p,m;function h(){return(h=e((()=>{s(),t(),i(),l={component:a,tags:[`autodocs`],title:`Vue Toolkit/Components/Attention Hook`},u={render:e=>({components:{AttentionHook:a},template:`
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{$ as t,Zt as n,n as r,r as i}from"./iframe-BcESEZDK.js";import{L as a,i as o,t as s}from"./src-BrdnvkNo.js";function c(){r({group:`rating-submission`,type:`success`,text:`Successful feedback message!`,duration:4500})}var l,u,d,f,p,m;function h(){return(h=e((()=>{s(),t(),i(),l={component:a,tags:[`autodocs`],title:`Vue Toolkit/Components/Attention Hook`},u={render:e=>({components:{AttentionHook:a},template:`
         <div>
           <AttentionHook v-bind="args">
           </AttentionHook>
