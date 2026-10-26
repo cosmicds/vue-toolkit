@@ -71,15 +71,15 @@ export const Primary: Story = {
     tooltip = tooltip as HTMLElement;
     const tooltipContent = tooltip.querySelector(".v-overlay__content");
 
-    const expectTooltipVisible = async (timeout=3000) => {
+    const expectTooltipVisible = async () => {
       return waitFor(async () => {
         await expect(tooltipContent).toBeVisible();
         await expect(tooltipContent).toHaveTextContent(args.tooltipText);
-      }, { timeout });
+      });
     };
 
-    const expectTooltipNotVisible = async (timeout=3000) => {
-      return waitFor(async () => await expect(tooltipContent).not.toBeVisible(), { timeout });
+    const expectTooltipNotVisible = async () => {
+      return waitFor(async () => await expect(tooltipContent).not.toBeVisible());
     };
 
     await expectTooltipVisible();
