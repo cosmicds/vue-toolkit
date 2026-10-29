@@ -127,13 +127,17 @@ export function useHorizon(store: WWTEngineStore, options?: HorizonOptions) {
 };
 
 function getSkyOpacity(options?: SkyOptions) {
+  if (options?.opacity != null) {
+    return options.opacity;
+  }
+
   const sunCoordinates = Coordinates.fromRaDec(sunPlace.get_RA(), sunPlace.get_dec());
   const sunAltAz = Coordinates.equitorialToHorizon(
                       sunCoordinates,
                       SpaceTimeController.get_location(),
                       SpaceTimeController.get_now());
 
-  return options?.opacity ?? skyOpacityForSunAlt(sunAltAz.get_alt() * D2R, options?.eclipseInfo);
+  return skyOpacityForSunAlt(sunAltAz.get_alt() * D2R, options?.eclipseInfo);
 }
 
 export function useSky(store: WWTEngineStore, options?: SkyOptions) {
@@ -154,7 +158,7 @@ export function useSky(store: WWTEngineStore, options?: SkyOptions) {
     triangle.addPoint(-i * delta, 90);
     triangle.set_lineColor(color);
     triangle.set_fillColor(color);
-    triangle.set_opacity(options?.opacity ?? 1);
+    triangle.set_opacity(opacity);
     triangles.push(triangle);
     if (show) {
       store.addAnnotation(triangle, batch);
