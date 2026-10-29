@@ -6,6 +6,7 @@ on:
 
 permissions:
   id-token: write
+  contents: write
 
 jobs:
   publish:
@@ -20,19 +21,32 @@ jobs:
           node-version: '24.x'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Use a faster apt mirror
+        run: |
+          MIRROR="http://archive.ubuntu.com/ubuntu"
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            printf '%s\tpriority:1\n' "$MIRROR" | sudo tee /etc/apt/apt-mirrors.txt
+          fi
+          # Fallback for images that hardcode the Azure URL in the sources file
+          sudo sed -i "s|http://azure.archive.ubuntu.com/ubuntu|$MIRROR|g" \
+            /etc/apt/sources.list.d/ubuntu.sources 2>/dev/null || true
+          # Retry flaky downloads instead of failing the job
+          echo 'Acquire::Retries "3";' | sudo tee /etc/apt/apt.conf.d/80-retries
+          sudo apt-get update
+
       - name: Get package version from release tag
-        uses: sergeysova/jq-action@v2
         env:
           VERSION: ${{ github.event.release.tag_name }}
-        with:
-          cmd: cat package.json | jq ".version = \"$VERSION\"" > updated.json; mv updated.json package.json
+        run: |
+          cat package.json | jq ".version = \"$VERSION\"" > updated.json
+          mv updated.json package.json
 
       - name: Enable corepack
         run: corepack enable
 
       # This should match the version set in package.json
       - name: Set yarn version
-        run: yarn set version 4.5.3
+        run: yarn set version 4.16.0
 
       - name: yarn install
         run: yarn
@@ -43,13 +57,14 @@ jobs:
       - name: Build package
         run: yarn build
 
-      - name: Publish package
-        run: yarn npm publish
+      - name: Stage package on npm
+        run: yarn npm publish --staged
 
       - name: Build Storybook
         run: yarn build-storybook
         env:
           VITE_MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
+          VITE_CDS_API_KEY: ${{ secrets.CDS_API_KEY }}
 
       - name: Install browsers using Playwright
         run: yarn playwright install --with-deps

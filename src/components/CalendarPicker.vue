@@ -1,14 +1,14 @@
 <template>
   <VueDatePicker
+    ref="calendar"
     :style="cssVars"
     v-bind="{ ...$attrs, ...props }"
     class="mx-2 cds__date-picker"
-    ref="calendar"
     :formats="{input: formatDateDisplay, preview: formatDateDisplay}"
+    :ui="{ menu: `cds__date-picker-menu cds__date-picker-menu-${dark ? 'dark' : 'light'}` }"
     @open="keyboardHandlers.onOpen"
     @closed="keyboardHandlers.onClosed"
     @update-month-year="keyboardHandlers.onMonthChange"
-    :ui="{ menu: `cds__date-picker-menu cds__date-picker-menu-${dark ? 'dark' : 'light'}` }"
   >
     <template #action-buttons>
       <button
@@ -23,8 +23,8 @@
       </button>
       <button
         class="dp--action-button dp--action-latest"
-        @click="onLatestClicked"
         :disabled="!allowedDates"
+        @click="onLatestClicked"
       >
         Latest
       </button>

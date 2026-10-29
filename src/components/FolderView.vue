@@ -3,7 +3,6 @@
     v-if="items !== null"
     class="fv-root"
     :style="cssVars"
-    aria-role="navigation"
     aria-label="Folder View"
   >
     <div
@@ -46,9 +45,9 @@
               :src="item.get_thumbnailUrl() ?? defaultThumbnail"
               :alt="item.get_name()"
             >
-            <label class="fv-item-name">
+            <span class="fv-item-name">
               {{ item.get_name() }}
-            </label>
+            </span>
             <FontAwesomeIcon
               v-if="item instanceof Folder"
               icon="folder-open"
@@ -149,7 +148,8 @@ function folderItems(folder: Folder, includeUp=true): Thumbnail[] {
     }
     items.push(up);
   }
-  return items.concat(folder.get_children() ?? []);
+  const children = (folder.get_children() ?? []).filter((item) => (!(item instanceof FolderUp)));
+  return items.concat(children);
 }
 
 function selectItem(item: Thumbnail, type: ItemSelectionType) {

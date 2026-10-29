@@ -72,6 +72,7 @@ export const Primary: Story = {
           otherProperty: "end",
         }
       ],
+      autostart: true,
     });
     return {
       components: { TourSheet, WWTComponent },

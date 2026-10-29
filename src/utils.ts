@@ -80,6 +80,7 @@ export interface UserExperienceSubmissionInfo {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   story_name: string;
   uuid: string;
+  question: string;
   comments?: string;
   rating?: UserExperienceRating;
 }
@@ -91,8 +92,9 @@ export async function submitUserExperienceRating(
 ): Promise<Response | null> {
   const body: UserExperienceSubmissionInfo = {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    story_name: info.story_name,
+    story_name: info.story_name, // doesn't actually get used
     uuid: info.uuid,
+    question: info.question,
   };
   if (info.comments) {
     body.comments = info.comments;
@@ -100,7 +102,7 @@ export async function submitUserExperienceRating(
   if (info.rating) {
     body.rating = info.rating;
   }
-  const destination = url ?? `${API_BASE_URL}/stories/user-experience`;
+  const destination = url ?? `${API_BASE_URL}/stories/user-experience/${info.story_name}`;
   return fetch(destination, {
     method: "PUT",
     body: JSON.stringify(body),

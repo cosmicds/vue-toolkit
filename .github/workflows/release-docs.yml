@@ -1,0 +1,48 @@
+name: Deploy release docs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-release-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch latest release tag
+        id: latest_release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # Fetches the latest release tag name for the current repository
+          TAG=$(gh release view --json tagName --template '{{.tagName}}')
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.latest_release.outputs.tag }}
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Set yarn version
+        run: yarn set version 4.16.0
+
+      - name: yarn install
+        run: yarn
+
+      - name: Build package
+        run: yarn build
+
+      - name: Build Storybook
+        run: yarn build-storybook
+        env:
+          VITE_MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
+          VITE_CDS_API_KEY: ${{ secrets.CDS_API_KEY }}
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs
+          ssh-key: ${{ secrets.DEPLOY_KEY }}

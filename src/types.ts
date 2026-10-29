@@ -175,7 +175,7 @@ export interface IconButtonProps {
   modelValue?: boolean;
   /** The name of the FontAwesome or MDI icon to use. MDI icons should be specified with their `mdi-` prefix */
   icon: string;
-  /** ARIA label for the button */
+  /** ARIA label for the button. Can also be passed as a plain `aria-label` attribute instead. */
   ariaLabel: string;
   /** The primary color of the button. Sets the icon and border colors. Default is white */
   color?: string;
@@ -185,6 +185,8 @@ export interface IconButtonProps {
   activeColor?: string;
   /** The background color of the button. Default is #040404 */
   backgroundColor?: string;
+  /** The color for the disabled button */
+  disabledColor?: string;
   /** Whether the button has a border. Default is true */
   border?: boolean;
   /** The time duration, in ms, to recognize a press event as a long press. Default is 500 */
@@ -207,6 +209,20 @@ export interface IconButtonProps {
   size?: FontAwesomeIconSize | VIconSize;
   /** Disable the button and prevent actions from running: Default is false */
   disabled?: boolean;
+  /** The element to focus when icon value is true */
+  focusElement?: string;
+  /** When used in a Vuetify activator slot, bind the props here instead of on v-bind */
+  activatorProps?: Record<string, unknown>;
+}
+
+/* Close button */
+
+/** An interface describing props for the close button */
+export interface CloseButtonProps {
+  /** ARIA label for the button */
+  label: string;
+  /** The color of the close icon. Can be a theme color name, which will be resolved to its current value */
+  color?: string;
 }
 
 
@@ -412,6 +428,8 @@ export interface LocationSearchProps {
 export interface TapToInputProps {
   /** The current value of the input */
   modelValue: number;
+  /** ARIA label for the input. Can also be passed as a plain `aria-label` attribute instead. */
+  ariaLabel: string;
   /** Whether the input should be editable */
   editable?: boolean;
   /** The minimum allowed value */
@@ -517,7 +535,7 @@ export interface TourSheetProps<T extends BaseTourStepContent> {
   /** The tour object to use in the component. */
   tour: Tour<T>;
   /** Whether to apply small-size classes to the component. */
-  smallSize: boolean,
+  smallSize?: boolean,
   /** Whether to show the tour step dots. */
   showBreadcrumbs?: boolean,
   /** Whether to show the next button on the last tour step. */
