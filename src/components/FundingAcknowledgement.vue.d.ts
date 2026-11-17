@@ -1,6 +1,10 @@
 declare const __VLS_export: import('vue').DefineComponent<{
     color?: string | undefined;
     backgroundColor?: string;
+    award?: string;
+    supporter?: string;
+    supporterShort?: string;
+    awardFormat?: (award: string) => string;
     innerHTML?: string | undefined | undefined;
     class?: import('vue').ClassValue;
     style?: import('vue').StyleValue;
@@ -195,6 +199,10 @@ declare const __VLS_export: import('vue').DefineComponent<{
 }, {}, {}, {}, {}, import('vue').ComponentOptionsMixin, import('vue').ComponentOptionsMixin, {}, string, import('vue').PublicProps, Readonly<{
     color?: string | undefined;
     backgroundColor?: string;
+    award?: string;
+    supporter?: string;
+    supporterShort?: string;
+    awardFormat?: (award: string) => string;
     innerHTML?: string | undefined | undefined;
     class?: import('vue').ClassValue;
     style?: import('vue').StyleValue;
@@ -388,7 +396,11 @@ declare const __VLS_export: import('vue').DefineComponent<{
     ref_key?: string | undefined | undefined;
 }> & Readonly<{}>, {
     color: string;
+    award: string;
     backgroundColor: string;
+    supporter: string;
+    supporterShort: string;
+    awardFormat: (award: string) => string;
 }, {}, {}, {}, string, import('vue').ComponentProvideOptions, false, {}, any>;
 declare const _default: typeof __VLS_export;
 export default _default;
