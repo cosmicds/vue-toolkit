@@ -3,6 +3,7 @@ export interface DataTrackingOptions {
     userIDKey: string;
     apiUrl?: string;
     storyPath: string;
+    apiKey: string;
     resetData: () => void;
     getData: () => Record<string, unknown>;
     updateIntervalMs?: number;
