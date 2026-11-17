@@ -16,6 +16,14 @@ export interface FundingAcknowledgementProps {
     color?: string;
     /** The background color of the acknowledgement */
     backgroundColor?: string;
+    /** The number of the award that's being acknowledged. */
+    award?: string;
+    /** The name of the institution providing the funding */
+    supporter?: string;
+    /** A shorter name of the funding institution */
+    supporterShort?: string;
+    /** How to format the award number in the text */
+    awardFormat?: (award: string) => string;
 }
 export interface CalendarPickerProps extends RootProps {
 }
