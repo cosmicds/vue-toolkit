@@ -1,6 +1,9 @@
 import { Ref, MaybeRef } from 'vue';
 import { UserExperienceRating } from '../utils';
 export interface UseUserExperienceRatingOptions {
+    storyPrefix: string;
+    uuid: MaybeRef<string>;
+    apiKey: string;
     responseOptOut?: Ref<boolean | null>;
     timeout?: number;
     questions?: string[];
@@ -9,7 +12,7 @@ export interface UseUserExperienceRatingOptions {
     storagePrefix?: string;
     mixin?: boolean;
 }
-export declare function useUserExperienceRating(storyPrefix: string, uuid: MaybeRef<string>, options?: UseUserExperienceRatingOptions): {
+export declare function useUserExperienceRating(options: UseUserExperienceRatingOptions): {
     ratingOptOut: Ref<boolean | null, boolean | null>;
     showRating: Ref<boolean, boolean>;
     showRatingPrivacyPolicy: Ref<boolean, boolean>;
