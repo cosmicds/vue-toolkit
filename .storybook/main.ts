@@ -1,5 +1,5 @@
 import type { StorybookConfig } from "@storybook/vue3-vite";
-import { mergeConfig } from "vite";
+import { mergeConfig, type PluginOption } from "vite";
 
 const vueOptions: StorybookConfig["framework"] = {
   name: "@storybook/vue3-vite",
@@ -25,6 +25,11 @@ const config: StorybookConfig = {
   framework: vueOptions,
 
   viteFinal: async (config) => {
+    // The library build externalizes vuedraggable; Storybook needs it bundled
+    config.plugins = ((config.plugins ?? []) as PluginOption[])
+      .flat(Infinity)
+      .filter((p) => !(p && typeof p === "object" && "name" in p && /esm-external-require/.test(p.name)));
+
     return mergeConfig(config, {
       resolve: {
         conditions: [

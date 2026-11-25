@@ -25,7 +25,7 @@ export const Primary: Story = {
     extraLogos: [
       {
         alt: "Smithsonian Logo",
-        src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Smithsonian_sun_logo_no_text.svg/1024px-Smithsonian_sun_logo_no_text.svg.png",
+        src: "https://www.vhv.rs/dpng/d/453-4539193_smithsonian-logo-png-transparent-png.png",
         href: "https://www.si.edu/",
         name: "smithsonian",
       }
