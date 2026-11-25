@@ -1,0 +1,23 @@
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{N as t,t as n}from"./src-B3aLYcG4.js";var r,i,a;function o(){return(o=e((()=>{n(),r={component:t,tags:[`autodocs`],title:`Vue Toolkit/Components/Credit Logos`},i={render:e=>({components:{CreditLogos:t},template:`<CreditLogos v-bind="args" />`,setup(){return{args:e}}}),args:{logoSize:`5vmin`,extraLogos:[{alt:`Smithsonian Logo`,src:`https://www.vhv.rs/dpng/d/453-4539193_smithsonian-logo-png-transparent-png.png`,href:`https://www.si.edu/`,name:`smithsonian`}],defaultLogos:[`cosmicds`,`wwt`,`sciact`]}},a=[`Primary`],i.parameters={...i.parameters,docs:{...i.parameters?.docs,source:{originalSource:`{
+  render: (args: CreditLogosProps) => ({
+    components: {
+      CreditLogos
+    },
+    template: \`<CreditLogos v-bind="args" />\`,
+    setup() {
+      return {
+        args
+      };
+    }
+  }),
+  args: {
+    logoSize: "5vmin",
+    extraLogos: [{
+      alt: "Smithsonian Logo",
+      src: "https://www.vhv.rs/dpng/d/453-4539193_smithsonian-logo-png-transparent-png.png",
+      href: "https://www.si.edu/",
+      name: "smithsonian"
+    }],
+    defaultLogos: ["cosmicds", "wwt", "sciact"]
+  }
+}`,...i.parameters?.docs?.source}}}})))()}o();export{i as Primary,a as __namedExportsOrder,r as default};
